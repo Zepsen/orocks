@@ -6,7 +6,7 @@ using System.Web;
 
 namespace outdoor.rocks.Models
 {
-    public class TrailsModel
+    public class Trail
     {        
         public ObjectId Id { get; set; }
         public string Name { get; set; }
