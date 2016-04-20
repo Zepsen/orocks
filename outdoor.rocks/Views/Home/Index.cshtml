@@ -1,5 +1,5 @@
 ﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>    
+    <h1>ASP.NET</h1>
 </div>
 
 <div id="result" class="row">
@@ -7,37 +7,50 @@
 </div>
 
 <div class="row">
-    <button onclick="getQuery()">Get</button>
+    <button id="getBtn">Get</button>
+    <input id="id" type="text" />
+    <button id="getByIdBtn">Get by id </button>
     <button onclick="postQuery()">Post</button>
     <button onclick="putQuery()">Put</button>
     <button id="deleteBtn">Delete</button>
 </div>
 
 @section scripts{
-    
-<script>
-    var getQuery = function () {
-               
 
-    }
+    <script>
 
-    var postQuery = function () {
-        alert(2);
-    }
-
-    var putQuery = function () {
-        alert(3);
-    }
-
-    $("#deleteBtn").click(function () {
-        $.ajax({
-            type: "GET",
-            url: "../api/Values/",
-            success: function (result) {
-                $("#result").html(result);
-            }
+        $("#getBtn").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "../api/Trails/",
+                success: function (result) {
+                    $("#result").html(result);
+                }
+            });
         });
-    });
 
-</script>
+
+        $("#getByIdBtn").click(function () {
+            var id = $('#id').val();
+            
+            $.ajax({
+                type: "GET",
+                url: "../api/Trails/" + id,
+                success: function (result) {
+                    $("#result").html(result);
+                }
+            });
+        });
+
+        $("#deleteBtn").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "../api/Values/",
+                success: function (result) {
+                    $("#result").html(result);
+                }
+            });
+        });
+
+    </script>
 }
