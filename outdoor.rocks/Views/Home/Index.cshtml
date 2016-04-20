@@ -8,11 +8,23 @@
 
 <div class="row">
     <button id="getBtn">Get</button>
-    <input id="id" type="text" />
-    <button id="getByIdBtn">Get by id </button>
-    <button onclick="postQuery()">Post</button>
+    
+    
     <button onclick="putQuery()">Put</button>
     <button id="deleteBtn">Delete</button>
+</div>
+
+<div>
+    <input id="id" type="text" />
+    <button id="getByIdBtn">Get by id </button>
+</div>
+
+<div>
+    <input type="text" id="name"/>
+    <input type="text" id="why" />
+    <input type="text" id="descr" />
+    <input type="text" id="dif" />
+    <button id="postBtn">Post</button>
 </div>
 
 @section scripts{
@@ -33,9 +45,29 @@
         $("#getByIdBtn").click(function () {
             var id = $('#id').val();
             
-            $.ajax({
-                type: "GET",
+            $.ajax({                
                 url: "../api/Trails/" + id,
+                type: "GET",
+                success: function (result) {
+                    $("#result").html(result);
+                }
+            });
+        });
+
+        $("#postBtn").click(function () {
+            var data = {
+                     name: $('#name').val(),
+                     descr: $('#descr').val(),
+                     why: $('#why').val(),
+                     diff: $('#diff').val()
+                };
+            
+            $.ajax({
+                url: "../api/Trails/",
+                type: "POST",                
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
                 success: function (result) {
                     $("#result").html(result);
                 }

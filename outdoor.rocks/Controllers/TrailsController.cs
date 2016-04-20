@@ -16,7 +16,7 @@ namespace outdoor.rocks.Controllers
         private DbContext db = new DbContext();
 
         // GET: api/Trails
-        //Get All trails
+        // Get All trails
         public IEnumerable<string> Get()
         {
             var collection = db.Context.GetCollection<Trails>("Trails");
@@ -26,17 +26,22 @@ namespace outdoor.rocks.Controllers
             return res;
         }
 
-        // GET: api/Trails/5
+        // GET: api/Trails/ObjectId
+        // Get Trails by id
         public string Get(string id)
         {      
             var collection = db.Context.GetCollection<Trails>("Trails");
-            var season = collection.Find(i => i._id == ObjectId.Parse(id)).ToList<Trails>();
-            return season.FirstOrDefault().ToJson();
+            var season = collection
+                .Find(i => i._id == ObjectId.Parse(id))
+                .FirstOrDefault()
+                .ToJson();
+            return season;
         }
 
         // POST: api/Trails
         public void Post([FromBody]string value)
         {
+            var val = value;            
         }
 
         // PUT: api/Trails/5
