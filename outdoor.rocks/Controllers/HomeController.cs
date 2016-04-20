@@ -13,26 +13,9 @@ namespace outdoor.rocks.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            string con = ConfigurationManager.ConnectionStrings["MongoDb"].ConnectionString;
-            MongoClient client = new MongoClient(con);
-            var list = GetDatabaseNames(client);
-            ViewBag.List = list;
+                    
+            
             return View();
-        }
-
-        private List<string> GetDatabaseNames(MongoClient client)
-        {
-            List<string> list = new List<string>();
-            using (var cursor = client.ListDatabases())
-            {
-                var databaseDocuments = cursor.ToList();
-                foreach (var databaseDocument in databaseDocuments)
-                {
-                    list.Add(databaseDocument["name"].ToString());                    
-                }                
-            }
-
-            return list;
-        }
+        }        
     }
 }
