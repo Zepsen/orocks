@@ -31,7 +31,7 @@ namespace outdoor.rocks.Models
         public ObjectId _id { get; set; }
         public ObjectId Region_Id { get; set; }
         public ObjectId Country_Id { get; set; }
-        public ObjectId State_Id { get; set; }
+        public ObjectId? State_Id { get; set; }
     }
 
     public class Regions
@@ -66,8 +66,8 @@ namespace outdoor.rocks.Models
     public class Options
     {
         public ObjectId _id { get; set; }
-        public float Distance { get; set; }
-        public float Elevation { get; set; }
+        public double Distance { get; set; }
+        public double Elevation { get; set; }
         public int Peak { get; set; }
         public bool DogAllowed { get; set; }
         public bool GoodForKids { get; set; }
@@ -86,13 +86,13 @@ namespace outdoor.rocks.Models
     public class TrailsTypes
     {
         public ObjectId _id { get; set; }
-        public string TrailType { get; set; }
+        public string Type { get; set; }
     }
 
     public class TrailsDurationTypes
     {
         public ObjectId _id { get; set; }
-        public string TrailDurationType { get; set; }
+        public string DurationType { get; set; }
     }
 
     public class References

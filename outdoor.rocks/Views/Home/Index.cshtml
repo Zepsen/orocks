@@ -1,114 +1,54 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
+﻿
+<div ng-controller="HomeCtrl">
+
+    @* Navigation *@
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @* Intro *@
+    <div class="jumbotron">
+        <h1>ASP.NET</h1>
+    </div>
+
+    @* Country *@
+    <div></div>
+
+    @* Banner *@
+    <div>
+
+    </div>
+
+    @* Feature *@
+    <div>
+        <div class="col-xs-6 col-md-3" ng-repeat="trail in trails">
+            <a href="{{trail._id}}" class="thumbnail">
+                <img src="..." alt="...">
+                {{trail.Name}}
+            </a>
+
+        </div>
+    </div>
+
+
 </div>
-
-<div id="result" class="row">
-
-</div>
-
-<p class="row">
-    <button id="getBtn">Get</button>
-</p>
-
-<p>
-    <input id="id" type="text" />
-    <button id="getByIdBtn">Get by id </button>
-</p>
-
-<p>
-    <input type="text" id="name" />
-    <input type="text" id="why" />
-    <input type="text" id="descr" />
-    <input type="text" id="diff" />
-    <button id="postBtn">Post</button>
-</p>
-
-<p class="row">
-    <input type="text" id="idPut" />
-    <input type="text" id="namePut" />
-    <button id="putBtn">Put</button>
-</p>
-
-<p class="row">
-    <input type="text" id="idDel" />
-    <button id="delBtn">Delete</button>
-</p>
 
 @section scripts{
-
-    <script>
-
-        $("#getBtn").click(function () {
-            $.ajax({
-                type: "GET",
-                url: "../api/Trails/",
-                success: function (result) {
-                    $("#result").html(result);
-                }
-            });
-        });
-
-
-        $("#getByIdBtn").click(function () {
-            var id = $('#id').val();
-
-            $.ajax({
-                url: "../api/Trails/" + id,
-                type: "GET",
-                success: function (result) {
-                    $("#result").html(result);
-                }
-            });
-        });
-
-        $("#postBtn").click(function () {
-            var data = JSON.stringify({
-                Name: $('#name').val(),
-                descr: $('#descr').val(),
-                WhyGo: $('#why').val(),
-                diff: $('#diff').val()
-            });
-
-            $.ajax({
-                url: "../api/Trails/",
-                type: "POST",
-                data: "=" + data,
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                success: function (result) {
-                    $("#result").html(result);
-                }
-            });
-        });
-
-        //Put
-        $("#putBtn").click(function () {
-            var id = $('#idPut').val()
-            var data = JSON.stringify({
-                Name: $('#namePut').val()
-            });
-
-            $.ajax({
-                url: "../api/Trails/" + id,
-                type: "PUT",
-                data: "=" + data,
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                success: function (result) {
-                    $("#result").html(result);
-                }
-            });
-        });
-
-        //delete
-        $("#delBtn").click(function () {
-            var id = $('#idDel').val()
-            $.ajax({
-                type: "DELETE",
-                url: "../api/Trails/" + id,
-                success: function (result) {
-                    $("#result").html(result);
-                }
-            });
-        });
-
-    </script>
+    <script src="~/Scripts/Angular/ngHomeController.js"></script>
 }
