@@ -6,26 +6,33 @@
 
 </div>
 
-<div class="row">
+<p class="row">
     <button id="getBtn">Get</button>
-    
-    
-    <button onclick="putQuery()">Put</button>
-    <button id="deleteBtn">Delete</button>
-</div>
+</p>
 
-<div>
+<p>
     <input id="id" type="text" />
     <button id="getByIdBtn">Get by id </button>
-</div>
+</p>
 
-<div>
-    <input type="text" id="name"/>
+<p>
+    <input type="text" id="name" />
     <input type="text" id="why" />
     <input type="text" id="descr" />
-    <input type="text" id="dif" />
+    <input type="text" id="diff" />
     <button id="postBtn">Post</button>
-</div>
+</p>
+
+<p class="row">
+    <input type="text" id="idPut" />
+    <input type="text" id="namePut" />
+    <button id="putBtn">Put</button>
+</p>
+
+<p class="row">
+    <input type="text" id="idDel" />
+    <button id="delBtn">Delete</button>
+</p>
 
 @section scripts{
 
@@ -44,8 +51,8 @@
 
         $("#getByIdBtn").click(function () {
             var id = $('#id').val();
-            
-            $.ajax({                
+
+            $.ajax({
                 url: "../api/Trails/" + id,
                 type: "GET",
                 success: function (result) {
@@ -55,29 +62,48 @@
         });
 
         $("#postBtn").click(function () {
-            var data = {
-                     name: $('#name').val(),
-                     descr: $('#descr').val(),
-                     why: $('#why').val(),
-                     diff: $('#diff').val()
-                };
-            
+            var data = JSON.stringify({
+                Name: $('#name').val(),
+                descr: $('#descr').val(),
+                WhyGo: $('#why').val(),
+                diff: $('#diff').val()
+            });
+
             $.ajax({
                 url: "../api/Trails/",
-                type: "POST",                
-                data: JSON.stringify(data),
-                dataType: "json",
-                contentType: "application/json",
+                type: "POST",
+                data: "=" + data,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 success: function (result) {
                     $("#result").html(result);
                 }
             });
         });
 
-        $("#deleteBtn").click(function () {
+        //Put
+        $("#putBtn").click(function () {
+            var id = $('#idPut').val()
+            var data = JSON.stringify({
+                Name: $('#namePut').val()
+            });
+
             $.ajax({
-                type: "GET",
-                url: "../api/Values/",
+                url: "../api/Trails/" + id,
+                type: "PUT",
+                data: "=" + data,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                success: function (result) {
+                    $("#result").html(result);
+                }
+            });
+        });
+
+        //delete
+        $("#delBtn").click(function () {
+            var id = $('#idDel').val()
+            $.ajax({
+                type: "DELETE",
+                url: "../api/Trails/" + id,
                 success: function (result) {
                     $("#result").html(result);
                 }
