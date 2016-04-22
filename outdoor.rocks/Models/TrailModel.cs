@@ -20,5 +20,6 @@ namespace outdoor.rocks.Models
         public bool GoodForKids { get; set; }
         public string Type { get; set; }
         public string DurationType { get; set; }
+        public string CoverPhoto { get; set; }
     }
 }

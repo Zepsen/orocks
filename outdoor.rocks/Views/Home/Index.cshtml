@@ -34,13 +34,23 @@
     <div>
 
     </div>
-
+    
     @* Feature *@
-    <div>
+    <div ng-cloak>
         <div class="col-xs-6 col-md-3" ng-repeat="trail in trails">
-            <a href="{{trail._id}}" class="thumbnail">
-                <img src="..." alt="...">
-                {{trail.Name}}
+            <a href="{{trail.Id}}" class="thumbnail" style="background-size:cover; background-image:url('Content/Images/{{trail.CoverPhoto != null ? trail.CoverPhoto : 'Default.jpg'}}')">
+                <label ng-class="LabelDifficultClass">{{trail.Difficult}}</label><br/>
+                <h3>{{trail.Country}}</h3><br />                
+                {{trail.Name}}<br />
+                {{trail.Distance}}<br />
+                <div>
+                    <ul>
+                        <li>{{trail.Type}}</li>
+                        <li>{{trail.DurationType}}</li>
+                        <li>{{trail.GoodForKids}}</li>
+                        <li>{{trail.DogAllowed}}</li>
+                    </ul>
+                </div>
             </a>
 
         </div>
