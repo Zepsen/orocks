@@ -10,23 +10,30 @@ angular.module("ORockApp", [])
      })
          .success(function (response) {
              var arr = [];
-             for (var i = 0; i < response.length; i++)
-                 arr.push(JSON.parse(response[i]));             
+             for (var i = 0; i < response.length; i++) {
+                 arr.push(JSON.parse(response[i]));
+                 arr[i].LabelDifficultClass = setLabelClassForDifficult(arr[i].Difficult);
+             }
+                 
 
              $scope.trails = arr;
-             setLabelClassForDifficult();
+            
          });
 
 
-     var setLabelClassForDifficult = function () {
-         switch ($scope.trails.Difficult) {
-             case "easy": $scope.LabelDifficultClass = "label label-success";
+     var setLabelClassForDifficult = function (diff) {
+         var res = "label label-default";
+         
+         switch (diff) {
+             case "easy": res = "label label-success";
                  break;
-             case "medium": $scope.LabelDifficultClass = "label label-success";
+             case "medium": res = "label label-warning";
                  break;
-             case "hard": $scope.LabelDifficultClass = "label label-success";
+             case "hard": res = "label label-danger";
                  break;
          }
+
+         return res;
      }
 
 });

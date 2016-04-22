@@ -15,3 +15,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.thumbnail-custom{
+    padding: 5%;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.banner{
+    border: 5px dotted gray;
+    height: 50px;
+}

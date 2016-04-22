@@ -26,7 +26,12 @@ namespace outdoor.rocks.Controllers
 
             var res = new List<string>();
 
-            foreach (Trails trail in db)
+            //Select only Features trails
+            var trails = db.Where(i => i.Feature);
+
+
+
+            foreach (Trails trail in trails)
             {
                 var location = trail.Location.GetById(trail.Location_Id);
                 var option = trail.Option.GetById(trail.Option_Id);
