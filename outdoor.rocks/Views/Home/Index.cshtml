@@ -22,7 +22,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <h1 class="intro-heading">Find your route</h1>
                         <div class="inner-addon right-addon">
-                            <input type="text" class="col-xs-12" placeholder="Enter location" />
+                            <input type="text" id="typeahead" data-provide="typeahead" class="col-xs-12" placeholder="Enter location" />
                             <i class="glyphicon glyphicon-lg glyphicon-search"></i>
                         </div>
                     </div>
@@ -31,35 +31,48 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container mainContainer">
         @* Country *@
-        <div class="country"></div>
+        <section class="section-country">
+            <ul class="ul-regions">
+                <li ng-repeat="region in regions">
+                    <span ng-class="region.selected ? 'li-region-selected':''" ng-click="selectRegion($index)">
+                        {{region.region}}
+                    </span>
+                </li>
+            </ul>
+            <ul class="ul-countries-of-regions">
+                <li ng-repeat="country in countries">
+                    <span>{{country}}</span>
+                </li>
+            </ul>
+        </section>
 
         @* Banner *@
-        <div class="row">
+        <section class="row section-banner">
             <div class="col-md-12 banner"></div>
-        </div>
+        </section>
 
         @* Feature *@
-        <div ng-cloak class="row">
+        <section ng-cloak class="row">
 
-            <h2 class="text-center">
+            <h2 class="text-center h-feature-header">
                 Featured trails
             </h2>
 
             <div class="row">
-                <div class="col-xs-6 col-md-4" ng-repeat="trail in trails">
+                <div class="col-xs-6 col-sm-4 col-md-4 div-trails" ng-repeat="trail in trails">
                     <div href="{{trail.Id}}" class="thumbnail thumbnail-custom" style="background-size:cover; background-image:url('Content/Images/{{trail.CoverPhoto != null ? trail.CoverPhoto : 'Default.jpg'}}')">
                         <label ng-class="trail.LabelDifficultClass">{{trail.Difficult}}</label>
-                        <h3>{{trail.Country}}</h3>
+                        <h3 class="text-default">{{trail.Country}}</h3>
                         <h2>{{trail.Name}}</h2>
-                        Distance{{trail.Distance}}<br />
+                        <h4 class="text-warning">Distance {{trail.Distance}}</h4>
                         <div>
-                            <ul>
-                                <li>{{trail.Type}}</li>
-                                <li>{{trail.DurationType}}</li>
-                                <li>{{trail.GoodForKids}}</li>
-                                <li ng-show="trail.DogAllowed"><img src="~/Content/Images/dog-allowed-icon.png" /></li>
+                            <ul class="ul-trails-icon">
+                                <li><img src="~/Content/Icons/white/{{trail.Type}}" /></li>
+                                <li><img src="~/Content/Icons/white/{{trail.DurationType}}" /></li>
+                                <li ng-show="trail.GoodForKids"><img src="~/Content/Icons/white/good-for-kids.png" /></li>
+                                <li ng-show="trail.DogAllowed"><img src="~/Content/Icons/white/dog-freindly.png" /></li>
                             </ul>
                         </div>
                     </div>
@@ -67,14 +80,15 @@
             </div>
 
             <div class="row">
-                <button class="btn btn-default btn-block">More</button>
+                <button class="btn btn-default btn-lg btn-block btn-moretrails">More</button>
             </div>
 
-        </div>
+        </section>
     </div>
 
 </div>
 
 @section scripts{
+    <script src="~/Scripts/CustomJS/script.js"></script>
     <script src="~/Scripts/Angular/ngHomeController.js"></script>
 }

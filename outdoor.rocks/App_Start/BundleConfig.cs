@@ -14,6 +14,9 @@ namespace outdoor.rocks
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/importScripts").Include(
+                        "~/Scripts/TypeHead/typehead.js"));
+
             // Используйте версию Modernizr для разработчиков, чтобы учиться работать. Когда вы будете готовы перейти к работе,
             // используйте средство построения на сайте http://modernizr.com, чтобы выбрать только нужные тесты.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

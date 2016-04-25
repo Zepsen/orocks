@@ -240,9 +240,16 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Icons\white\dog-freindly.png" />
+    <Content Include="Content\Icons\white\good-for-kids.png" />
+    <Content Include="Content\Icons\white\in-and-out.png" />
+    <Content Include="Content\Icons\white\loop.png" />
+    <Content Include="Content\Icons\white\many-days.png" />
+    <Content Include="Content\Icons\white\one-day.png" />
+    <Content Include="Content\Icons\white\point-to-point.png" />
+    <Content Include="Content\Icons\white\weekend.png" />
     <Content Include="Content\Images\background-home.jpg" />
     <Content Include="Content\Images\Default.jpg" />
-    <Content Include="Content\Images\dog-allowed-icon.png" />
     <Content Include="Content\Images\img.jpg" />
     <Content Include="Content\Images\img2.jpg" />
     <Content Include="favicon.ico" />
@@ -271,7 +278,9 @@
     <Content Include="fonts\Open sans\OpenSans-Regular.ttf" />
     <Content Include="fonts\Open sans\OpenSans-Semibold.ttf" />
     <Content Include="fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
+    <Content Include="Content\Countries\countries.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CustomJS\script.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -282,6 +291,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\TypeHead\typehead.js" />
     <Content Include="Views\Home\background-home.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -302,7 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\NewFolder1\" />
+    <Folder Include="Content\Icons\black\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

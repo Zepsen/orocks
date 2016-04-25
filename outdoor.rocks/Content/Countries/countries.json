@@ -1,0 +1,27 @@
+﻿[
+  {
+    "region": "Africa",
+    "selected": false,
+    "countries": [ ]
+  },
+  {
+    "region": "Americas",
+    "selected": false,
+    "countries": ["USA","Canada"]
+  },
+  {
+    "region": "Asia",
+    "selected": false,
+    "countries": [ ]
+  },
+  {
+    "region": "Europe",
+    "selected": false,
+    "countries": [ ]
+  },
+  {
+    "region": "Oceania",
+    "selected": false,
+    "countries": [ ]
+  }
+]

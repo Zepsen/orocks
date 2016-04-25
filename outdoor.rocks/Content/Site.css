@@ -8,22 +8,17 @@
 }
 
 html * {
-    font-size: 16px
-    /*color: #000 !important;
-   font-family: Arial !important;*/
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-.mainBody{
-    padding-top: 50px;
+body {
+    padding-bottom: 200px;
+    background: #eeeeee;
+}
+
+.mainBody {
+    padding: 50px 0 0 0;
     width: 100%;
-}
-
-
-input,
-select,
-textarea {
-    max-width: 280px;
 }
 
 .thumbnail-custom {
@@ -37,6 +32,8 @@ textarea {
     height: 50px;
 }
 
+
+
 /* NAV */
 .navbarCustomGlobal {
     margin: -50px 0 0;
@@ -48,9 +45,6 @@ textarea {
     margin: 10px;
     border: none;
 }
-
-
-
 
 a {
     color: #fff;
@@ -72,6 +66,8 @@ a {
     cursor: pointer;
 }
 
+
+
 /* INTRO */
 
 .intro {
@@ -88,14 +84,16 @@ a {
     margin: auto auto;
 }
 
+
+
+
 /* HOME INPUT */
-/* enable absolute positioning */
+
 .inner-addon {
     position: relative;
     text-align: center;
 }
 
-    /* style icon */
     .inner-addon .glyphicon {
         position: absolute;
         padding: 10px;
@@ -105,19 +103,19 @@ a {
 
     .inner-addon input {
         max-width: 100%;
-        padding: 10px;
+        padding: 15px;
     }
 
-/* align icon */
 .left-addon .glyphicon {
     left: 0px;
+    top: 10px;
 }
 
 .right-addon .glyphicon {
-    right: 0px;
+    right: 0;
+    top: 10px;
 }
 
-/* add padding  */
 .left-addon input {
     padding-left: 30px;
 }
@@ -127,24 +125,75 @@ a {
 }
 
 
+
+/*Section  Country*/
+.section-country {
+    background: white;
+    padding: 20px;
+}
+
+.ul-regions, .ul-countries-of-regions {
+    list-style-type: none;
+}
+
+li {
+    cursor: pointer;
+}
+
+
+
+
+/* Banner */
+
+.section-banner {
+    margin: 50px;
+}
+
+
+
+/*Trails*/
+
+.div-trails {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.ul-trails-icon {
+    margin-top: 100px;
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+}
+
+li {
+    margin: 5px;
+    display: inline;
+}
+
+.btn-moretrails {
+    background: gray;
+}
+
+
 /****************************/
 /* Mobile */
 /****************************/
 
 @media (max-width: 768px) {
-     /*Nav*/
+
+
+    /*Nav*/
     .a-header-label {
-       width: 100%;
-       float:right;
-       text-align:center;
+        width: 100%;
+        float: right;
+        text-align: center;
     }
 
     .a-createtrail {
-        
-        position: absolute;        
+        position: absolute;
     }
 
-    .a-createtrail-text{
+    .a-createtrail-text {
         display: none;
     }
 
@@ -152,15 +201,29 @@ a {
         display: none;
     }
 
+    .mainContainer {
+        max-width: 95%;
+    }
+
+
     /*Intro*/
     .intro {
-        height: 300px;
+        height: 400px;
     }
 
     .intro-heading {
         font-size: 32px;
     }
+
+    
+    /*Trails*/
+    .ul-trails-icon {
+        display: none;
+    }
 }
+
+
+
 
 /****************************/
 /* Tablet */
@@ -168,11 +231,14 @@ a {
 
 @media (min-width: 768px) and (max-width: 992px) {
 
+    .mainBody {
+        width: 100%;
+    }
     /*Nav*/
     .a-header-label {
-       width: 60%;
-       float:right;
-       text-align:center;
+        width: 60%;
+        float: right;
+        text-align: center;
     }
 
     .a-createtrail {
@@ -185,7 +251,14 @@ a {
         padding-right: 10%;
         text-align: right;
         float: right;
+        margin: auto auto;
     }
+
+    .mainContainer {
+        max-width: 95%;
+    }
+
+
 
     /*Intro*/
     .intro {
@@ -195,6 +268,8 @@ a {
     .intro-heading {
         font-size: 60px;
     }
+
+    
 }
 
 /****************************/
@@ -202,6 +277,8 @@ a {
 /****************************/
 
 @media (min-width: 992px) {
+
+
 
     /*Nav*/
     .a-header-label {
@@ -215,15 +292,17 @@ a {
         float: right;
     }
 
-    .a-createtrail:hover {
-        background: lightgreen;
-    }
+        .a-createtrail:hover {
+            background: lightgreen;
+        }
 
     .a-join {
         padding: 10px 10% 10px 0;
         margin: 0 10px;
         float: right;
     }
+
+
 
     /*Intro*/
     .intro {
@@ -232,5 +311,43 @@ a {
 
     .intro-heading {
         font-size: 64px;
+    }
+
+    
+
+    /*Section Region and  Country*/
+    .section-country {
+        margin-top: -50px;
+    }
+
+    .ul-regions {
+        text-align: center;
+        font-size: 32px;
+    }
+
+        .ul-regions li {
+            text-align: center;
+            margin: 0 10px;
+            display: inline;
+        }
+
+    .li-region-selected {
+        color: green;
+        text-decoration: underline;
+    }
+
+    .ul-countries-of-regions {
+        font-size: 24px;
+    }
+
+        .ul-countries-of-regions li {
+            text-align: left;
+        }
+
+
+    /* Seciotn Feture*/
+    .h-feature-header {
+        color: #61441D;
+        font-size: 36px;
     }
 }
