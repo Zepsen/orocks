@@ -240,12 +240,14 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\background-home.jpg" />
     <Content Include="Content\Images\Default.jpg" />
     <Content Include="Content\Images\dog-allowed-icon.png" />
     <Content Include="Content\Images\img.jpg" />
     <Content Include="Content\Images\img2.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\Open sans\Apache License.txt" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -259,6 +261,16 @@
     <Content Include="..\packages\MongoRepository.1.6.11\MongoRepository.chm">
       <Link>Documentation\MongoRepository.chm</Link>
     </Content>
+    <Content Include="fonts\Open sans\OpenSans-Bold.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-BoldItalic.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-ExtraBold.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-Italic.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-Light.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-LightItalic.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-Regular.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-Semibold.ttf" />
+    <Content Include="fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -270,6 +282,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\Home\background-home.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -289,6 +302,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
