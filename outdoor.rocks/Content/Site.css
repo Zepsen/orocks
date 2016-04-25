@@ -92,6 +92,7 @@ a {
 .inner-addon {
     position: relative;
     text-align: center;
+    margin: auto;
 }
 
     .inner-addon .glyphicon {
@@ -103,17 +104,16 @@ a {
 
     .inner-addon input {
         max-width: 100%;
-        padding: 15px;
+        padding: 20px;
     }
 
 .left-addon .glyphicon {
-    left: 0px;
-    top: 10px;
+    left: 0;
 }
 
 .right-addon .glyphicon {
     right: 0;
-    top: 10px;
+    top: 7px;
 }
 
 .left-addon input {
@@ -124,7 +124,66 @@ a {
     padding-right: 30px;
 }
 
+/*Typeahead*/
 
+.typeahead, .tt-query, .tt-hint {
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    outline: medium none;
+    padding: 10px;
+}
+
+.typeahead {
+    background-color: #FFFFFF;
+}
+
+    .typeahead:focus {
+    }
+
+.tt-query {
+    
+}
+
+.tt-hint {
+    color: #999999;
+}
+
+.tt-dropdown-menu {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 12px;
+    padding: 8px 0;
+    width: 422px;
+}
+
+.tt-suggestion {
+    background: white;
+    color: black;
+    font-size: 24px;
+    line-height: 24px;
+    padding: 3px 20px;
+}
+
+    .tt-suggestion.tt-is-under-cursor {
+        background-color: #0097CF;
+        color: #FFFFFF;
+    }
+
+    .tt-suggestion p {
+        margin: 0;
+    }
+
+.tt-dataset div {
+    text-align: left;
+    width: 500px;
+}
+
+    .tt-dataset div:hover {
+        background: lightgray;
+    }
 
 /*Section  Country*/
 .section-country {
@@ -211,11 +270,23 @@ li {
         height: 400px;
     }
 
+    .intro-body {
+        padding-top: 200px;
+    }
+
     .intro-heading {
         font-size: 32px;
     }
 
-    
+    .typeahead, .tt-query, .tt-hint {
+        width: 300px;
+    }
+
+    .tt-dataset div {
+        text-align: left;
+        width: 300px;
+    }
+
     /*Trails*/
     .ul-trails-icon {
         display: none;
@@ -229,7 +300,7 @@ li {
 /* Tablet */
 /****************************/
 
-@media (min-width: 768px) and (max-width: 992px) {
+@media (min-width: 768px) and (max-width: 991px) {
 
     .mainBody {
         width: 100%;
@@ -262,14 +333,24 @@ li {
 
     /*Intro*/
     .intro {
-        height: 700px;
+        height: 600px;
+    }
+
+    .intro-body {
+        padding-top: 250px;
     }
 
     .intro-heading {
         font-size: 60px;
     }
 
-    
+    .typeahead, .tt-query, .tt-hint {
+        width: 500px;
+    }
+
+    .tt-dataset div {
+        width: 500px;
+    }
 }
 
 /****************************/
@@ -306,14 +387,24 @@ li {
 
     /*Intro*/
     .intro {
-        height: 700px;
+        height: 800px;
+    }
+
+    .intro-body {
+        padding-top: 300px;
     }
 
     .intro-heading {
         font-size: 64px;
     }
 
-    
+    .typeahead, .tt-query, .tt-hint {
+        width: 500px;
+    }
+
+    .tt-dataset div {
+        width: 500px;
+    }
 
     /*Section Region and  Country*/
     .section-country {
