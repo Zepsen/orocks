@@ -253,9 +253,6 @@
     <Content Include="Scripts\Angular\ngHomeController.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\packages\MongoRepository.1.6.11\MongoRepository.chm">
       <Link>Documentation\MongoRepository.chm</Link>
     </Content>
