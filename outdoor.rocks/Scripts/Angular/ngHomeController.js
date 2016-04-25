@@ -2,39 +2,92 @@
 angular.module("ORockApp", [])
 
 .controller("HomeCtrl", function ($scope, $http) {
+    $scope.regions = null;
+    $scope.countries = null;
 
-     //Get Features Trails
-     $http({
+    //Countries from file
+    $http.get('Content/Countries/countries.json').success(function (data) {
+        $scope.regions = data;
+
+        setDefaultRegionAndCountry();
+    });
+   
+
+
+    var setDefaultRegionAndCountry = function () {
+        $scope.regions[1].selected = true;
+        $scope.countries = $scope.regions[1].countries;
+    }
+
+    //Selected region
+    $scope.selectRegion = function (index) {
+        $scope.regions.forEach(function (i) {
+            i.selected = false;
+        })
+        $scope.regions[index].selected = true;
+        $scope.countries = $scope.regions[index].countries;
+    }
+
+
+
+    //Get Features Trails
+    $http({
         method: "GET",
         url: "../api/Trails/"
-     })
-         .success(function (response) {
-             var arr = [];
-             for (var i = 0; i < response.length; i++) {
-                 arr.push(JSON.parse(response[i]));
-                 arr[i].LabelDifficultClass = setLabelClassForDifficult(arr[i].Difficult);
-             }
-                 
+    })
+        .success(function (response) {
+            var arr = [];
+            for (var i = 0; i < response.length; i++) {
+                arr.push(JSON.parse(response[i]));
+                arr[i].Type = setIconToTrailType(arr[i].Type);
+                arr[i].DurationType = setIconToTrailDurationType(arr[i].DurationType);
+                arr[i].LabelDifficultClass = setLabelClassForDifficult(arr[i].Difficult);
+            }
 
-             $scope.trails = arr;
-            
-         });
+            $scope.trails = arr;
 
+        });
 
-     var setLabelClassForDifficult = function (diff) {
-         var res = "label label-default";
-         
-         switch (diff) {
-             case "easy": res = "label label-success";
-                 break;
-             case "medium": res = "label label-warning";
-                 break;
-             case "hard": res = "label label-danger";
-                 break;
-         }
+    var setIconToTrailType = function (type) {
+        var res = '';
+        switch (type) {
+            case 'oneday': res = 'one-day.png'
+                break;
+            case 'manydays': res = 'many-days.png'
+                break;
+            case 'weekend': res = 'weekend.png'
+                break;
+        }
+        return res
+    }
 
-         return res;
-     }
+    var setIconToTrailDurationType = function (durationtype) {
+        var res = '';
+        switch (durationtype) {
+            case 'loop': res = 'loop.png'
+                break;
+            case 'point-to-point': res = 'point-to-point.png'
+                break;
+            case 'in': res = 'in-and-out.png'
+                break;
+        }
+        return res
+    }
+
+    var setLabelClassForDifficult = function (diff) {
+        var res = "label label-default";
+
+        switch (diff) {
+            case "easy": res = "label label-success";
+                break;
+            case "medium": res = "label label-warning";
+                break;
+            case "hard": res = "label label-danger";
+                break;
+        }
+
+        return res;
+    }
 
 });
 

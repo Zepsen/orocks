@@ -1,28 +1,353 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/****************************/
+/* Global */
+/****************************/
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/Open sans/OpenSans-Semibold.ttf');
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+html * {
+    font-size: 16px font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+body {
+    padding-bottom: 200px;
+    background: #eeeeee;
 }
 
-.thumbnail-custom{
+.mainBody {
+    padding: 50px 0 0 0;
+    width: 100%;
+}
+
+.thumbnail-custom {
     padding: 5%;
     text-decoration: none;
     color: #ffffff;
 }
 
-.banner{
+.banner {
     border: 5px dotted gray;
     height: 50px;
+}
+
+
+
+/* NAV */
+.navbarCustomGlobal {
+    margin: -50px 0 0;
+    font-weight: 700;
+}
+
+.a-navigation {
+    padding: 10px;
+    margin: 10px;
+    border: none;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: darkgreen;
+        text-decoration: none;
+    }
+
+.a-header-label {
+    text-align: center;
+    font-size: 24px;
+}
+
+
+.a-createtrail {
+    cursor: pointer;
+}
+
+
+
+/* INTRO */
+
+.intro {
+    width: 100%;
+    color: #fff;
+    margin: -150px auto 0;
+    background-image: url('Images/background-home.jpg');
+    background-size: cover;
+}
+
+.intro-body {
+    text-align: center;
+    padding: 25% 0 0;
+    margin: auto auto;
+}
+
+
+
+
+/* HOME INPUT */
+
+.inner-addon {
+    position: relative;
+    text-align: center;
+}
+
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+        color: black;
+    }
+
+    .inner-addon input {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+.left-addon .glyphicon {
+    left: 0px;
+    top: 10px;
+}
+
+.right-addon .glyphicon {
+    right: 0;
+    top: 10px;
+}
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
+
+
+
+/*Section  Country*/
+.section-country {
+    background: white;
+    padding: 20px;
+}
+
+.ul-regions, .ul-countries-of-regions {
+    list-style-type: none;
+}
+
+li {
+    cursor: pointer;
+}
+
+
+
+
+/* Banner */
+
+.section-banner {
+    margin: 50px;
+}
+
+
+
+/*Trails*/
+
+.div-trails {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.ul-trails-icon {
+    margin-top: 100px;
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+}
+
+li {
+    margin: 5px;
+    display: inline;
+}
+
+.btn-moretrails {
+    background: gray;
+}
+
+
+/****************************/
+/* Mobile */
+/****************************/
+
+@media (max-width: 768px) {
+
+
+    /*Nav*/
+    .a-header-label {
+        width: 100%;
+        float: right;
+        text-align: center;
+    }
+
+    .a-createtrail {
+        position: absolute;
+    }
+
+    .a-createtrail-text {
+        display: none;
+    }
+
+    .a-join {
+        display: none;
+    }
+
+    .mainContainer {
+        max-width: 95%;
+    }
+
+
+    /*Intro*/
+    .intro {
+        height: 400px;
+    }
+
+    .intro-heading {
+        font-size: 32px;
+    }
+
+    
+    /*Trails*/
+    .ul-trails-icon {
+        display: none;
+    }
+}
+
+
+
+
+/****************************/
+/* Tablet */
+/****************************/
+
+@media (min-width: 768px) and (max-width: 992px) {
+
+    .mainBody {
+        width: 100%;
+    }
+    /*Nav*/
+    .a-header-label {
+        width: 60%;
+        float: right;
+        text-align: center;
+    }
+
+    .a-createtrail {
+        width: 20%;
+        float: left;
+    }
+
+    .a-join {
+        width: 20%;
+        padding-right: 10%;
+        text-align: right;
+        float: right;
+        margin: auto auto;
+    }
+
+    .mainContainer {
+        max-width: 95%;
+    }
+
+
+
+    /*Intro*/
+    .intro {
+        height: 700px;
+    }
+
+    .intro-heading {
+        font-size: 60px;
+    }
+
+    
+}
+
+/****************************/
+/* Desktope */
+/****************************/
+
+@media (min-width: 992px) {
+
+
+
+    /*Nav*/
+    .a-header-label {
+        float: left;
+    }
+
+    .a-createtrail {
+        background: green;
+        padding: 10px;
+        margin: 0 10px;
+        float: right;
+    }
+
+        .a-createtrail:hover {
+            background: lightgreen;
+        }
+
+    .a-join {
+        padding: 10px 10% 10px 0;
+        margin: 0 10px;
+        float: right;
+    }
+
+
+
+    /*Intro*/
+    .intro {
+        height: 700px;
+    }
+
+    .intro-heading {
+        font-size: 64px;
+    }
+
+    
+
+    /*Section Region and  Country*/
+    .section-country {
+        margin-top: -50px;
+    }
+
+    .ul-regions {
+        text-align: center;
+        font-size: 32px;
+    }
+
+        .ul-regions li {
+            text-align: center;
+            margin: 0 10px;
+            display: inline;
+        }
+
+    .li-region-selected {
+        color: green;
+        text-decoration: underline;
+    }
+
+    .ul-countries-of-regions {
+        font-size: 24px;
+    }
+
+        .ul-countries-of-regions li {
+            text-align: left;
+        }
+
+
+    /* Seciotn Feture*/
+    .h-feature-header {
+        color: #61441D;
+        font-size: 36px;
+    }
 }
