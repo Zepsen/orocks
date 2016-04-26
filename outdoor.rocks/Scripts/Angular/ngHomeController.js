@@ -1,33 +1,18 @@
-﻿
-angular.module("ORockApp", [])
+﻿var app = angular.module("ORockApp", []);
 
-//.directive('myEnter', function () {
-//    return function (scope, element, attrs) {
-//        element.bind("keydown keypress", function (event) {
-//            if(event.which === 13) {
-//                scope.$apply(function (){
-//                    scope.$eval(attrs.myEnter);
-//                });
-
-//                event.preventDefault();
-//            }
-//        });
-//    };
-//})
-
-.controller("HomeCtrl", function ($scope, $http) {
+app.controller("HomeCtrl", function ($scope, $http) {
     $scope.regions = null;
     $scope.countries = null;
     $scope.limitTrails = 6;
     var limitTrailsStep = 6;
     $scope.inputValue = "";
-
+    $scope.showBtnMore = false;
     //Countries from file
     $http.get('Content/Countries/countries.json').success(function (data) {
         $scope.regions = data;
         setDefaultRegionAndCountry();
     });
-   
+
     var setDefaultRegionAndCountry = function () {
         $scope.regions[1].selected = true;
         $scope.countries = $scope.regions[1].countries;
@@ -61,11 +46,13 @@ angular.module("ORockApp", [])
 
             $scope.trails = arr;
 
+            if ($scope.trails.length > 5)
+                $scope.showBtnMore = true;
         });
 
-    var setPhotoPathStyle = function(img){
-        var res = 'background-image:url(Content/Images/';        
-       
+    var setPhotoPathStyle = function (img) {
+        var res = 'background-image:url(Content/Images/';
+
         return res += ((img != null) ? img : "Default.jpg") + ')';
     }
 
@@ -114,15 +101,18 @@ angular.module("ORockApp", [])
     $scope.moreTrails = function () {
         if ($scope.trails.length > $scope.limitTrails) {
             $scope.limitTrails += limitTrailsStep;
-        }
+            if ($scope.trails.length < $scope.limitTrails) {
+                $scope.showBtnMore = false;
+            }
+        }     
     }
 
     $scope.inputPressEnter = function (value) {
-        
+
     }
 
 
-    
+
 });
 
 

@@ -87,8 +87,8 @@
                 </div>
             </div>
 
-            <div class="row">
-                <button ng-click="moreTrails()" class="btn btn-default btn-lg btn-block btn-moretrails">More</button>
+            <div class="row" ng-cloak>
+                <button ng-show="showBtnMore" ng-click="moreTrails()" class="btn btn-default btn-lg btn-block btn-moretrails">More</button>
             </div>
 
         </section>
@@ -99,20 +99,24 @@
 @* Modal window *@
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content modal-custom">
+        <div ng-controller="ValidationCtrl" class="modal-content modal-custom">
             <h2 class="">Join us</h2>
-            <form class="form-horizontal form-custom">                
+            <form name="valForm" class="form-horizontal form-custom">                
                 <div class="form-group">
-                    <label class="col-md-2">Email</label>
-                    <div class="col-md-10">
-                        <input type="email" class="form-control"/>
+                    <label class="">Email</label>
+                    <div>
+                        <input type="email" name="valEmail" ng-model="valEmail" ng-pattern="emailPattern" required class="form-control"/>
                     </div>
+                    <span class="validation-error-msg" ng-show="valForm.valEmail.$touched && valForm.valEmail.$error.required">The email is required.</span>
+                    <span class="validation-error-msg" ng-show="valForm.valEmail.$touched && valForm.valEmail.$error.pattern">Wrong email.</span>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2">Pasword</label>
-                    <div class="col-md-10">
-                        <input type="password" class="form-control"/>
+                    <label >Pasword</label>
+                    <div>
+                        <input type="password" name="valPass" ng-model="valPass" ng-minlength="5" required class="form-control"/>
                     </div>
+                    <span class="validation-error-msg" ng-show="valForm.valPass.$touched && valForm.valPass.$error.required">The email is required.</span>
+                    <span class="validation-error-msg" ng-show="valForm.valPass.$touched && valForm.valPass.$error.minlength">The email is minimal length must be more than 5.</span>
                 </div>
 
                 <button type="submit" class="btn btn-default btn-success pull-right">Submit</button>
@@ -122,6 +126,7 @@
 </div>
 
 @section scripts{
-<script src="~/Scripts/CustomJS/script.js"></script>
-<script src="~/Scripts/Angular/ngHomeController.js"></script>
+    <script src="~/Scripts/CustomJS/script.js"></script>
+    <script src="~/Scripts/Angular/ngHomeController.js"></script>
+    <script src="~/Scripts/Angular/ngValidationController.js"></script>
 }
