@@ -4,16 +4,15 @@ angular.module("ORockApp", [])
 .controller("HomeCtrl", function ($scope, $http) {
     $scope.regions = null;
     $scope.countries = null;
+    $scope.limitTrails = 6;
+    var limitTrailsStep = 6;
 
     //Countries from file
     $http.get('Content/Countries/countries.json').success(function (data) {
         $scope.regions = data;
-
         setDefaultRegionAndCountry();
     });
    
-
-
     var setDefaultRegionAndCountry = function () {
         $scope.regions[1].selected = true;
         $scope.countries = $scope.regions[1].countries;
@@ -39,6 +38,7 @@ angular.module("ORockApp", [])
             var arr = [];
             for (var i = 0; i < response.length; i++) {
                 arr.push(JSON.parse(response[i]));
+                arr[i].CoverPhoto = setPhotoPathStyle(arr[i].CoverPhoto);
                 arr[i].Type = setIconToTrailType(arr[i].Type);
                 arr[i].DurationType = setIconToTrailDurationType(arr[i].DurationType);
                 arr[i].LabelDifficultClass = setLabelClassForDifficult(arr[i].Difficult);
@@ -47,6 +47,12 @@ angular.module("ORockApp", [])
             $scope.trails = arr;
 
         });
+
+    var setPhotoPathStyle = function(img){
+        var res = 'background-image:url(Content/Images/';        
+       
+        return res += ((img != null) ? img : "Default.jpg") + ')';
+    }
 
     var setIconToTrailType = function (type) {
         var res = '';
@@ -89,12 +95,14 @@ angular.module("ORockApp", [])
         return res;
     }
 
+    //Add more trails to home pages
+    $scope.moreTrails = function () {
+        if ($scope.trails.length > $scope.limitTrails) {
+            $scope.limitTrails += limitTrailsStep;
+        }
+    }
+
 });
-
-
-
-
-
 
 
 

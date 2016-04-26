@@ -33,14 +33,38 @@
       'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
     ];
 
-    $('input.typeahead').typeahead({
-        hint: true,
-        highlight: true,
-        minLength: 1
-    },
-    {
-        name: 'states',
-        source: substringMatcher(states)
-    });
+    var trails = ['Aloha', 'Blalvla'];
+       
 
+    $('input.typeahead').typeahead(
+        {
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'trails',
+            source: substringMatcher(trails),
+            templates: {
+                suggestion: function (data) {
+                    var res = '<div class="suggestion-custom list-group-item">';
+                    res += '<span class="glyphicon glyphicon-fire"></span>'
+                    res += data + '</div>';
+                    return res;
+                }
+            }
+        },
+        {
+            name: 'states',
+            source: substringMatcher(states),
+            templates: {
+                suggestion: function (data) {
+                    var res = '<div class="suggestion-custom list-group-item">';
+                    res += '<span class="glyphicon glyphicon-globe"></span>'
+                    res += data + '</div>';
+                    return res;
+                }
+            }
+        }
+    );
 });

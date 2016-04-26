@@ -9,6 +9,8 @@
     @Styles.Render("~/Content/CustomCss")
     @Scripts.Render("~/bundles/modernizr")
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <body ng-app="ORockApp">
@@ -16,12 +18,11 @@
     @RenderBody()
 
     <footer>
-        <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+        
     </footer>
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/angular")
+   
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/importScripts")
     @RenderSection("scripts", required: false)
