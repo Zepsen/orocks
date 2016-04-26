@@ -40,7 +40,7 @@ a {
 }
 
     a:hover {
-        color: darkgreen;
+        color: #1d852d;
         text-decoration: none;
     }
 
@@ -212,7 +212,7 @@ li {
 /* Banner */
 
 .banner {
-    border: 5px dashed gray;
+    border: 2px dashed gray;
     height: 50px;
 }
 
@@ -249,7 +249,7 @@ li {
 }
 
 .btn-moretrails {
-    background: gray;
+    background: #dbdbdb;
 }
 
 /*Modal from*/
@@ -435,7 +435,7 @@ li {
         }
 
     .li-region-selected {
-        color: green;
+        color: #1d852d;
         text-decoration: underline;
     }
 
@@ -463,7 +463,7 @@ li {
     }
 
     .a-createtrail {
-        background: green;
+        background: #1d852d;
         padding: 10px;
         margin: 0 10px;
         float: right;
@@ -474,7 +474,7 @@ li {
         }
 
     .a-join {
-        padding: 10px 10% 10px 0;
+        padding: 10px 5% 10px 0;
         margin: 0 10px;
         float: right;
     }
@@ -519,7 +519,7 @@ li {
         }
 
     .li-region-selected {
-        color: green;
+        color: #1d852d;
         text-decoration: underline;
     }
 

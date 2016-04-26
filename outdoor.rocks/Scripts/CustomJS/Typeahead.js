@@ -1,4 +1,8 @@
-﻿$(document).ready(function () {
+﻿
+var TRAILS = []; 
+var REGIONS = [];
+
+$(document).ready(function () {
 
     var substringMatcher = function (strs) {
         return function findMatches(q, cb) {
@@ -33,7 +37,7 @@
       'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
     ];
 
-    var trails = ['Aloha', 'Blalvla'];
+    
        
 
     $('input.typeahead').typeahead(
@@ -44,7 +48,7 @@
         },
         {
             name: 'trails',
-            source: substringMatcher(trails),
+            source: substringMatcher(TRAILS),
             templates: {
                 suggestion: function (data) {
                     var res = '<div class="suggestion-custom list-group-item">';

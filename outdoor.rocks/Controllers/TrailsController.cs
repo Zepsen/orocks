@@ -35,25 +35,25 @@ namespace outdoor.rocks.Controllers
             {
                 var location = trail.Location.GetById(trail.Location_Id);
                 var option = trail.Option.GetById(trail.Option_Id);
-                
+
                 res.Add(new TrailModel
                 {
-                    Id = trail.Id.ToString(),                    
+                    Id = trail.Id.ToString(),
                     Country = location.Country.GetById(location.Country_Id).Name,
                     Difficult = trail.Difficult.GetById(trail.Difficult_Id).Value,
                     Distance = option.Distance,
                     DogAllowed = option.DogAllowed,
                     DurationType = option.TrailDurationType.GetById(option.TrailDurationType_Id).DurationType,
                     CoverPhoto = trail.CoverPhoto,
-                    GoodForKids = option.GoodForKids,                    
+                    GoodForKids = option.GoodForKids,
                     Name = trail.Name,
+                    Region = location.Region.GetById(location.Region_Id).Region,
                     Type = option.TrailType.GetById(option.TrailType_Id).Type
                     
                 }.ToJson());
             }
 
-            return res;
-            
+            return res;            
         }
 
         // GET: api/Trails/ObjectId

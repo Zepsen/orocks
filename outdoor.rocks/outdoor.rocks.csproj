@@ -260,6 +260,7 @@
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\Angular\ngHomeController.js" />
+    <Content Include="Scripts\Angular\ngTrailController.js" />
     <Content Include="Scripts\Angular\ngValidationController.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -278,7 +279,7 @@
     <Content Include="fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
     <Content Include="Content\Countries\countries.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\CustomJS\script.js" />
+    <Content Include="Scripts\CustomJS\Typeahead.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -306,6 +307,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Trail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

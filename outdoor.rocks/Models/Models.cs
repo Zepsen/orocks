@@ -76,7 +76,7 @@ namespace outdoor.rocks.Models
 
     public class Regions : Entity
     {
-        public string Name { get; set; }
+        public string Region { get; set; }
     }
 
     public class Countries : Entity

@@ -1,0 +1,13 @@
+﻿@{ 
+    var id = (string)@ViewBag.TrailId;
+}
+
+<div ng-controller="TrailCtrl" ng-init="trailId = @id">
+    {{id}}
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/Angular/ngTrailController.js"></script>
+}
+    
