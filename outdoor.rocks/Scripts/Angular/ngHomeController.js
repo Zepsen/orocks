@@ -1,11 +1,26 @@
 ﻿
 angular.module("ORockApp", [])
 
+//.directive('myEnter', function () {
+//    return function (scope, element, attrs) {
+//        element.bind("keydown keypress", function (event) {
+//            if(event.which === 13) {
+//                scope.$apply(function (){
+//                    scope.$eval(attrs.myEnter);
+//                });
+
+//                event.preventDefault();
+//            }
+//        });
+//    };
+//})
+
 .controller("HomeCtrl", function ($scope, $http) {
     $scope.regions = null;
     $scope.countries = null;
     $scope.limitTrails = 6;
     var limitTrailsStep = 6;
+    $scope.inputValue = "";
 
     //Countries from file
     $http.get('Content/Countries/countries.json').success(function (data) {
@@ -102,6 +117,12 @@ angular.module("ORockApp", [])
         }
     }
 
+    $scope.inputPressEnter = function (value) {
+        
+    }
+
+
+    
 });
 
 

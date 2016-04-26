@@ -22,13 +22,6 @@ body {
 }
 
 
-.banner {
-    border: 5px dotted gray;
-    height: 50px;
-}
-
-
-
 /* NAV */
 .navbarCustomGlobal {
     margin: -50px 0 0;
@@ -217,6 +210,11 @@ li {
 
 
 /* Banner */
+
+.banner {
+    border: 5px dashed gray;
+    height: 50px;
+}
 
 .section-banner {
     margin: 50px;
