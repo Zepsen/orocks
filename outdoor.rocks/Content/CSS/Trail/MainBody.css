@@ -47,8 +47,15 @@ body {
             margin: 10px;
         }
 
+.trail-section-map {
+    
+}
+    .trail-section-map div{
+        width: 100%;
+        height: 400px;
+    }    
+
 .trail-section-elevation {
-   
 }
 
     .trail-section-elevation .elevation-image {
@@ -57,9 +64,10 @@ body {
         width: 100% + 50px;
     }
 
-    .trail-section-elevation .elevation-image img{
-        width: 100%;
-    }
+        .trail-section-elevation .elevation-image img {
+            width: 100%;
+        }
+
 .trail-section-references {
 }
 

@@ -19,7 +19,8 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
        }
 
        setTrailProperty($scope.trail);
-
+       COUNTRY = $scope.trail.Country;
+       initMap();
    });
 
     //Set styles property

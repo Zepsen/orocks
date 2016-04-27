@@ -292,6 +292,7 @@
     <Content Include="fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
     <Content Include="Content\Countries\countries.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CustomJS\googlemaps.js" />
     <Content Include="Scripts\CustomJS\Typeahead.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

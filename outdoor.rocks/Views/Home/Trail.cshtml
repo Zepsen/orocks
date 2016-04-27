@@ -71,9 +71,21 @@
 
             @*Map*@
             <section class="row trail-section trail-section-map">
-                <h4>Map</h4>
-                <hr />
-                
+                <h4>
+                    <span class="pull-left">Map</span>
+                    <span class="pull-right">
+                        Download trail:
+                        <a href="">.gdx</a>
+                        <a href="">.kml</a>
+                    </span>
+                </h4>
+                <br/>
+                <hr/>
+                <div id="map">
+                </div>
+                <h4 class="text-center">
+                    <a href="" id="openInNewWindow">Open larger map</a>
+                </h4>
             </section>
 
             @*Elevation*@
@@ -88,7 +100,7 @@
             @*Description*@
             <section class="row trail-section trail-section-description">
                 <h4>Trail description</h4>
-                <hr/>
+                <hr />
                 {{trail.FullDescription}}
             </section>
 
@@ -109,7 +121,7 @@
 
             @*Nearby*@
             <section class="row trail-section-nearby"></section>
-            
+
             @* Comments *@
             <section class="trail-section-comments">
                 <div ng-repeat="comment in trailComments">
@@ -127,5 +139,10 @@
 
 @section scripts{
     <script src="~/Scripts/CustomJS/global.js"></script>
+
     <script src="~/Scripts/Angular/ngTrailController.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBentEIOvUSKVCjf4SYJ6S8BI1fF_xtFGo">
+    </script>
+    <script src="~/Scripts/CustomJS/googlemaps.js"></script>
 }
