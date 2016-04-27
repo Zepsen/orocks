@@ -19,19 +19,27 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
        }
 
        setTrailProperty($scope.trail);
-       COUNTRY = $scope.trail.Country;
-       initMap();
+      
    });
 
     //Set styles property
     var setTrailProperty = function (trail) {
+        //type icon
         $scope.TypeIcon = setIconToTrailType(trail.Type);
         $scope.DurationTypeIcon = setIconToTrailDurationType(trail.DurationType);
 
+        //type name
         $scope.TypeText = setTextTrailType(trail.Type);
         $scope.DurationTypeText = setTextTrailDurationType(trail.DurationType);
 
+        //label color
         $scope.LabelDifficultClass = setLabelClassForDifficult(trail.Difficult);
+
+        //set map position
+        COUNTRY = trail.Country;
+        initMap();
+
+        
     }
 
 });

@@ -2,12 +2,21 @@
     var id = (string)@ViewBag.TrailId;
 }
 
-<div ng-controller="TrailCtrl" ng-cloak>
+<div id="trail-body" ng-controller="TrailCtrl" ng-cloak>
 
     <span id="trailId" ng-show="false">@id</span>
 
     @* Navigation *@
-    <nav></nav>
+    <nav class="navbar trail-navbar">
+        <div class="">
+            <a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>            
+            @Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new { area = "" }, new { @class = "a-header-label" })
+            <a class="a-createtrail">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="a-createtrail-text">CREATE TRAIL</span>
+            </a>
+        </div>
+    </nav>
 
     @* Gallery *@
     <section>
@@ -124,10 +133,24 @@
 
             @* Comments *@
             <section class="trail-section-comments">
+                <h4>Comments {{trailComments.length}}</h4>
                 <div ng-repeat="comment in trailComments">
-                    <div>{{comment.Name}}</div>
-                    <div>{{comment.Comment}}</div>
-                    <div>{{comment.Rate}}</div>
+                    <div class="col-xs-2">
+
+                    </div>
+                    <div class="col-xs-10">
+                        <p>
+                            <div class="pull-left"><b>{{comment.Name}}</b></div>
+                            <ul class="pull-right">
+                                <li ng-repeat="star in [0,1,2,3,4]">
+                                    <img ng-if="star + 1 <= comment.Rate " src="~/Content/Icons/stars/gold-star-icon.png"/>
+                                    <img ng-if="star + 1 > comment.Rate " src="~/Content/Icons/stars/empty_star_icon.png" />
+                                </li>
+                            </ul>
+                        </p>
+                        <br />
+                        <p>{{comment.Comment}}</p>
+                    </div>
                 </div>
             </section>
 

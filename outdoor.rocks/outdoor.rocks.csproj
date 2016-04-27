@@ -242,6 +242,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\Trail\empty_star_icon.png" />
     <Content Include="Content\CSS\Trail\MainBody.css" />
     <Content Include="Content\Icons\black\dog-freindly.png" />
     <Content Include="Content\Icons\black\good-for-kids.png" />
@@ -251,6 +252,9 @@
     <Content Include="Content\Icons\black\one-day.png" />
     <Content Include="Content\Icons\black\point-to-point.png" />
     <Content Include="Content\Icons\black\weekend.png" />
+    <Content Include="Content\Icons\stars\black_star_icon.png" />
+    <Content Include="Content\Icons\stars\empty_star_icon.png" />
+    <Content Include="Content\Icons\stars\gold-star-icon.png" />
     <Content Include="Content\Icons\white\dog-freindly.png" />
     <Content Include="Content\Icons\white\good-for-kids.png" />
     <Content Include="Content\Icons\white\in-and-out.png" />
