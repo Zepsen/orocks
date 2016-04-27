@@ -9,10 +9,27 @@
     @* Navigation *@
     <nav></nav>
 
+    @*Data*@
+    <section>
+        {{trail.Name}}
+    </section>
+
     @* Gallery *@
-    <div></div>
+    <section>
+        <div ng-repeat="img in trail.Photos">
+            {{img}}
+        </div>
+    </section>
 
+    @* Comments *@
 
+    <section>
+        <div ng-repeat="comment in trailComments">
+            <div>{{comment.Name}}</div>
+            <div>{{comment.Comment}}</div>
+            <div>{{comment.Rate}}</div>            
+        </div>
+    </section>
 
 </div>
 
