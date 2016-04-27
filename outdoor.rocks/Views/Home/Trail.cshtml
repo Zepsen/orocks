@@ -1,18 +1,13 @@
-﻿@{    
+﻿@{
     var id = (string)@ViewBag.TrailId;
 }
 
 <div ng-controller="TrailCtrl" ng-cloak>
 
-    <span id="trailId" ng-show="false">@id</span>    
+    <span id="trailId" ng-show="false">@id</span>
 
     @* Navigation *@
     <nav></nav>
-
-    @*Data*@
-    <section>
-        {{trail.Name}}
-    </section>
 
     @* Gallery *@
     <section>
@@ -21,20 +16,116 @@
         </div>
     </section>
 
-    @* Comments *@
+    <div class="container">
+        <div class="col-md-9 trail-main-body">
+            @*Data*@
+            <section class="row trail-section trail-section-info">
 
-    <section>
-        <div ng-repeat="comment in trailComments">
-            <div>{{comment.Name}}</div>
-            <div>{{comment.Comment}}</div>
-            <div>{{comment.Rate}}</div>            
+                <div ng-class="LabelDifficultClass" class="difficult-label">{{trail.Difficult}}</div>
+
+                <div class="col-xs-12">
+                    <span class="text-muted">{{trail.Region}} - {{trail.Country}}</span>
+                    <h1 class="header-name">{{trail.Name}}</h1>
+                    <span ng-if="trail.Rate>0" class="text-muted">User rating: <b>{{trail.Rate}}</b> ({{trailComments.length}} review)</span>
+                </div>
+
+                <div class="col-xs-12">
+                    <h4>Why go</h4>
+                    {{trail.WhyGo}}
+                </div>
+
+                <hr />
+
+                <div class="col-xs-12">
+                    <h4>Description</h4>
+                    {{trail.Description}}
+                </div>
+
+                <hr />
+
+                <div class="col-xs-12 div-option">
+                    <ul class="col-xs-6">
+                        <li>Length: {{trail.Distance}}</li>
+                        <li>Season: {{trail.SeasonStart}} - {{trail.SeasonEnd}}</li>
+                        <li>Elevation: {{trail.Elevation}}</li>
+                        <li>Peak: {{trail.Peak}}</li>
+                    </ul>
+                    <ul class="col-xs-6">
+                        <li ng-if="trail.DogAllowed"><img src="~/Content/Icons/black/dog-freindly.png" />Dog allowed</li>
+                        <li ng-if="trail.GoodForKids"><img src="~/Content/Icons/black/good-for-kids.png" />Good for kids</li>
+                        <li><img src="~/Content/Icons/black/{{TypeIcon}}" />{{TypeText}}</li>
+                        <li><img src="~/Content/Icons/black/{{DurationTypeIcon}}" />{{DurationTypeText}}</li>
+
+                    </ul>
+                </div>
+
+                <div class="col-xs-12">
+                    Share
+                </div>
+            </section>
+
+            @*Banner*@
+            <section class="visible-md visible-lg">
+                <div class="banner"></div>
+            </section>
+
+            @*Map*@
+            <section class="row trail-section trail-section-map">
+                <h4>Map</h4>
+                <hr />
+                
+            </section>
+
+            @*Elevation*@
+            <section class="row trail-section trail-section-elevation">
+                <h4>Elevation profile</h4>
+                <hr />
+                <div class="elevation-image">
+                    <img src="~/Content/SiteImages/Elevation.png" />
+                </div>
+            </section>
+
+            @*Description*@
+            <section class="row trail-section trail-section-description">
+                <h4>Trail description</h4>
+                <hr/>
+                {{trail.FullDescription}}
+            </section>
+
+            @*References*@
+            <section ng-id="trail.References.length > 0" class="row trail-section-references">
+                <h4>References</h4>
+                <ul>
+                    <li ng-repeat="ref in trail.References">
+                        <a ng-href="{{ref}}">{{ref}}</a>
+                    </li>
+                </ul>
+            </section>
+
+            @*Banner*@
+            <section class="visible-md visible-lg">
+                <div class="banner"></div>
+            </section>
+
+            @*Nearby*@
+            <section class="row trail-section-nearby"></section>
+            
+            @* Comments *@
+            <section class="trail-section-comments">
+                <div ng-repeat="comment in trailComments">
+                    <div>{{comment.Name}}</div>
+                    <div>{{comment.Comment}}</div>
+                    <div>{{comment.Rate}}</div>
+                </div>
+            </section>
+
         </div>
-    </section>
-
+        <div class="col-md-3">Banner & Weather</div>
+    </div>
 </div>
 
 
 @section scripts{
+    <script src="~/Scripts/CustomJS/global.js"></script>
     <script src="~/Scripts/Angular/ngTrailController.js"></script>
 }
-    

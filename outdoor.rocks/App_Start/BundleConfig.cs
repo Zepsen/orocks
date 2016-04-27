@@ -30,8 +30,8 @@ namespace outdoor.rocks
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css"));
 
-            //bundles.Add(new StyleBundle("~/Content/CustomCss").Include(                   
-            //          "~/Content/Site.css"));
+            bundles.Add(new StyleBundle("~/Content/CustomCss").Include(                   
+                      "~/Content/CSS/Trail/MainBody.css"));
 
         }
     }

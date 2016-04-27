@@ -242,6 +242,15 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\Trail\MainBody.css" />
+    <Content Include="Content\Icons\black\dog-freindly.png" />
+    <Content Include="Content\Icons\black\good-for-kids.png" />
+    <Content Include="Content\Icons\black\in-and-out.png" />
+    <Content Include="Content\Icons\black\loop.png" />
+    <Content Include="Content\Icons\black\many-days.png" />
+    <Content Include="Content\Icons\black\one-day.png" />
+    <Content Include="Content\Icons\black\point-to-point.png" />
+    <Content Include="Content\Icons\black\weekend.png" />
     <Content Include="Content\Icons\white\dog-freindly.png" />
     <Content Include="Content\Icons\white\good-for-kids.png" />
     <Content Include="Content\Icons\white\in-and-out.png" />
@@ -254,6 +263,7 @@
     <Content Include="Content\Images\Default.jpg" />
     <Content Include="Content\Images\img.jpg" />
     <Content Include="Content\Images\img2.jpg" />
+    <Content Include="Content\SiteImages\Elevation.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\Open sans\Apache License.txt" />
@@ -261,6 +271,7 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\CustomJS\global.js" />
     <Content Include="Scripts\Angular\ngHomeController.js" />
     <Content Include="Scripts\Angular\ngTrailController.js" />
     <Content Include="Scripts\Angular\ngValidationController.js" />
@@ -313,7 +324,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Icons\black\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
