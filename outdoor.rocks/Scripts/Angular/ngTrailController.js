@@ -1,13 +1,17 @@
-﻿var app = angular.module("ORockApp");
+﻿var appTrail = angular.module("ORockApp", []);
 
-app.controller("TrailCtrl", function ($scope, $http) {
-    alert($scope.trailId);
+appTrail.controller("TrailCtrl", function ($scope, $http) {
+
+    $scope.trailId = $("#trailId").text();
+    
     $http({
         method: "GET",
-        url: "../api/Trails/" + trailId
+        url: "../../api/Trails/" + $scope.trailId
     })
-        .success(function (response) {
+   .success(function (response) {
 
-        });
+   });
+
+
 
 });

@@ -1,9 +1,19 @@
-﻿@{ 
+﻿@{    
     var id = (string)@ViewBag.TrailId;
 }
 
-<div ng-controller="TrailCtrl" ng-init="trailId = @id">
-    {{id}}
+<div ng-controller="TrailCtrl" ng-cloak>
+
+    <span id="trailId" ng-show="false">@id</span>    
+
+    @* Navigation *@
+    <nav></nav>
+
+    @* Gallery *@
+    <div></div>
+
+
+
 </div>
 
 

@@ -1,6 +1,6 @@
 ﻿var app = angular.module("ORockApp", []);
 
-app.controller("HomeCtrl", function ($scope, $http) {
+app.controller("HomeCtrl", function ($scope, $http, $window) {
     $scope.regions = null;
     $scope.countries = null;
     $scope.limitTrails = 6;
@@ -31,17 +31,17 @@ app.controller("HomeCtrl", function ($scope, $http) {
         $scope.regions[index].selected = true;
         $scope.countries = $scope.regions[index].countries;
         $scope.filterTrails = $scope.regions[index].region;
-        
+
     }
 
     //Filters by country
-    $scope.selectCountry = function () {       
+    $scope.selectCountry = function () {
         $scope.filterTrails = 13.4;
     }
 
     //Select trail
     $scope.selectTrail = function (id) {
-        
+        $window.location.href = "/Home/Trail/" + id;
     }
 
 
@@ -62,7 +62,7 @@ app.controller("HomeCtrl", function ($scope, $http) {
             }
 
             $scope.trails = arr;
-            
+
             if ($scope.trails.length > 5)
                 $scope.showBtnMore = true;
         });
@@ -121,7 +121,7 @@ app.controller("HomeCtrl", function ($scope, $http) {
             if ($scope.trails.length < $scope.limitTrails) {
                 $scope.showBtnMore = false;
             }
-        }     
+        }
     }
 
     $scope.inputPressEnter = function (value) {
@@ -134,63 +134,63 @@ app.controller("HomeCtrl", function ($scope, $http) {
 
 
 
-$("#getByIdBtn").click(function () {
-    var id = $('#id').val();
+//$("#getByIdBtn").click(function () {
+//    var id = $('#id').val();
 
-    $.ajax({
-        url: "../api/Trails/" + id,
-        type: "GET",
-        success: function (result) {
-            $("#result").html(result);
-        }
-    });
-});
+//    $.ajax({
+//        url: "../api/Trails/" + id,
+//        type: "GET",
+//        success: function (result) {
+//            $("#result").html(result);
+//        }
+//    });
+//});
 
-$("#postBtn").click(function () {
-    var data = JSON.stringify({
-        Name: $('#name').val(),
-        descr: $('#descr').val(),
-        WhyGo: $('#why').val(),
-        diff: $('#diff').val()
-    });
+//$("#postBtn").click(function () {
+//    var data = JSON.stringify({
+//        Name: $('#name').val(),
+//        descr: $('#descr').val(),
+//        WhyGo: $('#why').val(),
+//        diff: $('#diff').val()
+//    });
 
-    $.ajax({
-        url: "../api/Trails/",
-        type: "POST",
-        data: "=" + data,
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        success: function (result) {
-            $("#result").html(result);
-        }
-    });
-});
+//    $.ajax({
+//        url: "../api/Trails/",
+//        type: "POST",
+//        data: "=" + data,
+//        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+//        success: function (result) {
+//            $("#result").html(result);
+//        }
+//    });
+//});
 
-//Put
-$("#putBtn").click(function () {
-    var id = $('#idPut').val()
-    var data = JSON.stringify({
-        Name: $('#namePut').val()
-    });
+////Put
+//$("#putBtn").click(function () {
+//    var id = $('#idPut').val()
+//    var data = JSON.stringify({
+//        Name: $('#namePut').val()
+//    });
 
-    $.ajax({
-        url: "../api/Trails/" + id,
-        type: "PUT",
-        data: "=" + data,
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        success: function (result) {
-            $("#result").html(result);
-        }
-    });
-});
+//    $.ajax({
+//        url: "../api/Trails/" + id,
+//        type: "PUT",
+//        data: "=" + data,
+//        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+//        success: function (result) {
+//            $("#result").html(result);
+//        }
+//    });
+//});
 
-//delete
-$("#delBtn").click(function () {
-    var id = $('#idDel').val()
-    $.ajax({
-        type: "DELETE",
-        url: "../api/Trails/" + id,
-        success: function (result) {
-            $("#result").html(result);
-        }
-    });
-});
+////delete
+//$("#delBtn").click(function () {
+//    var id = $('#idDel').val()
+//    $.ajax({
+//        type: "DELETE",
+//        url: "../api/Trails/" + id,
+//        success: function (result) {
+//            $("#result").html(result);
+//        }
+//    });
+//});

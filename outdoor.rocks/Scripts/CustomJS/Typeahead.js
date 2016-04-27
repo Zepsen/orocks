@@ -1,5 +1,5 @@
 ﻿
-var TRAILS = []; 
+var TRAILS = [];
 var REGIONS = [];
 
 $(document).ready(function () {
@@ -37,8 +37,8 @@ $(document).ready(function () {
       'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
     ];
 
-    
-       
+
+
 
     $('input.typeahead').typeahead(
         {
