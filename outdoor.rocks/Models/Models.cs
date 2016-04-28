@@ -14,13 +14,14 @@ namespace outdoor.rocks.Models
         [BsonRequired]
         public string Name { get; set; }
         public string Description { get; set; }
+        public string FullDescription { get; set; }
         public string WhyGo { get; set; }
         public bool Feature { get; set; }
         public ObjectId Difficult_Id { get; set; }
         public ObjectId Location_Id { get; set; }
         public ObjectId Option_Id { get; set; }
         public List<ObjectId> Comments_Ids { get; set; }
-        public ObjectId Reference_Id { get; set; }
+        public List<string> References { get; set; }
         public string CoverPhoto { get; set; }
         public List<string> Photos { get; set; }
 
@@ -32,16 +33,13 @@ namespace outdoor.rocks.Models
         public MongoRepository<Options> Option { get; set; }
         [BsonIgnore]
         public MongoRepository<Comments> Comments { get; set; }
-        [BsonIgnore]
-        public MongoRepository<References> Reference { get; set; }
-
+       
         public Trails()
         {
             Difficult = new MongoRepository<Difficults>();
             Location = new MongoRepository<Locations>();
             Option = new MongoRepository<Options>();
-            Comments = new MongoRepository<Comments>();
-            Reference = new MongoRepository<References>();
+            Comments = new MongoRepository<Comments>();            
         }
 
 
@@ -76,7 +74,7 @@ namespace outdoor.rocks.Models
 
     public class Regions : Entity
     {
-        public string Name { get; set; }
+        public string Region { get; set; }
     }
 
     public class Countries : Entity
@@ -95,8 +93,8 @@ namespace outdoor.rocks.Models
 
     public class States : Entity
     {
-        public string Name { get; set; }
-        public Countries Country_Id { get; set; }
+        public string State { get; set; }
+        public ObjectId Country_Id { get; set; }
 
         [BsonIgnore]
         public MongoRepository<Countries> Country { get; set; }
@@ -111,7 +109,7 @@ namespace outdoor.rocks.Models
     {
         public ObjectId User_Id { get; set; }
         public string Comment { get; set; }
-        public int Rate { get; set; }
+        public double Rate { get; set; }
 
         [BsonIgnore]
         public MongoRepository<Users> User { get; set; }
@@ -164,13 +162,9 @@ namespace outdoor.rocks.Models
         public string DurationType { get; set; }
     }
 
-    public class References : Entity
-    {
-        public string Url { get; set; }
-    }
-
     public class Users : Entity
     {
+        public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public ObjectId Role_Id { get; set; }
@@ -187,7 +181,7 @@ namespace outdoor.rocks.Models
 
     public class Roles : Entity
     {
-        public string Url { get; set; }
+        public string Role { get; set; }
     }
 
 }

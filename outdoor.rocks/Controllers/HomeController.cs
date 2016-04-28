@@ -12,10 +12,14 @@ namespace outdoor.rocks.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-                    
-            
+            ViewBag.Title = "Home Page";            
             return View();
         }        
+
+        public ActionResult Trail(string id)
+        {
+            ViewBag.TrailId = id;
+            return View();
+        }
     }
 }

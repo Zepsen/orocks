@@ -7,8 +7,9 @@
     src: url('../fonts/Open sans/OpenSans-Semibold.ttf');
 }
 
-html * {
-    font-size: 16px font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+html {
+    font-size: 16px;
+     font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
@@ -20,18 +21,6 @@ body {
     padding: 50px 0 0 0;
     width: 100%;
 }
-
-.thumbnail-custom {
-    padding: 5%;
-    text-decoration: none;
-    color: #ffffff;
-}
-
-.banner {
-    border: 5px dotted gray;
-    height: 50px;
-}
-
 
 
 /* NAV */
@@ -46,13 +35,13 @@ body {
     border: none;
 }
 
-a {
+.mainBody a {
     color: #fff;
     text-decoration: none;
 }
 
     a:hover {
-        color: darkgreen;
+        color: #1d852d;
         text-decoration: none;
     }
 
@@ -66,6 +55,9 @@ a {
     cursor: pointer;
 }
 
+  .a-join {       
+        cursor: pointer;
+    }
 
 
 /* INTRO */
@@ -142,7 +134,6 @@ a {
     }
 
 .tt-query {
-    
 }
 
 .tt-hint {
@@ -158,6 +149,20 @@ a {
     padding: 8px 0;
     width: 422px;
 }
+
+.suggestion-custom {
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+}
+.suggestion-custom .glyphicon{
+   
+    top: 0;
+    padding: 0;
+    position: relative;
+}
+
+
 
 .tt-suggestion {
     background: white;
@@ -185,6 +190,9 @@ a {
         background: lightgray;
     }
 
+
+
+
 /*Section  Country*/
 .section-country {
     background: white;
@@ -204,6 +212,11 @@ li {
 
 /* Banner */
 
+.banner {
+    border: 2px dashed gray;
+    height: 50px;
+}
+
 .section-banner {
     margin: 50px;
 }
@@ -217,6 +230,13 @@ li {
     padding: 10px;
 }
 
+.thumbnail-custom {
+    padding: 5%;
+    text-decoration: none;
+    color: #ffffff;
+    background-size: cover;
+}
+
 .ul-trails-icon {
     margin-top: 100px;
     list-style-type: none;
@@ -224,15 +244,28 @@ li {
     padding: 0;
 }
 
-li {
+.ul-trails-icon li {
     margin: 5px;
     display: inline;
 }
 
 .btn-moretrails {
-    background: gray;
+    background: #dbdbdb;
 }
 
+/*Modal from*/
+.modal-custom{
+    float: left;
+    width: 100%;
+    padding: 10px;
+}
+.form-custom{
+    padding: 15px;
+}
+
+.validation-error-msg{
+    color:red;
+}
 
 /****************************/
 /* Mobile */
@@ -287,6 +320,37 @@ li {
         width: 300px;
     }
 
+    /*Section Region and  Country*/
+    .section-country {
+        padding: 5px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .ul-regions {       
+        font-size: 16px;        
+    }
+
+        .ul-regions li {
+            font-weight: 700;
+            margin: 0 10px; 
+            padding: 0;          
+        }
+
+    .li-region-selected {
+        color: green;
+        text-decoration: underline;
+    }
+
+    .ul-countries-of-regions {
+        font-size: 12px;  
+            
+    }
+
+        .ul-countries-of-regions li {
+           font-weight: 400; 
+        }
+
     /*Trails*/
     .ul-trails-icon {
         display: none;
@@ -323,6 +387,7 @@ li {
         text-align: right;
         float: right;
         margin: auto auto;
+        cursor: pointer;
     }
 
     .mainContainer {
@@ -351,6 +416,38 @@ li {
     .tt-dataset div {
         width: 500px;
     }
+
+     /*Section Region and  Country*/
+    .section-country {
+        padding: 5px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .ul-regions {       
+        font-size: 24px;       
+       
+    }
+
+        .ul-regions li {
+            font-weight: 700;
+            padding: 0;
+            margin: 0 10px;           
+        }
+
+    .li-region-selected {
+        color: #1d852d;
+        text-decoration: underline;
+    }
+
+    .ul-countries-of-regions {
+        
+        font-size: 24px;
+    }
+
+        .ul-countries-of-regions li {
+            font-weight: 400;            
+        }
 }
 
 /****************************/
@@ -367,7 +464,7 @@ li {
     }
 
     .a-createtrail {
-        background: green;
+        background: #1d852d;
         padding: 10px;
         margin: 0 10px;
         float: right;
@@ -378,7 +475,7 @@ li {
         }
 
     .a-join {
-        padding: 10px 10% 10px 0;
+        padding: 10px 5% 10px 0;
         margin: 0 10px;
         float: right;
     }
@@ -387,7 +484,7 @@ li {
 
     /*Intro*/
     .intro {
-        height: 800px;
+        height: 900px;
     }
 
     .intro-body {
@@ -418,17 +515,17 @@ li {
 
         .ul-regions li {
             text-align: center;
-            margin: 0 10px;
+            margin: 0 8px;
             display: inline;
         }
 
     .li-region-selected {
-        color: green;
+        color: #1d852d;
         text-decoration: underline;
     }
 
     .ul-countries-of-regions {
-        font-size: 24px;
+        font-size: 18px;
     }
 
         .ul-countries-of-regions li {
@@ -437,8 +534,7 @@ li {
 
 
     /* Seciotn Feture*/
-    .h-feature-header {
-        color: #61441D;
+    .h-feature-header {     
         font-size: 36px;
     }
 }
