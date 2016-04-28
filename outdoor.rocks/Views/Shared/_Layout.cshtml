@@ -9,6 +9,8 @@
     @Styles.Render("~/Content/CustomCss")
     @Scripts.Render("~/bundles/modernizr")
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <body ng-app="ORockApp">
@@ -16,12 +18,38 @@
     @RenderBody()
 
     <footer>
-        <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+        
     </footer>
 
+    @* Modal window *@
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div ng-controller="ValidationCtrl" class="modal-content modal-custom">
+                <h2 class="">Join us</h2>
+                <form name="valForm" class="form-horizontal form-custom">
+                    <div class="form-group">
+                        <label class="">Email</label>
+                        <div>
+                            <input type="email" name="valEmail" ng-model="valEmail" ng-pattern="emailPattern" required class="form-control" />
+                        </div>
+                        <span class="validation-error-msg" ng-show="valForm.valEmail.$touched && valForm.valEmail.$error.required">The email is required.</span>
+                        <span class="validation-error-msg" ng-show="valForm.valEmail.$touched && valForm.valEmail.$error.pattern">Wrong email.</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Pasword</label>
+                        <div>
+                            <input type="password" name="valPass" ng-model="valPass" ng-minlength="5" required class="form-control" />
+                        </div>
+                        <span class="validation-error-msg" ng-show="valForm.valPass.$touched && valForm.valPass.$error.required">The email is required.</span>
+                        <span class="validation-error-msg" ng-show="valForm.valPass.$touched && valForm.valPass.$error.minlength">The email is minimal length must be more than 5.</span>
+                    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/angular")
+                    <button type="submit" class="btn btn-default btn-success pull-right">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+   
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/importScripts")
     @RenderSection("scripts", required: false)

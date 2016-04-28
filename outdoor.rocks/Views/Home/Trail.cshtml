@@ -1,0 +1,272 @@
+﻿@{
+    var id = (string)@ViewBag.TrailId;
+}
+
+<div id="trail-body" ng-controller="TrailCtrl" ng-cloak>
+
+    <span id="trailId" ng-show="false">@id</span>
+
+    @* Navigation *@
+    <nav class="navbar trail-navbar">
+        <div class="flex-navbar-container">
+
+            <div class="flex-item-header">
+                @Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new { area = "" }, new { @class = "trail-a-header-label" })
+            </div>
+            <div class="flex-item-input inner-addon right-addon input-group">
+                <input type="text" class=""
+                       autocomplete="off" spellcheck="false" placeholder="Enter location" required
+                       ng-model="inputValue" ng-keypress="$event.keyCode == 13 ? inputPressEnter(inputValue) : null;" ng-trim="false" />
+                <i class="glyphicon glyphicon-lg glyphicon-search"></i>
+            </div>
+
+            <div class="flex-item-createtrail">
+                <a class="trail-a-createtrail">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span class="a-createtrail-text">CREATE TRAIL</span>
+                </a>
+            </div>
+
+            <div class="flex-item-join">
+                <a class="trail-a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>
+            </div>
+
+        </div>
+    </nav>
+
+    @* Gallery *@
+    <section>
+        <div ng-repeat="img in trail.Photos">
+            {{img}}
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="col-md-9 trail-main-body">
+            @*Data*@
+            <section class="row trail-section trail-section-info">
+
+                <div ng-class="LabelDifficultClass" class="difficult-label">{{trail.Difficult}}</div>
+
+                <div class="col-xs-12">
+                    <span class="text-muted">{{trail.Region}} - {{trail.Country}}</span>
+                    <h1 class="header-name">{{trail.Name}}</h1>
+                    <span ng-if="trail.Rate>0" class="text-muted">User rating: <b>{{trail.Rate}}</b> ({{trailComments.length}} review)</span>
+                </div>
+
+                <div class="col-xs-12">
+                    <h4>Why go</h4>
+                    {{trail.WhyGo}}
+                </div>
+
+                <hr />
+
+                <div class="col-xs-12">
+                    <h4>Description</h4>
+                    {{trail.Description}}
+                </div>
+
+                <hr />
+                
+                <div class="col-xs-12 div-option">
+                    <ul class="col-xs-6">
+                        <li>Length: {{trail.Distance}}</li>
+                        <li>Season: {{trail.SeasonStart}} - {{trail.SeasonEnd}}</li>
+                        <li>Elevation: {{trail.Elevation}}</li>
+                        <li>Peak: {{trail.Peak}}</li>
+                    </ul>
+                    <ul class="col-xs-6">
+                        <li ng-if="trail.DogAllowed"><img src="~/Content/Icons/black/dog-freindly.png" /> Dog allowed</li>
+                        <li ng-if="trail.GoodForKids"><img src="~/Content/Icons/black/good-for-kids.png" /> Good for kids</li>
+                        <li><img src="~/Content/Icons/black/{{TypeIcon}}" /> {{TypeText}}</li>
+                        <li><img src="~/Content/Icons/black/{{DurationTypeIcon}}" /> {{DurationTypeText}}</li>
+                    </ul>
+                </div>
+
+                <!-- Update collapse -->                
+                <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Update options
+                </button>
+                <div class="collapse" id="collapseExample">
+                    <div class="well">
+                        <form class="form-horizontal">
+                            <div class="form-group col-xs-12">
+                                <label>Distance</label>
+                                <input ng-model="updateTrail.Distance" type="number" class="form-control"/>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label>Season start</label>
+                                <select ng-options="option.Value for option in optionAllSeasons track by option._id" 
+                                        ng-model="updateTrail.SeasonStart"  class="form-control"></select>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label>Season end</label>
+                                <select ng-options="option.Value for option in optionAllSeasons track by option._id" 
+                                        ng-model="updateTrail.SeasonEnd"  class="form-control"></select>
+                            </div>
+                            
+                            <div class="form-group col-xs-12">
+                                <label>Elevation</label>
+                                <input ng-model="updateTrail.Elevation" type="number" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label>Peak</label>
+                                <input ng-model="updateTrail.Peak" type="number" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label>Dog allowed</label>
+                                <input ng-model="updateTrail.DogAllowed" type="checkbox" class="" />
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label>Good for kids</label>
+                                <input ng-model="updateTrail.GoodForKids" type="checkbox" class="" />
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label>Type</label>
+                                <select ng-options="option.Value for option in optionAllTypes track by option._id"
+                                        ng-model="updateTrail.Type" class="form-control"></select>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label>DurationType</label>
+                                <select ng-options="option.Value for option in optionAllDurationTypes track by option._id"
+                                        ng-model="updateTrail.DurationType" class="form-control"></select>
+                            </div>
+
+
+                            <button ng-click="submitUpdateTrail()" class="btn btn-success btn-block">Save</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    Share
+                </div>
+            </section>
+
+            @*Banner*@
+            <section class="visible-md visible-lg">
+                <div class="banner"></div>
+            </section>
+
+            @*Map*@
+            <section class="row trail-section trail-section-map">
+                <h4>
+                    <span class="pull-left">Map</span>
+                    <span class="pull-right">
+                        Download trail:
+                        <a href="">.gdx</a>
+                        <a href="">.kml</a>
+                    </span>
+                </h4>
+                <br />
+                <hr />
+                <div id="map">
+                </div>
+                <h4 class="text-center">
+                    <a href="" id="openInNewWindow">Open larger map</a>
+                </h4>
+            </section>
+
+            @*Elevation*@
+            <section class="row trail-section trail-section-elevation">
+                <h4>Elevation profile</h4>
+                <hr />
+                <div class="elevation-image">
+                    <img src="~/Content/SiteImages/Elevation.png" />
+                </div>
+            </section>
+
+            @*Description*@
+            <section class="row trail-section trail-section-description">
+                <h4>Trail description</h4>
+                <hr />
+                {{trail.FullDescription}}
+            </section>
+
+            @*References*@
+            <section ng-id="trail.References.length > 0" class="row trail-section-references">
+                <h4>References</h4>
+                <ul>
+                    <li ng-repeat="ref in trail.References">
+                        <a ng-href="{{ref}}">{{ref}}</a>
+                    </li>
+                </ul>
+            </section>
+
+            @*Banner*@
+            <section class="visible-md visible-lg">
+                <div class="banner"></div>
+            </section>
+
+            @*Nearby*@
+            <section class="row trail-section-nearby"></section>
+
+            @* Comments *@
+            <section class="trail-section-comments">
+                <h4>Comments {{trailComments.length}}</h4>
+                <div ng-repeat="comment in trailComments">
+                    <div class="col-xs-2">
+
+                    </div>
+                    <div class="col-xs-10">
+                        <p>
+                            <div class="pull-left"><b>{{comment.Name}}</b></div>
+                            <ul class="pull-right">
+                                <li ng-repeat="star in [0,1,2,3,4]">
+                                    <img ng-if="star + 1 <= comment.Rate " src="~/Content/Icons/stars/gold-star-icon.png" />
+                                    <img ng-if="star + 1 > comment.Rate " src="~/Content/Icons/stars/empty_star_icon.png" />
+                                </li>
+                            </ul>
+                        </p>
+                        <br />
+                        <p>{{comment.Comment}}</p>
+                    </div>
+                </div>
+            </section>
+
+            @* Add comments *@
+            @*<section>
+                <form>
+                    <div class="col-xs-2">
+
+                    </div>
+                    <div class="col-xs-10">
+                        <p>
+                            <textarea class="form-control"></textarea>
+                        </p>
+                        <p>                            
+                            <ul class="pull-right">
+                                <li ng-repeat="star in [0,1,2,3,4]">
+                                    <img ng-click="rateClick($index)" src="~/Content/Icons/stars/empty_star_icon.png" />
+                                </li>
+                            </ul>
+                        </p>
+                        <br />
+                        
+                    </div>
+                </form>
+            </section>*@
+
+        </div>
+        <div class="col-md-3">Banner & Weather</div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/CustomJS/global.js"></script>
+    <script src="~/Scripts/Angular/ngTrailController.js"></script>
+    <script src="~/Scripts/Angular/ngValidationController.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBentEIOvUSKVCjf4SYJ6S8BI1fF_xtFGo">
+    </script>
+    <script src="~/Scripts/CustomJS/googlemaps.js"></script>
+}
