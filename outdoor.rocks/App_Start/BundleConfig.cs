@@ -27,11 +27,11 @@ namespace outdoor.rocks
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/Site.css"));
+                      "~/Content/bootstrap.css"));
 
-            bundles.Add(new StyleBundle("~/Content/CustomCss").Include(                   
-                      "~/Content/CSS/Trail/MainBody.css"));
+            bundles.Add(new StyleBundle("~/Content/CustomCss").Include(
+                      "~/Content/Site.css",
+                      "~/Content/CSS/Trail/Trail.css"));
 
         }
     }

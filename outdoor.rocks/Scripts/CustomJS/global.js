@@ -18,7 +18,7 @@ var setIconToTrailDurationType = function (durationtype) {
             break;
         case 'point-to-point': res = 'point-to-point.png'
             break;
-        case 'in': res = 'in-and-out.png'
+        case 'in-and-out': res = 'in-and-out.png'
             break;
     }
     return res
@@ -44,7 +44,7 @@ var setTextTrailDurationType = function (durationtype) {
             break;
         case 'point-to-point': res = 'Point to point'
             break;
-        case 'in': res = 'In and Out'
+        case 'in-and-out': res = 'In and Out'
             break;
     }
     return res

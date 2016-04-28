@@ -73,7 +73,7 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
         return res += ((img != null) ? img : "Default.jpg") + ')';
     }
 
-   
+
 
     //Add more trails to home pages
     $scope.moreTrails = function () {

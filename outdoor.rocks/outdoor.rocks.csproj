@@ -223,6 +223,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\TrailsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -233,6 +234,7 @@
     <Compile Include="Models\FullTrailModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Models.cs" />
+    <Compile Include="Models\OptionModel.cs" />
     <Compile Include="Models\TrailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -243,7 +245,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CSS\Trail\empty_star_icon.png" />
-    <Content Include="Content\CSS\Trail\MainBody.css" />
+    <Content Include="Content\CSS\Trail\Trail.css" />
     <Content Include="Content\Icons\black\dog-freindly.png" />
     <Content Include="Content\Icons\black\good-for-kids.png" />
     <Content Include="Content\Icons\black\in-and-out.png" />
@@ -275,10 +277,9 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\CustomJS\global.js" />
-    <Content Include="Scripts\Angular\ngHomeController.js" />
     <Content Include="Scripts\Angular\ngTrailController.js" />
     <Content Include="Scripts\Angular\ngValidationController.js" />
+    <Content Include="Scripts\Angular\ngHomeController.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="..\packages\MongoRepository.1.6.11\MongoRepository.chm">
@@ -296,6 +297,7 @@
     <Content Include="fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
     <Content Include="Content\Countries\countries.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CustomJS\global.js" />
     <Content Include="Scripts\CustomJS\googlemaps.js" />
     <Content Include="Scripts\CustomJS\Typeahead.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
