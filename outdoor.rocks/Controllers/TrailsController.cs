@@ -2,6 +2,7 @@
 using MongoRepository;
 using Newtonsoft.Json.Linq;
 using outdoor.rocks.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -128,35 +129,37 @@ namespace outdoor.rocks.Controllers
         }
 
         // PUT: api/Trails/5
-        public void Put(string id, [FromBody]JObject value)
+        public void Put(string id, [FromBody]string value)
         {                        
             var trail = db.GetById(id);
             var option = Options.GetById(trail.Option_Id);
-            dynamic update = value;
+            dynamic update = JObject.Parse(value);
 
-            if(!string.IsNullOrEmpty((string)update.Distance))
-                option.Distance = double.Parse((string)update.Distance);
-
-            if (!string.IsNullOrEmpty((string)update.Peak))
-                option.Peak = int.Parse((string)update.Peak);
-
-            if (!string.IsNullOrEmpty((string)update.SeasonStart_Id))
-                option.SeasonStart_Id = ObjectId.Parse((string)update.SeasonStart_Id);
-
-            if (!string.IsNullOrEmpty((string)update.SeasonEnd_Id))
-                option.SeasonEnd_Id = ObjectId.Parse((string)update.SeasonEnd_Id);
-
-            if (!string.IsNullOrEmpty((string)update.Elevation))
-                option.Elevation = double.Parse((string)update.Elevation);
-
-            if (!string.IsNullOrEmpty((string)update.TrailType_Id))
-                option.TrailType_Id = ObjectId.Parse((string)update.TrailType_Id);
-
-            if (!string.IsNullOrEmpty((string)update.TrailType_Id))
-                option.TrailDurationType_Id = ObjectId.Parse((string)update.TrailType_Id);         
             
-            option.GoodForKids =(bool)update.GoodForKids;
-            option.DogAllowed = (bool)update.DogAllowed;
+            if (update.Distance.HasValues)
+                option.Distance = Convert.ToDouble(update.Distance.Value);
+
+            if (update.Peak.HasValues)
+                option.Peak = Convert.ToInt32(update.Peak.Value);
+
+            if (update.SeasonStart.HasValues == null)
+                if (update.SeasonStart.HasValues)
+                option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
+
+            if (update.SeasonEnd.HasValues != null && update.SeasonEnd.Values.HasValues )
+                option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
+
+            if (update.Elevation.HasValues)
+                option.Elevation = Convert.ToDouble(update.Elevation.Value);
+
+            if (update.Type.HasValues != null && update.Type.Values.HasValues)
+                option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
+
+            if (update.DurationType.HasValues != null && update.Values.DurationType.HasValues)
+                option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
+
+            option.GoodForKids = update.GoodForKids.Value;
+            option.DogAllowed = update.DogAllowed.Value;
 
             Options.Update(option);
 

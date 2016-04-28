@@ -3,6 +3,8 @@
     font-size: 16px;
     font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
+/*!!!!!!!!! no white square*/
+.gmnoprint { display: none; }
 
 /*Navigation by with flex*/
 .trail-navbar {

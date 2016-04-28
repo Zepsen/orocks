@@ -91,48 +91,49 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
             data: "=" + JSON.stringify($scope.updateTrail),
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             success: function (result) {
-                updateThisTrail();
+                if ($scope.updateTrail.Distance)
+                    $scope.trail.Distance = $scope.updateTrail.Distance;
+
+                if ($scope.updateTrail.Difficult) {
+                    $scope.trail.Difficult = $scope.updateTrail.Difficult;
+                    $scope.LabelDifficultClass = setLabelClassForDifficult($scope.updateTrail.Difficult);
+                }
+
+
+                if ($scope.updateTrail.Peak)
+                    $scope.trail.Peak = $scope.updateTrail.Peak;
+
+                if ($scope.updateTrail.Elevation)
+                    $scope.trail.Elevation = $scope.updateTrail.Elevation;
+
+                if ($scope.updateTrail.SeasonStart)
+                    $scope.trail.SeasonStart = $scope.updateTrail.SeasonStart.Value;
+
+                if ($scope.updateTrail.SeasonEnd)
+                    $scope.trail.SeasonEnd = $scope.updateTrail.SeasonEnd.Value;
+
+
+                $scope.trail.DogAllowed = $scope.updateTrail.DogAllowed;
+
+
+                $scope.trail.GoodForKids = $scope.updateTrail.GoodForKids;
+
+                if ($scope.updateTrail.Type) {
+                    $scope.TypeIcon = setIconToTrailType($scope.updateTrail.Type.Value);
+                    $scope.TypeText = setTextTrailType($scope.updateTrail.Type.Value);
+                }
+
+
+                if ($scope.updateTrail.DurationType) {
+                    $scope.DurationTypeIcon = setIconToTrailDurationType($scope.updateTrail.DurationType.Value);
+                    $scope.DurationTypeText = setTextTrailDurationType($scope.updateTrail.DurationType.Value);
+                }
             }
         });
     }
 
     var updateThisTrail = function () {
-        if ($scope.updateTrail.Distance)
-            $scope.trail.Distance = $scope.updateTrail.Distance;
-
-        if ($scope.updateTrail.Difficult) {
-            $scope.trail.Difficult = $scope.updateTrail.Difficult;
-            $scope.LabelDifficultClass = setLabelClassForDifficult($scope.updateTrail.Difficult);
-        }
-
-
-        if ($scope.updateTrail.Peak)
-            $scope.trail.Peak = $scope.updateTrail.Peak;
-
-        if ($scope.updateTrail.Elevation)
-            $scope.trail.Elevation = $scope.updateTrail.Elevation;
-
-        if ($scope.updateTrail.SeasonStart)
-            $scope.trail.SeasonStart = $scope.updateTrail.SeasonStart.Value;
-
-        if ($scope.updateTrail.SeasonEnd)
-            $scope.trail.SeasonEnd = $scope.updateTrail.SeasonEnd.Value;
-
-
-        $scope.trail.DogAllowed = $scope.updateTrail.DogAllowed;
-
-
-        $scope.trail.GoodForKids = $scope.updateTrail.GoodForKids;
-
-        if ($scope.updateTrail.Type) {
-            $scope.TypeIcon = setIconToTrailType($scope.updateTrail.Type.Value);
-            $scope.TypeText = setTextTrailType($scope.updateTrail.Type.Value);
-        }
-
-
-        if ($scope.updateTrail.DurationType) {
-            $scope.DurationTypeIcon = setIconToTrailDurationType($scope.updateTrail.DurationType.Value);
-            $scope.DurationTypeText = setTextTrailDurationType($scope.updateTrail.DurationType.Value);
-        }
+        
+        
     }
 });
