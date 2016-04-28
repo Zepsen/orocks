@@ -133,7 +133,52 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
     }
 
     var updateThisTrail = function () {
-        
-        
     }
+
+    //Comments
+    //--------------------------------Stars rate ----------------------//
+
+    //rating stars          
+    $scope.mEnterStars = function (s) {
+        if ($scope.IfRateChos) {
+            return;
+        }
+        else {
+            for (var i = 0; i < 5; i++) {
+                if (i <= s)
+                    $scope.imgStar[i] = 'img/star2.png';
+                else
+                    $scope.imgStar[i] = 'img/star1.png';
+            }
+        }
+    };
+
+    $scope.mOverStars = function () {
+        if ($scope.IfRateChos) {
+            return;
+        }
+        else {
+            for (var i = 0; i < 5; i++) {
+                $scope.imgStar[i] = 'img/star1.png';
+            }
+        }
+    };
+
+    //btn Rate        
+    $scope.btnRate = function (r) {
+        // r start from 0;
+
+        for (var i = 0; i < 5; i++) {
+            if (i <= r)
+                $scope.imgStar[i] = 'img/star2.png';
+            else
+                $scope.imgStar[i] = 'img/star1.png';
+        }
+
+        $scope.IfRateChos = true;
+
+        // INSERT INTO DB_Rate rate VALUES (. $scope.chRate .);
+        $scope.chRate = r + 1;
+
+    };
 });

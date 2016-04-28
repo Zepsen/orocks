@@ -67,7 +67,7 @@
                 </div>
 
                 <hr />
-                
+
                 <div class="col-xs-12 div-option">
                     <ul class="col-xs-6">
                         <li>Length: {{trail.Distance}}</li>
@@ -83,7 +83,7 @@
                     </ul>
                 </div>
 
-                <!-- Update collapse -->                
+                <!-- Update collapse -->
                 <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Update options
                 </button>
@@ -92,21 +92,21 @@
                         <form class="form-horizontal">
                             <div class="form-group col-xs-12">
                                 <label>Distance</label>
-                                <input ng-model="updateTrail.Distance" type="number" class="form-control"/>
+                                <input ng-model="updateTrail.Distance" type="number" class="form-control" />
                             </div>
 
                             <div class="form-group col-xs-12">
                                 <label>Season start</label>
-                                <select ng-options="option.Value for option in optionAllSeasons track by option._id" 
-                                        ng-model="updateTrail.SeasonStart"  class="form-control"></select>
+                                <select ng-options="option.Value for option in optionAllSeasons track by option._id"
+                                        ng-model="updateTrail.SeasonStart" class="form-control"></select>
                             </div>
 
                             <div class="form-group col-xs-12">
                                 <label>Season end</label>
-                                <select ng-options="option.Value for option in optionAllSeasons track by option._id" 
-                                        ng-model="updateTrail.SeasonEnd"  class="form-control"></select>
+                                <select ng-options="option.Value for option in optionAllSeasons track by option._id"
+                                        ng-model="updateTrail.SeasonEnd" class="form-control"></select>
                             </div>
-                            
+
                             <div class="form-group col-xs-12">
                                 <label>Elevation</label>
                                 <input ng-model="updateTrail.Elevation" type="number" class="form-control" />
@@ -241,15 +241,13 @@
                         <p>
                             <textarea class="form-control"></textarea>
                         </p>
-                        <p>                            
-                            <ul class="pull-right">
-                                <li ng-repeat="star in [0,1,2,3,4]">
-                                    <img ng-click="rateClick($index)" src="~/Content/Icons/stars/empty_star_icon.png" />
-                                </li>
-                            </ul>
+                        <p>
+                            <div id="rateS2">
+                                <img ng-src="{{imgStar[s]}}" class="rateLabS2" ng-model="imgModel" ng-click="btnRate(s)" ng-mouseleave="mOverStars()" ng-mouseenter="mEnterStars(s)" ng-repeat="s in [0,1,2,3,4]" />
+                            </div>
                         </p>
                         <br />
-                        
+
                     </div>
                 </form>
             </section>*@
@@ -262,11 +260,11 @@
 
 
 @section scripts{
-    <script src="~/Scripts/CustomJS/global.js"></script>
-    <script src="~/Scripts/Angular/ngTrailController.js"></script>
-    <script src="~/Scripts/Angular/ngValidationController.js"></script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBentEIOvUSKVCjf4SYJ6S8BI1fF_xtFGo">
-    </script>
-    <script src="~/Scripts/CustomJS/googlemaps.js"></script>
+<script src="~/Scripts/CustomJS/global.js"></script>
+<script src="~/Scripts/Angular/ngTrailController.js"></script>
+<script src="~/Scripts/Angular/ngValidationController.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBentEIOvUSKVCjf4SYJ6S8BI1fF_xtFGo">
+</script>
+<script src="~/Scripts/CustomJS/googlemaps.js"></script>
 }
