@@ -130,33 +130,31 @@ namespace outdoor.rocks.Controllers
 
         // PUT: api/Trails/5
         public void Put(string id, [FromBody]string value)
-        {                        
+        {
             var trail = db.GetById(id);
             var option = Options.GetById(trail.Option_Id);
             dynamic update = JObject.Parse(value);
-
-            
-            if (update.Distance.HasValues)
+           
+            if (update.Distance != null)
                 option.Distance = Convert.ToDouble(update.Distance.Value);
 
-            if (update.Peak.HasValues)
+            if (update.Peak != null)
                 option.Peak = Convert.ToInt32(update.Peak.Value);
 
-            if (update.SeasonStart.HasValues == null)
-                if (update.SeasonStart.HasValues)
-                option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
+            if (update.SeasonStart.Value != null)
+              option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
 
-            if (update.SeasonEnd.HasValues != null && update.SeasonEnd.Values.HasValues )
+            if (update.SeasonEnd.Value != null)
                 option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
 
-            if (update.Elevation.HasValues)
+            if (update.Elevation != null)
                 option.Elevation = Convert.ToDouble(update.Elevation.Value);
 
-            if (update.Type.HasValues != null && update.Type.Values.HasValues)
+            if (update.Type.Value != null )
                 option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
 
-            if (update.DurationType.HasValues != null && update.Values.DurationType.HasValues)
-                option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
+            if (update.DurationType.Value != null)
+                    option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
 
             option.GoodForKids = update.GoodForKids.Value;
             option.DogAllowed = update.DogAllowed.Value;

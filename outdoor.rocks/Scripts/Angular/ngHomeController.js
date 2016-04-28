@@ -109,10 +109,15 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 
 //$("#postBtn").click(function () {
 //    var data = JSON.stringify({
-//        Name: $('#name').val(),
-//        descr: $('#descr').val(),
-//        WhyGo: $('#why').val(),
-//        diff: $('#diff').val()
+//        Distance: 187,
+//        Peek: 132,
+//        Elevation: null,
+//        DogAllwed: false,
+//        GodForKids: true,
+//        Type: { _id: "1hgsdf786", Value: "Val" },
+//        DurationType: {},
+//        SeasonStart: {},
+//        SeasonEnd: {_id: "1hgsdf786", Value: "Val"}
 //    });
 
 //    $.ajax({
