@@ -83,85 +83,92 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
 
     }
 
-    $scope.submitUpdateTrail = function () {               
-
-        $.ajax({
+    $scope.submitUpdateTrail = function () {
+        $http({
+            method: "GET",
+            url: "../../api/Options",
             url: "../../api/Trails/" + $scope.trailId,
             type: "PUT",
             data: "=" + JSON.stringify($scope.updateTrail),
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-            success: function (result) {
-                if ($scope.updateTrail.Distance)
-                    $scope.trail.Distance = $scope.updateTrail.Distance;
-
-                if ($scope.updateTrail.Difficult) {
-                    $scope.trail.Difficult = $scope.updateTrail.Difficult;
-                    $scope.LabelDifficultClass = setLabelClassForDifficult($scope.updateTrail.Difficult);
-                }
-
-
-                if ($scope.updateTrail.Peak)
-                    $scope.trail.Peak = $scope.updateTrail.Peak;
-
-                if ($scope.updateTrail.Elevation)
-                    $scope.trail.Elevation = $scope.updateTrail.Elevation;
-
-                if ($scope.updateTrail.SeasonStart)
-                    $scope.trail.SeasonStart = $scope.updateTrail.SeasonStart.Value;
-
-                if ($scope.updateTrail.SeasonEnd)
-                    $scope.trail.SeasonEnd = $scope.updateTrail.SeasonEnd.Value;
-
-
-                $scope.trail.DogAllowed = $scope.updateTrail.DogAllowed;
-
-
-                $scope.trail.GoodForKids = $scope.updateTrail.GoodForKids;
-
-                if ($scope.updateTrail.Type) {
-                    $scope.TypeIcon = setIconToTrailType($scope.updateTrail.Type.Value);
-                    $scope.TypeText = setTextTrailType($scope.updateTrail.Type.Value);
-                }
-
-
-                if ($scope.updateTrail.DurationType) {
-                    $scope.DurationTypeIcon = setIconToTrailDurationType($scope.updateTrail.DurationType.Value);
-                    $scope.DurationTypeText = setTextTrailDurationType($scope.updateTrail.DurationType.Value);
-                }
-            }
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+        })
+        .success(function (response) {
+            updateThisTrail();
         });
     }
 
     var updateThisTrail = function () {
+
+        if ($scope.updateTrail.Distance)
+            $scope.trail.Distance = $scope.updateTrail.Distance;
+
+        if ($scope.updateTrail.Difficult) {
+            $scope.trail.Difficult = $scope.updateTrail.Difficult;
+            $scope.LabelDifficultClass = setLabelClassForDifficult($scope.updateTrail.Difficult);
+        }
+
+
+        if ($scope.updateTrail.Peak)
+            $scope.trail.Peak = $scope.updateTrail.Peak;
+
+        if ($scope.updateTrail.Elevation)
+            $scope.trail.Elevation = $scope.updateTrail.Elevation;
+
+        if ($scope.updateTrail.SeasonStart)
+            $scope.trail.SeasonStart = $scope.updateTrail.SeasonStart.Value;
+
+        if ($scope.updateTrail.SeasonEnd)
+            $scope.trail.SeasonEnd = $scope.updateTrail.SeasonEnd.Value;
+
+
+        $scope.trail.DogAllowed = $scope.updateTrail.DogAllowed;
+
+
+        $scope.trail.GoodForKids = $scope.updateTrail.GoodForKids;
+
+        if ($scope.updateTrail.Type) {
+            $scope.TypeIcon = setIconToTrailType($scope.updateTrail.Type.Value);
+            $scope.TypeText = setTextTrailType($scope.updateTrail.Type.Value);
+        }
+
+
+        if ($scope.updateTrail.DurationType) {
+            $scope.DurationTypeIcon = setIconToTrailDurationType($scope.updateTrail.DurationType.Value);
+            $scope.DurationTypeText = setTextTrailDurationType($scope.updateTrail.DurationType.Value);
+        }
     }
 
     //Comments
     //--------------------------------Stars rate ----------------------//
 
+    var starPathSelect = "/Content/Icons/stars/gold-star-icon.png";
+    var starPathUnselect = "/Content/Icons/stars/empty_star_icon.png";
+    $scope.imgStar = [starPathUnselect, starPathUnselect, starPathUnselect, starPathUnselect, starPathUnselect];
+
     //rating stars          
-    $scope.mEnterStars = function (s) {
+    $scope.mEnterStars = function (stars) {
         if ($scope.IfRateChos) {
             return;
         }
         else {
             for (var i = 0; i < 5; i++) {
-                if (i <= s)
-                    $scope.imgStar[i] = 'img/star2.png';
+                if (i <= stars)
+                    $scope.imgStar[i] = starPathSelect;
                 else
-                    $scope.imgStar[i] = 'img/star1.png';
+                    $scope.imgStar[i] = starPathUnselect;
             }
         }
     };
 
     $scope.mOverStars = function () {
-        if ($scope.IfRateChos) {
+        if ($scope.IfRateChose) {
             return;
         }
         else {
             for (var i = 0; i < 5; i++) {
-                $scope.imgStar[i] = 'img/star1.png';
+                $scope.imgStar[i] = starPathSelect;
             }
-        }
+        }        
     };
 
     //btn Rate        
@@ -170,12 +177,12 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
 
         for (var i = 0; i < 5; i++) {
             if (i <= r)
-                $scope.imgStar[i] = 'img/star2.png';
+                $scope.imgStar[i] = starPathSelect;
             else
-                $scope.imgStar[i] = 'img/star1.png';
+                $scope.imgStar[i] = starPathUnselect;
         }
 
-        $scope.IfRateChos = true;
+        $scope.IfRateChose = true;
 
         // INSERT INTO DB_Rate rate VALUES (. $scope.chRate .);
         $scope.chRate = r + 1;

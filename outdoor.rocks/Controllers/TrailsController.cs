@@ -135,25 +135,25 @@ namespace outdoor.rocks.Controllers
             var option = Options.GetById(trail.Option_Id);
             dynamic update = JObject.Parse(value);
            
-            if (update.Distance != null)
+            if (!string.IsNullOrEmpty(update.Distance.Value.ToString()))
                 option.Distance = Convert.ToDouble(update.Distance.Value);
 
-            if (update.Peak != null)
+            if (!string.IsNullOrEmpty(update.Peak.Value.ToString()))
                 option.Peak = Convert.ToInt32(update.Peak.Value);
 
-            if (update.SeasonStart.Value != null)
+            if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
               option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
 
-            if (update.SeasonEnd.Value != null)
+            if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
                 option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
 
-            if (update.Elevation != null)
+            if (!string.IsNullOrEmpty(update.Elevation.Value.ToString()))
                 option.Elevation = Convert.ToDouble(update.Elevation.Value);
 
-            if (update.Type.Value != null )
+            if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
                 option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
 
-            if (update.DurationType.Value != null)
+            if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
                     option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
 
             option.GoodForKids = update.GoodForKids.Value;

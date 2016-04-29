@@ -4,7 +4,9 @@
     font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 /*!!!!!!!!! no white square*/
-.gmnoprint { display: none; }
+.gmnoprint {
+    display: none;
+}
 
 /*Navigation by with flex*/
 .trail-navbar {
@@ -31,30 +33,28 @@
     }
 
         .flex-navbar-container .flex-item-header a {
-            font-size: 22px;            
+            font-size: 22px;
         }
 
     .flex-navbar-container .flex-item-input {
-        cursor: pointer;        
+        cursor: pointer;
     }
 
         .flex-navbar-container .flex-item-input input {
-            
         }
 
-        .flex-navbar-container .flex-item-input .glyphicon{              
-            padding: 0;  
-            position: relative;          
+        .flex-navbar-container .flex-item-input .glyphicon {
+            padding: 0;
+            position: relative;
             color: #fff;
-                
         }
 
     .flex-navbar-container .flex-item-createtrail {
-        order: 1;    
-        cursor: pointer;    
+        order: 1;
+        cursor: pointer;
     }
 
-        
+
     .flex-navbar-container .flex-item-join {
         cursor: pointer;
     }
@@ -140,6 +140,20 @@
             height: 16px;
         }
 
+.div-stars
+.img-star{
+    width: 16px;
+    height: 16px;
+}        
+
+.bannerWeather div{
+    height:300px; 
+}
+
+.bannerWeather div img{
+    background-size: cover;
+}
+
 /*Mobile*/
 /**/
 @media (max-width: 767px) {
@@ -151,26 +165,26 @@
     }
 
         .flex-navbar-container .flex-item-header a {
-            font-size: 22px;            
+            font-size: 22px;
         }
 
     .flex-navbar-container .flex-item-input {
         order: 3;
-        width: 10%;       
+        width: 10%;
         text-align: right;
     }
 
         .flex-navbar-container .flex-item-input input {
             display: none;
         }
-      
+
 
     .flex-navbar-container .flex-item-createtrail {
         order: 1;
         width: 10%;
     }
 
-        
+
     .flex-navbar-container .flex-item-join {
         display: none;
     }
@@ -188,26 +202,26 @@
     }
 
         .flex-navbar-container .flex-item-header a {
-            font-size: 22px;            
+            font-size: 22px;
         }
 
     .flex-navbar-container .flex-item-input {
         order: 3;
-        width: 33%;       
+        width: 33%;
         text-align: right;
     }
 
         .flex-navbar-container .flex-item-input input {
             display: none;
         }
-       
+
 
     .flex-navbar-container .flex-item-createtrail {
         order: 1;
         width: 33%;
     }
 
-        
+
     .flex-navbar-container .flex-item-join {
         display: none;
     }
@@ -224,13 +238,13 @@
     }
 
         .flex-navbar-container .flex-item-header a {
-            font-size: 22px;            
+            font-size: 22px;
         }
 
     .flex-navbar-container .flex-item-input {
         order: 2;
         width: 30%;
-        margin: 0 10px;       
+        margin: 0 10px;
     }
 
         .flex-navbar-container .flex-item-input input {
@@ -238,9 +252,9 @@
             padding: 5px 0;
         }
 
-        .flex-navbar-container .flex-item-input .glyphicon{
+        .flex-navbar-container .flex-item-input .glyphicon {
             padding: 5px;
-            position: absolute; 
+            position: absolute;
             color: #000;
         }
 
@@ -250,17 +264,16 @@
     }
 
         .flex-navbar-container .flex-item-createtrail .trail-a-createtrail {
-            padding: 7px;            
+            padding: 7px;
             background: darkgreen;
         }
 
     .flex-navbar-container .flex-item-join {
         order: 4;
         width: 20%;
-        text-align: right;     
+        text-align: right;
     }
 
         .flex-navbar-container .flex-item-join a {
-                   
         }
 }

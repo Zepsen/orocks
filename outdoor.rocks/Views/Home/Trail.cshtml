@@ -232,7 +232,7 @@
             </section>
 
             @* Add comments *@
-            @*<section>
+            <section trail-addcomments>
                 <form>
                     <div class="col-xs-2">
 
@@ -242,18 +242,28 @@
                             <textarea class="form-control"></textarea>
                         </p>
                         <p>
-                            <div id="rateS2">
-                                <img ng-src="{{imgStar[s]}}" class="rateLabS2" ng-model="imgModel" ng-click="btnRate(s)" ng-mouseleave="mOverStars()" ng-mouseenter="mEnterStars(s)" ng-repeat="s in [0,1,2,3,4]" />
+                            <div class="div-stars">
+                                <img src="{{imgStar[s]}}" class="img-star" 
+                                     ng-model="imgModel" ng-click="btnRate(s)" 
+                                     ng-mouseleave="mOverStars()" ng-mouseenter="mEnterStars(s)" 
+                                     ng-repeat="s in [0,1,2,3,4]" />
                             </div>
                         </p>
+                        <p>
+                            <button class="btn btn-success pull-right">Rate us!</button>
+                        </p>
                         <br />
-
                     </div>
                 </form>
-            </section>*@
+            </section>
 
         </div>
-        <div class="col-md-3">Banner & Weather</div>
+        <div class="col-md-3 bannerWeather">
+            <div class="col-xs-5 col-sm-offset-1 banner"></div>
+            <div class="col-xs-5">
+                <img  src="~/Content/SiteImages/weather.jpg"/>
+            </div>
+        </div>
     </div>
 </div>
 
