@@ -34,19 +34,25 @@ function geocodeAddress(geocoder, resultsMap) {
 }
 
 
-var myMap;
+//var myMap;
  
-// Дождёмся загрузки API и готовности DOM.
-ymaps.ready(init);
+//// Дождёмся загрузки API и готовности DOM.
+//ymaps.ready(init);
  
-function init () {
-    // Создание экземпляра карты и его привязка к контейнеру с
-    // заданным id ("map").
-    myMap = new ymaps.Map('yandex_map', {
-        // При инициализации карты обязательно нужно указать
-        // её центр и коэффициент масштабирования.
-        center: [56.326944, 44.0075], // Нижний Новгород
-        zoom: 12
-        
-    });    
-}
+//function init() {
+//    myMap = new ymaps.Map('yandex_map', {       
+//        zoom: 12
+//    });
+//    var myGeocoder = ymaps.geocode("Москва");
+//    myGeocoder.then(
+//        function (res) {
+//            myMap.geoObjects.add(res.geoObjects);
+//        },
+//        function (err) {
+//            // обработка ошибки
+//        }
+//    );
+//    // Создание экземпляра карты и его привязка к контейнеру с
+//    // заданным id ("map").
+      
+//}

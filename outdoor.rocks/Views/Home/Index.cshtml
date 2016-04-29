@@ -6,14 +6,14 @@
 
         <div class="a-navigation">
             @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="glyphicon glyphicon-search"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="myNavbar">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="myNavbar">
 
-            </div>*@
+                </div>*@
             <a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>
             @*@Html.ActionLink("JOIN US", "Index", "Home", new { area = "" }, new { @class = "a-join" })*@
-            @Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new {area = ""}, new {@class = "a-header-label"})
+            @Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new { area = "" }, new { @class = "a-header-label" })
             <a class="a-createtrail">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span class="a-createtrail-text">CREATE TRAIL</span>
@@ -106,8 +106,8 @@
 
 
 @section scripts{
-<script src="~/Scripts/CustomJS/global.js"></script>
-<script src="~/Scripts/CustomJS/Typeahead.js"></script>
-<script src="~/Scripts/Angular/ngHomeController.js"></script>
-<script src="~/Scripts/Angular/ngValidationController.js"></script>
+    <script src="~/Scripts/CustomJS/global.js"></script>    
+    <script src="~/Scripts/CustomJS/Typeahead.js"></script>
+    <script src="~/Scripts/Angular/ngHomeController.js"></script>
+    <script src="~/Scripts/Angular/ngValidationController.js"></script>
 }

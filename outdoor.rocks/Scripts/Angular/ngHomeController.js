@@ -86,7 +86,7 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
     }
 
     $scope.inputPressEnter = function (value) {
-
+        alert(1);
     }
 
 
@@ -94,69 +94,3 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 });
 
 
-
-//$("#getByIdBtn").click(function () {
-//    var id = $('#id').val();
-
-//    $.ajax({
-//        url: "../api/Trails/" + id,
-//        type: "GET",
-//        success: function (result) {
-//            $("#result").html(result);
-//        }
-//    });
-//});
-
-//$("#postBtn").click(function () {
-//    var data = JSON.stringify({
-//        Distance: 187,
-//        Peek: 132,
-//        Elevation: null,
-//        DogAllwed: false,
-//        GodForKids: true,
-//        Type: { _id: "1hgsdf786", Value: "Val" },
-//        DurationType: {},
-//        SeasonStart: {},
-//        SeasonEnd: {_id: "1hgsdf786", Value: "Val"}
-//    });
-
-//    $.ajax({
-//        url: "../api/Trails/",
-//        type: "POST",
-//        data: "=" + data,
-//        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-//        success: function (result) {
-//            $("#result").html(result);
-//        }
-//    });
-//});
-
-////Put
-//$("#putBtn").click(function () {
-//    var id = $('#idPut').val()
-//    var data = JSON.stringify({
-//        Name: $('#namePut').val()
-//    });
-
-//    $.ajax({
-//        url: "../api/Trails/" + id,
-//        type: "PUT",
-//        data: "=" + data,
-//        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-//        success: function (result) {
-//            $("#result").html(result);
-//        }
-//    });
-//});
-
-////delete
-//$("#delBtn").click(function () {
-//    var id = $('#idDel').val()
-//    $.ajax({
-//        type: "DELETE",
-//        url: "../api/Trails/" + id,
-//        success: function (result) {
-//            $("#result").html(result);
-//        }
-//    });
-//});
