@@ -273,6 +273,11 @@
     <Content Include="Content\Images\img2.jpg" />
     <Content Include="Content\SiteImages\Elevation.png" />
     <Content Include="Content\SiteImages\weather.jpg" />
+    <Content Include="Content\slick\ajax-loader.gif" />
+    <Content Include="Content\slick\slick-theme.css" />
+    <Content Include="Content\slick\slick.css" />
+    <Content Include="Content\slick\slick.js" />
+    <Content Include="Content\slick\slick.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\Open sans\Apache License.txt" />
@@ -299,6 +304,11 @@
     <Content Include="fonts\Open sans\OpenSans-Semibold.ttf" />
     <Content Include="fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
     <Content Include="Content\Countries\countries.json" />
+    <Content Include="Content\slick\config.rb" />
+    <Content Include="Content\slick\slick-theme.less" />
+    <Content Include="Content\slick\slick-theme.scss" />
+    <Content Include="Content\slick\slick.less" />
+    <Content Include="Content\slick\slick.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CustomJS\global.js" />
     <Content Include="Scripts\CustomJS\googlemaps.js" />

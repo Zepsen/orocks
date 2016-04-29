@@ -215,10 +215,11 @@ li {
 .banner {
     border: 2px dashed gray;
     height: 50px;
+    margin: 50px;
 }
 
 .section-banner {
-    margin: 50px;
+    
 }
 
 
