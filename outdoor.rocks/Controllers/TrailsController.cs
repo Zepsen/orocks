@@ -134,21 +134,26 @@ namespace outdoor.rocks.Controllers
             var trail = db.GetById(id);
             var option = Options.GetById(trail.Option_Id);
             dynamic update = JObject.Parse(value);
-           
-            if (!string.IsNullOrEmpty(update.Distance.Value.ToString()))
+
+            var distance = update.Distance.Value ?? "";
+            if (!string.IsNullOrEmpty(distance.ToString()))
                 option.Distance = Convert.ToDouble(update.Distance.Value);
 
-            if (!string.IsNullOrEmpty(update.Peak.Value.ToString()))
+            var peak = update.Peak.Value ?? "";
+            if (!string.IsNullOrEmpty(peak.ToString()))
                 option.Peak = Convert.ToInt32(update.Peak.Value);
+
+            var elevation = update.Elevation.Value ?? "";
+            if (!string.IsNullOrEmpty(elevation.ToString()))
+                option.Elevation = Convert.ToDouble(update.Elevation.Value);
+
 
             if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
               option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
 
             if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
                 option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
-
-            if (!string.IsNullOrEmpty(update.Elevation.Value.ToString()))
-                option.Elevation = Convert.ToDouble(update.Elevation.Value);
+                        
 
             if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
                 option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);

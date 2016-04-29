@@ -84,24 +84,21 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
     }
 
     $scope.submitUpdateTrail = function () {
-        $http({
-            method: "GET",
-            url: "../../api/Options",
-            url: "../../api/Trails/" + $scope.trailId,
+        $.ajax({
             type: "PUT",
+            url: "../../api/Trails/" + $scope.trailId,
             data: "=" + JSON.stringify($scope.updateTrail),
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8"
-        })
-        .success(function (response) {
-            updateThisTrail();
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            success: updateThisTrail            
         });
+
     }
 
     var updateThisTrail = function () {
 
         if ($scope.updateTrail.Distance)
             $scope.trail.Distance = $scope.updateTrail.Distance;
-
+        
         if ($scope.updateTrail.Difficult) {
             $scope.trail.Difficult = $scope.updateTrail.Difficult;
             $scope.LabelDifficultClass = setLabelClassForDifficult($scope.updateTrail.Difficult);
@@ -123,9 +120,8 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
 
         $scope.trail.DogAllowed = $scope.updateTrail.DogAllowed;
 
-
         $scope.trail.GoodForKids = $scope.updateTrail.GoodForKids;
-
+        
         if ($scope.updateTrail.Type) {
             $scope.TypeIcon = setIconToTrailType($scope.updateTrail.Type.Value);
             $scope.TypeText = setTextTrailType($scope.updateTrail.Type.Value);
@@ -144,7 +140,7 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
     var starPathSelect = "/Content/Icons/stars/gold-star-icon.png";
     var starPathUnselect = "/Content/Icons/stars/empty_star_icon.png";
     $scope.imgStar = [starPathUnselect, starPathUnselect, starPathUnselect, starPathUnselect, starPathUnselect];
-
+    $scope.IfRateChose = false;
     //rating stars          
     $scope.mEnterStars = function (stars) {
         if ($scope.IfRateChos) {
@@ -166,9 +162,9 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
         }
         else {
             for (var i = 0; i < 5; i++) {
-                $scope.imgStar[i] = starPathSelect;
+                $scope.imgStar[i] = starPathUnselect;
             }
-        }        
+        }
     };
 
     //btn Rate        
@@ -185,7 +181,36 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
         $scope.IfRateChose = true;
 
         // INSERT INTO DB_Rate rate VALUES (. $scope.chRate .);
-        $scope.chRate = r + 1;
+        $scope.postCommentData.Rate = r + 1;
 
     };
+
+    $scope.postCommentData = {
+        Id: $scope.trailId,
+        Comment: "",
+        User: "",
+        Rate: 0
+    }
+
+    $scope.postComment = function () {
+
+        $.ajax({
+            type: "POST",
+            url: "../../api/Comments/",
+            data: "=" + JSON.stringify($scope.postCommentData),
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            success: updateComments
+        });
+
+    }
+
+    var updateComments = function () {
+        $scope.trailComments.push(
+            {
+                Name: $scope.postCommentData.Name,
+                Rate: $scope.postCommentData.Rate,
+                Comment: $scope.postCommentData.Comment
+            });
+
+    }
 });

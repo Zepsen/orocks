@@ -136,16 +136,30 @@
     }
 
         .trail-section-comments ul li img {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
         }
 
-.div-stars
+/*Commetns*/
+
+.btnPostComment{
+    background: green;
+    color: white;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
 .img-star{
-    width: 16px;
-    height: 16px;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    margin: 0 1px;
 }        
 
+
+.bannerWeather{
+    margin: 20px 0;
+}
 .bannerWeather div{
     height:300px; 
 }

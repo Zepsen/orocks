@@ -239,19 +239,19 @@
                     </div>
                     <div class="col-xs-10">
                         <p>
-                            <textarea class="form-control"></textarea>
+                            <textarea class="form-control" ng-model="postCommentData.Comment" rows="5" maxlength="1000"></textarea>
                         </p>
                         <p>
-                            <div class="div-stars">
+                            <a class="pull-left btnPostComment"  ng-click="postComment()">POST</a>
+                            <div class="div-stars pull-right">
+                                Rate us!
                                 <img src="{{imgStar[s]}}" class="img-star" 
                                      ng-model="imgModel" ng-click="btnRate(s)" 
                                      ng-mouseleave="mOverStars()" ng-mouseenter="mEnterStars(s)" 
                                      ng-repeat="s in [0,1,2,3,4]" />
                             </div>
-                        </p>
-                        <p>
-                            <button class="btn btn-success pull-right">Rate us!</button>
-                        </p>
+                        </p>                            
+                        
                         <br />
                     </div>
                 </form>
