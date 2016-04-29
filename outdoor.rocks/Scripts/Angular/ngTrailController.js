@@ -84,17 +84,19 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
     }
 
     $scope.submitUpdateTrail = function () {
-        $.ajax({
-            type: "PUT",
+        $http({
+            method: "PUT",
             url: "../../api/Trails/" + $scope.trailId,
             data: "=" + JSON.stringify($scope.updateTrail),
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-            success: updateThisTrail            
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },           
+            
+        }).success (function (response) {
+            $scope.updateThisTrail();
         });
 
     }
 
-    var updateThisTrail = function () {
+    $scope.updateThisTrail = function () {
 
         if ($scope.updateTrail.Distance)
             $scope.trail.Distance = $scope.updateTrail.Distance;
@@ -188,23 +190,25 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
     $scope.postCommentData = {
         Id: $scope.trailId,
         Comment: "",
-        User: "",
+        User: {_id:"571746ff04973c3dee147d7c"},
         Rate: 0
     }
 
     $scope.postComment = function () {
 
-        $.ajax({
-            type: "POST",
+        $http({
+            method: "POST",
             url: "../../api/Comments/",
-            data: "=" + JSON.stringify($scope.postCommentData),
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-            success: updateComments
+            data: "=" + JSON.stringify($scope.postCommentData),            
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            
+        }).success(function (response) {
+            $scope.updateComments();
         });
 
     }
 
-    var updateComments = function () {
+    $scope.updateComments = function () {
         $scope.trailComments.push(
             {
                 Name: $scope.postCommentData.Name,

@@ -153,7 +153,8 @@ namespace outdoor.rocks.Controllers
 
             if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
                 option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
-                        
+
+            
 
             if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
                 option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);

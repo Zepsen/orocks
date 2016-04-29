@@ -39,7 +39,7 @@ namespace outdoor.rocks.Controllers
                 Id = id.ToString(),
                 Comment = comment.Comment.Value,
                 Rate = comment.Rate.Value,
-                User_Id = comment.User._id.Value
+                User_Id = ObjectId.Parse(comment.User._id.Value)
             });
             
             trail.Comments_Ids.Add(id);

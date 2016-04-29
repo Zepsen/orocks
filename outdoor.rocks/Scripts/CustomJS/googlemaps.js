@@ -33,3 +33,20 @@ function geocodeAddress(geocoder, resultsMap) {
    
 }
 
+
+var myMap;
+ 
+// Дождёмся загрузки API и готовности DOM.
+ymaps.ready(init);
+ 
+function init () {
+    // Создание экземпляра карты и его привязка к контейнеру с
+    // заданным id ("map").
+    myMap = new ymaps.Map('yandex_map', {
+        // При инициализации карты обязательно нужно указать
+        // её центр и коэффициент масштабирования.
+        center: [56.326944, 44.0075], // Нижний Новгород
+        zoom: 12
+        
+    });    
+}
