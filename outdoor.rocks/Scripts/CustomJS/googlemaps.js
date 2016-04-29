@@ -33,26 +33,3 @@ function geocodeAddress(geocoder, resultsMap) {
    
 }
 
-
-//var myMap;
- 
-//// Дождёмся загрузки API и готовности DOM.
-//ymaps.ready(init);
- 
-//function init() {
-//    myMap = new ymaps.Map('yandex_map', {       
-//        zoom: 12
-//    });
-//    var myGeocoder = ymaps.geocode("Москва");
-//    myGeocoder.then(
-//        function (res) {
-//            myMap.geoObjects.add(res.geoObjects);
-//        },
-//        function (err) {
-//            // обработка ошибки
-//        }
-//    );
-//    // Создание экземпляра карты и его привязка к контейнеру с
-//    // заданным id ("map").
-      
-//}

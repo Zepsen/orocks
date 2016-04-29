@@ -1,0 +1,29 @@
+
+db.references.insert({"url":"http:\\"})
+
+db.regions.insert({"region":"africa"})
+db.regions.insert({"region":"asia"})
+db.regions.insert({"region":"europe"})
+db.regions.insert({"region":"north america"})
+db.regions.insert({"region":"south america"})
+db.regions.insert({"region":"oceania"})
+
+db.trailstypes.insert({"type":"oneday"})
+
+db.countries.insert({"country":"ukraine", region_id : db.regions.find()[3]._id})
+
+db.states.insert({"state":"kievskaiya oblast", region_id : db.countries.find()[0]._id})
+
+db.roles.insert({role:"admin"})
+
+db.users.insert({name:"admin", email:"admin@admin.com", password:123456, role_id: db.roles.find()[0]._id})
+
+db.comments.insert({comment: "test", rate: 4, user_id: db.users.find()[0]._id})
+
+db.seasons.insert({ season: "january"})
+
+db.options.insert({ distance: 13.4, elevetion: 1380})
+
+db.options.insert({ distance: 13.4, elevetion: 1380, peak: 1800, dogallowed: true, goodforkids: false,trailtype_id: db.trailstypes.find()[0]._id,traildurationtype: db.trailsdurationtypes.find()[0]._id,seasonstart_id: db.seasons.find()[0]._id,seasonend_id: db.seasons.find()[2]._id  })
+
+db.trails.insert({ name: "Best Tour", description: "Descriptions best tour", whygo: "cause super puper" , difficult_id: db.difficults.find()[1]._id,reference_id: db.references.find()[0]._id,location_id: db.locations.find()[0]._id,option_id: db.options.find()[0]._id,comments_ids: [db.comments.find()[0]._id,db.comments.find()[0]._id]})

@@ -88,9 +88,9 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
             method: "PUT",
             url: "../../api/Trails/" + $scope.trailId,
             data: "=" + JSON.stringify($scope.updateTrail),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },           
-            
-        }).success (function (response) {
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+
+        }).success(function (response) {
             $scope.updateThisTrail();
         });
 
@@ -100,7 +100,7 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
 
         if ($scope.updateTrail.Distance)
             $scope.trail.Distance = $scope.updateTrail.Distance;
-        
+
         if ($scope.updateTrail.Difficult) {
             $scope.trail.Difficult = $scope.updateTrail.Difficult;
             $scope.LabelDifficultClass = setLabelClassForDifficult($scope.updateTrail.Difficult);
@@ -123,7 +123,7 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
         $scope.trail.DogAllowed = $scope.updateTrail.DogAllowed;
 
         $scope.trail.GoodForKids = $scope.updateTrail.GoodForKids;
-        
+
         if ($scope.updateTrail.Type) {
             $scope.TypeIcon = setIconToTrailType($scope.updateTrail.Type.Value);
             $scope.TypeText = setTextTrailType($scope.updateTrail.Type.Value);
@@ -190,7 +190,7 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
     $scope.postCommentData = {
         Id: $scope.trailId,
         Comment: "",
-        User: {_id:"571746ff04973c3dee147d7c"},
+        User: { _id: "571746ff04973c3dee147d7c" },
         Rate: 0
     }
 
@@ -199,9 +199,9 @@ appTrail.controller("TrailCtrl", function ($scope, $http) {
         $http({
             method: "POST",
             url: "../../api/Comments/",
-            data: "=" + JSON.stringify($scope.postCommentData),            
+            data: "=" + JSON.stringify($scope.postCommentData),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-            
+
         }).success(function (response) {
             $scope.updateComments();
         });

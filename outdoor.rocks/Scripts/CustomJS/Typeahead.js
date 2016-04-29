@@ -21,7 +21,7 @@ $(document).ready(function () {
                     matches.push(str);
                 }
             });
-            debugger
+
             cb(matches);
         };
     };
@@ -38,9 +38,9 @@ $(document).ready(function () {
     ];
 
 
-    
 
-    $('input.typeahead').typeahead(        
+
+    $('input.typeahead').typeahead(
         {
             hint: true,
             highlight: true,
@@ -61,8 +61,8 @@ $(document).ready(function () {
         {
             name: 'states',
             source: substringMatcher(states),
-            templates: {                
-                suggestion: function (data) {                    
+            templates: {
+                suggestion: function (data) {
                     var res = '<div class="suggestion-custom list-group-item">';
                     res += '<span class="glyphicon glyphicon-globe"></span>'
                     res += data + '</div>';
