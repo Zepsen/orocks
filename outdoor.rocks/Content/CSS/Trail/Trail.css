@@ -61,6 +61,14 @@
 /*End flex navbar*/
 
 
+/* Trail gallery*/
+    
+.trail-gallery div img{
+    height: 200px;
+}
+
+/* End gallery*/
+
 .trail-section {
     background: #fff;
     padding: 15px 30px;
