@@ -1,24 +1,21 @@
-﻿
-
-<div ng-controller="MainCtrl">
-    <div ui-view></div>
-</div>
 
 
-<!--<div class="mainBody" ng-controller="HomeCtrl">
+<div class="mainBody" ng-controller="HomeCtrl">
 
-    @* Navigation *@
+     <!--Navigation -->
     <nav class="navbar navbarCustomGlobal">
 
         <div class="a-navigation">
-            @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="myNavbar">
 
-                </div>*@
-            <a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>            
-            @Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new { area = "" }, new { @class = "a-header-label" })
+                </div>-->
+                
+            <a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>
+            <a class="a-header-label" href="Home/Index">OUTDOOR.ROCKS</a>            
+            <!--@Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new { area = "" }, new { @class = "a-header-label" })-->
             <a class="a-createtrail">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span class="a-createtrail-text">CREATE TRAIL</span>
@@ -26,7 +23,7 @@
         </div>
     </nav>
 
-    @* Intro *@
+    <!--Intro -->
     <div class="intro">
         <div class="intro-body">
             <div class="container">
@@ -46,7 +43,7 @@
     </div>
 
     <div class="container mainContainer">
-        @* Country *@
+         <!--Country-->
         <section class="section-country" ng-cloak>
             <ul class="ul-regions">
                 <li ng-repeat="region in regions">
@@ -67,12 +64,12 @@
             </ul>
         </section>
 
-        @* Banner *@
+         <!--Banner -->
         <section class="row section-banner">
             <div class="col-md-12 banner"></div>
         </section>
 
-        @* Feature *@
+         <!--Feature -->
         <section ng-cloak class="row">
 
             <h2 class="text-center h-feature-header">
@@ -106,21 +103,4 @@
         </section>
     </div>
 
-</div>-->
-
-
-
-@section scripts{
-    <script src="~/Scripts/CustomJS/global.js"></script>    
-    <script src="~/Scripts/CustomJS/Typeahead.js"></script>
-    <script src="~/Scripts/Angular/ngHomeController.js"></script>
-    <script src="~/Scripts/Angular/ngValidationController.js"></script>
-    
-    <script src="Angular/app.module.js"></script>
-    <script src="Angular/app.routes.js"></script>
-    <script src="Angular/components/generic/mainController.js"></script>
-    <script src="Angularapp/components/home/homeController.js"></script>
-    <script src="Angular/components/blog/blogController.js"></script>
-    <script src="Angular/components/auth/authController.js"></script>
-    <script src="Angular/components/auth/formValidationsDirective.js"></script>
-}
+</div>
