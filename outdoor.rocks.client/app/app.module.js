@@ -1,2 +1,2 @@
 angular
-    .module('angularCrud', ['ui.router']);
+    .module('ORocksApp', ['ui.router']);
