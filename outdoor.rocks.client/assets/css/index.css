@@ -1,0 +1,540 @@
+/****************************/
+/* Global */
+/****************************/
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/Open sans/OpenSans-Semibold.ttf');
+}
+
+html {
+    font-size: 16px;
+     font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    padding-bottom: 200px;
+    background: #eeeeee;
+}
+
+.mainBody {
+    padding: 50px 0 0 0;
+    width: 100%;
+}
+
+/* NAV */
+.navbarCustomGlobal {
+    margin: -50px 0 0;
+    font-weight: 700;
+}
+
+.a-navigation {
+    padding: 10px;
+    margin: 10px;
+    border: none;
+}
+
+.mainBody a {
+    color: #fff;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #1d852d;
+        text-decoration: none;
+    }
+
+.a-header-label {
+    text-align: center;
+    font-size: 24px;
+}
+
+
+.a-createtrail {
+    cursor: pointer;
+}
+
+  .a-join {       
+        cursor: pointer;
+    }
+
+
+/* INTRO */
+
+.intro {
+    width: 100%;
+    color: #fff;
+    margin: -150px auto 0;
+    background-image: url('Images/background-home.jpg');
+    background-size: cover;
+}
+
+.intro-body {
+    text-align: center;
+    padding: 25% 0 0;
+    margin: auto auto;
+}
+
+
+
+
+/* HOME INPUT */
+
+.inner-addon {
+    position: relative;
+    text-align: center;
+    margin: auto;
+}
+
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+        color: black;
+    }
+
+    .inner-addon input {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+.left-addon .glyphicon {
+    left: 0;
+}
+
+.right-addon .glyphicon {
+    right: 0;
+    top: 7px;
+}
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
+
+/*Typeahead*/
+
+.typeahead, .tt-query, .tt-hint {
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    outline: medium none;
+    padding: 10px;
+}
+
+.typeahead {
+    background-color: #FFFFFF;
+}
+
+    .typeahead:focus {
+    }
+
+.tt-query {
+}
+
+.tt-hint {
+    color: #999999;
+}
+
+.tt-dropdown-menu {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 12px;
+    padding: 8px 0;
+    width: 422px;
+}
+
+.suggestion-custom {
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+}
+.suggestion-custom .glyphicon{
+   
+    top: 0;
+    padding: 0;
+    position: relative;
+}
+
+
+
+.tt-suggestion {
+    background: white;
+    color: black;
+    font-size: 24px;
+    line-height: 24px;
+    padding: 3px 20px;
+}
+
+    .tt-suggestion.tt-is-under-cursor {
+        background-color: #0097CF;
+        color: #FFFFFF;
+    }
+
+    .tt-suggestion p {
+        margin: 0;
+    }
+
+.tt-dataset div {
+    text-align: left;
+    width: 500px;
+}
+
+    .tt-dataset div:hover {
+        background: lightgray;
+    }
+
+
+
+
+/*Section  Country*/
+.section-country {
+    background: white;
+    padding: 20px;
+}
+
+.ul-regions, .ul-countries-of-regions {
+    list-style-type: none;
+}
+
+li {
+    cursor: pointer;
+}
+
+
+
+
+/* Banner */
+
+.banner {
+    border: 2px dashed gray;
+    height: 50px;
+    margin: 50px;
+}
+
+.section-banner {
+    
+}
+
+
+
+/*Trails*/
+
+.div-trails {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.thumbnail-custom {
+    padding: 5%;
+    text-decoration: none;
+    color: #ffffff;
+    background-size: cover;
+}
+
+.ul-trails-icon {
+    margin-top: 100px;
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+}
+
+.ul-trails-icon li {
+    margin: 5px;
+    display: inline;
+}
+
+.btn-moretrails {
+    background: #dbdbdb;
+}
+
+/*Modal from*/
+.modal-custom{
+    float: left;
+    width: 100%;
+    padding: 10px;
+}
+.form-custom{
+    padding: 15px;
+}
+
+.validation-error-msg{
+    color:red;
+}
+
+/****************************/
+/* Mobile */
+/****************************/
+
+@media (max-width: 768px) {
+
+
+    /*Nav*/
+    .a-header-label {
+        width: 100%;
+        float: right;
+        text-align: center;
+    }
+
+    .a-createtrail {
+        position: absolute;
+    }
+
+    .a-createtrail-text {
+        display: none;
+    }
+
+    .a-join {
+        display: none;
+    }
+
+    .mainContainer {
+        max-width: 95%;
+    }
+
+
+    /*Intro*/
+    .intro {
+        height: 400px;
+    }
+
+    .intro-body {
+        padding-top: 200px;
+    }
+
+    .intro-heading {
+        font-size: 32px;
+    }
+
+    .typeahead, .tt-query, .tt-hint {
+        width: 300px;
+    }
+
+    .tt-dataset div {
+        text-align: left;
+        width: 300px;
+    }
+
+    /*Section Region and  Country*/
+    .section-country {
+        padding: 5px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .ul-regions {       
+        font-size: 16px;        
+    }
+
+        .ul-regions li {
+            font-weight: 700;
+            margin: 0 10px; 
+            padding: 0;          
+        }
+
+    .li-region-selected {
+        color: green;
+        text-decoration: underline;
+    }
+
+    .ul-countries-of-regions {
+        font-size: 12px;  
+            
+    }
+
+        .ul-countries-of-regions li {
+           font-weight: 400; 
+        }
+
+    /*Trails*/
+    .ul-trails-icon {
+        display: none;
+    }
+}
+
+
+
+
+/****************************/
+/* Tablet */
+/****************************/
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .mainBody {
+        width: 100%;
+    }
+    /*Nav*/
+    .a-header-label {
+        width: 60%;
+        float: right;
+        text-align: center;
+    }
+
+    .a-createtrail {
+        width: 20%;
+        float: left;
+    }
+
+    .a-join {
+        width: 20%;
+        padding-right: 10%;
+        text-align: right;
+        float: right;
+        margin: auto auto;
+        cursor: pointer;
+    }
+
+    .mainContainer {
+        max-width: 95%;
+    }
+
+
+
+    /*Intro*/
+    .intro {
+        height: 600px;
+    }
+
+    .intro-body {
+        padding-top: 250px;
+    }
+
+    .intro-heading {
+        font-size: 60px;
+    }
+
+    .typeahead, .tt-query, .tt-hint {
+        width: 500px;
+    }
+
+    .tt-dataset div {
+        width: 500px;
+    }
+
+     /*Section Region and  Country*/
+    .section-country {
+        padding: 5px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .ul-regions {       
+        font-size: 24px;       
+       
+    }
+
+        .ul-regions li {
+            font-weight: 700;
+            padding: 0;
+            margin: 0 10px;           
+        }
+
+    .li-region-selected {
+        color: #1d852d;
+        text-decoration: underline;
+    }
+
+    .ul-countries-of-regions {
+        
+        font-size: 24px;
+    }
+
+        .ul-countries-of-regions li {
+            font-weight: 400;            
+        }
+}
+
+/****************************/
+/* Desktope */
+/****************************/
+
+@media (min-width: 992px) {
+
+
+
+    /*Nav*/
+    .a-header-label {
+        float: left;
+    }
+
+    .a-createtrail {
+        background: #1d852d;
+        padding: 10px;
+        margin: 0 10px;
+        float: right;
+    }
+
+        .a-createtrail:hover {
+            background: lightgreen;
+        }
+
+    .a-join {
+        padding: 10px 5% 10px 0;
+        margin: 0 10px;
+        float: right;
+    }
+
+
+
+    /*Intro*/
+    .intro {
+        height: 900px;
+    }
+
+    .intro-body {
+        padding-top: 300px;
+    }
+
+    .intro-heading {
+        font-size: 64px;
+    }
+
+    .typeahead, .tt-query, .tt-hint {
+        width: 500px;
+    }
+
+    .tt-dataset div {
+        width: 500px;
+    }
+
+    /*Section Region and  Country*/
+    .section-country {
+        margin-top: -50px;
+    }
+
+    .ul-regions {
+        text-align: center;
+        font-size: 32px;
+    }
+
+        .ul-regions li {
+            text-align: center;
+            margin: 0 8px;
+            display: inline;
+        }
+
+    .li-region-selected {
+        color: #1d852d;
+        text-decoration: underline;
+    }
+
+    .ul-countries-of-regions {
+        font-size: 18px;
+    }
+
+        .ul-countries-of-regions li {
+            text-align: left;
+        }
+
+
+    /* Seciotn Feture*/
+    .h-feature-header {     
+        font-size: 36px;
+    }
+}
