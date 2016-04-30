@@ -1,2 +1,2 @@
 angular
-    .module('ORocksApp', ['ui.router']);
+    .module('ORockApp', ['ui.router']);

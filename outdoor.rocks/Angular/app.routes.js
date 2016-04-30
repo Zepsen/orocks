@@ -1,4 +1,4 @@
-angular.module('ORocksApp')
+angular.module('ORockApp')
     .config([
         '$stateProvider',
         '$urlRouterProvider',
