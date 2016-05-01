@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/CustomCss")
@@ -11,10 +11,15 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/angular")
-    <link href="~/Content/slick/slick.css" rel="stylesheet" />
-    @*<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css" />*@
+    @*<link href="~/Content/slick/slick.css" rel="stylesheet" />*@
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css" />
+    <style>
+        [ng-cloak] {
+            display: none;
+        }
+    </style>
 </head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <body ng-app="ORockApp">
     
     @RenderBody()
@@ -56,5 +61,7 @@
     @Scripts.Render("~/bundles/importScripts")
     @RenderSection("scripts", required: false)
 
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-slick-carousel/3.1.4/angular-slick.js"></script>
 </body>
 </html>

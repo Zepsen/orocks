@@ -1,15 +1,14 @@
 
-<div id="trail-body" ng-controller="TrailCtrl" ng-cloak>
+<div id="trail-body" ng-cloak>
 
     <span id="trailId" ng-show="false">@id</span>
 
-     <!--Navigation -->
-    <nav class="navbar trail-navbar">
+    <!--Navigation -->
+    <nav class="navbar trail-navbar" ng-cloak>
         <div class="flex-navbar-container">
 
             <div class="flex-item-header">
-                <a class="trail-a-header-label">OUTDOOR.ROCKS</a>
-                <!--@Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new { area = "" }, new { @class = "trail-a-header-label" })-->
+                <a ui-sref="home" class="trail-a-header-label">OUTDOOR.ROCKS</a>
             </div>
             <div class="flex-item-input inner-addon right-addon input-group">
                 <input type="text" class=""
@@ -32,14 +31,18 @@
         </div>
     </nav>
 
-     <!--Gallery -->
-    <section>
-        <div class="trail-gallery" ng-repeat="img in trail.Photos">
-            <div><img src="../../Content/Images/{{img}}" /></div>
+    <!--Gallery -->
+    <section ng-cloak>
+        
+        <div class="trail-gallery" >
+            <slick infinite=true slides-to-show=3 slides-to-scroll=3>
+                <img src="{{img | getFullImgPath}}" ng-repeat="img in trail.Photos track by $index" />
+            </slick>
         </div>
+       
     </section>
 
-    <div class="container">
+    <div class="container" ng-cloak>
         <div class="col-md-9 trail-main-body">
             <!--Data-->
             <section class="row trail-section trail-section-info">
@@ -74,10 +77,10 @@
                         <li>Peak: {{trail.Peak}}</li>
                     </ul>
                     <ul class="col-xs-6">
-                        <li ng-if="trail.DogAllowed"><img src="~/Content/Icons/black/dog-freindly.png" /> Dog allowed</li>
-                        <li ng-if="trail.GoodForKids"><img src="~/Content/Icons/black/good-for-kids.png" /> Good for kids</li>
-                        <li><img src="~/Content/Icons/black/{{TypeIcon}}" /> {{TypeText}}</li>
-                        <li><img src="~/Content/Icons/black/{{DurationTypeIcon}}" /> {{DurationTypeText}}</li>
+                        <li ng-if="trail.DogAllowed"><img src="{{'dog-freindly.png' | getFullIconPath:'black'}}" /> Dog allowed</li>
+                        <li ng-if="trail.GoodForKids"><img src="{{'good-for-kids.png' | getFullIconPath:'black'}}" /> Good for kids</li>
+                        <li><img src="{{trail.Type | typeIcon | getFullIconPath:'black'}}" /> {{trail.Type | typeText}}</li>
+                        <li><img src="{{trail.DurationType | durationTypeIcon | getFullIconPath:'black'}}" /> {{trail.DurationType | durationTypeText}}</li>
                     </ul>
                 </div>
 
@@ -95,13 +98,13 @@
 
                             <div class="form-group col-xs-12">
                                 <label>Season start</label>
-                                <select ng-options="option.Value for option in optionAllSeasons track by option._id"
+                                <select ng-options="option.Value for option in options[0] track by option._id"
                                         ng-model="updateTrail.SeasonStart" class="form-control"></select>
                             </div>
 
                             <div class="form-group col-xs-12">
                                 <label>Season end</label>
-                                <select ng-options="option.Value for option in optionAllSeasons track by option._id"
+                                <select ng-options="option.Value for option in options[0] track by option._id"
                                         ng-model="updateTrail.SeasonEnd" class="form-control"></select>
                             </div>
 
@@ -127,13 +130,13 @@
 
                             <div class="form-group col-xs-12">
                                 <label>Type</label>
-                                <select ng-options="option.Value for option in optionAllTypes track by option._id"
+                                <select ng-options="option.Value for option in options[1] track by option._id"
                                         ng-model="updateTrail.Type" class="form-control"></select>
                             </div>
 
                             <div class="form-group col-xs-12">
                                 <label>DurationType</label>
-                                <select ng-options="option.Value for option in optionAllDurationTypes track by option._id"
+                                <select ng-options="option.Value for option in options[2] track by option._id"
                                         ng-model="updateTrail.DurationType" class="form-control"></select>
                             </div>
 
@@ -177,7 +180,7 @@
                 <h4>Elevation profile</h4>
                 <hr />
                 <div class="elevation-image">
-                    <img src="~/Content/SiteImages/Elevation.png" />
+                    <img src="/Content/SiteImages/Elevation.png" />
                 </div>
             </section>
 
@@ -218,8 +221,8 @@
                             <div class="pull-left"><b>{{comment.Name}}</b></div>
                             <ul class="pull-right">
                                 <li ng-repeat="star in [0,1,2,3,4]">
-                                    <img ng-if="star + 1 <= comment.Rate " src="~/Content/Icons/stars/gold-star-icon.png" />
-                                    <img ng-if="star + 1 > comment.Rate " src="~/Content/Icons/stars/empty_star_icon.png" />
+                                    <img ng-if="star + 1 <= comment.Rate " src="{{ 'gold-star-icon.png' | getFullIconPath:'stars' }}" />
+                                    <img ng-if="star + 1 > comment.Rate " src="{{ 'empty_star_icon.png' | getFullIconPath:'stars' }}" />
                                 </li>
                             </ul>
                         </p>
@@ -259,7 +262,7 @@
         <div class="col-md-3 bannerWeather">
             <div class="col-xs-5 col-md-12 col-lg-12"></div>
             <div class="col-xs-5 col-md-12 col-lg-12">
-                <img src="~/Content/SiteImages/weather.jpg" />
+                <img src="/Content/SiteImages/weather.jpg" />
             </div>
         </div>
     </div>

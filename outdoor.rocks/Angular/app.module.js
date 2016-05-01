@@ -1,2 +1,4 @@
 angular
-    .module('ORockApp', ['ui.router']);
+    .module('ORockApp', ['ui.router', 'slickCarousel']);
+
+

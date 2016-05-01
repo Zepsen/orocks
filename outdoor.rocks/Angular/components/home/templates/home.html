@@ -1,6 +1,6 @@
 
 
-<div class="mainBody" ng-controller="HomeCtrl">
+<div class="mainBody">
 
      <!--Navigation -->
     <nav class="navbar navbarCustomGlobal">
@@ -14,8 +14,7 @@
                 </div>-->
                 
             <a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>
-            <a class="a-header-label" href="Home/Index">OUTDOOR.ROCKS</a>            
-            <!--@Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new { area = "" }, new { @class = "a-header-label" })-->
+            <a class="a-header-label" ui-sref="home">OUTDOOR.ROCKS</a>           
             <a class="a-createtrail">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span class="a-createtrail-text">CREATE TRAIL</span>
@@ -78,21 +77,23 @@
 
             <div class="row" ng-cloak>
                 <div class="col-xs-6 col-sm-4 col-md-4 div-trails" ng-repeat="trail in trails | filter:filterTrails | limitTo: limitTrails">
-                    <div ng-click="selectTrail(trail._id)" class="thumbnail thumbnail-custom" style="{{trail.CoverPhoto}}">
-                        <label ng-class="trail.LabelDifficultClass">{{trail.Difficult}}</label>
+                    <!--ng-click="selectTrail(trail._id)"-->
+
+                    <a ui-sref="trail({ id: trail._id })" class="thumbnail thumbnail-custom" ng-style="{'backgroundImage' : (trail.CoverPhoto | coverPhoto)}">
+                        <label class="label" ng-class="trail.Difficult | labelDifficult">{{trail.Difficult}}</label>
                         <span ng-hide="true">{{trail.Region}}</span>
                         <h3 class="text-default">{{trail.Country}}</h3>
                         <h2>{{trail.Name}}</h2>
                         <h4 class="text-warning">Distance {{trail.Distance}}</h4>
                         <div>
                             <ul class="ul-trails-icon">
-                                <li><img src="~/Content/Icons/white/{{trail.Type}}" /></li>
-                                <li><img src="~/Content/Icons/white/{{trail.DurationType}}" /></li>
-                                <li ng-show="trail.GoodForKids"><img src="~/Content/Icons/white/good-for-kids.png" /></li>
-                                <li ng-show="trail.DogAllowed"><img src="~/Content/Icons/white/dog-freindly.png" /></li>
+                                <li><img src="{{trail.Type | typeIcon | getFullIconPath:'white'}}" /></li>
+                                <li><img src="{{trail.DurationType | durationTypeIcon | getFullIconPath:'white'}}" /></li>
+                                <li ng-show="trail.GoodForKids"><img src="{{'good-for-kids.png' | getFullIconPath:'white'}}" /></li>
+                                <li ng-show="trail.DogAllowed"><img src="{{'dog-freindly.png' | getFullIconPath:'white'}}" /></li>
                             </ul>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 

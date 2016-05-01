@@ -65,7 +65,7 @@ body {
     width: 100%;
     color: #fff;
     margin: -150px auto 0;
-    background-image: url('Images/background-home.jpg');
+    background-image: url('../Images/background-home.jpg');
     background-size: cover;
 }
 
@@ -202,7 +202,7 @@ body {
     list-style-type: none;
 }
 
-li {
+.ul-regions, .ul-countries-of-regions li {
     cursor: pointer;
 }
 
