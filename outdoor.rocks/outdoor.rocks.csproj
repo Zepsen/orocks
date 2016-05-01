@@ -285,11 +285,6 @@
     <Content Include="Content\Images\img2.jpg" />
     <Content Include="Content\SiteImages\Elevation.png" />
     <Content Include="Content\SiteImages\weather.jpg" />
-    <Content Include="Content\slick\ajax-loader.gif" />
-    <Content Include="Content\slick\slick-theme.css" />
-    <Content Include="Content\slick\slick.css" />
-    <Content Include="Content\slick\slick.js" />
-    <Content Include="Content\slick\slick.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\Open sans\Apache License.txt" />
@@ -297,9 +292,7 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\Angular\ngTrailController.js" />
     <Content Include="Scripts\Angular\ngValidationController.js" />
-    <Content Include="Scripts\Angular\ngHomeController.js" />
     <Content Include="Scripts\Angular\ui-angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -317,16 +310,8 @@
     <Content Include="fonts\Open sans\OpenSans-Semibold.ttf" />
     <Content Include="fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
     <Content Include="Content\Countries\countries.json" />
-    <Content Include="Content\slick\config.rb" />
-    <Content Include="Content\slick\slick-theme.less" />
-    <Content Include="Content\slick\slick-theme.scss" />
-    <Content Include="Content\slick\slick.less" />
-    <Content Include="Content\slick\slick.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\CustomJS\global.js" />
     <Content Include="Scripts\CustomJS\googlemaps.js" />
-    <Content Include="Scripts\CustomJS\slicky.js" />
-    <Content Include="Scripts\CustomJS\Typeahead.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -337,7 +322,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\TypeHead\typehead.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -117,7 +117,7 @@ body {
 
 /*Typeahead*/
 
-.typeahead, .tt-query, .tt-hint {
+/*.typeahead, .tt-query, .tt-hint {
     font-size: 18px;
     height: 30px;
     line-height: 30px;
@@ -128,13 +128,7 @@ body {
 .typeahead {
     background-color: #FFFFFF;
 }
-
-    .typeahead:focus {
-    }
-
-.tt-query {
-}
-
+   
 .tt-hint {
     color: #999999;
 }
@@ -187,9 +181,55 @@ body {
 
     .tt-dataset div:hover {
         background: lightgray;
+    }*/
+#typeahead-input {
+       width: 500px;
+    
+}
+ .typeahead-demo .custom-popup-wrapper {
+  
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        background-color: #f9f9f9;
     }
 
+        .typeahead-demo .custom-popup-wrapper > .message {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            color: #868686;
+        }
 
+        .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+            position: static;
+            float: none;
+            display: block;
+            width: 500px;
+            min-width: 160px;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        #typeahead-custom-template {
+            width: 500px;
+            text-align: left;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        #typeahead-glyphicon-custom{
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        #typeahead-span-custom {
+            text-align: left;
+        }
 
 
 /*Section  Country*/
