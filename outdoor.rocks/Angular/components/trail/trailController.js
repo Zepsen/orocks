@@ -5,7 +5,37 @@ angular
 
         $scope.trail = [];
         $scope.options = [];
-        
+        $scope.miniGalleryResponsive = [
+         {
+             breakpoint: 1024,
+             settings: {
+                 slidesToShow: 4,
+                 slidesToScroll: 1
+             }
+         },
+         {
+             breakpoint: 980,
+             settings: {
+                 slidesToShow: 3,
+                 slidesToScroll: 1
+             }
+         },
+         {
+             breakpoint: 767,
+             settings: {
+                 slidesToShow: 2,
+                 slidesToScroll: 1
+             }
+         },
+         {
+             breakpoint: 500,
+             settings: {
+                 slidesToShow: 1,
+                 slidesToScroll: 1
+             }
+         }
+        ];
+
         //$scope.trailId = $("#trailId").text();
 
         $scope.updateTrail = {
@@ -40,7 +70,7 @@ angular
            .then(
             function (response) {
                 $scope.trail = JSON.parse(response.data);
-               
+
                 //Scope.trail.comments = Json.Parse($scope.trail.commennts) Onetime parse
                 //$scope.trailComments = [];
                 //for (var i = 0; i < $scope.trail.Comments.length; i++) {
@@ -95,22 +125,22 @@ angular
 
         //Set styles property
         //var setTrailProperty = function (trail) {
-            //type icon
-            //$scope.TypeIcon = setIconToTrailType(trail.Type);
-            //$scope.DurationTypeIcon = setIconToTrailDurationType(trail.DurationType);
+        //type icon
+        //$scope.TypeIcon = setIconToTrailType(trail.Type);
+        //$scope.DurationTypeIcon = setIconToTrailDurationType(trail.DurationType);
 
-            ////type name
-            //$scope.TypeText = setTextTrailType(trail.Type);
-            //$scope.DurationTypeText = setTextTrailDurationType(trail.DurationType);
+        ////type name
+        //$scope.TypeText = setTextTrailType(trail.Type);
+        //$scope.DurationTypeText = setTextTrailDurationType(trail.DurationType);
 
-            ////label color
-            //$scope.LabelDifficultClass = setLabelClassForDifficult(trail.Difficult);
+        ////label color
+        //$scope.LabelDifficultClass = setLabelClassForDifficult(trail.Difficult);
 
-            //set map position
+        //set map position
         //    COUNTRY = trail.Country;
         //    initMap();
         //}
-        
+
         $scope.submitUpdateTrail = function () {
             $http({
                 method: "PUT",

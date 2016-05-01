@@ -1,8 +1,6 @@
 
 <div id="trail-body" ng-cloak>
 
-    <span id="trailId" ng-show="false">@id</span>
-
     <!--Navigation -->
     <nav class="navbar trail-navbar" ng-cloak>
         <div class="flex-navbar-container">
@@ -33,13 +31,13 @@
 
     <!--Gallery -->
     <section ng-cloak>
-        
-        <div class="trail-gallery" >
-            <slick infinite=true slides-to-show=3 slides-to-scroll=3>
+
+        <div class="trail-gallery">
+            <slick responsive="miniGalleryResponsive" infinite=true slides-to-show=4 slides-to-scroll=3>
                 <img src="{{img | getFullImgPath}}" ng-repeat="img in trail.Photos track by $index" />
             </slick>
         </div>
-       
+
     </section>
 
     <div class="container" ng-cloak>

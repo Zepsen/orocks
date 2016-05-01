@@ -13,6 +13,7 @@
     background: green;
     padding: 0 15px;
     border-radius: 0;
+    margin: 0;
 }
 
     .trail-navbar a {
@@ -62,10 +63,16 @@
 
 
 /* Trail gallery*/
-    
-.trail-gallery div img{
-    height: 200px;
+.trail-gallery {
+    padding: 5px 0 0 0;
+    background: lightgray;
 }
+
+    .trail-gallery img {
+        width: auto;
+        height: 200px;
+        margin: 5px;
+    }
 
 /* End gallery*/
 
@@ -150,31 +157,32 @@
 
 /*Commetns*/
 
-.btnPostComment{
+.btnPostComment {
     background: green;
     color: white;
     padding: 10px 30px;
     cursor: pointer;
 }
 
-.img-star{
+.img-star {
     vertical-align: middle;
     width: 20px;
     height: 20px;
     margin: 0 1px;
-}        
+}
 
 
-.bannerWeather{
+.bannerWeather {
     margin: 20px 0;
 }
-.bannerWeather div{
-    height:300px; 
-}
 
-.bannerWeather div img{
-    background-size: cover;
-}
+    .bannerWeather div {
+        height: 300px;
+    }
+
+        .bannerWeather div img {
+            background-size: cover;
+        }
 
 /*Mobile*/
 /**/
