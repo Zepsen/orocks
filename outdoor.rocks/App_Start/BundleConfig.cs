@@ -15,7 +15,8 @@ namespace outdoor.rocks
                         "~/Scripts/angular.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/importScripts").Include(
-                        "~/Scripts/TypeHead/typehead.js"));
+                        "~/Scripts/TypeHead/typehead.js",
+                        "~/Scripts/Angular/ui-angular.js"));
 
             // Используйте версию Modernizr для разработчиков, чтобы учиться работать. Когда вы будете готовы перейти к работе,
             // используйте средство построения на сайте http://modernizr.com, чтобы выбрать только нужные тесты.
@@ -30,8 +31,8 @@ namespace outdoor.rocks
                       "~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/CustomCss").Include(
-                      "~/Content/Site.css",
-                      "~/Content/CSS/Trail/Trail.css"));
+                      "~/Content/CSS/Home.css",
+                      "~/Content/CSS/Trail.css"));
 
         }
     }

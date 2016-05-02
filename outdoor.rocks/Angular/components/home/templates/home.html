@@ -1,0 +1,115 @@
+
+<div class="mainBody">
+
+    <!--Navigation -->
+    <nav class="navbar navbarCustomGlobal">
+
+        <div class="a-navigation">
+            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="myNavbar">
+
+            </div>-->
+
+            <a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>
+            <a class="a-header-label" ui-sref="home">OUTDOOR.ROCKS</a>
+            <a class="a-createtrail">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="a-createtrail-text">CREATE TRAIL</span>
+            </a>
+        </div>
+    </nav>
+
+    <!--Intro -->
+    <div class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                        <h1 class="intro-heading">Find your route</h1>
+                        <div class="inner-addon right-addon input-group">
+                            <input id="typeahead-input" type="text" placeholder="Enter location" required
+                                   ng-model="customSelected" ng-keypress="$event.keyCode == 13 ? inputPressEnter(customSelected) : null;"
+                                   uib-typeahead="state as state.name for state in regionsAndTrailsModel | filter:{name:$viewValue} | limitTo:6"
+                                   typeahead-template-url="customTemplate.html" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+                            <i class="glyphicon glyphicon-lg glyphicon-search"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mainContainer">
+        <!--Country-->
+        <section class="section-country" ng-cloak>
+            <ul class="ul-regions">
+                <li ng-repeat="region in regions">
+                    <span ng-class="region.selected ? 'li-region-selected':''" ng-click="selectRegion($index)">
+                        {{region.region}}
+                    </span>
+                    <ul ng-if="region.selected" class="hidden-md hidden-lg ul-countries-of-regions">
+                        <li ng-repeat="country in countries">
+                            <span ng-click="selectCountry()">{{country}}</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="hidden-xs hidden-sm ul-countries-of-regions">
+                <li ng-repeat="country in countries">
+                    <span ng-click="selectCountry()">{{country}}</span>
+                </li>
+            </ul>
+        </section>
+
+        <!--Banner -->
+        <section class="row section-banner">
+            <div class="col-md-12 banner"></div>
+        </section>
+
+        <!--Feature -->
+        <section ng-cloak class="row">
+
+            <h2 class="text-center h-feature-header">
+                Featured trails
+            </h2>
+
+            <div class="row" ng-cloak>
+                <div class="col-xs-6 col-sm-4 col-md-4 div-trails" ng-repeat="trail in trails | filter:filterTrails | limitTo: limitTrails">
+                    <!--ng-click="selectTrail(trail._id)"-->
+
+                    <a ui-sref="trail({ id: trail._id })" class="thumbnail thumbnail-custom" ng-style="{'backgroundImage' : (trail.CoverPhoto | coverPhoto)}">
+                        <label class="label" ng-class="trail.Difficult | labelDifficult">{{trail.Difficult}}</label>
+                        <span ng-hide="true">{{trail.Region}}</span>
+                        <h3 class="text-default">{{trail.Country}}</h3>
+                        <h2>{{trail.Name}}</h2>
+                        <h4 class="text-warning">Distance {{trail.Distance}}</h4>
+                        <div>
+                            <ul class="ul-trails-icon">
+                                <li><img src="{{trail.Type | typeIcon | getFullIconPath:'white'}}"/></li>
+                                <li><img src="{{trail.DurationType | durationTypeIcon | getFullIconPath:'white'}}"/></li>
+                                <li ng-show="trail.GoodForKids"><img src="{{'good-for-kids.png' | getFullIconPath:'white'}}"/></li>
+                                <li ng-show="trail.DogAllowed"><img src="{{'dog-freindly.png' | getFullIconPath:'white'}}"/></li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row" ng-cloak>
+                <button ng-show="showBtnMore" ng-click="moreTrails()" class="btn btn-default btn-lg btn-block btn-moretrails">More</button>
+            </div>
+
+        </section>
+    </div>
+
+</div>
+
+<!-- Dropdown template -->
+<script type="text/ng-template" id="customTemplate.html">
+    <a id="typeahead-custom-template">
+        <i id="typeahead-glyphicon-custom" class="glyphicon glyphicon-globe"></i>
+        <span id="typeahead-span-custom" ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+    </a>
+</script>

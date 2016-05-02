@@ -1,113 +1,31 @@
 ﻿
-<div class="mainBody" ng-controller="HomeCtrl">
 
-    @* Navigation *@
-    <nav class="navbar navbarCustomGlobal">
-
-        <div class="a-navigation">
-            @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="myNavbar">
-
-                </div>*@
-            <a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>
-            @*@Html.ActionLink("JOIN US", "Index", "Home", new { area = "" }, new { @class = "a-join" })*@
-            @Html.ActionLink("OUTDOOR.ROCKS", "Index", "Home", new { area = "" }, new { @class = "a-header-label" })
-            <a class="a-createtrail">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <span class="a-createtrail-text">CREATE TRAIL</span>
-            </a>
-        </div>
-    </nav>
-
-    @* Intro *@
-    <div class="intro">
-        <div class="intro-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-md-8 col-md-offset-2">
-                        <h1 class="intro-heading">Find your route</h1>
-                        <div class="inner-addon right-addon input-group">
-                            <input type="text" class="typeahead tt-query"
-                                   autocomplete="off" spellcheck="false" placeholder="Enter location" required
-                                   ng-model="inputValue" ng-keypress="$event.keyCode == 13 ? inputPressEnter(inputValue) : null;" ng-trim="false" />
-                            <i class="glyphicon glyphicon-lg glyphicon-search"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mainContainer">
-        @* Country *@
-        <section class="section-country" ng-cloak>
-            <ul class="ul-regions">
-                <li ng-repeat="region in regions">
-                    <span ng-class="region.selected ? 'li-region-selected':''" ng-click="selectRegion($index)">
-                        {{region.region}}
-                    </span>
-                    <ul ng-if="region.selected" class="hidden-md hidden-lg ul-countries-of-regions">
-                        <li ng-repeat="country in countries">
-                            <span ng-click="selectCountry()">{{country}}</span>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="hidden-xs hidden-sm ul-countries-of-regions">
-                <li ng-repeat="country in countries">
-                    <span ng-click="selectCountry()">{{country}}</span>
-                </li>
-            </ul>
-        </section>
-
-        @* Banner *@
-        <section class="row section-banner">
-            <div class="col-md-12 banner"></div>
-        </section>
-
-        @* Feature *@
-        <section ng-cloak class="row">
-
-            <h2 class="text-center h-feature-header">
-                Featured trails
-            </h2>
-
-            <div class="row" ng-cloak>
-                <div class="col-xs-6 col-sm-4 col-md-4 div-trails" ng-repeat="trail in trails | filter:filterTrails | limitTo: limitTrails">
-                    <div ng-click="selectTrail(trail._id)" class="thumbnail thumbnail-custom" style="{{trail.CoverPhoto}}">
-                        <label ng-class="trail.LabelDifficultClass">{{trail.Difficult}}</label>
-                        <span ng-hide="true">{{trail.Region}}</span>
-                        <h3 class="text-default">{{trail.Country}}</h3>
-                        <h2>{{trail.Name}}</h2>
-                        <h4 class="text-warning">Distance {{trail.Distance}}</h4>
-                        <div>
-                            <ul class="ul-trails-icon">
-                                <li><img src="~/Content/Icons/white/{{trail.Type}}" /></li>
-                                <li><img src="~/Content/Icons/white/{{trail.DurationType}}" /></li>
-                                <li ng-show="trail.GoodForKids"><img src="~/Content/Icons/white/good-for-kids.png" /></li>
-                                <li ng-show="trail.DogAllowed"><img src="~/Content/Icons/white/dog-freindly.png" /></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" ng-cloak>
-                <button ng-show="showBtnMore" ng-click="moreTrails()" class="btn btn-default btn-lg btn-block btn-moretrails">More</button>
-            </div>
-
-        </section>
-    </div>
-
+<div ng-controller="MainCtrl">
+    <div ui-view></div>
 </div>
 
 
 
+
 @section scripts{
-    <script src="~/Scripts/CustomJS/global.js"></script>    
-    <script src="~/Scripts/CustomJS/Typeahead.js"></script>
-    <script src="~/Scripts/Angular/ngHomeController.js"></script>
+    
     <script src="~/Scripts/Angular/ngValidationController.js"></script>
+    
+   
+    <script src="~/Scripts/Angular/ngValidationController.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"
+            async defer></script>    
+    <script src="~/Scripts/CustomJS/googlemaps.js"></script>
+   
+    <script src="~/Angular/app.module.js"></script>
+    <script src="~/Angular/app.routes.js"></script>
+
+    <script src="~/Angular/components/generic/mainController.js"></script>
+    <script src="~/Angular/components/generic/iFilters.js"></script>
+    
+    <script src="~/Angular/components/home/homeController.js"></script>
+    
+    <script src="~/Angular/components/trail/trailController.js"></script>
+    
+    
 }
