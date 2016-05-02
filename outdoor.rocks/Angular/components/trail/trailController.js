@@ -54,7 +54,7 @@ angular
         }
 
         function initTrailMap(country) {
-            COUNTRY = country || "USA";
+            COUNTRY = country || "USA";            
             initMap();
         }
 
@@ -67,7 +67,8 @@ angular
             })
            .then(
             function (response) {
-                $scope.trail = JSON.parse(response.data);               
+                $scope.trail = JSON.parse(response.data);
+                initTrailMap($scope.trail.Country);
             },
            function (error) {
                console.log("Error");
@@ -176,8 +177,12 @@ angular
                 data: "=" + JSON.stringify($scope.postCommentData),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
 
-            }).success(function (response) {
-                $scope.updateComments();
+            })
+            .then(function (response) {
+                updateComments();
+            })
+            .then(function (error) {
+                console.log(error);
             });
 
         }
@@ -194,8 +199,7 @@ angular
 
 
         //Load functions
-        loadTrail();
-        initTrailMap($scope.trail.Country);
+        loadTrail();       
         loadOptions();
 
     }]);

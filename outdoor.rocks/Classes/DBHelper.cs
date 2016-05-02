@@ -26,8 +26,21 @@ namespace outdoor.rocks.Classes
             var comments = new List<CommentsModel>();
             var trail = DBTrails.GetById(id);
             var location = trail.Location.GetById(trail.Location_Id);
-            var option = trail.Option.GetById(trail.Option_Id);
-            rate = getAllCommentsForThisTrail(trail, rate, comments);
+            var option = DBOptions.GetById(trail.Option_Id);
+
+            foreach (var commentId in trail.Comments_Ids)
+            {
+                var comment = DBComments.GetById(commentId);
+                rate += comment.Rate;
+                comments.Add(
+                    new CommentsModel
+                    {
+                        Rate = comment.Rate,
+                        Comment = comment.Comment,
+                        Name = comment.User.GetById(comment.User_Id).Name
+                    }
+                );
+            }
 
             var res = new FullTrailModel
             {
@@ -43,7 +56,7 @@ namespace outdoor.rocks.Classes
 
                 Name = trail.Name,
 
-                Rate = rate / comments.Count(),
+                Rate = Math.Round(rate / comments.Count(), 1),
                 WhyGo = trail.WhyGo,
                 Description = trail.Description,
 
@@ -101,7 +114,7 @@ namespace outdoor.rocks.Classes
         {
             foreach (var commentId in trail.Comments_Ids)
             {
-                var comment = trail.Comments.GetById(commentId);
+                var comment = DBComments.GetById(commentId);
                 rate += comment.Rate;
                 comments.Add(
                     new CommentsModel
@@ -125,7 +138,7 @@ namespace outdoor.rocks.Classes
             foreach (Trails trail in trails)
             {
                 var location = trail.Location.GetById(trail.Location_Id);
-                var option = trail.Option.GetById(trail.Option_Id);
+                var option = DBOptions.GetById(trail.Option_Id);
 
                 res.Add(new TrailModel
                 {
