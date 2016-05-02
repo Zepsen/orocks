@@ -1,6 +1,6 @@
 angular
     .module('ORockApp')
-    .controller('HomeCtrl', ['$scope', '$http', '$state', function ($scope, $http) {
+    .controller('HomeCtrl', ['$scope', '$http',  function ($scope, $http) {
         'use strict';
 
         $scope.regions = null;

@@ -16,9 +16,11 @@ namespace outdoor.rocks.Classes
         static readonly MongoRepository<Countries> DBCountries = new MongoRepository<Countries>();
         static readonly MongoRepository<Seasons> DBSeasons = new MongoRepository<Seasons>();
         static readonly MongoRepository<TrailsTypes> DBTrailsTypes = new MongoRepository<TrailsTypes>();
-        static readonly MongoRepository<TrailsDurationTypes> DBTrailsDurationTypes = new MongoRepository<TrailsDurationTypes>();  
+        static readonly MongoRepository<TrailsDurationTypes> DBTrailsDurationTypes = new MongoRepository<TrailsDurationTypes>();
         static readonly MongoRepository<Regions> DBRegions = new MongoRepository<Regions>();
         static readonly MongoRepository<Comments> DBComments = new MongoRepository<Comments>();
+        static readonly MongoRepository<Users> DBUsers = new MongoRepository<Users>();
+        static readonly MongoRepository<Roles> DBRoles = new MongoRepository<Roles>();
 
         public static FullTrailModel getFullTrailModelByTrailId(string id)
         {
@@ -110,9 +112,8 @@ namespace outdoor.rocks.Classes
 
         public static double getAllCommentsForThisTrail(Trails trail, double rate, List<CommentsModel> comments)
         {
-            foreach (var commentId in trail.Comments_Ids)
+            foreach (var comment in trail.Comments_Ids.Select(commentId => DBComments.GetById(commentId)))
             {
-                var comment = DBComments.GetById(commentId);
                 rate += comment.Rate;
                 comments.Add(
                     new CommentsModel
@@ -121,7 +122,7 @@ namespace outdoor.rocks.Classes
                         Comment = comment.Comment,
                         Name = comment.User.GetById(comment.User_Id).Name
                     }
-                );
+                    );
             }
 
             return rate;
@@ -318,6 +319,24 @@ namespace outdoor.rocks.Classes
 
             trail.Comments_Ids.Add(id);
             DBTrails.Update(trail);
+        }
+
+        internal static string getUsersRoleIfUserReg(string id)
+        {
+            //var user = DBUsers.GetById(ObjectId.Parse(id));
+            //return user.Role.GetById(user.Role_Id).Role;
+
+            return "Admin";
+        }
+
+        internal static string getUsersRoleIfUserRegByData(string id, string value)
+        {
+            //dynamic userObj = JObject.Parse(value);
+            //var name = (string) userObj.name.Value;
+            //var password = (string) userObj.password.Value;
+            //var user = DBUsers.Where(i => i.Name == name && i.Password == password);
+            //return user.Role.GetById(user.Role_Id).Role;
+            return "Admin";
         }
     }
 }

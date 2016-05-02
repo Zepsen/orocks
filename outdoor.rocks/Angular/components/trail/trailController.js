@@ -116,7 +116,7 @@ angular
 
         $scope.imgStar = [starPathUnselect, starPathUnselect, starPathUnselect, starPathUnselect, starPathUnselect];
         $scope.IfRateChose = false;
-
+        
         //rating stars          
         $scope.mEnterStars = function (stars) {
             if ($scope.IfRateChos) {
@@ -194,9 +194,15 @@ angular
 
         }
 
+        //Auth
+        function checkAuthTrail() {
+            $scope.isAdmin = $scope.auth.status === 'Admin';
+            $scope.isUser = $scope.auth.status === 'Admin' || $scope.auth.status === 'User';
+        }
 
         //Load functions
         loadTrail();
         loadOptions();
+        checkAuthTrail();
 
     }]);

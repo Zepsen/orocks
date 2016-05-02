@@ -85,7 +85,8 @@
                 </div>
 
                 <!-- Update collapse -->
-                <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                
+                <button ng-if="isAdmin" class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Update options
                 </button>
                 <div class="collapse" id="collapseExample">
@@ -233,7 +234,7 @@
             </section>
 
             <!--@* Add comments *@-->
-            <section trail-addcomments>
+            <section ng-if="isUser" trail-addcomments>
                 <form>
                     <div class="col-xs-2">
 

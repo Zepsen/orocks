@@ -1,6 +1,6 @@
 angular
     .module('ORockApp')
-    .controller('MainCtrl', ['$scope', '$http', '$state', function ($scope, $http, $state) {
+    .controller('MainCtrl', ['$scope', '$http', '$state', '$cookies', function ($scope, $http, $state, $cookies) {
         'use strict';
       
         //Global prop
@@ -8,7 +8,10 @@ angular
         $scope.search2TrailsModel = [];
         var searchTrails = [];
         var searchCountries = [];
-
+        $scope.auth = {
+            status: ""
+        }
+        
 
         //Typeaehad        
         function loadRegionsAndTrailsName() {            
@@ -65,7 +68,7 @@ angular
             var res = false;
 
             searchCountries.forEach(function(i) {
-                if (i.id == value.id) {
+                if (i.id === value.id) {
                     res = true;
                     return;
                 }
@@ -76,9 +79,28 @@ angular
             $state.go('trail', { id: value.id });
         }
 
+        //Auth
+        function checkAuth() {
+            debugger
+            if ($cookies.get('user')) {
+                debugger
+                var id = $cookies.get('user') || "id";
+                $http({
+                        method: "GET",
+                        url: "/api/Users/" + id
+                })
+                .then(function (response) {
+                    $scope.auth.status = JSON.parse(response.data);
+                })
+                .then(function(error) {
+                        console.log(error);
+                });
+            }
+        }
+
         //Load functions
         loadRegionsAndTrailsName();
-
+        checkAuth();
     }]);
 
 

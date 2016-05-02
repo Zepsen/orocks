@@ -1,0 +1,3 @@
+﻿1>------ Rebuild All started: Project: outdoor.rocks, Configuration: Debug Any CPU ------
+1>  outdoor.rocks -> C:\Users\Dmytro\Source\Repos\orocks\outdoor.rocks\bin\outdoor.rocks.dll
+========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
