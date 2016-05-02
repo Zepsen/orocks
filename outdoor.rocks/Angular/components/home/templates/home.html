@@ -80,7 +80,7 @@
                 <div class="col-xs-6 col-sm-4 col-md-4 div-trails" ng-repeat="trail in trails | filter:filterTrails | limitTo: limitTrails">
                     <!--ng-click="selectTrail(trail._id)"-->
 
-                    <a ui-sref="trail({ id: trail._id })" ui-sref-opts="{reload: true}" class="thumbnail thumbnail-custom" ng-style="{'backgroundImage' : (trail.CoverPhoto | coverPhoto)}">
+                    <a ui-sref="trail({ id: trail._id })" ui-sref-opts="{reload: true, notify: true}" class="thumbnail thumbnail-custom" ng-style="{'backgroundImage' : (trail.CoverPhoto | coverPhoto)}">
                         <label class="label" ng-class="trail.Difficult | labelDifficult">{{trail.Difficult}}</label>
                         <span ng-hide="true">{{trail.Region}}</span>
                         <h3 class="text-default">{{trail.Country}}</h3>

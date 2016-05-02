@@ -1,45 +1,49 @@
 ﻿
 var path2ImgStorage = "/Content/Images/",
     path2IconStorage = "/Content/Icons",
-    
+
 
     relDiff2Style = {
-         easy: "label-success",
-         medium: "label-warning",
-         hard: "label-danger"
-     },
-
-    relIcon2TrailDurationType = {
-        oneday: 'one-day.png',
-        manydays: 'many-days.png',
-        weekend: 'weekend.png'
+        easy: "label-success",
+        medium: "label-warning",
+        hard: "label-danger"
     },
 
-    relIcon2TrailType = {
+
+
+    relIcon2TrailDurationType = {
         'loop': 'loop.png',
         "point-to-point": 'point-to-point.png',
         "in-and-out": 'in-and-out.png'
     },
 
     relTextTrailDurationType = {
+        'loop': 'Loop',
+        'point-to-point': 'Point to point',
+        'in-and-out': 'In and Out'
+    };
+
+    relIcon2TrailType = {
+        oneday: 'one-day.png',
+        manydays: 'many-days.png',
+        weekend: 'weekend.png'
+    },
+
+     relTextTrailType = {
         'oneday': 'One day',
         'manydays': 'Many days',
         'weekend': 'Weekend'
     },
 
 
-    relTextTrailType = {
-        'loop': 'Loop',
-        'point-to-point': 'Point to point',
-        'in-and-out': 'In and Out'
-    };
+
 
 
 angular
     .module('ORockApp')
     .filter('coverPhoto', function () {
         return function (photoName) {
-            return "url('" + path2ImgStorage + photoName + "')";
+            return "url('" + path2ImgStorage + ( photoName || "Default.jpg") + "')";
         };
     })
     .filter('labelDifficult', function () {
@@ -53,7 +57,7 @@ angular
         };
     })
     .filter('durationTypeIcon', function () {
-        return function (type) {
+        return function (type) {            
             return relIcon2TrailDurationType[type];
         };
     })
