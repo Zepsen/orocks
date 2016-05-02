@@ -12,6 +12,7 @@ angular
         $scope.filterTrails = null;
         $scope.trails = [];
         $scope.regionsAndTrailsModel = [];
+
         function loadTrails() {
             //Get Features Trails
             $http({
@@ -39,32 +40,47 @@ angular
             });
         }
 
+        function getRegionsAndCountries() {
+            //Countries from file
+            //$http.get('../Content/Countries/countries.json').success(function (data) {
+            //    $scope.regions = data;
+            //    setDefaultRegionAndCountry();
+            //});
+
+            $http({
+                method: "GET",
+                url: "/api/Locations/"
+            })
+            .then(function (response) {                
+                $scope.regions = JSON.parse(response.data);
+                
+                
+            })
+            .then(function (error) {
+                console.log(error);
+            });
+        }
+        
+
         loadTrails();
+        getRegionsAndCountries();
 
-
-
-
-        //Countries from file
-        $http.get('../Content/Countries/countries.json').success(function (data) {
-            $scope.regions = data;
-            setDefaultRegionAndCountry();
-        });
+        
+        //FILTER
 
         var setDefaultRegionAndCountry = function () {
-            $scope.regions[1].selected = true;
-            $scope.countries = $scope.regions[1].countries;
+            $scope.regions[1].Selected = true;
+            $scope.Countries = $scope.regions[1].Countries;
         }
-
-
 
         //Selected region
         $scope.selectRegion = function (index) {
             $scope.regions.forEach(function (i) {
-                i.selected = false;
+                i.Selected = false;
             });
-            $scope.regions[index].selected = true;
-            $scope.countries = $scope.regions[index].countries;
-            $scope.filterTrails = $scope.regions[index].region;
+            $scope.regions[index].Selected = true;
+            $scope.Countries = $scope.regions[index].Countries;
+            $scope.filterTrails = $scope.regions[index].Region;
 
         }
 
@@ -72,12 +88,7 @@ angular
         $scope.selectCountry = function () {
             $scope.filterTrails = 13.4;
         }
-
-        //Select trail
-        //$scope.selectTrail = function (id) {
-        //    $window.location.href = "/Home/Trail/" + id;
-        //}
-
+                
 
         //Add more trails to home pages
         $scope.moreTrails = function () {
@@ -89,11 +100,13 @@ angular
             }
         }
 
+        //Selected trail in input
         $scope.inputPressEnter = function (value) {
             $state.go('trail', { id: value.id }, { reload: true });
         }
 
         //Typeaehad
+
         var _selected;
 
         $scope.selected = undefined;

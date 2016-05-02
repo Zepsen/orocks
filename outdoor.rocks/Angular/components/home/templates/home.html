@@ -46,20 +46,20 @@
         <!--Country-->
         <section class="section-country" ng-cloak>
             <ul class="ul-regions">
-                <li ng-repeat="region in regions">
-                    <span ng-class="region.selected ? 'li-region-selected':''" ng-click="selectRegion($index)">
-                        {{region.region}}
+                <li ng-repeat="region in regions ">
+                    <span ng-class="region.Selected ? 'li-region-selected':''" ng-click="selectRegion($index)">
+                        {{region.Region}}
                     </span>
-                    <ul ng-if="region.selected" class="hidden-md hidden-lg ul-countries-of-regions">
-                        <li ng-repeat="country in countries">
-                            <span ng-click="selectCountry()">{{country}}</span>
+                    <ul ng-if="region.Selected" class="hidden-md hidden-lg ul-countries-of-regions">
+                        <li ng-repeat="country in region.Countries">
+                            <span ng-click="selectCountry()">{{country.Country}}</span>
                         </li>
                     </ul>
                 </li>
             </ul>
             <ul class="hidden-xs hidden-sm ul-countries-of-regions">
-                <li ng-repeat="country in countries">
-                    <span ng-click="selectCountry()">{{country}}</span>
+                <li ng-repeat="country in Countries">
+                    <span ng-click="selectCountry()">{{country.Country}}</span>
                 </li>
             </ul>
         </section>

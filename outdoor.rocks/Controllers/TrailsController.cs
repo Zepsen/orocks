@@ -39,7 +39,7 @@ namespace outdoor.rocks.Controllers
                     CoverPhoto = trail.CoverPhoto,
                     GoodForKids = option.GoodForKids,
                     Name = trail.Name,
-                    Region = location.Region.GetById(location.Region_Id).Region,
+                    Region = location.Region.GetById(location.Region_Id).Region,                    
                     Type = option.TrailType.GetById(option.TrailType_Id).Type
 
                 });
