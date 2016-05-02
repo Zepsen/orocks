@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoRepository;
+using outdoor.rocks.Classes;
 using outdoor.rocks.Models;
 using System;
 using System.Collections.Generic;
@@ -11,27 +12,14 @@ using System.Web.Http;
 namespace outdoor.rocks.Controllers
 {
     public class LocationsController : ApiController
-    {
-        static MongoRepository<Countries> DBCountries = new MongoRepository<Countries>();
-        static MongoRepository<Regions> DBRegions = new MongoRepository<Regions>();
+    {       
         // GET: api/Locations
         public string Get()
-        {           
-
-            var regions = DBRegions.Select(i =>
-                new RegionModel
-                {
-                    Region = i.Region,
-                    Selected = false,
-                    Countries = DBCountries
-                        .Where(j => j.Region_Id == ObjectId.Parse(i.Id))
-                        .Select(k => new CountryModel { Country = k.Name})
-                        .ToList()
-                });
-            
+        {
+            IQueryable<RegionModel> regions = DBHelper.getRegionModel();
             return regions.ToJson();
         }
-
+        
         // GET: api/Locations/5
         public string Get(int id)
         {

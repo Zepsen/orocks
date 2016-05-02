@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoRepository;
+using outdoor.rocks.Classes;
 using outdoor.rocks.Models;
 using System;
 using System.Collections.Generic;
@@ -11,20 +12,14 @@ using System.Web.Http;
 namespace outdoor.rocks.Controllers
 {
     public class FiltersController : ApiController
-    {
-        static MongoRepository<Countries> DBCountries = new MongoRepository<Countries>();
-        static MongoRepository<Trails> DBTrails = new MongoRepository<Trails>();
+    {       
+        
         // GET: api/Filters
         public string Get()
         {
-            var res = new FilterModel();
-            res.Countries = DBCountries.Select(i => 
-                    new SimpleModel{ Id = i.Id.ToString(), Value = i.Name}).ToList();
-            res.Trails = DBTrails.Select(i =>
-                    new SimpleModel { Id = i.Id.ToString(), Value = i.Name }).ToList();
-
+            FilterModel res = DBHelper.getFilterModel();
             return res.ToJson();
-        }
+        }       
 
         // GET: api/Filters/5
         public string Get(int id)

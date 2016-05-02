@@ -107,52 +107,12 @@ angular
             .then(function (error) {
                 console.log(error);
             });
-
         }
 
-        //$scope.updateThisTrail = function () {
-
-        //    if ($scope.updateTrail.Distance)
-        //        $scope.trail.Distance = $scope.updateTrail.Distance;
-
-        //    if ($scope.updateTrail.Difficult) {
-        //        $scope.trail.Difficult = $scope.updateTrail.Difficult;
-        //        $scope.LabelDifficultClass = setLabelClassForDifficult($scope.updateTrail.Difficult);
-        //    }
-
-
-        //    if ($scope.updateTrail.Peak)
-        //        $scope.trail.Peak = $scope.updateTrail.Peak;
-
-        //    if ($scope.updateTrail.Elevation)
-        //        $scope.trail.Elevation = $scope.updateTrail.Elevation;
-
-        //    if ($scope.updateTrail.SeasonStart)
-        //        $scope.trail.SeasonStart = $scope.updateTrail.SeasonStart.Value;
-
-        //    if ($scope.updateTrail.SeasonEnd)
-        //        $scope.trail.SeasonEnd = $scope.updateTrail.SeasonEnd.Value;
-
-
-        //    $scope.trail.DogAllowed = $scope.updateTrail.DogAllowed;
-
-        //    $scope.trail.GoodForKids = $scope.updateTrail.GoodForKids;
-
-        //    if ($scope.updateTrail.Type) {
-        //        $scope.TypeIcon = setIconToTrailType($scope.updateTrail.Type.Value);
-        //        $scope.TypeText = setTextTrailType($scope.updateTrail.Type.Value);
-        //    }
-
-
-        //    if ($scope.updateTrail.DurationType) {
-        //        $scope.DurationTypeIcon = setIconToTrailDurationType($scope.updateTrail.DurationType.Value);
-        //        $scope.DurationTypeText = setTextTrailDurationType($scope.updateTrail.DurationType.Value);
-        //    }
-        //}
+       
 
         //Comments
-        //--------------------------------Stars rate ----------------------//
-
+        //Rate
         var starPathSelect = "/Content/Icons/stars/gold-star-icon.png";
         var starPathUnselect = "/Content/Icons/stars/empty_star_icon.png";
 
@@ -196,9 +156,7 @@ angular
                     $scope.imgStar[i] = starPathUnselect;
             }
 
-            $scope.IfRateChose = true;
-
-            // INSERT INTO DB_Rate rate VALUES (. $scope.chRate .);
+            $scope.IfRateChose = true;                       
             $scope.postCommentData.Rate = r + 1;
 
         };
