@@ -11,7 +11,7 @@
             <div class="flex-item-input inner-addon right-addon input-group">
                 <input id="typeahead-input" type="text" placeholder="Enter location" required
                        ng-model="customSelected" ng-keypress="$event.keyCode == 13 ? inputPressEnter(customSelected) : null;"
-                       uib-typeahead="state as state.name for state in regionsAndTrailsModel | filter:{name:$viewValue} | limitTo:6"
+                       uib-typeahead="state as state.name for state in search2TrailsModel | filter:{name:$viewValue} | limitTo:6"
                        typeahead-template-url="customTemplate.html" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
                 <i class="glyphicon glyphicon-lg glyphicon-search"></i>
             </div>

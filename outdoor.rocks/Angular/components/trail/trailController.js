@@ -34,10 +34,7 @@ angular
                  slidesToScroll: 1
              }
          }
-        ];
-
-        //$scope.trailId = $("#trailId").text();
-
+        ];           
         $scope.updateTrail = {
             Distance: "",
             Peak: "",
@@ -48,8 +45,9 @@ angular
             GoodForKids: false,
             Type: "",
             DurationType: ""
-        }
+        };
 
+        
         //SPIKE
         function getTrailId() {
             return window.location.href.split('/').pop();
@@ -93,10 +91,7 @@ angular
             });
         }
 
-        loadTrail();
-        initTrailMap($scope.trail.Country);
-        loadOptions();
-              
+        
 
         //Update trails and return  update trail
         $scope.submitUpdateTrail = function () {
@@ -237,4 +232,11 @@ angular
                 });
 
         }
+
+
+        //Load functions
+        loadTrail();
+        initTrailMap($scope.trail.Country);
+        loadOptions();
+
     }]);
