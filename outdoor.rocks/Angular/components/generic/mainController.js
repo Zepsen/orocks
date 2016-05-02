@@ -64,16 +64,16 @@ angular
         $scope.inputPressEnter = function (value) {
             var res = false;
 
-            searchCountries.forEach(function (i) {
+            searchCountries.forEach(function(i) {
                 if (i.id == value.id) {
                     res = true;
                     return;
                 }
-            })
+            });
 
             if (res) return;
             
-            $state.go('trail', { id: value.id }, { reload: true });
+            $state.go('trail', { id: value.id });
         }
 
         //Load functions

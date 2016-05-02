@@ -11,100 +11,99 @@ namespace outdoor.rocks.Classes
 {
     public static class DBHelper
     {
-        static MongoRepository<Trails> DBTrails = new MongoRepository<Trails>();
-        static MongoRepository<Options> DBOptions = new MongoRepository<Options>();
-        static MongoRepository<Countries> DBCountries = new MongoRepository<Countries>();
-        static MongoRepository<Seasons> DBSeasons = new MongoRepository<Seasons>();
-        static MongoRepository<TrailsTypes> DBTrailsTypes = new MongoRepository<TrailsTypes>();
-        static MongoRepository<TrailsDurationTypes> DBTrailsDurationTypes = new MongoRepository<TrailsDurationTypes>();  
-        static MongoRepository<Regions> DBRegions = new MongoRepository<Regions>();
-        static MongoRepository<Comments> DBComments = new MongoRepository<Comments>();
+        static readonly MongoRepository<Trails> DBTrails = new MongoRepository<Trails>();
+        static readonly MongoRepository<Options> DBOptions = new MongoRepository<Options>();
+        static readonly MongoRepository<Countries> DBCountries = new MongoRepository<Countries>();
+        static readonly MongoRepository<Seasons> DBSeasons = new MongoRepository<Seasons>();
+        static readonly MongoRepository<TrailsTypes> DBTrailsTypes = new MongoRepository<TrailsTypes>();
+        static readonly MongoRepository<TrailsDurationTypes> DBTrailsDurationTypes = new MongoRepository<TrailsDurationTypes>();  
+        static readonly MongoRepository<Regions> DBRegions = new MongoRepository<Regions>();
+        static readonly MongoRepository<Comments> DBComments = new MongoRepository<Comments>();
 
         public static FullTrailModel getFullTrailModelByTrailId(string id)
         {
-            var rate = 0.0;
-            var comments = new List<CommentsModel>();
-            var trail = DBTrails.GetById(id);
-            var location = trail.Location.GetById(trail.Location_Id);
-            var option = DBOptions.GetById(trail.Option_Id);
+            //var rate = 0.0;
+            //var comments = new List<CommentsModel>();
+            //var trail = DBTrails.GetById(id);
+            //var location = trail.Location.GetById(trail.Location_Id);
+            //var option = DBOptions.GetById(trail.Option_Id);
 
-            foreach (var commentId in trail.Comments_Ids)
-            {
-                var comment = DBComments.GetById(commentId);
-                rate += comment.Rate;
-                comments.Add(
-                    new CommentsModel
-                    {
-                        Rate = comment.Rate,
-                        Comment = comment.Comment,
-                        Name = comment.User.GetById(comment.User_Id).Name
-                    }
-                );
-            }
-
-            var res = new FullTrailModel
-            {
-                Id = trail.Id.ToString(),
-
-                Difficult = trail.Difficult.GetById(trail.Difficult_Id).Value,
-
-                Photos = trail.Photos,
-
-                Region = location.Region.GetById(location.Region_Id).Region,
-                Country = location.Country.GetById(location.Country_Id).Name,
-                //State =  location.State_Id == null ? null : location.State.GetById(location.State_Id).Name,
-                Name = trail.Name,
-
-                Rate = Math.Round(rate / comments.Count(), 1),
-                WhyGo = trail.WhyGo,
-                Description = trail.Description,
-
-                Distance = option.Distance,
-                Elevation = option.Elevation,
-                Peak = option.Peak,
-                SeasonStart = option.Season.GetById(option.SeasonStart_Id).Season,
-                SeasonEnd = option.Season.GetById(option.SeasonEnd_Id).Season,
-
-                DogAllowed = option.DogAllowed,
-                DurationType = option.TrailDurationType.GetById(option.TrailDurationType_Id).DurationType,
-                GoodForKids = option.GoodForKids,
-                Type = option.TrailType.GetById(option.TrailType_Id).Type,
-
-                FullDescription = trail.FullDescription,
-
-                References = trail.References,
-
-                //NearblyTrails = nearbly;
-                Comments = comments
-            };
+            //foreach (var comment in trail.Comments_Ids.Select(commentId => DBComments.GetById(commentId)))
+            //{
+            //    rate += comment.Rate;
+            //    comments.Add(
+            //        new CommentsModel
+            //        {
+            //            Rate = comment.Rate,
+            //            Comment = comment.Comment,
+            //            Name = comment.User.GetById(comment.User_Id).Name
+            //        }
+            //        );
+            //}
 
             //var res = new FullTrailModel
             //{
-            //    Id = "asd",
-            //    Country = "asdasd",
-            //    Difficult = "asdasd",
-            //    Distance = 1000,
-            //    DogAllowed = true,
-            //    DurationType = "oneday",
-            //    CoverPhoto = "img.jpg",
-            //    GoodForKids = true,
-            //    Name = "Name",
-            //    Region = "Europe",
-            //    Type = "loop",
-            //    Comments = new List<string> {},
-            //    Description = "asdasdasdads",
-            //    Elevation = 123123,
-            //    FullDescription = "ASdasda",
-            //    Photos = new List<string> { "img.jpg", "img.jpg", "img.jpg", "img.jpg", "img.jpg"},
-            //    Peak = 100,
-            //    References = new List<string> { "referefd"},
-            //    SeasonEnd = "Jan",
-            //    SeasonStart = "Ses",
-            //    Rate = 10,
-            //    State = "zxc",
-            //    WhyGo = "hsgfhjsdgfahsdgf"
+            //    Id = trail.Id.ToString(),
 
+            //    Difficult = trail.Difficult.GetById(trail.Difficult_Id).Value,
+
+            //    Photos = trail.Photos,
+
+            //    Region = location.Region.GetById(location.Region_Id).Region,
+            //    Country = location.Country.GetById(location.Country_Id).Name,
+            //    //State =  location.State_Id == null ? null : location.State.GetById(location.State_Id).Name,
+            //    Name = trail.Name,
+
+            //    Rate = Math.Round(rate / comments.Count(), 1),
+            //    WhyGo = trail.WhyGo,
+            //    Description = trail.Description,
+
+            //    Distance = option.Distance,
+            //    Elevation = option.Elevation,
+            //    Peak = option.Peak,
+            //    SeasonStart = option.Season.GetById(option.SeasonStart_Id).Season,
+            //    SeasonEnd = option.Season.GetById(option.SeasonEnd_Id).Season,
+
+            //    DogAllowed = option.DogAllowed,
+            //    DurationType = option.TrailDurationType.GetById(option.TrailDurationType_Id).DurationType,
+            //    GoodForKids = option.GoodForKids,
+            //    Type = option.TrailType.GetById(option.TrailType_Id).Type,
+
+            //    FullDescription = trail.FullDescription,
+
+            //    References = trail.References,
+
+            //    //NearblyTrails = nearbly;
+            //    Comments = comments
             //};
+
+            var res = new FullTrailModel
+            {
+                Id = "asd",
+                Country = "asdasd",
+                Difficult = "asdasd",
+                Distance = 1000,
+                DogAllowed = true,
+                DurationType = "oneday",
+                CoverPhoto = "img.jpg",
+                GoodForKids = true,
+                Name = "Name",
+                Region = "Europe",
+                Type = "loop",
+                Comments = new List<CommentsModel> { },
+                Description = "asdasdasdads",
+                Elevation = 123123,
+                FullDescription = "ASdasda",
+                Photos = new List<string> { "img.jpg", "img.jpg", "img.jpg", "img.jpg", "img.jpg" },
+                Peak = 100,
+                References = new List<string> { "referefd" },
+                SeasonEnd = "Jan",
+                SeasonStart = "Ses",
+                Rate = 10,
+                State = "zxc",
+                WhyGo = "hsgfhjsdgfahsdgf"
+
+            };
 
             return res;
         }
@@ -134,49 +133,49 @@ namespace outdoor.rocks.Classes
             //Select only Features trails
             var trails = DBTrails.Where(i => i.Feature);
 
-            foreach (Trails trail in trails)
-            {
-                var location = trail.Location.GetById(trail.Location_Id);
-                var option = DBOptions.GetById(trail.Option_Id);
+            //foreach (var trail in trails)
+            //{
+            //    var location = trail.Location.GetById(trail.Location_Id);
+            //    var option = DBOptions.GetById(trail.Option_Id);
 
+            //    res.Add(new TrailModel
+            //    {
+            //        Id = trail.Id.ToString(),
+            //        Country = location.Country.GetById(location.Country_Id).Name,
+            //        Difficult = trail.Difficult.GetById(trail.Difficult_Id).Value,
+            //        Distance = option.Distance,
+            //        DogAllowed = option.DogAllowed,
+            //        DurationType = option.TrailDurationType.GetById(option.TrailDurationType_Id).DurationType,
+            //        CoverPhoto = trail.CoverPhoto,
+            //        GoodForKids = option.GoodForKids,
+            //        Name = trail.Name,
+            //        Region = location.Region.GetById(location.Region_Id).Region,
+            //        Type = option.TrailType.GetById(option.TrailType_Id).Type
+
+            //    });
+            //}
+
+
+
+            for (int i = 0; i < 7; i++)
+            {
                 res.Add(new TrailModel
                 {
-                    Id = trail.Id.ToString(),
-                    Country = location.Country.GetById(location.Country_Id).Name,
-                    Difficult = trail.Difficult.GetById(trail.Difficult_Id).Value,
-                    Distance = option.Distance,
-                    DogAllowed = option.DogAllowed,
-                    DurationType = option.TrailDurationType.GetById(option.TrailDurationType_Id).DurationType,
-                    CoverPhoto = trail.CoverPhoto,
-                    GoodForKids = option.GoodForKids,
-                    Name = trail.Name,
-                    Region = location.Region.GetById(location.Region_Id).Region,
-                    Type = option.TrailType.GetById(option.TrailType_Id).Type
+                    Id = "asd",
+                    Country = "asdasd",
+                    Difficult = "asdasd",
+                    Distance = 1000,
+                    DogAllowed = true,
+                    DurationType = "oneday",
+                    CoverPhoto = "img.jpg",
+                    GoodForKids = true,
+                    Name = "Name",
+                    Region = "Europe",
+                    Type = "loop"
 
                 });
             }
 
-
-            //var res = new List<TrailModel>();
-
-            //for (int i = 0; i < 7; i++)
-            //{
-            //    res.Add(new TrailModel
-            //    {
-            //        Id = "asd",
-            //        Country = "asdasd",
-            //        Difficult = "asdasd",
-            //        Distance = 1000,
-            //        DogAllowed = true,
-            //        DurationType = "oneday",
-            //        CoverPhoto = "img.jpg",
-            //        GoodForKids = true,
-            //        Name = "Name",
-            //        Region = "Europe",
-            //        Type = "loop"
-
-            //    });
-            //}
             return res;
         }
 
@@ -221,60 +220,63 @@ namespace outdoor.rocks.Classes
 
         public static FilterModel getFilterModel()
         {
-            var res = new FilterModel();
-            res.Countries = DBCountries.Select(i =>
-                    new SimpleModel { Id = i.Id.ToString(), Value = i.Name }).ToList();
-            res.Trails = DBTrails.Select(i =>
-                    new SimpleModel { Id = i.Id.ToString(), Value = i.Name }).ToList();
+            var res = new FilterModel
+            {
+                Countries = DBCountries.Select(i =>
+                    new SimpleModel {Id = i.Id.ToString(), Value = i.Name}).ToList(),
+                Trails = DBTrails.Select(i =>
+                    new SimpleModel {Id = i.Id.ToString(), Value = i.Name}).ToList()
+            };
+
             return res;
         }
 
         public static OptionModel getOptionModel()
         {
-            var season = DBSeasons.Select(i => new SimpleModel { Id = i.Id.ToString(), Value = i.Season });
-            var type = DBTrailsTypes.Select(i => new SimpleModel { Id = i.Id.ToString(), Value = i.Type });
-            var durType = DBTrailsDurationTypes.Select(i => new SimpleModel { Id = i.Id.ToString(), Value = i.DurationType });
+            //var season = DBSeasons.Select(i => new SimpleModel { Id = i.Id.ToString(), Value = i.Season });
+            //var type = DBTrailsTypes.Select(i => new SimpleModel { Id = i.Id.ToString(), Value = i.Type });
+            //var durType = DBTrailsDurationTypes.Select(i => new SimpleModel { Id = i.Id.ToString(), Value = i.DurationType });
 
-            //var season = new List<OptionModel>
-            //{
-            //    new OptionModel()
-            //    {
-            //        Id = "id1",
-            //        Value = "valiue"
-            //    },
-            //    new OptionModel()
-            //    {
-            //        Id = "id2",
-            //        Value = "valiue"
-            //    }
-            //};
+            var season = new List<SimpleModel>
+            {
+                new SimpleModel()
+                {
+                    Id = "id1",
+                    Value = "valiue"
+                },
+                new SimpleModel()
+                {
+                    Id = "id2",
+                    Value = "valiue"
+                }
+            };
 
-            //var type = new List<OptionModel>
-            //{
-            //    new OptionModel()
-            //    {
-            //        Id = "id1",
-            //        Value = "valiue"
-            //    },
-            //    new OptionModel()
-            //    {
-            //        Id = "id2",
-            //        Value = "valiue"
-            //    }
-            //};
-            //var durType = new List<OptionModel>
-            //{
-            //    new OptionModel()
-            //    {
-            //        Id = "id1",
-            //        Value = "valiue"
-            //    },
-            //    new OptionModel()
-            //    {
-            //        Id = "id2",
-            //        Value = "valiue"
-            //    }
-            //};
+            var type = new List<SimpleModel>
+            {
+                new SimpleModel()
+                {
+                    Id = "id1",
+                    Value = "valiue"
+                },
+                new SimpleModel()
+                {
+                    Id = "id2",
+                    Value = "valiue"
+                }
+            };
+            var durType = new List<SimpleModel>
+            {
+                new SimpleModel()
+                {
+                    Id = "id1",
+                    Value = "valiue"
+                },
+                new SimpleModel()
+                {
+                    Id = "id2",
+                    Value = "valiue"
+                }
+            };
 
 
             var res = new OptionModel

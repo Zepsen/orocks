@@ -1,7 +1,8 @@
 angular
     .module("ORockApp")
-    .controller("TrailCtrl", ['$scope', '$http', function ($scope, $http) {
+    .controller("TrailCtrl", ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
         'use strict';
+
 
         $scope.trail = [];
         $scope.options = [];
@@ -34,7 +35,7 @@ angular
                  slidesToScroll: 1
              }
          }
-        ];           
+        ];
         $scope.updateTrail = {
             Distance: "",
             Peak: "",
@@ -46,15 +47,11 @@ angular
             Type: "",
             DurationType: ""
         };
-
         
-        //SPIKE
-        function getTrailId() {
-            return window.location.href.split('/').pop();
-        }
+        
 
         function initTrailMap(country) {
-            COUNTRY = country || "USA";            
+            COUNTRY = country || "USA";
             initMap();
         }
 
@@ -63,16 +60,15 @@ angular
             //GET Trail by Id 
             $http({
                 method: "GET",
-                url: "/api/Trails/" + getTrailId()                
+                url: "/api/Trails/" + $stateParams.id
             })
-           .then(
-            function (response) {
-                $scope.trail = JSON.parse(response.data);
-                initTrailMap($scope.trail.Country);
-            },
-           function (error) {
-               console.log("Error");
-           });
+           .then(function (response) {
+               $scope.trail = JSON.parse(response.data);
+               initTrailMap($scope.trail.Country);
+           })
+            .then(function (error) {
+                console.log(error);
+            });
         }
 
         //Get to all options by update
@@ -82,35 +78,36 @@ angular
                 url: "/api/Options"
             })
             .then(
-            function (response) {                
-                $scope.options = JSON.parse(response.data);                
-            },
+            function (response) {
+                $scope.options = JSON.parse(response.data);
+            })
+            .then(
             function (error) {
                 console.log("Error");
             });
         }
 
-        
+
 
         //Update trails and return  update trail
         $scope.submitUpdateTrail = function () {
-            
+
             $http({
                 method: "PUT",
-                url: "/api/Trails/" + getTrailId(),
+                url: "/api/Trails/" + $stateParams.id,
                 data: "=" + JSON.stringify($scope.updateTrail),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
 
             })
             .then(function (response) {
-                $scope.trail = JSON.parse(response.data);                
+                $scope.trail = JSON.parse(response.data);
             })
             .then(function (error) {
                 console.log(error);
             });
         }
 
-       
+
 
         //Comments
         //Rate
@@ -157,7 +154,7 @@ angular
                     $scope.imgStar[i] = starPathUnselect;
             }
 
-            $scope.IfRateChose = true;                       
+            $scope.IfRateChose = true;
             $scope.postCommentData.Rate = r + 1;
 
         };
@@ -199,7 +196,7 @@ angular
 
 
         //Load functions
-        loadTrail();       
+        loadTrail();
         loadOptions();
 
     }]);
