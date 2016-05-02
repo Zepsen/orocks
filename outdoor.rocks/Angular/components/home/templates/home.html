@@ -52,14 +52,14 @@
                     </span>
                     <ul ng-if="region.Selected" class="hidden-md hidden-lg ul-countries-of-regions">
                         <li ng-repeat="country in region.Countries">
-                            <span ng-click="selectCountry()">{{country.Country}}</span>
+                            <span ng-click="selectCountry($index)">{{country.Country}}</span>
                         </li>
                     </ul>
                 </li>
             </ul>
             <ul class="hidden-xs hidden-sm ul-countries-of-regions">
                 <li ng-repeat="country in Countries">
-                    <span ng-click="selectCountry()">{{country.Country}}</span>
+                    <span ng-click="selectCountry($index)">{{country.Country}}</span>
                 </li>
             </ul>
         </section>
