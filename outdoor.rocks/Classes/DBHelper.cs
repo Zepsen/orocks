@@ -53,7 +53,6 @@ namespace outdoor.rocks.Classes
                 Region = location.Region.GetById(location.Region_Id).Region,
                 Country = location.Country.GetById(location.Country_Id).Name,
                 //State =  location.State_Id == null ? null : location.State.GetById(location.State_Id).Name,
-
                 Name = trail.Name,
 
                 Rate = Math.Round(rate / comments.Count(), 1),
