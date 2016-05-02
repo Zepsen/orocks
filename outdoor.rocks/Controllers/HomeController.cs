@@ -12,7 +12,7 @@ namespace outdoor.rocks.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";            
+            ViewBag.Title = "OUTDOOR.ROCKS";            
             return View();
         }        
 

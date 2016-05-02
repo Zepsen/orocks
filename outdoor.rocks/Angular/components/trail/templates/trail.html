@@ -1,5 +1,5 @@
 
-<div id="trail-body" ng-cloak>
+<div id="trail-body">
 
     <!--Navigation -->
     <nav class="navbar trail-navbar" ng-cloak>
@@ -9,9 +9,10 @@
                 <a ui-sref="home" class="trail-a-header-label">OUTDOOR.ROCKS</a>
             </div>
             <div class="flex-item-input inner-addon right-addon input-group">
-                <input type="text" class=""
-                       autocomplete="off" spellcheck="false" placeholder="Enter location" required
-                       ng-model="inputValue" ng-keypress="$event.keyCode == 13 ? inputPressEnter(inputValue) : null;" ng-trim="false" />
+                <input id="typeahead-input" type="text" placeholder="Enter location" required
+                       ng-model="customSelected" ng-keypress="$event.keyCode == 13 ? inputPressEnter(customSelected) : null;"
+                       uib-typeahead="state as state.name for state in regionsAndTrailsModel | filter:{name:$viewValue} | limitTo:6"
+                       typeahead-template-url="customTemplate.html" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
                 <i class="glyphicon glyphicon-lg glyphicon-search"></i>
             </div>
 
@@ -23,7 +24,8 @@
             </div>
 
             <div class="flex-item-join">
-                <a class="trail-a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>
+                <!--<a class="trail-a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>-->
+                <a class="trail-a-join" ui-sref="login">JOIN US</a>
             </div>
 
         </div>
@@ -45,7 +47,7 @@
             <!--Data-->
             <section class="row trail-section trail-section-info">
 
-                <div ng-class="LabelDifficultClass" class="difficult-label">{{trail.Difficult}}</div>
+                <div class="label" ng-class="trail.Difficult | labelDifficult">{{trail.Difficult}}</div>
 
                 <div class="col-xs-12">
                     <span class="text-muted">{{trail.Region}} - {{trail.Country}}</span>
@@ -96,13 +98,13 @@
 
                             <div class="form-group col-xs-12">
                                 <label>Season start</label>
-                                <select ng-options="option.Value for option in options[0] track by option._id"
+                                <select ng-options="option.Value for option in options.Seasons track by option._id"
                                         ng-model="updateTrail.SeasonStart" class="form-control"></select>
                             </div>
 
                             <div class="form-group col-xs-12">
                                 <label>Season end</label>
-                                <select ng-options="option.Value for option in options[0] track by option._id"
+                                <select ng-options="option.Value for option in options.Seasons track by option._id"
                                         ng-model="updateTrail.SeasonEnd" class="form-control"></select>
                             </div>
 
@@ -128,13 +130,13 @@
 
                             <div class="form-group col-xs-12">
                                 <label>Type</label>
-                                <select ng-options="option.Value for option in options[1] track by option._id"
+                                <select ng-options="option.Value for option in options.TrailsTypes track by option._id"
                                         ng-model="updateTrail.Type" class="form-control"></select>
                             </div>
 
                             <div class="form-group col-xs-12">
                                 <label>DurationType</label>
-                                <select ng-options="option.Value for option in options[2] track by option._id"
+                                <select ng-options="option.Value for option in options.TrailsDurationTypes track by option._id"
                                         ng-model="updateTrail.DurationType" class="form-control"></select>
                             </div>
 
@@ -209,8 +211,8 @@
 
             <!--@* Comments *@-->
             <section class="trail-section-comments">
-                <h4>Comments {{trailComments.length}}</h4>
-                <div ng-repeat="comment in trailComments">
+                <h4>Comments {{trail.Comments.length}}</h4>
+                <div ng-repeat="comment in trail.Comments">
                     <div class="col-xs-2">
 
                     </div>

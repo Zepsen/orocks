@@ -12,7 +12,8 @@
 
             </div>-->
 
-            <a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>
+            <!--<a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>-->
+            <a class="a-join" ui-sref="login">JOIN US</a>
             <a class="a-header-label" ui-sref="home">OUTDOOR.ROCKS</a>
             <a class="a-createtrail">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -79,7 +80,7 @@
                 <div class="col-xs-6 col-sm-4 col-md-4 div-trails" ng-repeat="trail in trails | filter:filterTrails | limitTo: limitTrails">
                     <!--ng-click="selectTrail(trail._id)"-->
 
-                    <a ui-sref="trail({ id: trail._id })" class="thumbnail thumbnail-custom" ng-style="{'backgroundImage' : (trail.CoverPhoto | coverPhoto)}">
+                    <a ui-sref="trail({ id: trail._id })" ui-sref-opts="{reload: true}" class="thumbnail thumbnail-custom" ng-style="{'backgroundImage' : (trail.CoverPhoto | coverPhoto)}">
                         <label class="label" ng-class="trail.Difficult | labelDifficult">{{trail.Difficult}}</label>
                         <span ng-hide="true">{{trail.Region}}</span>
                         <h3 class="text-default">{{trail.Country}}</h3>
@@ -87,10 +88,10 @@
                         <h4 class="text-warning">Distance {{trail.Distance}}</h4>
                         <div>
                             <ul class="ul-trails-icon">
-                                <li><img src="{{trail.Type | typeIcon | getFullIconPath:'white'}}"/></li>
-                                <li><img src="{{trail.DurationType | durationTypeIcon | getFullIconPath:'white'}}"/></li>
-                                <li ng-show="trail.GoodForKids"><img src="{{'good-for-kids.png' | getFullIconPath:'white'}}"/></li>
-                                <li ng-show="trail.DogAllowed"><img src="{{'dog-freindly.png' | getFullIconPath:'white'}}"/></li>
+                                <li><img src="{{trail.Type | typeIcon | getFullIconPath:'white'}}" /></li>
+                                <li><img src="{{trail.DurationType | durationTypeIcon | getFullIconPath:'white'}}" /></li>
+                                <li ng-show="trail.GoodForKids"><img src="{{'good-for-kids.png' | getFullIconPath:'white'}}" /></li>
+                                <li ng-show="trail.DogAllowed"><img src="{{'dog-freindly.png' | getFullIconPath:'white'}}" /></li>
                             </ul>
                         </div>
                     </a>
@@ -106,10 +107,3 @@
 
 </div>
 
-<!-- Dropdown template -->
-<script type="text/ng-template" id="customTemplate.html">
-    <a id="typeahead-custom-template">
-        <i id="typeahead-glyphicon-custom" class="glyphicon glyphicon-globe"></i>
-        <span id="typeahead-span-custom" ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
-    </a>
-</script>

@@ -56,7 +56,7 @@ angular
         }
 
         function initTrailMap(country) {
-            COUNTRY = country;
+            COUNTRY = country || "USA";
             initMap();
         }
 
@@ -65,18 +65,11 @@ angular
             //GET Trail by Id 
             $http({
                 method: "GET",
-                url: "/api/Trails/" + getTrailId()
+                url: "/api/Trails/" + getTrailId()                
             })
            .then(
             function (response) {
-                $scope.trail = JSON.parse(response.data);
-
-                //Scope.trail.comments = Json.Parse($scope.trail.commennts) Onetime parse
-                //$scope.trailComments = [];
-                //for (var i = 0; i < $scope.trail.Comments.length; i++) {
-                //    $scope.trailComments.push(JSON.parse($scope.trail.Comments[i]));
-                //}
-
+                $scope.trail = JSON.parse(response.data);               
                 //setTrailProperty($scope.trail);
 
             },
@@ -92,26 +85,8 @@ angular
                 url: "/api/Options"
             })
             .then(
-            function (response) {
-                //var seasons = JSON.parse(response[0]);
-                $scope.options = JSON.parse(response.data);
-
-                //$scope.optionAllSeasons = [];
-                //for (var i = 0; i < seasons.length; i++) {
-                //    $scope.optionAllSeasons.push(JSON.parse(seasons[i]));
-                //}
-
-                //var types = JSON.parse(response[1]);
-                //$scope.optionAllTypes = [];
-                //for (var i = 0; i < types.length; i++) {
-                //    $scope.optionAllTypes.push(JSON.parse(types[i]));
-                //}
-
-                //var durType = JSON.parse(response[2]);
-                //$scope.optionAllDurationTypes = [];
-                //for (var i = 0; i < durType.length; i++) {
-                //    $scope.optionAllDurationTypes.push(JSON.parse(durType[i]));
-                //}
+            function (response) {                
+                $scope.options = JSON.parse(response.data);                
             },
             function (error) {
                 console.log("Error");
@@ -119,29 +94,13 @@ angular
         }
 
         loadTrail();
-        initTrailMap("Germany");
+        initTrailMap($scope.trail.Country);
         loadOptions();
+              
 
-
-        //Set styles property
-        //var setTrailProperty = function (trail) {
-        //type icon
-        //$scope.TypeIcon = setIconToTrailType(trail.Type);
-        //$scope.DurationTypeIcon = setIconToTrailDurationType(trail.DurationType);
-
-        ////type name
-        //$scope.TypeText = setTextTrailType(trail.Type);
-        //$scope.DurationTypeText = setTextTrailDurationType(trail.DurationType);
-
-        ////label color
-        //$scope.LabelDifficultClass = setLabelClassForDifficult(trail.Difficult);
-
-        //set map position
-        //    COUNTRY = trail.Country;
-        //    initMap();
-        //}
-
+        //Update trails and return  update trail
         $scope.submitUpdateTrail = function () {
+            
             $http({
                 method: "PUT",
                 url: "/api/Trails/" + getTrailId(),
@@ -270,7 +229,7 @@ angular
         }
 
         $scope.updateComments = function () {
-            $scope.trailComments.push(
+            $scope.trail.Comments.push(
                 {
                     Name: $scope.postCommentData.Name,
                     Rate: $scope.postCommentData.Rate,

@@ -7,7 +7,8 @@ namespace outdoor.rocks.Models
 {
     public class OptionModel
     {
-        public string Id { get; set; }
-        public string Value { get; set; }
+        public List<SimpleModel> Seasons { get; set; }
+        public List<SimpleModel> TrailsTypes { get; set; }
+        public List<SimpleModel> TrailsDurationTypes { get; set; }
     }
 }

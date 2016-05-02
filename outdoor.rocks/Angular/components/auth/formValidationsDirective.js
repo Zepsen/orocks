@@ -1,5 +1,5 @@
 angular
-    .module('angularCrud')
+    .module('ORockApp')
     .directive('namevalidation', function() {
         return {
             require: 'ngModel',

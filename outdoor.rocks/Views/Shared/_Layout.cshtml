@@ -5,13 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
+
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/CustomCss")
     @Scripts.Render("~/bundles/modernizr")
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/angular")
-    @*<link href="~/Content/slick/slick.css" rel="stylesheet" />*@
+    
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
@@ -31,7 +32,7 @@
     </footer>
 
     @* Modal window *@
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    @*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg">
             <div ng-controller="ValidationCtrl" class="modal-content modal-custom">
                 <h2 class="">Join us</h2>
@@ -57,7 +58,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div>*@
    
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/importScripts")

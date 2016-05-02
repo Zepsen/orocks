@@ -1,5 +1,5 @@
 angular
-    .module('angularCrud')
+    .module('ORockApp')
     .controller('AuthCtrl', function AuthCtrl($scope) {
         'use strict';
 

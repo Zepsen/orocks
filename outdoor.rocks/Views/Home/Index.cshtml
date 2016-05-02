@@ -1,6 +1,7 @@
 ﻿
 
 <div ng-controller="MainCtrl">
+    @* Angular routing *@
     <div ui-view></div>
 </div>
 
@@ -8,24 +9,31 @@
 
 
 @section scripts{
-    
-    <script src="~/Scripts/Angular/ngValidationController.js"></script>
-    
-   
-    <script src="~/Scripts/Angular/ngValidationController.js"></script>
+
+
     <script src="https://maps.googleapis.com/maps/api/js"
-            async defer></script>    
+            async defer></script>
     <script src="~/Scripts/CustomJS/googlemaps.js"></script>
-   
+
     <script src="~/Angular/app.module.js"></script>
     <script src="~/Angular/app.routes.js"></script>
 
     <script src="~/Angular/components/generic/mainController.js"></script>
     <script src="~/Angular/components/generic/iFilters.js"></script>
-    
+
     <script src="~/Angular/components/home/homeController.js"></script>
-    
+
     <script src="~/Angular/components/trail/trailController.js"></script>
-    
-    
+
+    <script src="~/Angular/components/auth/authController.js"></script>
+    <script src="~/Angular/components/auth/formValidationsDirective.js"></script>
+
+    <!-- Dropdown template -->
+    <script type="text/ng-template" id="customTemplate.html">
+        <a id="typeahead-custom-template">
+            <i id="typeahead-glyphicon-custom" class="glyphicon {{match.model.icon}}"></i>
+            <span id="typeahead-span-custom" ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+        </a>
+    </script>
+
 }

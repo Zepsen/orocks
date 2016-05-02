@@ -18,7 +18,7 @@ namespace outdoor.rocks.Models
         public string FullDescription { get; set; }
         public List<string> References { get; set; }
         public List<string> NearblyTrails { get; set; }
-        public List<string> Comments { get; set; }
+        public List<CommentsModel> Comments { get; set; }
 
     }
 }

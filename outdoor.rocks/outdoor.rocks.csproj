@@ -226,6 +226,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\TrailsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -236,6 +237,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\OptionModel.cs" />
+    <Compile Include="Models\SimpleModel.cs" />
     <Compile Include="Models\TrailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -248,7 +250,7 @@
     <Content Include="Angular\components\auth\authController.js" />
     <Content Include="Angular\components\auth\formValidationsDirective.js" />
     <Content Include="Angular\components\auth\templates\login.html" />
-    <Content Include="Angular\components\auth\templates\register.html" />
+    <Content Include="Angular\components\auth\templates\registration.html" />
     <Content Include="Angular\components\generic\mainController.js" />
     <Content Include="Angular\components\home\homeController.js" />
     <Content Include="Angular\components\home\templates\home.html" />
@@ -286,6 +288,8 @@
     <Content Include="Content\SiteImages\Elevation.png" />
     <Content Include="Content\SiteImages\weather.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\Open sans\Apache License.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\Open sans\Apache License.txt" />
     <Content Include="Global.asax" />
@@ -299,6 +303,20 @@
     <Content Include="..\packages\MongoRepository.1.6.11\MongoRepository.chm">
       <Link>Documentation\MongoRepository.chm</Link>
     </Content>
+    <Content Include="Content\fonts\Open sans\OpenSans-Bold.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-BoldItalic.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-ExtraBold.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-Italic.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-Light.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-LightItalic.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-Regular.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-Semibold.ttf" />
+    <Content Include="Content\fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
+    <Content Include="Content\Countries\countries.json" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\Open sans\OpenSans-Bold.ttf" />
     <Content Include="fonts\Open sans\OpenSans-BoldItalic.ttf" />
     <Content Include="fonts\Open sans\OpenSans-ExtraBold.ttf" />
@@ -309,7 +327,6 @@
     <Content Include="fonts\Open sans\OpenSans-Regular.ttf" />
     <Content Include="fonts\Open sans\OpenSans-Semibold.ttf" />
     <Content Include="fonts\Open sans\OpenSans-SemiboldItalic.ttf" />
-    <Content Include="Content\Countries\countries.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CustomJS\googlemaps.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -341,9 +358,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
