@@ -68,8 +68,6 @@ angular
            .then(
             function (response) {
                 $scope.trail = JSON.parse(response.data);               
-                //setTrailProperty($scope.trail);
-
             },
            function (error) {
                console.log("Error");
@@ -102,9 +100,12 @@ angular
                 data: "=" + JSON.stringify($scope.updateTrail),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
 
-            }).success(function (response) {
-                $scope.trail = JSON.parse(response.data);
-                //$scope.updateThisTrail();
+            })
+            .then(function (response) {
+                $scope.trail = JSON.parse(response.data);                
+            })
+            .then(function (error) {
+                console.log(error);
             });
 
         }

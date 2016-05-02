@@ -17,71 +17,48 @@ namespace outdoor.rocks.Controllers
         // Get All trails
         public string Get()
         {
-
-           
-            var res = new List<TrailModel>();
-            //Select only Features trails
-            var trails = db.Where(i => i.Feature);
-
-            foreach (Trails trail in trails)
-            {
-                var location = trail.Location.GetById(trail.Location_Id);
-                var option = trail.Option.GetById(trail.Option_Id);
-
-                res.Add(new TrailModel
-                {
-                    Id = trail.Id.ToString(),
-                    Country = location.Country.GetById(location.Country_Id).Name,
-                    Difficult = trail.Difficult.GetById(trail.Difficult_Id).Value,
-                    Distance = option.Distance,
-                    DogAllowed = option.DogAllowed,
-                    DurationType = option.TrailDurationType.GetById(option.TrailDurationType_Id).DurationType,
-                    CoverPhoto = trail.CoverPhoto,
-                    GoodForKids = option.GoodForKids,
-                    Name = trail.Name,
-                    Region = location.Region.GetById(location.Region_Id).Region,                    
-                    Type = option.TrailType.GetById(option.TrailType_Id).Type
-
-                });
-            }
-
-
-            //var res = new List<TrailModel>();
-
-            //for (int i = 0; i < 7; i++)
-            //{
-            //    res.Add(new TrailModel
-            //    {
-            //        Id = "asd",
-            //        Country = "asdasd",
-            //        Difficult = "asdasd",
-            //        Distance = 1000,
-            //        DogAllowed = true,
-            //        DurationType = "oneday",
-            //        CoverPhoto = "img.jpg",
-            //        GoodForKids = true,
-            //        Name = "Name",
-            //        Region = "Europe",
-            //        Type = "loop"
-
-            //    });
-            //}
-
-            return res.ToJson();            
-        }
+            List<TrailModel> res = getTrailModelLIst();
+            return res.ToJson();
+        }        
 
         // GET: api/Trails/ObjectId
         // Get Trails by id
         public string Get(string id)
         {
-            var trail = db.GetById(id);
+            FullTrailModel res = getFullTrailModelByTrailId(id);
+            return res.ToJson();
+        }
 
-            var location = trail.Location.GetById(trail.Location_Id);
-            var option = trail.Option.GetById(trail.Option_Id);
+        
+        // POST: api/Trails
+        public void Post([FromBody]string value)
+        {
+            
+        }
 
+        // PUT: api/Trails/5
+        public string Put(string id, [FromBody]string value)
+        {
+            updateTrail(id, value);
+            FullTrailModel res = getFullTrailModelByTrailId(id);
+            return res.ToJson();
+        }
+
+        
+
+        // DELETE: api/Trails/5
+        public void Delete(string id)
+        {
+           
+        }
+
+        private static FullTrailModel getFullTrailModelByTrailId(string id)
+        {
             var rate = 0.0;
             var comments = new List<CommentsModel>();
-
+            var trail = db.GetById(id);
+            var location = trail.Location.GetById(trail.Location_Id);
+            var option = trail.Option.GetById(trail.Option_Id);
             rate = getAllCommentsForThisTrail(trail, rate, comments);
 
             var res = new FullTrailModel
@@ -119,9 +96,7 @@ namespace outdoor.rocks.Controllers
 
                 //NearblyTrails = nearbly;
                 Comments = comments
-
             };
-
 
             //var res = new FullTrailModel
             //{
@@ -151,10 +126,9 @@ namespace outdoor.rocks.Controllers
 
             //};
 
-            return res.ToJson();
+            return res;
         }
 
-        //!!! Refactor
         private static double getAllCommentsForThisTrail(Trails trail, double rate, List<CommentsModel> comments)
         {
             foreach (var commentId in trail.Comments_Ids)
@@ -174,14 +148,59 @@ namespace outdoor.rocks.Controllers
             return rate;
         }
 
-        // POST: api/Trails
-        public void Post([FromBody]string value)
+        private static List<TrailModel> getTrailModelLIst()
         {
-            
+            var res = new List<TrailModel>();
+            //Select only Features trails
+            var trails = db.Where(i => i.Feature);
+
+            foreach (Trails trail in trails)
+            {
+                var location = trail.Location.GetById(trail.Location_Id);
+                var option = trail.Option.GetById(trail.Option_Id);
+
+                res.Add(new TrailModel
+                {
+                    Id = trail.Id.ToString(),
+                    Country = location.Country.GetById(location.Country_Id).Name,
+                    Difficult = trail.Difficult.GetById(trail.Difficult_Id).Value,
+                    Distance = option.Distance,
+                    DogAllowed = option.DogAllowed,
+                    DurationType = option.TrailDurationType.GetById(option.TrailDurationType_Id).DurationType,
+                    CoverPhoto = trail.CoverPhoto,
+                    GoodForKids = option.GoodForKids,
+                    Name = trail.Name,
+                    Region = location.Region.GetById(location.Region_Id).Region,
+                    Type = option.TrailType.GetById(option.TrailType_Id).Type
+
+                });
+            }
+
+
+            //var res = new List<TrailModel>();
+
+            //for (int i = 0; i < 7; i++)
+            //{
+            //    res.Add(new TrailModel
+            //    {
+            //        Id = "asd",
+            //        Country = "asdasd",
+            //        Difficult = "asdasd",
+            //        Distance = 1000,
+            //        DogAllowed = true,
+            //        DurationType = "oneday",
+            //        CoverPhoto = "img.jpg",
+            //        GoodForKids = true,
+            //        Name = "Name",
+            //        Region = "Europe",
+            //        Type = "loop"
+
+            //    });
+            //}
+            return res;
         }
 
-        // PUT: api/Trails/5
-        public string Put(string id, [FromBody]string value)
+        private static void updateTrail(string id, string value)
         {
             var trail = db.GetById(id);
             var option = Options.GetById(trail.Option_Id);
@@ -201,32 +220,23 @@ namespace outdoor.rocks.Controllers
 
 
             if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
-              option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
+                option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
 
             if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
                 option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
 
-            
+
 
             if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
                 option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
 
             if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
-                    option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
+                option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
 
             option.GoodForKids = update.GoodForKids.Value;
             option.DogAllowed = update.DogAllowed.Value;
 
             Options.Update(option);
-
-            return db.GetById(id).ToJson();
-
-        }
-
-        // DELETE: api/Trails/5
-        public void Delete(string id)
-        {
-           
         }
     }
 }
