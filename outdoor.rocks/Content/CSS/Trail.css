@@ -187,7 +187,11 @@
         .bannerWeather div img {
             background-size: cover;
         }
-
+       
+.share-ico{
+    height: 30px;
+    width: 30px;
+}
 /*Mobile*/
 /**/
 @media (max-width: 767px) {

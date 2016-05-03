@@ -28,7 +28,7 @@ namespace outdoor.rocks.Controllers
         }
 
         // POST: api/Users
-        public void Post([FromBody]string value)
+        public string Post([FromBody]string value)
         {
             return DBHelper.regUserAndReturnResult(value).ToJson();
         }

@@ -81,9 +81,8 @@ angular
 
         //Auth
         function checkAuth() {
-            debugger
             if ($cookies.get('user')) {
-                debugger
+                
                 var id = $cookies.get('user') || "id";
                 $http({
                         method: "GET",
