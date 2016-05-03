@@ -8,28 +8,32 @@
                 <input type="text" ng-model="userRegistr.name"
                        class="form-control" name="username"
                        id="regUsername" placeholder="write here..."
-                       namevalidation required/>
+                       namevalidation required />
+
+                <p class="form-field-errors" ng-show="wrongRegistration">Registration failed. Try again!</p>
                 <p class="form-field-errors" ng-show="regForm.username.$error.username">Please enter correct username</p>
+
+
             </div>
             <div class="form-group">
                 <label for="regEmail">Email:</label>
                 <input type="email"
                        class="form-control" name="email" ng-model="userRegistr.email"
                        id="regEmail" placeholder="write here..."
-                       emailvalidation required/>
+                       emailvalidation required />
                 <p class="form-field-errors" ng-show="regForm.email.$error.email">Please enter correct email</p>
             </div>
             <div class="form-group">
                 <label for="regPassword">Password:</label>
                 <input type="password" ng-model="userRegistr.password"
                        class="form-control"
-                       id="regPassword" placeholder="password here..." required/>
+                       id="regPassword" placeholder="password here..." required />
             </div>
             <div class="form-group">
                 <label for="regPassword2">Repeat Password:</label>
                 <input type="password"
                        class="form-control"
-                       id="regPassword2" placeholder="Repeat your password here..." required/>
+                       id="regPassword2" placeholder="Repeat your password here..." required />
             </div>
             <div class="btn-group" role="group" aria-label="btn">
                 <button ng-click="registration()" class="btn btn-success">Join us</button>

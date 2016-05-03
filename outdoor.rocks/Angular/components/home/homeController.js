@@ -1,6 +1,6 @@
 angular
     .module('ORockApp')
-    .controller('HomeCtrl', ['$scope', '$http',  function ($scope, $http) {
+    .controller('HomeCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
         'use strict';
 
         $scope.regions = null;
@@ -71,9 +71,11 @@ angular
             }
         }
 
+        
+        
                 
         //Load functions
         loadTrails();
         getRegionsAndCountries();
-
+        $scope.checkAuth();
     }]);

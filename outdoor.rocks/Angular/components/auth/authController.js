@@ -26,17 +26,15 @@ angular
             })
             .then(function (response) {
                 var res = JSON.parse(response.data);
-                if (res) {                    
-                    $cookies.put('user', res._id);                    
-                    $state.go('home');
-                    
+                if (res) {
+                    $scope.sref(res);
                 } else {
                     console.log("No authorized");
                     $scope.wrongLogin = true;
                 }
             })
             .then(function (error) {
-                console.log(error);                
+                console.log(error);
             });
         };
 
@@ -51,16 +49,21 @@ angular
             .then(function (response) {
                 var res = JSON.parse(response.data);
                 if (res) {
-                    $cookies.put('user', res._id);
-                    $state.go('home');
+                    $scope.sref(res);
                 } else {
                     console.log("No registration");
+                    $scope.wrongRegistration = true;
                 }
             })
             .then(function (error) {
                 console.log(error);
             });
 
+        };
+
+        $scope.sref = function (res) {
+            $cookies.put('user', res._id);
+            $state.go('home');
         };
 
     }]);

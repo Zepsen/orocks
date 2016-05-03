@@ -195,15 +195,14 @@ angular
 
         //Auth
         function checkAuthTrail() {
-            var auth = $scope.getAuth();
+            var auth = $scope.getAuth();                
             $scope.isAdmin = auth.status == 'Admin';
-            $scope.isUser = auth.status == 'Admin' || $scope.auth.status == 'User';
-            
+            $scope.isUser = auth.status == 'Admin' || $scope.auth.status == 'User';            
         }
 
         //Load functions
         loadTrail();
-        loadOptions();
+        loadOptions();        
         checkAuthTrail();
 
     }]);
