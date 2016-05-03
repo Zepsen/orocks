@@ -35,7 +35,7 @@
     <section>
 
         <div class="trail-gallery">
-            <slick responsive="miniGalleryResponsive" infinite=true slides-to-show=4 slides-to-scroll=3>
+            <slick responsive="miniGalleryResponsive" infinite=true slides-to-show='4' slides-to-scroll='3'>
                 <img src="{{img | getFullImgPath}}" ng-repeat="img in trail.Photos track by $index" />
             </slick>
         </div>
@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Update collapse -->
-                <div ng-if="isAdmin">
+                <div class="col-xs-6" ng-if="isAdmin">
                     <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Update options
                     </button>
@@ -149,19 +149,19 @@
                 </div>
                
                 <!-- Share -->
-                <div class="col-xs-12">
-                    <div class="btn-group" role="group" aria-label="...">
-                        <a class=" btn ">
+                <br/>
+                    <div class="btn-group pull-left share-group" role="group" aria-label="...">
+                        <a class="btn">
                             <img class="share-ico" src="../../../../Content/SiteImages/fbico.png" />
                         </a>
-                        <a class="btn ">
+                        <a class="btn">
                             <img class="share-ico" src="../../../../Content/SiteImages/gico.png" />
                         </a>
-                        <a class="btn ">
+                        <a class="btn">
                             <img class="share-ico" src="../../../../Content/SiteImages/tw.png" />
                         </a>
                     </div>
-                </div>
+               
             </section>
 
             <!--Banner-->
@@ -273,10 +273,8 @@
 
         </div>
         <div class="col-md-3 bannerWeather">
+            <div class="col-xs-5 col-md-12 col-lg-12 banner"></div>
             <div class="col-xs-5 col-md-12 col-lg-12"></div>
-            <div class="col-xs-5 col-md-12 col-lg-12">
-                <img src="/Content/SiteImages/weather.jpg" />
-            </div>
         </div>
     </div>
 </div>

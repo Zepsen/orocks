@@ -66,6 +66,9 @@
 .trail-gallery {
     padding: 5px 0 0 0;
     background: lightgray;
+    height: 220px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
     .trail-gallery img {
@@ -181,13 +184,19 @@
 }
 
     .bannerWeather div {
-        height: 300px;
+        height: 200px;  
+        margin: 20px;      
     }
 
-        .bannerWeather div img {
-            background-size: cover;
+        .bannerWeather div:last-child {
+            background-image: url(../SiteImages/weather.jpg);
+            background-size: cover;           
+             
         }
-       
+
+.share-group{
+    width: 100%;
+}       
 .share-ico{
     height: 30px;
     width: 30px;
