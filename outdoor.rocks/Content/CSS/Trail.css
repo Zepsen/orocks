@@ -157,6 +157,10 @@
 
 /*Commetns*/
 
+.trail-avatar {
+    width: 50px;    
+}
+
 .btnPostComment {
     background: green;
     color: white;

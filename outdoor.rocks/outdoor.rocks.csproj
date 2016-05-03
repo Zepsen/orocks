@@ -291,6 +291,7 @@
     <Content Include="Content\Images\Default.jpg" />
     <Content Include="Content\Images\img.jpg" />
     <Content Include="Content\Images\img2.jpg" />
+    <Content Include="Content\SiteImages\default-ava.jpg" />
     <Content Include="Content\SiteImages\Elevation.png" />
     <Content Include="Content\SiteImages\weather.jpg" />
     <Content Include="favicon.ico" />

@@ -338,5 +338,26 @@ namespace outdoor.rocks.Classes
             //return user.Role.GetById(user.Role_Id).Role;
             return "Admin";
         }
+
+        internal static string regUserAndReturnResult(string value)
+        {
+            dynamic userObj = JObject.Parse(value);
+
+            var name = (string) userObj.name.Value;
+            var password = (string) userObj.password.Value;
+            var email = (string)userObj.email.Value;
+
+            var user = new Users
+            {
+                Name = name,
+                Password = password,
+                Email = email,
+                Role_Id = ObjectId.Parse("")
+            };
+
+            DBUsers.Add(user);
+
+            return "User";
+        }
     }
 }

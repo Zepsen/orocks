@@ -5,7 +5,7 @@
         <form name="regForm" class="col-md-offset-3 col-md-6">
             <div class="form-group">
                 <label for="regUsername">Username:</label>
-                <input type="text" ng-model="user.data.name"
+                <input type="text" ng-model="registr.name"
                        class="form-control" name="username"
                        id="regUsername" placeholder="write here..."
                        namevalidation required/>
@@ -14,14 +14,14 @@
             <div class="form-group">
                 <label for="regEmail">Email:</label>
                 <input type="email"
-                       class="form-control" name="email" ng-model="user.data.email"
+                       class="form-control" name="email" ng-model="registr.email"
                        id="regEmail" placeholder="write here..."
                        emailvalidation required/>
                 <p class="form-field-errors" ng-show="regForm.email.$error.email">Please enter correct email</p>
             </div>
             <div class="form-group">
                 <label for="regPassword">Password:</label>
-                <input type="password" ng-model="user.data.password"
+                <input type="password" ng-model="registr.password"
                        class="form-control"
                        id="regPassword" placeholder="password here..." required/>
             </div>
@@ -32,8 +32,7 @@
                        id="regPassword2" placeholder="Repeat your password here..." required/>
             </div>
             <div class="btn-group" role="group" aria-label="btn">
-                <button type="button" ng-click="showUsername()" class="btn btn-info">Clear</button>
-                <button type="button" class="btn btn-success">Submit</button>
+                <button ng-click="registration()" class="btn btn-success">Join us</button>
             </div>
         </form>
     </div>
