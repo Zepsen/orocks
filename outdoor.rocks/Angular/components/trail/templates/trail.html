@@ -23,19 +23,30 @@
                 </a>
             </div>
 
-            <div class="flex-item-join">                
+            <div class="flex-item-join">
                 <a ng-if="btnLoginShow" class="trail-a-join" ui-sref="login">JOIN US</a>
                 <a ng-if="!btnLoginShow" class="trail-a-join" ng-click="logout()">LOGOUT</a>
             </div>
 
+            <div class="flex-search">
+                <i class="glyphicon glyphicon-lg glyphicon-search" role="button" data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                </i>
+            </div>
         </div>
     </nav>
+
+    <div class="collapse trail-collapse-input" id="collapseExample2">
+        <input id="typeahead-input" type="text" placeholder="Enter location" required
+               ng-model="customSelected" ng-keypress="$event.keyCode == 13 ? inputPressEnter(customSelected) : null;"
+               uib-typeahead="state as state.name for state in search2TrailsModel | filter:{name:$viewValue} | limitTo:6"
+               typeahead-template-url="customTemplate.html" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">        
+    </div>
 
     <!--Gallery -->
     <section>
         <div class="trail-gallery">
             <slick settings="slickConfig">
-            <!--<slick init-onload=false responsive="miniGalleryResponsive" infinite=true slides-to-show='4' slides-to-scroll='3'>-->
+                <!--<slick init-onload=false responsive="miniGalleryResponsive" infinite=true slides-to-show='4' slides-to-scroll='3'>-->
                 <img src="{{img | getFullImgPath}}" ng-repeat="img in trail.Photos track by $index" />
             </slick>
         </div>

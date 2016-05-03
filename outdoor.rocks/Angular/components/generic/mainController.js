@@ -57,7 +57,7 @@ angular
         //Selected trail in input
         $scope.inputPressEnter = function (value) {
             var res = false;
-
+            
             searchCountries.forEach(function (i) {
                 if (i.id === value.id) {
                     res = true;
