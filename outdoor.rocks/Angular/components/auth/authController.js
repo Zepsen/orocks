@@ -3,14 +3,15 @@ angular
     .controller('AuthCtrl', ['$scope', '$http', '$state', '$cookies', function ($scope, $http, $state, $cookies) {
         'use strict';
 
-        $scope.registr = {
+        $scope.wrongLogin = false;
+        $scope.userRegistr = {
             name: '',
             password: '',
             password1: '',
             email: ''
         };
 
-        $scope.login = {
+        $scope.userLogin = {
             name: '',
             password: ''
         };
@@ -20,38 +21,40 @@ angular
             $http({
                 method: "PUT",
                 url: "/api/Users/1",
-                data: "=" + JSON.stringify($scope.login),
+                data: "=" + JSON.stringify($scope.userLogin),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            })
+            .then(function (response) {
+                var res = JSON.parse(response.data);
+                if (res) {                    
+                    $cookies.put('user', res._id);                    
+                    $state.go('home');
+                    
+                } else {
+                    console.log("No authorized");
+                    $scope.wrongLogin = true;
+                }
+            })
+            .then(function (error) {
+                console.log(error);                
+            });
+        };
+
+        $scope.registration = function () {
+
+            $http({
+                method: "POST",
+                url: "/api/Users",
+                data: "=" + JSON.stringify($scope.userRegistr),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             })
             .then(function (response) {
                 var res = JSON.parse(response.data);
                 if (res) {
-                    $cookies.put('user', res);
+                    $cookies.put('user', res._id);
                     $state.go('home');
                 } else {
-                    console.log("Error");
-                }
-            })
-            .then(function (error) {
-                console.log(error);
-            });
-        };
-
-        $scope.login = function () {
-
-            $http({
-                method: "POST",
-                url: "/api/Users",
-                data: "=" + JSON.stringify($scope.user),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            })
-            .then(function (response) {
-                var res = JSON.parse(response.registr);
-                if (res) {
-                    $cookies.put('user', res);
-                    $state.go('home');
-                } else {
-                    console.log("Error");
+                    console.log("No registration");
                 }
             })
             .then(function (error) {

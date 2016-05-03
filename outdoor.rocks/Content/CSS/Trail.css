@@ -56,7 +56,7 @@
     }
 
 
-    .flex-navbar-container .flex-item-join {
+    .flex-navbar-container .flex-item-join {        
         cursor: pointer;
     }
 /*End flex navbar*/
@@ -72,7 +72,7 @@
 }
 
     .trail-gallery img {
-        width: auto;
+        max-width: 300px;
         height: 200px;
         margin: 5px;
     }
@@ -161,7 +161,7 @@
 /*Commetns*/
 
 .trail-avatar {
-    width: 50px;    
+    width: 50px;
 }
 
 .btnPostComment {
@@ -184,20 +184,20 @@
 }
 
     .bannerWeather div {
-        height: 200px;  
-        margin: 20px;      
+        height: 200px;
+        margin: 20px;
     }
 
         .bannerWeather div:last-child {
             background-image: url(../SiteImages/weather.jpg);
-            background-size: cover;           
-             
+            background-size: cover;
         }
 
-.share-group{
+.share-group {
     width: 100%;
-}       
-.share-ico{
+}
+
+.share-ico {
     height: 30px;
     width: 30px;
 }
@@ -307,7 +307,7 @@
 
     .flex-navbar-container .flex-item-createtrail {
         order: 3;
-        width: 30%;
+        width: 19%;
     }
 
         .flex-navbar-container .flex-item-createtrail .trail-a-createtrail {
@@ -317,8 +317,8 @@
 
     .flex-navbar-container .flex-item-join {
         order: 4;
-        width: 20%;
-        text-align: right;
+        width: 19%;
+        text-align: right;       
     }
 
         .flex-navbar-container .flex-item-join a {

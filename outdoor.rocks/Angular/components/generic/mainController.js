@@ -9,6 +9,7 @@ angular
         var searchTrails = [];
         var searchCountries = [];
         $scope.auth = {
+            id: "",
             status: ""
         }
         
@@ -44,24 +45,7 @@ angular
                 $scope.search2TrailsModel = searchTrails;
             });
         }
-
-        //var _selected;
-
-        //$scope.ngModelOptionsSelected = function (value) {
-        //    if (arguments.length) {
-        //        _selected = value;
-        //    } else {
-        //        return _selected;
-        //    }
-        //};
-
-        //$scope.modelOptions = {
-        //    debounce: {
-        //        default: 500,
-        //        blur: 250
-        //    },
-        //    getterSetter: true
-        //};
+                       
         
         //Selected trail in input
         $scope.inputPressEnter = function (value) {
@@ -80,19 +64,25 @@ angular
         }
 
         //Auth
+        $scope.getAuth = function() {            
+            return $scope.auth;
+        };
+        
         function checkAuth() {
+            debugger
             if ($cookies.get('user')) {
                 
-                var id = $cookies.get('user') || "id";
+                var id = $cookies.get('user');
+                
                 $http({
                         method: "GET",
-                        url: "/api/Users/" + id
-                })
-                .then(function (response) {
-                    $scope.auth.status = JSON.parse(response.data);
-                })
-                .then(function(error) {
-                        console.log(error);
+                        url: "/api/Users/" + id,                    
+                }).then(function (response) {
+                    var res = JSON.parse(response.data);
+                    $scope.auth.id = res._id;
+                    $scope.auth.status = res.Role;               
+                }).then(function(error) {
+                    console.log(error);                    
                 });
             }
         }

@@ -159,15 +159,14 @@ angular
 
         };
 
-        //$scope.postCommentData = {
-        //    Id: $scope.trailId,
-        //    Comment: "",
-        //    User: { _id: "571746ff04973c3dee147d7c" },
-        //    Rate: 0
-        //}
+        $scope.postCommentData = {
+            Id: $stateParams.id,
+            Comment: "",
+            User: $scope.auth.id,
+            Rate: 0
+        }
 
-        $scope.postComment = function () {
-
+        $scope.postComment = function () {            
             $http({
                 method: "POST",
                 url: "/api/Comments/",
@@ -176,7 +175,7 @@ angular
 
             })
             .then(function (response) {
-                updateComments();
+                $scope.updateComments();
             })
             .then(function (error) {
                 console.log(error);
@@ -196,8 +195,10 @@ angular
 
         //Auth
         function checkAuthTrail() {
-            $scope.isAdmin = $scope.auth.status === 'Admin';
-            $scope.isUser = $scope.auth.status === 'Admin' || $scope.auth.status === 'User';
+            var auth = $scope.getAuth();
+            $scope.isAdmin = auth.status == 'Admin';
+            $scope.isUser = auth.status == 'Admin' || $scope.auth.status == 'User';
+            
         }
 
         //Load functions

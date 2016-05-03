@@ -33,13 +33,11 @@
 
     <!--Gallery -->
     <section>
-
         <div class="trail-gallery">
-            <slick responsive="miniGalleryResponsive" infinite=true slides-to-show='4' slides-to-scroll='3'>
+            <slick init-onload=false responsive="miniGalleryResponsive" infinite=true slides-to-show='4' slides-to-scroll='3'>
                 <img src="{{img | getFullImgPath}}" ng-repeat="img in trail.Photos track by $index" />
             </slick>
         </div>
-
     </section>
 
     <div class="container" ng-cloak>
@@ -85,7 +83,7 @@
                 </div>
 
                 <!-- Update collapse -->
-                <div class="col-xs-6" ng-if="isAdmin">
+                <div class="col-xs-12" ng-if="isAdmin">
                     <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Update options
                     </button>
@@ -94,7 +92,7 @@
                             <form class="form-horizontal">
                                 <div class="form-group col-xs-12">
                                     <label>Distance</label>
-                                    <input ng-model="updateTrail.Distance" type="number" class="form-control"/>
+                                    <input ng-model="updateTrail.Distance" type="number" class="form-control" />
                                 </div>
 
                                 <div class="form-group col-xs-12">
@@ -111,22 +109,22 @@
 
                                 <div class="form-group col-xs-12">
                                     <label>Elevation</label>
-                                    <input ng-model="updateTrail.Elevation" type="number" class="form-control"/>
+                                    <input ng-model="updateTrail.Elevation" type="number" class="form-control" />
                                 </div>
 
                                 <div class="form-group col-xs-12">
                                     <label>Peak</label>
-                                    <input ng-model="updateTrail.Peak" type="number" class="form-control"/>
+                                    <input ng-model="updateTrail.Peak" type="number" class="form-control" />
                                 </div>
 
                                 <div class="form-group col-xs-12">
                                     <label>Dog allowed</label>
-                                    <input ng-model="updateTrail.DogAllowed" type="checkbox" class=""/>
+                                    <input ng-model="updateTrail.DogAllowed" type="checkbox" class="" />
                                 </div>
 
                                 <div class="form-group col-xs-12">
                                     <label>Good for kids</label>
-                                    <input ng-model="updateTrail.GoodForKids" type="checkbox" class=""/>
+                                    <input ng-model="updateTrail.GoodForKids" type="checkbox" class="" />
                                 </div>
 
                                 <div class="form-group col-xs-12">
@@ -147,21 +145,21 @@
                         </div>
                     </div>
                 </div>
-               
+
                 <!-- Share -->
-                <br/>
-                    <div class="btn-group pull-left share-group" role="group" aria-label="...">
-                        <a class="btn">
-                            <img class="share-ico" src="../../../../Content/SiteImages/fbico.png" />
-                        </a>
-                        <a class="btn">
-                            <img class="share-ico" src="../../../../Content/SiteImages/gico.png" />
-                        </a>
-                        <a class="btn">
-                            <img class="share-ico" src="../../../../Content/SiteImages/tw.png" />
-                        </a>
-                    </div>
-               
+                <br />
+                <div class="btn-group pull-left share-group" role="group" aria-label="...">
+                    <a class="btn">
+                        <img class="share-ico" src="../../../../Content/SiteImages/fbico.png" />
+                    </a>
+                    <a class="btn">
+                        <img class="share-ico" src="../../../../Content/SiteImages/gico.png" />
+                    </a>
+                    <a class="btn">
+                        <img class="share-ico" src="../../../../Content/SiteImages/tw.png" />
+                    </a>
+                </div>
+
             </section>
 
             <!--Banner-->
@@ -277,6 +275,7 @@
             <div class="col-xs-5 col-md-12 col-lg-12"></div>
         </div>
     </div>
+
 </div>
 
 

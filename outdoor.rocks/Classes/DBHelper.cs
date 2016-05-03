@@ -222,35 +222,36 @@ namespace outdoor.rocks.Classes
                 Id = id.ToString(),
                 Comment = comment.Comment.Value,
                 Rate = comment.Rate.Value,
-                User_Id = ObjectId.Parse(comment.User._id.Value)
+                User_Id = ObjectId.Parse(comment.User.Value)
             });
 
             trail.Comments_Ids.Add(id);
             DBTrails.Update(trail);
         }
 
-        internal static string getUsersRoleIfUserReg(string id)
+        internal static UserModel getUsersRoleIfUserReg(string id)
         {
             var user = DBUsers.GetById(ObjectId.Parse(id));
-            return user.Role.GetById(user.Role_Id).Role;            
+            return getUserModel(user);
         }
 
-        internal static string getUsersRoleIfUserRegByData(string id, string value)
+        internal static UserModel getUsersRoleIfUserRegByData(string id, string value)
         {
             dynamic userObj = JObject.Parse(value);
             var name = (string)userObj.name.Value;
             var password = (string)userObj.password.Value;
-            var user = DBUsers.Where(i => i.Name == name && i.Password == password).First();
-            return user.Role.GetById(user.Role_Id).Role;
-            //return "Admin";
+            var user = DBUsers.Where(i => i.Name == name && i.Password == password).FirstOrDefault();
+
+            return getUserModel(user);
+
         }
 
-        internal static string regUserAndReturnResult(string value)
+        internal static UserModel regUserAndReturnResult(string value)
         {
             dynamic userObj = JObject.Parse(value);
 
-            var name = (string) userObj.name.Value;
-            var password = (string) userObj.password.Value;
+            var name = (string)userObj.name.Value;
+            var password = (string)userObj.password.Value;
             var email = (string)userObj.email.Value;
 
             var user = new Users
@@ -258,12 +259,26 @@ namespace outdoor.rocks.Classes
                 Name = name,
                 Password = password,
                 Email = email,
-                Role_Id = ObjectId.Parse("")
+                Role_Id = ObjectId.Parse(DBRoles.Where(i => i.Role == "User").First().Id)
             };
 
             DBUsers.Add(user);
-            return "User";
-            
+            return getUserModel(user);
+
+        }
+
+        private static UserModel getUserModel(Users user)
+        {
+            if (user != null)
+            {
+                return new UserModel
+                {
+                    Id = user.Id.ToString(),
+                    Role = DBRoles.GetById(user.Role_Id).Role,
+                };
+            }
+
+            return null;
         }
     }
 }
