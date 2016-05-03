@@ -47,7 +47,9 @@
         <div class="trail-gallery">
             <slick settings="slickConfig">
                 <!--<slick init-onload=false responsive="miniGalleryResponsive" infinite=true slides-to-show='4' slides-to-scroll='3'>-->
-                <img src="{{img | getFullImgPath}}" ng-repeat="img in trail.Photos track by $index" />
+                <img id="gal{{$index}}" ng-click="clickImg($index)" href="#myModal" data-toggle="modal" data-img-url="{{img | getFullImgPath}}"
+                     src="{{img | getFullImgPath}}" ng-repeat="img in trail.Photos track by $index" 
+                      />
             </slick>
         </div>
     </section>
@@ -288,7 +290,16 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" 
+         aria-labelledby="myModalLabel" aria-hidden="true" style="width:100%">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">X</button>
+        </div>
+        <div class="modal-body">
+            <img id="imgModal" style="width:100%" src=""/>
+        </div>        
+    </div>
 </div>
-
 
 

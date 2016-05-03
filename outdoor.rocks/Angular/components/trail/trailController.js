@@ -202,9 +202,15 @@ angular
             $scope.isUser = auth.status == 'Admin' || $scope.auth.status == 'User';            
         }
 
+        $scope.clickImg = function(index) {            
+            $("#imgModal").attr('src', $('#gal' + index).attr('data-img-url'));            
+        };
+                
+
         //Load functions
         loadTrail();
         loadOptions();        
         checkAuthTrail();
 
+        
     }]);

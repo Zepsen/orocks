@@ -3,12 +3,14 @@
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
-        center: { lat: -34.397, lng: 150.644 }
+        center: { lat: -34.397, lng: 150.644 },
+        zoomControl: true,
+        scaleControl: true
     });
     var geocoder = new google.maps.Geocoder();
-
+    map.ur
     document.getElementById('openInNewWindow').addEventListener('click', function () {
-        window.open();
+        window.open('http://maps.googleapis.com/maps/api/geocode/output');
     });
 
     geocodeAddress(geocoder, map);
