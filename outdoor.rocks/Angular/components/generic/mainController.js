@@ -6,6 +6,7 @@ angular
         //Global prop
         $scope.search2RegionsAndTrailsModel = [];
         $scope.search2TrailsModel = [];
+        $scope.btnLoginShow = true;
         var searchTrails = [];
         var searchCountries = [];
 
@@ -48,6 +49,7 @@ angular
 
                 $scope.search2RegionsAndTrailsModel = searchTrails.concat(searchCountries);
                 $scope.search2TrailsModel = searchTrails;
+                
             });
         }
 
@@ -79,12 +81,20 @@ angular
                 var res = JSON.parse(response.data);
                 $scope.auth.id = res._id;
                 $scope.auth.status = res.Role;
+                $scope.btnLoginShow = true;
 
             }).then(function (error) {
-                console.log(error);
+                console.log(error);                
+                $scope.btnLoginShow = false;
             });
         }
 
+        $scope.logout = function () {
+            $cookies.remove("user");
+            $scope.btnLoginShow = true;
+            $scope.auth.id = "";
+            $scope.auth.status = "";
+        };
 
         //Load functions
         loadRegionsAndTrailsName();

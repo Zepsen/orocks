@@ -4,7 +4,7 @@
     <!--Navigation -->
     <nav class="navbar navbarCustomGlobal">
 
-        <div class="a-navigation">
+        <div class="a-navigation" ng-cloak>
             <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="glyphicon glyphicon-search"></span>
             </button>
@@ -13,7 +13,8 @@
             </div>-->
 
             <!--<a class="a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>-->
-            <a class="a-join" ui-sref="login">JOIN US</a>
+            <a ng-if="btnLoginShow" class="a-join" ui-sref="login">JOIN US</a>
+            <a ng-if="!btnLoginShow" class="a-join" ng-click="logout()">LOGOUT</a>
             <a class="a-header-label" ui-sref="home">OUTDOOR.ROCKS</a>
             <a class="a-createtrail">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

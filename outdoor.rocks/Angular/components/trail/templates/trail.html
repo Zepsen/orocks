@@ -23,9 +23,9 @@
                 </a>
             </div>
 
-            <div class="flex-item-join">
-                <!--<a class="trail-a-join" data-toggle="modal" data-target=".bs-example-modal-lg">JOIN US</a>-->
-                <a class="trail-a-join" ui-sref="login">JOIN US</a>
+            <div class="flex-item-join">                
+                <a ng-if="btnLoginShow" class="trail-a-join" ui-sref="login">JOIN US</a>
+                <a ng-if="!btnLoginShow" class="trail-a-join" ng-click="logout()">LOGOUT</a>
             </div>
 
         </div>
@@ -34,7 +34,8 @@
     <!--Gallery -->
     <section>
         <div class="trail-gallery">
-            <slick init-onload=false responsive="miniGalleryResponsive" infinite=true slides-to-show='4' slides-to-scroll='3'>
+            <slick settings="slickConfig">
+            <!--<slick init-onload=false responsive="miniGalleryResponsive" infinite=true slides-to-show='4' slides-to-scroll='3'>-->
                 <img src="{{img | getFullImgPath}}" ng-repeat="img in trail.Photos track by $index" />
             </slick>
         </div>
