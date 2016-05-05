@@ -17,8 +17,8 @@ namespace outdoor.rocks.Controllers
         // GET: api/Filters
         public string Get()
         {
-            FilterModel res = DBHelper.getFilterModel();
-            return res.ToJson();
+            //FilterModel res = DBHelper.getFilterModel();
+            return null;
         }       
 
         // GET: api/Filters/5

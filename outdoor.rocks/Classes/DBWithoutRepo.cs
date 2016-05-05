@@ -6,14 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using static outdoor.rocks.Models.ModelsWithoutRepo;
 
 namespace outdoor.rocks.Classes
 {
     public class DBWithoutRepo
     {
-        static MongoServer server = new MongoClient("mongodb://localhost/orocks").GetServer();
-        static MongoDatabase db = server.GetDatabase("orocks");
-
+        static MongoDatabase db = DbContext.getContext();
 
         internal static List<TrailModel> GetTrailModelList()
         {
@@ -22,16 +21,16 @@ namespace outdoor.rocks.Classes
                         .Select(j => new TrailModel
                         {
                             Id = j._id.ToString(),
-                            Country = j.Country.GetById(location.Country_Id).Name,
-                            Difficult = j.Difficult.GetById(trail.Difficult_Id).Value,
-                            Distance = j.Distance,
-                            DogAllowed = j.DogAllowed,
-                            DurationType = j.TrailDurationType.GetById(option.TrailDurationType_Id).DurationType,
+                            Country = j.Location.Country.Name,
+                            Difficult = j.Difficult.Value,
+                            Distance = j.Option.Distance,
+                            DogAllowed = j.Option.DogAllowed,
+                            DurationType = j.Option.TrailDurationType.DurationType,
                             CoverPhoto = j.CoverPhoto,
-                            GoodForKids = j.GoodForKids,
+                            GoodForKids = j.Option.GoodForKids,
                             Name = j.Name,
-                            Region = j.Region.GetById(location.Region_Id).Region,
-                            Type = j.TrailType.GetById(option.TrailType_Id).Type
+                            Region = j.Location.Region.Region,
+                            Type = j.Option.TrailType.Type
                         })
                         .ToList();
              

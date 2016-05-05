@@ -15,8 +15,8 @@ namespace outdoor.rocks.Controllers
         // GET: api/Options
         public string Get()
         {
-            OptionModel res = DBHelper.getOptionModel();
-            return res.ToJson();
+            //OptionModel res = DBHelper.getOptionModel();
+            return null;
         }
 
        

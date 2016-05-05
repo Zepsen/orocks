@@ -28,8 +28,8 @@ namespace outdoor.rocks.Controllers
         // Get Trails by id
         public string Get(string id)
         {
-            FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
-            return res.ToJson();
+            //FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
+            return null;
         }
 
         
@@ -42,9 +42,9 @@ namespace outdoor.rocks.Controllers
         // PUT: api/Trails/5
         public string Put(string id, [FromBody]string value)
         {
-            DBHelper.updateTrail(id, value);
-            FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
-            return res.ToJson();
+            //DBHelper.updateTrail(id, value);
+            //FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
+            return null;
         }
 
         

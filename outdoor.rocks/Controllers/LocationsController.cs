@@ -16,8 +16,8 @@ namespace outdoor.rocks.Controllers
         // GET: api/Locations
         public string Get()
         {
-            IQueryable<RegionModel> regions = DBHelper.getRegionModel();
-            return regions.ToJson();
+            //IQueryable<RegionModel> regions = DBHelper.getRegionModel();
+            return null;
         }
         
         // GET: api/Locations/5

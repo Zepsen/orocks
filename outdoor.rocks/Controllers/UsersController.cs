@@ -24,19 +24,22 @@ namespace outdoor.rocks.Controllers
         // GET: api/Users/5
         public string Get(string id)
         {
-            return DBHelper.getUsersRoleIfUserReg(id).ToJson();
+            // return DBHelper.getUsersRoleIfUserReg(id).ToJson();
+            return null; 
         }
 
         // POST: api/Users
         public string Post([FromBody]string value)
         {
-            return DBHelper.regUserAndReturnResult(value).ToJson();
+            // return DBHelper.regUserAndReturnResult(value).ToJson();
+            return null;
         }
 
         // PUT: api/Users/5
         public string Put(string id, [FromBody]string value)
         {
-            return DBHelper.getUsersRoleIfUserRegByData(id, value).ToJson();
+            // return DBHelper.getUsersRoleIfUserRegByData(id, value).ToJson();
+            return null;
         }
 
         // DELETE: api/Users/5

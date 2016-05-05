@@ -30,7 +30,7 @@ namespace outdoor.rocks.Controllers
         // POST: api/Comments
         public void Post([FromBody]string value)
         {
-            DBHelper.updateComments(value);
+            //DBHelper.updateComments(value);            
         }
                 
 
