@@ -20,7 +20,7 @@ angular
                 url: "/api/Trails/"
             })
             .success(function (response) {                
-                $scope.trails = JSON.parse(response);
+                $scope.trails = response;
                 if ($scope.trails.length > 5)
                     $scope.showBtnMore = true;
             });

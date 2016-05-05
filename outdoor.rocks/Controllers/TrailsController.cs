@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using MongoRepository;
 using Newtonsoft.Json.Linq;
 using outdoor.rocks.Classes;
@@ -6,20 +7,21 @@ using outdoor.rocks.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
 {
     public class TrailsController : ApiController
-    {  
-        static MongoRepository<Trails> db= new MongoRepository<Trails>();
-        static MongoRepository<Options> Options = new MongoRepository<Options>();
+    {
+         
         // GET: api/Trails
         // Get All trails
-        public string Get()
+        public async Task<List<TrailModel>> Get()
         {
-            List<TrailModel> res = DBHelper.getTrailModelLIst();
-            return res.ToJson();
+            //List<TrailModel> res = DBHelper.getTrailModelLIst();
+            return await Task<List<TrailModel>>.Factory.StartNew(()=>DBWithoutRepo.GetTrailModelList());
+            
         }        
 
         // GET: api/Trails/ObjectId

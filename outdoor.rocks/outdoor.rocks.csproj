@@ -222,6 +222,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\DBHelper.cs" />
+    <Compile Include="Classes\DBWithoutRepo.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FiltersController.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\Models.cs" />
+    <Compile Include="Models\ModelsWithoutRepo.cs" />
     <Compile Include="Models\OptionModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\SimpleModel.cs" />

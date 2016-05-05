@@ -11,7 +11,6 @@ namespace outdoor.rocks.Models
 {
     public class Trails : Entity
     {
-        [BsonRequired]
         public string Name { get; set; }
         public string Description { get; set; }
         public string FullDescription { get; set; }

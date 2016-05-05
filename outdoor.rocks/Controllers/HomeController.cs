@@ -14,12 +14,6 @@ namespace outdoor.rocks.Controllers
         {
             ViewBag.Title = "OUTDOOR.ROCKS";            
             return View();
-        }        
-
-        public ActionResult Trail(string id)
-        {
-            ViewBag.TrailId = id;
-            return View();
-        }
+        }      
     }
 }
