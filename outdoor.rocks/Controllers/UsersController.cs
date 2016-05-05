@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using outdoor.rocks.Classes;
+using System.Threading.Tasks;
 
 namespace outdoor.rocks.Controllers
 {
@@ -22,24 +23,24 @@ namespace outdoor.rocks.Controllers
         }
 
         // GET: api/Users/5
-        public string Get(string id)
+        public async Task<UserModel> Get(string id)
         {
             // return DBHelper.getUsersRoleIfUserReg(id).ToJson();
-            return null; 
+            return await Task<UserModel>.Factory.StartNew(() => DBWithoutRepo.GetUserModelIfUserAlreadyRegistration(id));
         }
 
         // POST: api/Users
-        public string Post([FromBody]string value)
+        public async Task<UserModel> Post([FromBody]string value)
         {
             // return DBHelper.regUserAndReturnResult(value).ToJson();
-            return null;
+            return await Task<UserModel>.Factory.StartNew(() => DBWithoutRepo.RegistrationUserAndReturnUserModel(value));
         }
 
         // PUT: api/Users/5
-        public string Put(string id, [FromBody]string value)
+        public async Task<UserModel> Put(string id, [FromBody]string value)
         {
             // return DBHelper.getUsersRoleIfUserRegByData(id, value).ToJson();
-            return null;
+            return await Task<UserModel>.Factory.StartNew(() => DBWithoutRepo.GetUserModelIfUserExist(id, value));
         }
 
         // DELETE: api/Users/5

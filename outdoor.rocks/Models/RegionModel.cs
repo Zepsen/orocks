@@ -9,6 +9,6 @@ namespace outdoor.rocks.Models
     {
         public string Region { get; set; }
         public bool Selected { get; set; }
-        public List<CountryModel> Countries { get; set; }
+        public List<string> Countries { get; set; }
     }
 }

@@ -143,6 +143,20 @@ namespace outdoor.rocks.Models
         {
             public ObjectId _id { get; set; }
             public string Region { get; set; }
+            //public List<ObjectId> Country_Id { get; set; }
+
+            //[BsonIgnore]
+            //public Countries Country
+            //{
+            //    get
+            //    {
+            //        return db.GetCollection<Countries>("Countries").FindOneById(this.Region_Id);
+            //    }
+            //    set
+            //    {
+            //        db.GetCollection<Countries>("Countries").Insert(value);
+            //    }
+            //}
         }
 
         public class Countries

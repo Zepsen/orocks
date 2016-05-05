@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
@@ -14,10 +15,10 @@ namespace outdoor.rocks.Controllers
     public class LocationsController : ApiController
     {       
         // GET: api/Locations
-        public string Get()
+        public async Task<List<RegionModel>> Get()
         {
             //IQueryable<RegionModel> regions = DBHelper.getRegionModel();
-            return null;
+            return await Task<List<RegionModel>>.Factory.StartNew(() => DBWithoutRepo.GetRegionModel());
         }
         
         // GET: api/Locations/5

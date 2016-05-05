@@ -26,10 +26,10 @@ namespace outdoor.rocks.Controllers
 
         // GET: api/Trails/ObjectId
         // Get Trails by id
-        public string Get(string id)
+        public async Task<FullTrailModel> Get(string id)
         {
             //FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
-            return null;
+            return await Task<FullTrailModel>.Factory.StartNew(() => DBWithoutRepo.GetFullTrailModel(id));
         }
 
         
