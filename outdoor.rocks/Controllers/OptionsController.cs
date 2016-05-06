@@ -14,10 +14,10 @@ namespace outdoor.rocks.Controllers
     {
         
         // GET: api/Options
-        public async Task<OptionModel> Get()
+        public Task<OptionModel> Get()
         {
             //OptionModel res = DBHelper.getOptionModel();
-            return await DBWithoutRepo.GetOptionModel(); 
+            return DBWithoutRepo.GetOptionModel(); 
         }
 
        

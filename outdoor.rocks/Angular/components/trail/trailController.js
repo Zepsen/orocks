@@ -102,7 +102,7 @@ angular
 
             })
             .then(function (response) {
-                $scope.trail = JSON.parse(response.data);
+                $scope.trail = response.data;
             })
             .then(function (error) {
                 console.log(error);

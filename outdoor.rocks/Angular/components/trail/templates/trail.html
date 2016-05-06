@@ -111,13 +111,13 @@
 
                                 <div class="form-group col-xs-12">
                                     <label>Season start</label>
-                                    <select ng-options="option.Value for option in options.Seasons track by option._id"
+                                    <select ng-options="option.Value for option in options.Seasons track by option.Id"
                                             ng-model="updateTrail.SeasonStart" class="form-control"></select>
                                 </div>
 
                                 <div class="form-group col-xs-12">
                                     <label>Season end</label>
-                                    <select ng-options="option.Value for option in options.Seasons track by option._id"
+                                    <select ng-options="option.Value for option in options.Seasons track by option.Id"
                                             ng-model="updateTrail.SeasonEnd" class="form-control"></select>
                                 </div>
 
@@ -143,13 +143,13 @@
 
                                 <div class="form-group col-xs-12">
                                     <label>Type</label>
-                                    <select ng-options="option.Value for option in options.TrailsTypes track by option._id"
+                                    <select ng-options="option.Value for option in options.TrailsTypes track by option.Id"
                                             ng-model="updateTrail.Type" class="form-control"></select>
                                 </div>
 
                                 <div class="form-group col-xs-12">
                                     <label>DurationType</label>
-                                    <select ng-options="option.Value for option in options.TrailsDurationTypes track by option._id"
+                                    <select ng-options="option.Value for option in options.TrailsDurationTypes track by option.Id"
                                             ng-model="updateTrail.DurationType" class="form-control"></select>
                                 </div>
 

@@ -80,49 +80,50 @@ namespace outdoor.rocks.Classes
 
         }
 
-        //public static void UpdateTrailOptions(string id, string value)
-        //{
-        //    var trail = db.GetCollection<Trails>("Trails").FindOneById(ObjectId.Parse(id));
-        //    var option = trail.Option;
+        internal async static Task UpdateTrailOptions(string id, string value)
+        {
+            var trail = await db.GetCollection<Trails>("Trails")
+                .FindAsync(i => i._id == ObjectId.Parse(id)).Result.FirstOrDefaultAsync();
 
-        //    dynamic update = JObject.Parse(value);
+            var option = trail.Option;
 
-        //    var distance = update.Distance.Value ?? "";
-        //    if (!string.IsNullOrEmpty(distance.ToString()))
-        //        option.Distance = Convert.ToDouble(update.Distance.Value);
+            dynamic update = JObject.Parse(value);
 
-        //    var peak = update.Peak.Value ?? "";
-        //    if (!string.IsNullOrEmpty(peak.ToString()))
-        //        option.Peak = Convert.ToInt32(update.Peak.Value);
+            var distance = update.Distance.Value ?? "";
+            if (!string.IsNullOrEmpty(distance.ToString()))
+                option.Distance = Convert.ToDouble(update.Distance.Value);
 
-        //    var elevation = update.Elevation.Value ?? "";
-        //    if (!string.IsNullOrEmpty(elevation.ToString()))
-        //        option.Elevation = Convert.ToDouble(update.Elevation.Value);
+            var peak = update.Peak.Value ?? "";
+            if (!string.IsNullOrEmpty(peak.ToString()))
+                option.Peak = Convert.ToInt32(update.Peak.Value);
 
-
-        //    if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
-        //        option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
-
-        //    if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
-        //        option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
+            var elevation = update.Elevation.Value ?? "";
+            if (!string.IsNullOrEmpty(elevation.ToString()))
+                option.Elevation = Convert.ToDouble(update.Elevation.Value);
 
 
+            if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
+                option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart.Id.Value);
 
-        //    if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
-        //        option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
+            if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
+                option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd.Id.Value);
 
-        //    if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
-        //        option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
 
-        //    option.GoodForKids = update.GoodForKids.Value;
-        //    option.DogAllowed = update.DogAllowed.Value;
 
-        //    IMongoQuery query = Query<Options>.EQ(item => item._id, option._id);
-        //    IMongoUpdate up = Update<Options>.Replace(option);
+            if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
+                option.TrailType_Id = ObjectId.Parse(update.Type.Id.Value);
 
-        //    db.GetCollection<Options>("Options").Update(query, up);
-        //    db.GetCollection<Options>("Options").Save(option);
-        //}
+            if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
+                option.TrailDurationType_Id = ObjectId.Parse(update.DurationType.Id.Value);
+
+            option.GoodForKids = update.GoodForKids.Value;
+            option.DogAllowed = update.DogAllowed.Value;
+
+
+            var collections = db.GetCollection<Options>("Options");
+            var filter = Builders<Options>.Filter.Eq("_id", option._id);
+            await collections.ReplaceOneAsync(filter, option);
+        }
 
         internal async static Task<FilterModel> GetFilterModel()
         {
@@ -206,25 +207,30 @@ namespace outdoor.rocks.Classes
                               }).ToList();
         }
 
-        //internal static void UpdateComments(string value)
-        //{
-        //    dynamic comment = JObject.Parse(value);
-        //    var trails = db.GetCollection<Trails>("Trails"); 
-        //    var trail = trails.FindOneById(ObjectId.Parse(comment.Id.Value));
+        internal async static Task UpdateComments(string value)
+        {
+            dynamic comment = JObject.Parse(value);
+            var id = ObjectId.Parse((string)comment.Id.Value);
 
-        //    var id = ObjectId.GenerateNewId();
-        //    db.GetCollection<Comments>("Comments").Insert(new Comments
-        //    {
-        //        _id = id,
-        //        Comment = comment.Comment.Value,
-        //        Rate = comment.Rate.Value,
-        //        User_Id = ObjectId.Parse(comment.User.Value)
-        //    });
+            var trails = db.GetCollection<Trails>("Trails");
+            var trail = await trails.FindAsync(i => i._id  == id ).Result.FirstOrDefaultAsync();
+            
 
-        //    trail.Comments_Ids.Add(id);
-        //    trails.Save(trail);
-        //}
-        
+            var newId = ObjectId.GenerateNewId();
+            await db.GetCollection<Comments>("Comments").InsertOneAsync(new Comments
+            {
+                _id = newId,
+                Comment = comment.Comment.Value,
+                Rate = comment.Rate.Value,
+                User_Id = ObjectId.Parse(comment.User.Value)
+            });
+
+            trail.Comments_Ids.Add(newId);
+            var filter = Builders<Trails>.Filter.Eq("_id", trail._id);
+            var update = Builders<Trails>.Update.Set("Comments_Ids", trail.Comments_Ids);
+            await trails.UpdateOneAsync(filter, update);            
+        }
+
         internal async static Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
             var user = await db.GetCollection<Users>("Users")

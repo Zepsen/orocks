@@ -32,7 +32,7 @@ namespace outdoor.rocks.Controllers
         public async Task Post([FromBody]string value)
         {
             //DBHelper.updateComments(value);            
-            //await DBWithoutRepo.UpdateComments(value);
+            await DBWithoutRepo.UpdateComments(value);
         }
                 
 

@@ -15,10 +15,10 @@ namespace outdoor.rocks.Controllers
     public class LocationsController : ApiController
     {       
         // GET: api/Locations
-        public async Task<List<RegionModel>> Get()
+        public Task<List<RegionModel>> Get()
         {
             //IQueryable<RegionModel> regions = DBHelper.getRegionModel();
-            return await DBWithoutRepo.GetRegionModel();
+            return  DBWithoutRepo.GetRegionModel();
         }
         
         // GET: api/Locations/5
