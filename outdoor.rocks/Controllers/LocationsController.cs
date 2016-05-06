@@ -18,7 +18,7 @@ namespace outdoor.rocks.Controllers
         public async Task<List<RegionModel>> Get()
         {
             //IQueryable<RegionModel> regions = DBHelper.getRegionModel();
-            return await Task<List<RegionModel>>.Factory.StartNew(() => DBWithoutRepo.GetRegionModel());
+            return await DBWithoutRepo.GetRegionModel();
         }
         
         // GET: api/Locations/5

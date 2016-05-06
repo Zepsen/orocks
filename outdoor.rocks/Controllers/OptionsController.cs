@@ -17,7 +17,7 @@ namespace outdoor.rocks.Controllers
         public async Task<OptionModel> Get()
         {
             //OptionModel res = DBHelper.getOptionModel();
-            return await Task<OptionModel>.Factory.StartNew(() => DBWithoutRepo.GetOptionModel()); 
+            return await DBWithoutRepo.GetOptionModel(); 
         }
 
        

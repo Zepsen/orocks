@@ -19,7 +19,7 @@ namespace outdoor.rocks.Controllers
         public async Task<FilterModel> Get()
         {
             //FilterModel res = DBHelper.getFilterModel();
-            return await Task<FilterModel>.Factory.StartNew( () => DBWithoutRepo.GetFilterModel());
+            return await DBWithoutRepo.GetFilterModel();
         }       
 
         // GET: api/Filters/5

@@ -26,21 +26,21 @@ namespace outdoor.rocks.Controllers
         public async Task<UserModel> Get(string id)
         {
             // return DBHelper.getUsersRoleIfUserReg(id).ToJson();
-            return await Task<UserModel>.Factory.StartNew(() => DBWithoutRepo.GetUserModelIfUserAlreadyRegistration(id));
+            return await DBWithoutRepo.GetUserModelIfUserAlreadyRegistration(id);
         }
 
         // POST: api/Users
         public async Task<UserModel> Post([FromBody]string value)
         {
             // return DBHelper.regUserAndReturnResult(value).ToJson();
-            return await Task<UserModel>.Factory.StartNew(() => DBWithoutRepo.RegistrationUserAndReturnUserModel(value));
+            return await DBWithoutRepo.RegistrationUserAndReturnUserModel(value);
         }
 
         // PUT: api/Users/5
         public async Task<UserModel> Put(string id, [FromBody]string value)
         {
             // return DBHelper.getUsersRoleIfUserRegByData(id, value).ToJson();
-            return await Task<UserModel>.Factory.StartNew(() => DBWithoutRepo.GetUserModelIfUserExist(id, value));
+            return await DBWithoutRepo.GetUserModelIfUserExist(id, value);
         }
 
         // DELETE: api/Users/5

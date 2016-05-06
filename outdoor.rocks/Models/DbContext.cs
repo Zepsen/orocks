@@ -8,15 +8,15 @@ namespace outdoor.rocks.Models
 {
     public class DbContext
     {
-        static MongoServer server = new MongoClient("mongodb://localhost/orocks").GetServer();
-        static MongoDatabase db = server.GetDatabase("orocks");
+        static MongoClient server = new MongoClient("mongodb://localhost/orocks");
+        static IMongoDatabase db = server.GetDatabase("orocks");
 
 
         private DbContext()
         {
         }
 
-        public static MongoDatabase getContext()
+        public static IMongoDatabase getContext()
         {
             return db;    
         }

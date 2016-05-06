@@ -10,7 +10,7 @@ namespace outdoor.rocks.Models
 {
     public class ModelsWithoutRepo
     {
-        static MongoDatabase db = DbContext.getContext();
+        static IMongoDatabase db = DbContext.getContext();
 
         public class Trails
         {
@@ -33,11 +33,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Difficults>("Difficults").FindOneById(this.Difficult_Id);
+                    return db.GetCollection<Difficults>("Difficults")
+                                   .FindAsync(i => i._id == this.Difficult_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Difficults>("Difficults").Insert(value);
+                    //db.GetCollection<Difficults>("Difficults").Insert(value);
                 }
             }
             [BsonIgnore]
@@ -45,11 +47,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Locations>("Locations").FindOneById(this.Location_Id);
+                    return db.GetCollection<Locations>("Locations")
+                                   .FindAsync(i => i._id == this.Location_Id)
+                                   .Result.FirstOrDefaultAsync().Result;                    
                 }
                 set
                 {
-                    db.GetCollection<Locations>("Locations").Insert(value);
+                    //db.GetCollection<Locations>("Locations").Insert(value);
                 }
             }
             [BsonIgnore]
@@ -57,11 +61,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Options>("Options").FindOneById(this.Option_Id);
+                    return db.GetCollection<Options>("Options")
+                                   .FindAsync(i => i._id == this.Option_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Options>("Options").Insert(value);
+                    //db.GetCollection<Options>("Options").Insert(value);
                 }
             }
 
@@ -73,13 +79,17 @@ namespace outdoor.rocks.Models
                     var listComments = new List<Comments>();
                     foreach (var commId in this.Comments_Ids)
                     {
-                        listComments.Add(db.GetCollection<Comments>("Comments").FindOneById(commId));
+                        listComments.Add(
+                            db.GetCollection<Comments>("Comments")
+                                   .FindAsync(i => i._id == this._id)
+                                   .Result.FirstOrDefaultAsync().Result
+                            );
                     }
                     return listComments;
                 }
                 set
                 {
-                    db.GetCollection<Comments>("Comments").Insert(value);
+                    //db.GetCollection<Comments>("Comments").Insert(value);
                 }
             }
         }
@@ -103,11 +113,14 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Regions>("Regions").FindOneById(this.Region_Id);
+                    return
+                       db.GetCollection<Regions>("Regions")
+                                   .FindAsync(i => i._id == this.Region_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Regions>("Regions").Insert(value);
+                    //db.GetCollection<Regions>("Regions").Insert(value);
                 }
             }
 
@@ -116,11 +129,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Countries>("Countries").FindOneById(this.Country_Id);
+                    return db.GetCollection<Countries>("Countries")
+                                   .FindAsync(i => i._id == this.Country_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Countries>("Countries").Insert(value);
+                    //db.GetCollection<Countries>("Countries").Insert(value);
                 }
             }
 
@@ -129,11 +144,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<States>("States").FindOneById(this.State_Id);
+                    return db.GetCollection<States>("States")
+                                   .FindAsync(i => i._id == this.State_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<States>("States").Insert(value);
+                    //db.GetCollection<States>("States").Insert(value);
                 }
             }
            
@@ -170,11 +187,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Regions>("Regions").FindOneById(this.Region_Id);
+                    return db.GetCollection<Regions>("Regions")
+                                   .FindAsync(i => i._id == this.Region_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Regions>("Regions").Insert(value);
+                    //db.GetCollection<Regions>("Regions").Insert(value);
                 }
             }
         }
@@ -190,11 +209,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Countries>("Countries").FindOneById(this.Country_Id);
+                    return db.GetCollection<Countries>("Countries")
+                                   .FindAsync(i => i._id == this.Country_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Countries>("Countries").Insert(value);
+                    //db.GetCollection<Countries>("Countries").Insert(value);
                 }
             }
         }
@@ -211,11 +232,14 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Users>("Users").FindOneById(this.User_Id);
+                    return
+                    db.GetCollection<Users>("Users")
+                                   .FindAsync(i => i._id == this.User_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Users>("Users").Insert(value);
+                    //db.GetCollection<Users>("Users").Insert(value);
                 }
             }
         }
@@ -238,11 +262,14 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<TrailsTypes>("TrailsTypes").FindOneById(this.TrailType_Id);
+                    return
+                    db.GetCollection<TrailsTypes>("TrailsTypes")
+                                   .FindAsync(i => i._id == this.TrailType_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<TrailsTypes>("TrailsTypes").Insert(value);
+                    //db.GetCollection<TrailsTypes>("TrailsTypes").Insert(value);
                 }
             }
 
@@ -252,11 +279,12 @@ namespace outdoor.rocks.Models
                 get
                 {
                     return db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
-                        .FindOneById(this.TrailDurationType_Id);
+                                   .FindAsync(i => i._id == this.TrailDurationType_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes").Insert(value);
+                    //db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes").Insert(value);
                 }
             }
 
@@ -265,11 +293,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Seasons>("Seasons").FindOneById(this.SeasonStart_Id);
+                    return db.GetCollection<Seasons>("Seasons")
+                                   .FindAsync(i => i._id == this.SeasonStart_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Seasons>("Seasons").Insert(value);
+                    //db.GetCollection<Seasons>("Seasons").Insert(value);
                 }
             }
 
@@ -278,11 +308,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Seasons>("Seasons").FindOneById(this.SeasonEnd_Id);
+                    return db.GetCollection<Seasons>("Seasons")
+                                   .FindAsync(i => i._id == this.SeasonEnd_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Seasons>("Seasons").Insert(value);
+                    //db.GetCollection<Seasons>("Seasons").Insert(value);
                 }
             }
         }
@@ -318,11 +350,13 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Roles>("Roles").FindOneById(this.Role_Id);
+                    return db.GetCollection<Roles>("Roles")
+                                   .FindAsync(i => i._id == this.Role_Id)
+                                   .Result.FirstOrDefaultAsync().Result;
                 }
                 set
                 {
-                    db.GetCollection<Roles>("Roles").Insert(value);
+                    //db.GetCollection<Roles>("Roles").Insert(value);
                 }
             }
         }

@@ -1,7 +1,7 @@
 ﻿
 using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Builders;
+
 using Newtonsoft.Json.Linq;
 using outdoor.rocks.Models;
 using System;
@@ -15,12 +15,14 @@ namespace outdoor.rocks.Classes
 {
     public class DBWithoutRepo
     {
-        static MongoDatabase db = DbContext.getContext();
+        static IMongoDatabase db = DbContext.getContext();
 
-        internal static List<TrailModel> GetTrailModelList()
+        internal async static Task<List<TrailModel>> GetTrailModelList()
         {
-            return db.GetCollection<Trails>("Trails")
-                        .FindAll()
+            var trailAsync = await db.GetCollection<Trails>("Trails")
+                        .FindAsync(new BsonDocument()).Result.ToListAsync();
+
+            return trailAsync
                         .Select(j => new TrailModel
                         {
                             Id = j._id.ToString(),
@@ -40,12 +42,13 @@ namespace outdoor.rocks.Classes
 
         }
 
-        internal static FullTrailModel GetFullTrailModel(string id)
+        internal async static Task<FullTrailModel> GetFullTrailModel(string id)
         {
-            var trail = db.GetCollection<Trails>("Trails")
-                     .FindOneById(ObjectId.Parse(id));
+            var trailAsync = await db.GetCollection<Trails>("Trails")
+                          .FindAsync(i => i._id == ObjectId.Parse(id));
 
-            List<CommentsModel> comments = getCommentsModelList(trail);
+            var trail = trailAsync.First();
+            List<CommentsModel> comments = await getCommentsModelList(trail);
 
             return new FullTrailModel
             {
@@ -77,64 +80,67 @@ namespace outdoor.rocks.Classes
 
         }
 
-        public static void UpdateTrailOptions(string id, string value)
+        //public static void UpdateTrailOptions(string id, string value)
+        //{
+        //    var trail = db.GetCollection<Trails>("Trails").FindOneById(ObjectId.Parse(id));
+        //    var option = trail.Option;
+
+        //    dynamic update = JObject.Parse(value);
+
+        //    var distance = update.Distance.Value ?? "";
+        //    if (!string.IsNullOrEmpty(distance.ToString()))
+        //        option.Distance = Convert.ToDouble(update.Distance.Value);
+
+        //    var peak = update.Peak.Value ?? "";
+        //    if (!string.IsNullOrEmpty(peak.ToString()))
+        //        option.Peak = Convert.ToInt32(update.Peak.Value);
+
+        //    var elevation = update.Elevation.Value ?? "";
+        //    if (!string.IsNullOrEmpty(elevation.ToString()))
+        //        option.Elevation = Convert.ToDouble(update.Elevation.Value);
+
+
+        //    if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
+        //        option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
+
+        //    if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
+        //        option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
+
+
+
+        //    if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
+        //        option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
+
+        //    if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
+        //        option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
+
+        //    option.GoodForKids = update.GoodForKids.Value;
+        //    option.DogAllowed = update.DogAllowed.Value;
+
+        //    IMongoQuery query = Query<Options>.EQ(item => item._id, option._id);
+        //    IMongoUpdate up = Update<Options>.Replace(option);
+
+        //    db.GetCollection<Options>("Options").Update(query, up);
+        //    db.GetCollection<Options>("Options").Save(option);
+        //}
+
+        internal async static Task<FilterModel> GetFilterModel()
         {
-            var trail = db.GetCollection<Trails>("Trails").FindOneById(ObjectId.Parse(id));
-            var option = trail.Option;
+            var countriesAsync = await db.GetCollection<Countries>("Countries")
+                              .FindAsync(new BsonDocument()).Result.ToListAsync();
+            var trailsAsync = await  db.GetCollection<Trails>("Trails")
+                              .FindAsync(new BsonDocument()).Result.ToListAsync();
 
-            dynamic update = JObject.Parse(value);
-
-            var distance = update.Distance.Value ?? "";
-            if (!string.IsNullOrEmpty(distance.ToString()))
-                option.Distance = Convert.ToDouble(update.Distance.Value);
-
-            var peak = update.Peak.Value ?? "";
-            if (!string.IsNullOrEmpty(peak.ToString()))
-                option.Peak = Convert.ToInt32(update.Peak.Value);
-
-            var elevation = update.Elevation.Value ?? "";
-            if (!string.IsNullOrEmpty(elevation.ToString()))
-                option.Elevation = Convert.ToDouble(update.Elevation.Value);
-
-
-            if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
-                option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
-
-            if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
-                option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
-
-
-
-            if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
-                option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
-
-            if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
-                option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
-
-            option.GoodForKids = update.GoodForKids.Value;
-            option.DogAllowed = update.DogAllowed.Value;
-
-            IMongoQuery query = Query<Options>.EQ(item => item._id, option._id);
-            IMongoUpdate up = Update<Options>.Replace(option);
-
-            db.GetCollection<Options>("Options").Update(query, up);
-            db.GetCollection<Options>("Options").Save(option);
-        }
-
-        internal static FilterModel GetFilterModel()
-        {
             return new FilterModel
             {
-                Countries = db.GetCollection<Countries>("Countries")
-                              .FindAll()
+                Countries =  countriesAsync                  
                               .Select(i => new SimpleModel
                               {
                                   Id = i._id.ToString(),
                                   Value = i.Name
                               }).ToList(),
 
-                Trails = db.GetCollection<Trails>("Trails")
-                              .FindAll()
+                Trails = trailsAsync                              
                               .Select(i => new SimpleModel
                               {
                                   Id = i._id.ToString(),
@@ -143,28 +149,34 @@ namespace outdoor.rocks.Classes
             };
         }
 
-        internal static OptionModel GetOptionModel()
+        internal async static Task<OptionModel> GetOptionModel()
         {
+            var seasonsAsync = await db.GetCollection<Seasons>("Seasons")
+                              .FindAsync(new BsonDocument()).Result.ToListAsync();
+
+            var trailTypesAsync = await db.GetCollection<TrailsTypes>("TrailsTypes")
+                              .FindAsync(new BsonDocument()).Result.ToListAsync();
+
+            var trailDurationTypesAsync = await db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
+                              .FindAsync(new BsonDocument()).Result.ToListAsync();
+
             return new OptionModel
             {
-                Seasons = db.GetCollection<Seasons>("Seasons")
-                              .FindAll()
+                Seasons = seasonsAsync
                               .Select(i => new SimpleModel
                               {
                                   Id = i._id.ToString(),
                                   Value = i.Season
                               }).ToList(),
 
-                TrailsDurationTypes = db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
-                              .FindAll()
+                TrailsDurationTypes = trailDurationTypesAsync
                               .Select(i => new SimpleModel
                               {
                                   Id = i._id.ToString(),
                                   Value = i.DurationType
                               }).ToList(),
 
-                TrailsTypes = db.GetCollection<TrailsTypes>("TrailsTypes")
-                              .FindAll()
+                TrailsTypes = trailTypesAsync
                               .Select(i => new SimpleModel
                               {
                                   Id = i._id.ToString(),
@@ -173,84 +185,87 @@ namespace outdoor.rocks.Classes
             };
         }
 
-        internal static List<RegionModel> GetRegionModel()
+        internal async static Task<List<RegionModel>> GetRegionModel()
         {
-            return db.GetCollection<Regions>("Regions")
-                              .FindAll()
-                              .Select(i => new RegionModel
+            var regionsAsync = await db.GetCollection<Regions>("Regions")
+                              .FindAsync(new BsonDocument()).Result.ToListAsync();
+
+            var countriesAsync = await  db.GetCollection<Countries>("Countries")
+                              .FindAsync(new BsonDocument()).Result.ToListAsync();
+
+            return regionsAsync.Select(i => new RegionModel
                               {
                                   Region = i.Region,
                                   Selected = false,
 
                                   //FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-                                  Countries = db.GetCollection<Countries>("Countries")
-                                                .FindAll()
+                                  Countries = countriesAsync
                                                 .Where(j => j.Region_Id == i._id)                                                
                                                 .Select(j => j.Name)
                                                 .ToList()
                               }).ToList();
         }
 
-        internal static void UpdateComments(string value)
-        {
-            dynamic comment = JObject.Parse(value);
-            var trails = db.GetCollection<Trails>("Trails"); 
-            var trail = trails.FindOneById(ObjectId.Parse(comment.Id.Value));
+        //internal static void UpdateComments(string value)
+        //{
+        //    dynamic comment = JObject.Parse(value);
+        //    var trails = db.GetCollection<Trails>("Trails"); 
+        //    var trail = trails.FindOneById(ObjectId.Parse(comment.Id.Value));
 
-            var id = ObjectId.GenerateNewId();
-            db.GetCollection<Comments>("Comments").Insert(new Comments
-            {
-                _id = id,
-                Comment = comment.Comment.Value,
-                Rate = comment.Rate.Value,
-                User_Id = ObjectId.Parse(comment.User.Value)
-            });
+        //    var id = ObjectId.GenerateNewId();
+        //    db.GetCollection<Comments>("Comments").Insert(new Comments
+        //    {
+        //        _id = id,
+        //        Comment = comment.Comment.Value,
+        //        Rate = comment.Rate.Value,
+        //        User_Id = ObjectId.Parse(comment.User.Value)
+        //    });
 
-            trail.Comments_Ids.Add(id);
-            trails.Save(trail);
-        }
+        //    trail.Comments_Ids.Add(id);
+        //    trails.Save(trail);
+        //}
         
-        internal static UserModel GetUserModelIfUserAlreadyRegistration(string id)
+        internal async static Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
-            var user = db.GetCollection<Users>("Users")
-                .FindOneById(ObjectId.Parse(id));
+            var user = await db.GetCollection<Users>("Users")
+                .FindAsync(i => i._id == ObjectId.Parse(id)).Result.SingleOrDefaultAsync();
 
             return getUserModel(user);            
         }
 
-        internal static UserModel GetUserModelIfUserExist(string id, string value)
+        internal async static Task<UserModel> GetUserModelIfUserExist(string id, string value)
         {
             dynamic userObj = JObject.Parse(value);
             var name = (string)userObj.name.Value;
             var password = (string)userObj.password.Value;
-            var user = db.GetCollection<Users>("Users").FindAll()
-                         .Where(i => i.Name == name && i.Password == password)
-                         .FirstOrDefault();
+
+            var user = await db.GetCollection<Users>("Users")
+                .FindAsync(i => i.Name == name && i.Password == password)
+                .Result.FirstOrDefaultAsync();
 
             return getUserModel(user);
         }
 
-        internal static UserModel RegistrationUserAndReturnUserModel(string value)
+        internal async static Task<UserModel> RegistrationUserAndReturnUserModel(string value)
         {
             dynamic userObj = JObject.Parse(value);
 
             var name = (string)userObj.name.Value;
             var password = (string)userObj.password.Value;
             var email = (string)userObj.email.Value;
-
+            var roleAsync = await db.GetCollection<Roles>("Roles").FindAsync(new BsonDocument()).Result.ToListAsync();
             var user = new Users
             {
                 Name = name,
                 Password = password,
                 Email = email,
-                Role_Id = db.GetCollection<Roles>("Roles")
-                            .FindAll()
+                Role_Id = roleAsync                           
                             .Where(i => i.Role == "User")
                             .First()
                             ._id
             };
 
-            db.GetCollection<Users>("Users").Insert(user);
+            await db.GetCollection<Users>("Users").InsertOneAsync(user);
             return getUserModel(user);
 
         }
@@ -270,13 +285,15 @@ namespace outdoor.rocks.Classes
             return null;
         }
 
-        private static List<CommentsModel> getCommentsModelList(Trails trail)
+        private async static Task<List<CommentsModel>> getCommentsModelList(Trails trail)
         {
             var comments = new List<CommentsModel>();
-            var dbComments = db.GetCollection<Comments>("Comments");
+            var dbComments = await db.GetCollection<Comments>("Comments")
+                .FindAsync(new BsonDocument()).Result.ToListAsync();
+
             foreach (var commentId in trail.Comments_Ids)
             {
-                var comment = dbComments.FindOneById(commentId);
+                var comment = dbComments.FirstOrDefault(i => i._id == commentId);
                 comments.Add(new CommentsModel
                 {
                     Comment = comment.Comment,
