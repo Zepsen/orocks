@@ -32,7 +32,7 @@ angular
                 $scope.inputFiltes.Trails.forEach(function (i) {
                     searchTrails.push(
                     {
-                        "id": i._id,
+                        "id": i.Id,
                         "name": i.Value,
                         "icon": "glyphicon-tree-conifer"
                     });
@@ -41,7 +41,7 @@ angular
                 $scope.inputFiltes.Countries.forEach(function (i) {
                     searchCountries.push(
                     {
-                        "id": i._id,
+                        "id": i.Id,
                         "name": i.Value,
                         "icon": "glyphicon-globe"
                     });
