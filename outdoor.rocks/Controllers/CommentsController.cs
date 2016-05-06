@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
@@ -28,9 +29,10 @@ namespace outdoor.rocks.Controllers
         }
 
         // POST: api/Comments
-        public void Post([FromBody]string value)
+        public async Task Post([FromBody]string value)
         {
             //DBHelper.updateComments(value);            
+            await Task.Factory.StartNew(() => DBWithoutRepo.UpdateComments(value));
         }
                 
 

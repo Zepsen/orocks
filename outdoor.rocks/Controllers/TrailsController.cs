@@ -44,7 +44,7 @@ namespace outdoor.rocks.Controllers
         public async Task<FullTrailModel> Put(string id, [FromBody]string value)
         {
             //FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
-            //await Task.Factory.StartNew( () => DBWithoutRepo.UpdateTrailOptions(id, value));
+            await Task.Factory.StartNew( () => DBWithoutRepo.UpdateTrailOptions(id, value));
             return await Task<FullTrailModel>.Factory.StartNew(() => DBWithoutRepo.GetFullTrailModel(id));
         }
 

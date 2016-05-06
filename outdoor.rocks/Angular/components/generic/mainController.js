@@ -86,7 +86,7 @@ angular
                 url: "/api/Users/" + id,
             }).then(function (response) {
                 var res = response.data;
-                $scope.auth.id = res._id;
+                $scope.auth.id = res.Id;
                 $scope.auth.status = res.Role;
                 $scope.btnLoginShow = true;
 

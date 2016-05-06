@@ -1,6 +1,7 @@
 ﻿
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using Newtonsoft.Json.Linq;
 using outdoor.rocks.Models;
 using System;
@@ -75,46 +76,50 @@ namespace outdoor.rocks.Classes
             };
 
         }
-          
-        //public static void UpdateTrailOptions(string id, string value)
-        //{
-        //    var trail = db.GetCollection<Trails>("Trails").FindOneById(ObjectId.Parse(id));
-        //    var option = trail.Option;
 
-        //    dynamic update = JObject.Parse(value);
+        public static void UpdateTrailOptions(string id, string value)
+        {
+            var trail = db.GetCollection<Trails>("Trails").FindOneById(ObjectId.Parse(id));
+            var option = trail.Option;
 
-        //    var distance = update.Distance.Value ?? "";
-        //    if (!string.IsNullOrEmpty(distance.ToString()))
-        //        option.Distance = Convert.ToDouble(update.Distance.Value);
+            dynamic update = JObject.Parse(value);
 
-        //    var peak = update.Peak.Value ?? "";
-        //    if (!string.IsNullOrEmpty(peak.ToString()))
-        //        option.Peak = Convert.ToInt32(update.Peak.Value);
+            var distance = update.Distance.Value ?? "";
+            if (!string.IsNullOrEmpty(distance.ToString()))
+                option.Distance = Convert.ToDouble(update.Distance.Value);
 
-        //    var elevation = update.Elevation.Value ?? "";
-        //    if (!string.IsNullOrEmpty(elevation.ToString()))
-        //        option.Elevation = Convert.ToDouble(update.Elevation.Value);
+            var peak = update.Peak.Value ?? "";
+            if (!string.IsNullOrEmpty(peak.ToString()))
+                option.Peak = Convert.ToInt32(update.Peak.Value);
 
-
-        //    if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
-        //        option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
-
-        //    if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
-        //        option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
+            var elevation = update.Elevation.Value ?? "";
+            if (!string.IsNullOrEmpty(elevation.ToString()))
+                option.Elevation = Convert.ToDouble(update.Elevation.Value);
 
 
+            if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
+                option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart._id.Value);
 
-        //    if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
-        //        option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
+            if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
+                option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd._id.Value);
 
-        //    if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
-        //        option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
 
-        //    option.GoodForKids = update.GoodForKids.Value;
-        //    option.DogAllowed = update.DogAllowed.Value;
 
-        //    trail.Option = option;
-        //}
+            if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
+                option.TrailType_Id = ObjectId.Parse(update.Type._id.Value);
+
+            if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
+                option.TrailDurationType_Id = ObjectId.Parse(update.DurationType._id.Value);
+
+            option.GoodForKids = update.GoodForKids.Value;
+            option.DogAllowed = update.DogAllowed.Value;
+
+            IMongoQuery query = Query<Options>.EQ(item => item._id, option._id);
+            IMongoUpdate up = Update<Options>.Replace(option);
+
+            db.GetCollection<Options>("Options").Update(query, up);
+            db.GetCollection<Options>("Options").Save(option);
+        }
 
         internal static FilterModel GetFilterModel()
         {
@@ -186,26 +191,25 @@ namespace outdoor.rocks.Classes
                               }).ToList();
         }
 
-        //internal static void updateComments(string value)
-        //{
-        //    dynamic comment = JObject.Parse(value);
-        //    var trail = DBTrails.GetById(ObjectId.Parse(comment.Id.Value));
+        internal static void UpdateComments(string value)
+        {
+            dynamic comment = JObject.Parse(value);
+            var trails = db.GetCollection<Trails>("Trails"); 
+            var trail = trails.FindOneById(ObjectId.Parse(comment.Id.Value));
 
-        //    var id = ObjectId.GenerateNewId();
-        //    DBComments.Add(new Comments
-        //    {
-        //        Id = id.ToString(),
-        //        Comment = comment.Comment.Value,
-        //        Rate = comment.Rate.Value,
-        //        User_Id = ObjectId.Parse(comment.User.Value)
-        //    });
+            var id = ObjectId.GenerateNewId();
+            db.GetCollection<Comments>("Comments").Insert(new Comments
+            {
+                _id = id,
+                Comment = comment.Comment.Value,
+                Rate = comment.Rate.Value,
+                User_Id = ObjectId.Parse(comment.User.Value)
+            });
 
-        //    trail.Comments_Ids.Add(id);
-        //    DBTrails.Update(trail);
-        //}
-
+            trail.Comments_Ids.Add(id);
+            trails.Save(trail);
+        }
         
-
         internal static UserModel GetUserModelIfUserAlreadyRegistration(string id)
         {
             var user = db.GetCollection<Users>("Users")

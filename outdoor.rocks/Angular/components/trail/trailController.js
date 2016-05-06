@@ -197,9 +197,9 @@ angular
 
         //Auth
         function checkAuthTrail() {
-            var auth = $scope.getAuth();                
-            $scope.isAdmin = auth.status == 'Admin';
-            $scope.isUser = auth.status == 'Admin' || $scope.auth.status == 'User';            
+            var auth = $scope.getAuth();            
+            $scope.isAdmin = auth.status === 'Admin';
+            $scope.isUser = auth.status === 'Admin' || $scope.auth.status === 'User';            
         }
 
         $scope.clickImg = function(index) {            
