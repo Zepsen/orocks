@@ -17,8 +17,7 @@ namespace outdoor.rocks.Controllers
         // GET: api/Locations
         public Task<List<RegionModel>> Get()
         {
-            //IQueryable<RegionModel> regions = DBHelper.getRegionModel();
-            return  DBWithoutRepo.GetRegionModel();
+            return DBWithoutRepo.GetRegionModel();
         }
         
         // GET: api/Locations/5

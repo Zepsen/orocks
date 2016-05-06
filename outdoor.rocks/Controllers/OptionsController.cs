@@ -16,7 +16,6 @@ namespace outdoor.rocks.Controllers
         // GET: api/Options
         public Task<OptionModel> Get()
         {
-            //OptionModel res = DBHelper.getOptionModel();
             return DBWithoutRepo.GetOptionModel(); 
         }
 

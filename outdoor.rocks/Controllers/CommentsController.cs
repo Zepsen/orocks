@@ -29,10 +29,9 @@ namespace outdoor.rocks.Controllers
         }
 
         // POST: api/Comments
-        public async Task Post([FromBody]string value)
-        {
-            //DBHelper.updateComments(value);            
-            await DBWithoutRepo.UpdateComments(value);
+        public async void Post([FromBody]string value)
+        {          
+             await DBWithoutRepo.UpdateComments(value);
         }
                 
 

@@ -16,10 +16,9 @@ namespace outdoor.rocks.Controllers
     {       
         
         // GET: api/Filters
-        public async Task<FilterModel> Get()
+        public Task<FilterModel> Get()
         {
-            //FilterModel res = DBHelper.getFilterModel();
-            return await DBWithoutRepo.GetFilterModel();
+            return DBWithoutRepo.GetFilterModel();
         }       
 
         // GET: api/Filters/5

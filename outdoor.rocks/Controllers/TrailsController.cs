@@ -19,18 +19,14 @@ namespace outdoor.rocks.Controllers
         // Get All trails
         public  Task<List<TrailModel>> Get()
         {
-            //List<TrailModel> res = DBHelper.getTrailModelLIst();
-            return  DBWithoutRepo.GetTrailModelList();
-            
+            return  DBWithoutRepo.GetTrailModelList();            
         }        
 
         // GET: api/Trails/ObjectId
         // Get Trails by id
         public  Task<FullTrailModel> Get(string id)
-        {
-            //FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
-            return DBWithoutRepo.GetFullTrailModel(id);
-            
+        {            
+            return DBWithoutRepo.GetFullTrailModel(id);            
         }
 
         
@@ -42,8 +38,7 @@ namespace outdoor.rocks.Controllers
 
         // PUT: api/Trails/5
         public async Task<FullTrailModel> Put(string id, [FromBody]string value)
-        {
-            //FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
+        {            
             await DBWithoutRepo.UpdateTrailOptions(id, value);
             return await DBWithoutRepo.GetFullTrailModel(id);
         }
