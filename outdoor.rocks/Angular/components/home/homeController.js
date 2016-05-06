@@ -32,7 +32,7 @@ angular
                 url: "/api/Locations/"
             })
             .then(function (response) {                
-                $scope.regions = JSON.parse(response.data);                    
+                $scope.regions = response.data;                    
             })
             .then(function (error) {
                 console.log(error);
@@ -49,6 +49,7 @@ angular
             $scope.regions.forEach(function (i) {
                 i.Selected = false;
             });
+
             $scope.regions[index].Selected = true;
             $scope.Countries = $scope.regions[index].Countries;
             $scope.filterTrails = $scope.regions[index].Region;
@@ -57,7 +58,7 @@ angular
 
         //Filters by country
         $scope.selectCountry = function (index) {
-            $scope.filterTrails = $scope.Countries[index].Country;
+            $scope.filterTrails = $scope.Countries[index];            
         }
                 
 

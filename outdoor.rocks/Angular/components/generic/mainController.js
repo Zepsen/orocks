@@ -27,7 +27,7 @@ angular
                 url: "/api/Filters/"
             })
             .success(function (response) {
-                $scope.inputFiltes = JSON.parse(response);
+                $scope.inputFiltes = response;
 
                 $scope.inputFiltes.Trails.forEach(function (i) {
                     searchTrails.push(
@@ -74,20 +74,28 @@ angular
 
             var id = $cookies.get('user');
 
+            //if (id) 
+                $scope.getAuthById(id);
+            
+        }
+
+        $scope.getAuthById = function (id) {
+            
             $http({
                 method: "GET",
                 url: "/api/Users/" + id,
             }).then(function (response) {
-                var res = JSON.parse(response.data);
+                var res = response.data;
                 $scope.auth.id = res._id;
                 $scope.auth.status = res.Role;
                 $scope.btnLoginShow = true;
 
             }).then(function (error) {
-                console.log(error);                
+                console.log(error);
                 $scope.btnLoginShow = false;
             });
         }
+
 
         $scope.logout = function () {
             $cookies.remove("user");

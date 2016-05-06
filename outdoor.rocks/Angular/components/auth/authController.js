@@ -25,7 +25,7 @@ angular
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             })
             .then(function (response) {
-                var res = JSON.parse(response.data);
+                var res = response.data;
                 if (res) {
                     $scope.sref(res);
                 } else {
@@ -47,7 +47,7 @@ angular
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             })
             .then(function (response) {
-                var res = JSON.parse(response.data);
+                var res = response.data;
                 if (res) {
                     $scope.sref(res);
                 } else {
@@ -62,7 +62,7 @@ angular
         };
 
         $scope.sref = function (res) {
-            $cookies.put('user', res._id);
+            $cookies.put('user', res.Id);            
             $state.go('home');
         };
 

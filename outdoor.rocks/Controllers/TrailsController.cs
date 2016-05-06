@@ -30,6 +30,7 @@ namespace outdoor.rocks.Controllers
         {
             //FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
             return await Task<FullTrailModel>.Factory.StartNew(() => DBWithoutRepo.GetFullTrailModel(id));
+            
         }
 
         
@@ -40,11 +41,11 @@ namespace outdoor.rocks.Controllers
         }
 
         // PUT: api/Trails/5
-        public string Put(string id, [FromBody]string value)
+        public async Task<FullTrailModel> Put(string id, [FromBody]string value)
         {
-            //DBHelper.updateTrail(id, value);
             //FullTrailModel res = DBHelper.getFullTrailModelByTrailId(id);
-            return null;
+            //await Task.Factory.StartNew( () => DBWithoutRepo.UpdateTrailOptions(id, value));
+            return await Task<FullTrailModel>.Factory.StartNew(() => DBWithoutRepo.GetFullTrailModel(id));
         }
 
         

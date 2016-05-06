@@ -44,11 +44,12 @@ namespace outdoor.rocks.Classes
             var trail = db.GetCollection<Trails>("Trails")
                      .FindOneById(ObjectId.Parse(id));
 
+            List<CommentsModel> comments = getCommentsModelList(trail);
 
             return new FullTrailModel
             {
                 Id = trail._id.ToString(),
-                //Comments = trail.Comments,
+                Comments = comments,
                 Country = trail.Location.Country.Name,
                 Description = trail.Description,
                 Difficult = trail.Difficult.Value,
@@ -74,11 +75,12 @@ namespace outdoor.rocks.Classes
             };
 
         }
-
-        //public static void updateTrail(string id, string value)
+          
+        //public static void UpdateTrailOptions(string id, string value)
         //{
-        //    var trail = DBTrails.GetById(id);
-        //    var option = DBOptions.GetById(trail.Option_Id);
+        //    var trail = db.GetCollection<Trails>("Trails").FindOneById(ObjectId.Parse(id));
+        //    var option = trail.Option;
+
         //    dynamic update = JObject.Parse(value);
 
         //    var distance = update.Distance.Value ?? "";
@@ -111,7 +113,7 @@ namespace outdoor.rocks.Classes
         //    option.GoodForKids = update.GoodForKids.Value;
         //    option.DogAllowed = update.DogAllowed.Value;
 
-        //    DBOptions.Update(option);
+        //    trail.Option = option;
         //}
 
         internal static FilterModel GetFilterModel()
@@ -202,6 +204,8 @@ namespace outdoor.rocks.Classes
         //    DBTrails.Update(trail);
         //}
 
+        
+
         internal static UserModel GetUserModelIfUserAlreadyRegistration(string id)
         {
             var user = db.GetCollection<Users>("Users")
@@ -260,6 +264,23 @@ namespace outdoor.rocks.Classes
             }
 
             return null;
+        }
+
+        private static List<CommentsModel> getCommentsModelList(Trails trail)
+        {
+            var comments = new List<CommentsModel>();
+            var dbComments = db.GetCollection<Comments>("Comments");
+            foreach (var commentId in trail.Comments_Ids)
+            {
+                var comment = dbComments.FindOneById(commentId);
+                comments.Add(new CommentsModel
+                {
+                    Comment = comment.Comment,
+                    Name = comment.User.Name,
+                    Rate = comment.Rate
+                });
+            };
+            return comments;
         }
     }
 }

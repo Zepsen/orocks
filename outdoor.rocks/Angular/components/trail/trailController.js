@@ -65,7 +65,7 @@ angular
                 url: "/api/Trails/" + $stateParams.id
             })
            .then(function (response) {
-               $scope.trail = JSON.parse(response.data);
+               $scope.trail = response.data;
                initTrailMap($scope.trail.Country);
            })
             .then(function (error) {
@@ -81,7 +81,7 @@ angular
             })
             .then(
             function (response) {
-                $scope.options = JSON.parse(response.data);
+                $scope.options = response.data;
             })
             .then(
             function (error) {

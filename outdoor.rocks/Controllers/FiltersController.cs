@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
@@ -15,10 +16,10 @@ namespace outdoor.rocks.Controllers
     {       
         
         // GET: api/Filters
-        public string Get()
+        public async Task<FilterModel> Get()
         {
             //FilterModel res = DBHelper.getFilterModel();
-            return null;
+            return await Task<FilterModel>.Factory.StartNew( () => DBWithoutRepo.GetFilterModel());
         }       
 
         // GET: api/Filters/5

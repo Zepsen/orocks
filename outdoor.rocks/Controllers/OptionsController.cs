@@ -5,6 +5,7 @@ using outdoor.rocks.Classes;
 using outdoor.rocks.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
@@ -13,10 +14,10 @@ namespace outdoor.rocks.Controllers
     {
         
         // GET: api/Options
-        public string Get()
+        public async Task<OptionModel> Get()
         {
             //OptionModel res = DBHelper.getOptionModel();
-            return null;
+            return await Task<OptionModel>.Factory.StartNew(() => DBWithoutRepo.GetOptionModel()); 
         }
 
        
