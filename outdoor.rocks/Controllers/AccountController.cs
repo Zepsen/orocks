@@ -237,7 +237,8 @@ namespace outdoor.rocks.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity 
+                as ClaimsIdentity);
 
             if (externalLogin == null)
             {

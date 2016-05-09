@@ -27,7 +27,8 @@ namespace outdoor.rocks.Providers
             _publicClientId = publicClientId;
         }
 
-        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+        public override async Task GrantResourceOwnerCredentials(
+            OAuthGrantResourceOwnerCredentialsContext context)
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
@@ -39,9 +40,12 @@ namespace outdoor.rocks.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
-               OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(
+                userManager,
+                OAuthDefaults.AuthenticationType);
+
+            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(
+                userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
             AuthenticationProperties properties = CreateProperties(user.UserName);
@@ -60,7 +64,8 @@ namespace outdoor.rocks.Providers
             return Task.FromResult<object>(null);
         }
 
-        public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        public override Task ValidateClientAuthentication(
+            OAuthValidateClientAuthenticationContext context)
         {
             // Учетные данные владельца ресурса не содержат идентификатор клиента.
             if (context.ClientId == null)
@@ -71,7 +76,8 @@ namespace outdoor.rocks.Providers
             return Task.FromResult<object>(null);
         }
 
-        public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
+        public override Task ValidateClientRedirectUri(
+            OAuthValidateClientRedirectUriContext context)
         {
             if (context.ClientId == _publicClientId)
             {
