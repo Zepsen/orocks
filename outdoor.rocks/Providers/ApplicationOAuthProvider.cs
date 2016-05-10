@@ -24,6 +24,11 @@ namespace outdoor.rocks.Providers
             _publicClientId = publicClientId;
         }
 
+        /*
+           /Token
+           return token 
+             */
+
         public override async Task GrantResourceOwnerCredentials(
             OAuthGrantResourceOwnerCredentialsContext context)
         {

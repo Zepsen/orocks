@@ -22,7 +22,9 @@ namespace outdoor.rocks.App_Start
 
         public static ApplicationIdentityContext Create()
         {
-            // todo add settings where appropriate to switch server & database in your own application
+            // todo add settings where appropriate to switch server & database 
+            // in your own application
+
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("orocks");
             var users = database.GetCollection<ApplicationUser>("users");

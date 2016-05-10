@@ -12,6 +12,22 @@ angular
         $scope.filterTrails = null;
         $scope.trails = [];
         
+        var loginData = {
+            grant_type: 'password',
+            username: 'admin@admin.ua',
+            password: 'Asd_asd'
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/Token',
+            data: loginData
+        }).done(function (data) {
+            
+            // Cache the access token in session storage.
+            sessionStorage.setItem('tokenKey', data.access_token);
+        });
+
 
         function loadTrails() {
             //Get Features Trails
@@ -29,7 +45,7 @@ angular
         function getRegionsAndCountries() {            
             $http({
                 method: "GET",
-                url: "/api/Locations/"
+                url: "/api/Locations/"            
             })
             .then(function (response) {                
                 $scope.regions = response.data;                    
@@ -79,4 +95,5 @@ angular
         loadTrails();
         getRegionsAndCountries();
         $scope.checkAuth();
+        
     }]);
