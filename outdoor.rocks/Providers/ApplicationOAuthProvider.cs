@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
@@ -41,12 +38,10 @@ namespace outdoor.rocks.Providers
             }
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(
-                userManager,
-                OAuthDefaults.AuthenticationType);
+                userManager);
 
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(
-                userManager,
-                CookieAuthenticationDefaults.AuthenticationType);
+                userManager);
 
             AuthenticationProperties properties = CreateProperties(user.UserName);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
