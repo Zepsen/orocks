@@ -18,6 +18,7 @@ namespace outdoor.rocks.Models
             // Add custom user claims here
             return userIdentity;
         }
+
     }
 }
     
