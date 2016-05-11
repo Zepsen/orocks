@@ -13,6 +13,8 @@ using Microsoft.Owin.Security.OAuth;
 using outdoor.rocks.Models;
 using outdoor.rocks.Providers;
 using outdoor.rocks.Results;
+using outdoor.rocks.App_Start;
+using AspNet.Identity.MongoDB;
 
 namespace outdoor.rocks.Controllers
 {
@@ -324,18 +326,39 @@ namespace outdoor.rocks.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Password };
-            
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-            
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+            //IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            //await UserManager.AddUserDefaultRoleAsync(user.Id);
+
+            IdentityResult result;
+            using (var context = ApplicationIdentityContext.Create())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context.Roles);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                await roleManager.CreateAsync(new IdentityRole() { Name = "User" });
+
+                var userStore = new UserStore<ApplicationUser>(context.Users);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var newuser = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+                result = await UserManager.CreateAsync(newuser, model.Password);
+                await userManager.AddToRoleAsync(newuser.Id, "User");
+
+            }
+
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
-
             
             return Ok();
         }
+
+
 
         //// POST api/Account/RegisterExternal
         //[OverrideAuthentication]

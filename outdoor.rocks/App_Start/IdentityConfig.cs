@@ -57,6 +57,25 @@ namespace outdoor.rocks
             return manager;
         }
 
+        public async Task<IdentityResult> AddUserDefaultRoleAsync(string userId)
+        {
+            var userRoleStore = (IUserRoleStore<ApplicationUser, string>)Store;
+
+            var user = await FindByIdAsync(userId).ConfigureAwait(false);
+            if (user == null)
+            {
+                throw new InvalidOperationException("Invalid user Id");
+            }
+
+            //var userRoles = await userRoleStore.GetRolesAsync(user).ConfigureAwait(false);
+            
+            await userRoleStore.AddToRoleAsync(user, "User").ConfigureAwait(false);
+            
+            // Call update once when all roles are added
+            return await UpdateAsync(user).ConfigureAwait(false);
+        }
+
+
         /// <summary>
         /// Method to add user to multiple roles
         /// </summary>

@@ -26,5 +26,10 @@ angular.module('ORockApp')
                     url: '/registration',
                     templateUrl: '../Angular/components/auth/templates/registration.html',
                     controller: 'AuthCtrl'
+                })
+                .state('admin', {
+                    url: '/admin',
+                    templateUrl: '../Angular/components/admin/templates/admin.html',
+                    controller: 'AdminCtrl'
                 });
         }]);

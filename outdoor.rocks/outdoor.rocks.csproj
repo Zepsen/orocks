@@ -261,6 +261,8 @@
   <ItemGroup>
     <Content Include="Angular\app.module.js" />
     <Content Include="Angular\app.routes.js" />
+    <Content Include="Angular\components\admin\adminController.js" />
+    <Content Include="Angular\components\admin\templates\admin.html" />
     <Content Include="Angular\components\auth\authController.js" />
     <Content Include="Angular\components\auth\formValidationsDirective.js" />
     <Content Include="Angular\components\auth\templates\login.html" />

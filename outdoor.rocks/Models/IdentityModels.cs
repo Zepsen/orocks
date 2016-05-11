@@ -14,8 +14,15 @@ namespace outdoor.rocks.Models
             UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ExternalBearer);
+            
             // Add custom user claims here
+            //Custom add types o Attribute Authorize
+            //var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
+            //userIdentity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            //userIdentity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+            //userIdentity.AddClaim(new Claim(ClaimTypes.Role, "User"));
+           
             return userIdentity;
         }
 

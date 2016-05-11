@@ -44,14 +44,18 @@ namespace outdoor.rocks.Providers
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(
                 userManager);
-
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(
-                userManager);
+                        
+            
+            //ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(
+            //    userManager);
 
             AuthenticationProperties properties = CreateProperties(user.UserName);
+          
+
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+
             context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
+           //context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

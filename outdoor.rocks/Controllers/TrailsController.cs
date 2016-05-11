@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
 {
-    [Authorize(Users = "admin@admin.ua")]
+    [Authorize(Roles = "User")]
     public class TrailsController : ApiController
     {
          
