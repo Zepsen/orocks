@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
 {
+    [AllowAnonymous]
     public class LocationsController : ApiController
     {       
         // GET: api/Locations

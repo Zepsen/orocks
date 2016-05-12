@@ -5,65 +5,90 @@ angular
 
         $scope.wrongLogin = false;
         $scope.userRegistr = {
-            name: '',
-            password: '',
-            password1: '',
-            email: ''
+            Name: '',
+            Password: '',
+            ConfirmPassword: '',
+            Email: ''
         };
 
         $scope.userLogin = {
-            name: '',
-            password: ''
+            Name: '',
+            Password: ''
         };
 
         $scope.login = function () {
-
-            $http({
-                method: "PUT",
-                url: "/api/Users/1",
-                data: "=" + JSON.stringify($scope.userLogin),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            })
-            .then(function (response) {
-                var res = response.data;
-                if (res) {
-                    $scope.sref(res);
-                } else {
-                    console.log("No authorized");
-                    $scope.wrongLogin = true;
-                }
-            })
-            .then(function (error) {
-                console.log(error);
-            });
+            $scope.sref($scope.userLogin);
+            //$http({
+            //    method: "PUT",
+            //    url: "/api/Users/1",
+            //    data: "=" + JSON.stringify($scope.userLogin),
+            //    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            //})
+            //.then(function (response) {
+            //    var res = response.data;
+            //    if (res) {
+            //        $scope.sref(res);
+            //    } else {
+            //        console.log("No authorized");
+            //        $scope.wrongLogin = true;
+            //    }
+            //})
+            //.then(function (error) {
+            //    console.log(error);
+            //});
         };
 
         $scope.registration = function () {
 
             $http({
                 method: "POST",
-                url: "/api/Users",
-                data: "=" + JSON.stringify($scope.userRegistr),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+                url: "/api/Account/Register",
+                data: $scope.userRegistr
             })
-            .then(function (response) {
-                var res = response.data;
-                if (res) {
-                    $scope.sref(res);
-                } else {
-                    console.log("No registration");
+                .success(function (response) {
+                    $scope.sref($scope.userRegistr);
+                })
+                .error(function (error) {
                     $scope.wrongRegistration = true;
-                }
-            })
-            .then(function (error) {
-                console.log(error);
-            });
+                    console.log(error);
+                });
 
         };
 
-        $scope.sref = function (res) {
-            $cookies.put('user', res.Id);            
+        $scope.sref = function (user) {
+
+            if (sessionStorage.getItem(user.Name) === null) {
+                getToken();
+            }
+            
+            $scope.setUser(user.Name);
+
             $state.go('home');
         };
+
+        function getToken() {
+            var data = "grant_type=password&username=" + user.Name + "&password=" + user.Password;
+
+            $http.post(
+                '/Token',
+                data,
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }
+                )
+                .success(function (data) {
+                    // Cache the access token in session storage.
+                    sessionStorage.setItem(data.userName, data.access_token);
+
+                    //redirect to home
+                    $state.go('home');
+
+                })
+                .error(function (error) {
+                    console.log("storage" + error)
+                });
+        }
 
     }]);

@@ -34,6 +34,9 @@ namespace outdoor.rocks.Models
 
     public class RegisterBindingModel
     {
+        [Required]        
+        public string Name { get; set; }
+
         [Required]
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }

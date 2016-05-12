@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
 {
-    [Authorize(Roles = "User")]
+    [AllowAnonymous]
     public class TrailsController : ApiController
     {
          
@@ -19,7 +19,7 @@ namespace outdoor.rocks.Controllers
         }        
 
         // GET: api/Trails/ObjectId
-        // Get Trails by id
+        // Get Trails by id        
         public  Task<FullTrailModel> Get(string id)
         {            
             return DBWithoutRepo.GetFullTrailModel(id);            
@@ -32,6 +32,7 @@ namespace outdoor.rocks.Controllers
             
         }
 
+        [Authorize(Roles = "Admin")]
         // PUT: api/Trails/5
         public async Task<FullTrailModel> Put(string id, [FromBody]string value)
         {            

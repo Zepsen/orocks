@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace outdoor.rocks.Controllers
 {
+    [AllowAnonymous]
     public class UsersController : ApiController
     {
         

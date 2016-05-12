@@ -15,7 +15,7 @@ namespace outdoor.rocks.Controllers
 {
     public class CommentsController : ApiController
     {        
-        
+        [AllowAnonymous]
         // GET: api/Comments
         public IEnumerable<string> Get()
         {
@@ -28,6 +28,7 @@ namespace outdoor.rocks.Controllers
             return "value";
         }
 
+        [Authorize(Roles = "Admin, User")]
         // POST: api/Comments
         public async void Post([FromBody]string value)
         {          

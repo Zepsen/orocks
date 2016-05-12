@@ -7,6 +7,12 @@ angular
         $scope.search2RegionsAndTrailsModel = [];
         $scope.search2TrailsModel = [];
         $scope.btnLoginShow = true;
+        $scope.user = "";
+                
+        $scope.setUser = function (user) {
+            $scope.user = user;
+        }
+
         var searchTrails = [];
         var searchCountries = [];
 
@@ -70,31 +76,40 @@ angular
             $state.go('trail', { id: value.id });
         }
 
-        $scope.checkAuth = function () {
+        $scope.checkAuth = function () {            
+            if ($scope.user) {
+                console.log($scope.user)
+            }
+            else {
+                console.log("Check empty");
+            }
+            
+            //var id = $cookies.get('user');
 
-            var id = $cookies.get('user');
-
-            //if (id) 
-                $scope.getAuthById(id);
+            ////if (id) 
+            //    $scope.getAuthById(id);
             
         }
 
-        $scope.getAuthById = function (id) {
-            
-            $http({
-                method: "GET",
-                url: "/api/Users/" + id,
-            }).then(function (response) {
-                var res = response.data;
-                $scope.auth.id = res.Id;
-                $scope.auth.status = res.Role;
-                $scope.btnLoginShow = true;
+       // $scope.getAuthById = function (id) {
 
-            }).then(function (error) {
-                console.log(error);
-                $scope.btnLoginShow = false;
-            });
-        }
+            //if (id)
+            //{
+            //    $http({
+            //        method: "GET",
+            //        url: "/api/Users/" + id,
+            //    }).then(function (response) {
+            //        var res = response.data;
+            //        $scope.auth.id = res.Id;
+            //        $scope.auth.status = res.Role;
+            //        $scope.btnLoginShow = true;
+
+            //    }).then(function (error) {
+            //        console.log(error);
+            //        $scope.btnLoginShow = false;
+            //    });
+            //}            
+        //}
 
 
         $scope.logout = function () {
@@ -106,7 +121,7 @@ angular
 
         //Load functions
         loadRegionsAndTrailsName();
-        $scope.checkAuth();
+        //$scope.checkAuth();
 
     }]);
 

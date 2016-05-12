@@ -14,7 +14,7 @@ namespace outdoor.rocks.Controllers
 {
     public class FiltersController : ApiController
     {       
-        
+        [AllowAnonymous]
         // GET: api/Filters
         public Task<FilterModel> Get()
         {
