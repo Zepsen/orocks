@@ -11,8 +11,6 @@ angular
         $scope.showBtnMore = false;
         $scope.filterTrails = null;
         $scope.trails = [];
-        
-        
 
         function loadTrails() {
             //Get Features Trails

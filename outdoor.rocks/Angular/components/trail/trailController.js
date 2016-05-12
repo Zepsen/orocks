@@ -88,8 +88,7 @@ angular
                 console.log("Error");
             });
         }
-
-
+            
 
         //Update trails and return  update trail
         $scope.submitUpdateTrail = function () {
@@ -98,7 +97,11 @@ angular
                 method: "PUT",
                 url: "/api/Trails/" + $stateParams.id,
                 data: "=" + JSON.stringify($scope.updateTrail),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                headers:
+                    {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem($scope.getUser())
+                    },
 
             })
             .then(function (response) {
@@ -181,12 +184,10 @@ angular
 
             })
             .success(function (response) {
-                $scope.updateComments();
-                debugger;
+                $scope.updateComments();               
             })
             .error(function (error) {
-                console.log(error);
-                debugger;
+                console.log(error);                
             });
 
         }

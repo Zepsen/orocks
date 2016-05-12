@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace outdoor.rocks.Controllers
 {
-    [AllowAnonymous]
+    
     public class TrailsController : ApiController
     {
          
