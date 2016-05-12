@@ -17,25 +17,7 @@ angular
         };
 
         $scope.login = function () {
-            $scope.sref($scope.userLogin);
-            //$http({
-            //    method: "PUT",
-            //    url: "/api/Users/1",
-            //    data: "=" + JSON.stringify($scope.userLogin),
-            //    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            //})
-            //.then(function (response) {
-            //    var res = response.data;
-            //    if (res) {
-            //        $scope.sref(res);
-            //    } else {
-            //        console.log("No authorized");
-            //        $scope.wrongLogin = true;
-            //    }
-            //})
-            //.then(function (error) {
-            //    console.log(error);
-            //});
+            $scope.sref($scope.userLogin);            
         };
 
         $scope.registration = function () {
@@ -58,7 +40,7 @@ angular
         $scope.sref = function (user) {
 
             if (sessionStorage.getItem(user.Name) === null) {
-                getToken();
+                getToken(user);
             }
             
             $scope.setUser(user.Name);
@@ -66,9 +48,9 @@ angular
             $state.go('home');
         };
 
-        function getToken() {
+        function getToken(user) {
             var data = "grant_type=password&username=" + user.Name + "&password=" + user.Password;
-
+            
             $http.post(
                 '/Token',
                 data,

@@ -233,58 +233,58 @@ namespace outdoor.rocks.Classes
 
         internal async static Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
-            var user = await db.GetCollection<Users>("Users")
-                .FindAsync(i => i._id == ObjectId.Parse(id)).Result.SingleOrDefaultAsync();
+            var user = await db.GetCollection<ApplicationUser>("users")
+                .FindAsync(i => i.UserName == id).Result.SingleOrDefaultAsync();
 
             return getUserModel(user);            
         }
 
-        internal async static Task<UserModel> GetUserModelIfUserExist(string id, string value)
-        {
-            dynamic userObj = JObject.Parse(value);
-            var name = (string)userObj.name.Value;
-            var password = (string)userObj.password.Value;
+        //internal async static Task<UserModel> GetUserModelIfUserExist(string id, string value)
+        //{
+        //    dynamic userObj = JObject.Parse(value);
+        //    var name = (string)userObj.name.Value;
+        //    var password = (string)userObj.password.Value;
 
-            var user = await db.GetCollection<Users>("Users")
-                .FindAsync(i => i.Name == name && i.Password == password)
-                .Result.FirstOrDefaultAsync();
+        //    var user = await db.GetCollection<Users>("Users")
+        //        .FindAsync(i => i.Name == name && i.Password == password)
+        //        .Result.FirstOrDefaultAsync();
 
-            return getUserModel(user);
-        }
+        //    return getUserModel(user);
+        //}
 
-        internal async static Task<UserModel> RegistrationUserAndReturnUserModel(string value)
-        {
-            dynamic userObj = JObject.Parse(value);
+        //internal async static Task<UserModel> RegistrationUserAndReturnUserModel(string value)
+        //{
+        //    dynamic userObj = JObject.Parse(value);
 
-            var name = (string)userObj.name.Value;
-            var password = (string)userObj.password.Value;
-            var email = (string)userObj.email.Value;
-            var roleAsync = await db.GetCollection<Roles>("Roles").FindAsync(new BsonDocument()).Result.ToListAsync();
-            var user = new Users
-            {
-                Name = name,
-                Password = password,
-                Email = email,
-                Role_Id = roleAsync                           
-                            .Where(i => i.Role == "User")
-                            .First()
-                            ._id
-            };
+        //    var name = (string)userObj.name.Value;
+        //    var password = (string)userObj.password.Value;
+        //    var email = (string)userObj.email.Value;
+        //    var roleAsync = await db.GetCollection<Roles>("Roles").FindAsync(new BsonDocument()).Result.ToListAsync();
+        //    var user = new Users
+        //    {
+        //        Name = name,
+        //        Password = password,
+        //        Email = email,
+        //        Role_Id = roleAsync                           
+        //                    .Where(i => i.Role == "User")
+        //                    .First()
+        //                    ._id
+        //    };
 
-            await db.GetCollection<Users>("Users").InsertOneAsync(user);
-            return getUserModel(user);
+        //    await db.GetCollection<Users>("Users").InsertOneAsync(user);
+        //    return getUserModel(user);
 
-        }
+        //}
 
         //Private methods
-        private static UserModel getUserModel(Users user)
+        private static UserModel getUserModel(ApplicationUser user)
         {
             if (user != null)
             {
                 return new UserModel
                 {
-                    Id = user._id.ToString(),
-                    Role = user.Role.Role,
+                    Id = user.Id,
+                    Role = user.Roles.FirstOrDefault()
                 };
             }
 

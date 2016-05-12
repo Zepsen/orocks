@@ -8,7 +8,7 @@ angular
         $scope.search2TrailsModel = [];
         $scope.btnLoginShow = true;
         $scope.user = "";
-                
+
         $scope.setUser = function (user) {
             $scope.user = user;
         }
@@ -55,7 +55,7 @@ angular
 
                 $scope.search2RegionsAndTrailsModel = searchTrails.concat(searchCountries);
                 $scope.search2TrailsModel = searchTrails;
-                
+
             });
         }
 
@@ -63,7 +63,7 @@ angular
         //Selected trail in input
         $scope.inputPressEnter = function (value) {
             var res = false;
-            
+
             searchCountries.forEach(function (i) {
                 if (i.id === value.id) {
                     res = true;
@@ -76,40 +76,31 @@ angular
             $state.go('trail', { id: value.id });
         }
 
-        $scope.checkAuth = function () {            
+
+        //Check if user already auths
+        $scope.checkAuth = function () {
             if ($scope.user) {
-                console.log($scope.user)
+                $scope.btnLoginShow = false;
+                $scope.getAuthById($scope.user);
             }
             else {
-                console.log("Check empty");
+                $scope.btnLoginShow = true;
             }
-            
-            //var id = $cookies.get('user');
-
-            ////if (id) 
-            //    $scope.getAuthById(id);
-            
         }
 
-       // $scope.getAuthById = function (id) {
+        $scope.getAuthById = function (userName) {
+            $http({
+                method: "GET",
+                url: "/api/Users/" + userName,
+            }).then(function (response) {
+                var res = response.data;
+                $scope.auth.id = res.Id;
+                $scope.auth.status = res.Role;
 
-            //if (id)
-            //{
-            //    $http({
-            //        method: "GET",
-            //        url: "/api/Users/" + id,
-            //    }).then(function (response) {
-            //        var res = response.data;
-            //        $scope.auth.id = res.Id;
-            //        $scope.auth.status = res.Role;
-            //        $scope.btnLoginShow = true;
-
-            //    }).then(function (error) {
-            //        console.log(error);
-            //        $scope.btnLoginShow = false;
-            //    });
-            //}            
-        //}
+            }).then(function (error) {
+                console.log(error);
+            });
+        }
 
 
         $scope.logout = function () {

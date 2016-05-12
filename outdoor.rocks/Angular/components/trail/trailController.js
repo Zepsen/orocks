@@ -198,10 +198,13 @@ angular
         //Auth
         function checkAuthTrail() {
             var auth = $scope.getAuth();            
+
             $scope.isAdmin = auth.status === 'Admin';
             $scope.isUser = auth.status === 'Admin' || $scope.auth.status === 'User';            
         }
 
+
+        //Show full size img by click 
         $scope.clickImg = function(index) {            
             $("#imgModal").attr('src', $('#gal' + index).attr('data-img-url'));            
         };

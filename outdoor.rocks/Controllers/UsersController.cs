@@ -34,14 +34,16 @@ namespace outdoor.rocks.Controllers
         public  Task<UserModel> Post([FromBody]string value)
         {
             // return DBHelper.regUserAndReturnResult(value).ToJson();
-            return DBWithoutRepo.RegistrationUserAndReturnUserModel(value);
+            // return DBWithoutRepo.RegistrationUserAndReturnUserModel(value);
+            return null;
         }
 
         // PUT: api/Users/5
         public Task<UserModel> Put(string id, [FromBody]string value)
         {
             // return DBHelper.getUsersRoleIfUserRegByData(id, value).ToJson();
-            return  DBWithoutRepo.GetUserModelIfUserExist(id, value);
+            //return  DBWithoutRepo.GetUserModelIfUserExist(id, value);
+            return null;
         }
 
         // DELETE: api/Users/5
