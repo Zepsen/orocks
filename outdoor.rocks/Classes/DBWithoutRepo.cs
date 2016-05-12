@@ -303,7 +303,7 @@ namespace outdoor.rocks.Classes
                 comments.Add(new CommentsModel
                 {
                     Comment = comment.Comment,
-                    Name = comment.User.Name,
+                    Name = comment.User.UserName,
                     Rate = comment.Rate
                 });
             };

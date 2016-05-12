@@ -30,9 +30,10 @@ namespace outdoor.rocks.Controllers
 
         [Authorize(Roles = "Admin, User")]
         // POST: api/Comments
-        public async void Post([FromBody]string value)
+        public async Task<IHttpActionResult> Post([FromBody]string value)
         {          
-             await DBWithoutRepo.UpdateComments(value);
+            await DBWithoutRepo.UpdateComments(value);
+            return Ok();
         }
                 
 

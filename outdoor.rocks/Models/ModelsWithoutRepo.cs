@@ -228,13 +228,13 @@ namespace outdoor.rocks.Models
             public double Rate { get; set; }
 
             [BsonIgnore]
-            public Users User
+            public ApplicationUser User
             {
                 get
-                {
+                {                   
                     return
-                    db.GetCollection<Users>("Users")
-                                   .FindAsync(i => i._id == this.User_Id)
+                    db.GetCollection<ApplicationUser>("users")
+                                   .FindAsync(i => i.Id == this.User_Id.ToString())
                                    .Result.FirstOrDefaultAsync().Result;
                 }
                 set

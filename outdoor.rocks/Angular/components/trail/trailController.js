@@ -173,14 +173,20 @@ angular
                 method: "POST",
                 url: "/api/Comments/",
                 data: "=" + JSON.stringify($scope.postCommentData),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                headers:
+                    {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem($scope.getUser())
+                    },
 
             })
-            .then(function (response) {
+            .success(function (response) {
                 $scope.updateComments();
+                debugger;
             })
-            .then(function (error) {
+            .error(function (error) {
                 console.log(error);
+                debugger;
             });
 
         }

@@ -13,6 +13,10 @@ angular
             $scope.user = user;
         }
 
+        $scope.getUser = function () {                        
+            return $scope.user; 
+        }
+
         var searchTrails = [];
         var searchCountries = [];
 
