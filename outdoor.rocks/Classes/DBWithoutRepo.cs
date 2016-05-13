@@ -238,44 +238,7 @@ namespace outdoor.rocks.Classes
 
             return getUserModel(user);            
         }
-
-        //internal async static Task<UserModel> GetUserModelIfUserExist(string id, string value)
-        //{
-        //    dynamic userObj = JObject.Parse(value);
-        //    var name = (string)userObj.name.Value;
-        //    var password = (string)userObj.password.Value;
-
-        //    var user = await db.GetCollection<Users>("Users")
-        //        .FindAsync(i => i.Name == name && i.Password == password)
-        //        .Result.FirstOrDefaultAsync();
-
-        //    return getUserModel(user);
-        //}
-
-        //internal async static Task<UserModel> RegistrationUserAndReturnUserModel(string value)
-        //{
-        //    dynamic userObj = JObject.Parse(value);
-
-        //    var name = (string)userObj.name.Value;
-        //    var password = (string)userObj.password.Value;
-        //    var email = (string)userObj.email.Value;
-        //    var roleAsync = await db.GetCollection<Roles>("Roles").FindAsync(new BsonDocument()).Result.ToListAsync();
-        //    var user = new Users
-        //    {
-        //        Name = name,
-        //        Password = password,
-        //        Email = email,
-        //        Role_Id = roleAsync                           
-        //                    .Where(i => i.Role == "User")
-        //                    .First()
-        //                    ._id
-        //    };
-
-        //    await db.GetCollection<Users>("Users").InsertOneAsync(user);
-        //    return getUserModel(user);
-
-        //}
-
+                
         //Private methods
         private static UserModel getUserModel(ApplicationUser user)
         {

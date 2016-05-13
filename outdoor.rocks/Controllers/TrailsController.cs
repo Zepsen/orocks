@@ -13,13 +13,14 @@ namespace outdoor.rocks.Controllers
          
         // GET: api/Trails
         // Get All trails
+        
         public  Task<List<TrailModel>> Get()
         {
             return  DBWithoutRepo.GetTrailModelList();            
-        }        
+        }
 
         // GET: api/Trails/ObjectId
-        // Get Trails by id        
+        // Get Trails by id             
         public  Task<FullTrailModel> Get(string id)
         {            
             return DBWithoutRepo.GetFullTrailModel(id);            

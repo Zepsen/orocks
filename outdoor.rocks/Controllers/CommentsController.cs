@@ -14,8 +14,7 @@ using System.Web.Http;
 namespace outdoor.rocks.Controllers
 {
     public class CommentsController : ApiController
-    {        
-        [AllowAnonymous]
+    {          
         // GET: api/Comments
         public IEnumerable<string> Get()
         {
@@ -28,8 +27,9 @@ namespace outdoor.rocks.Controllers
             return "value";
         }
 
-        [Authorize(Roles = "Admin, User")]
         // POST: api/Comments
+        //[Authorize(Roles = "Admin, User")]
+        [MongoAuth(Roles = "User")]
         public async Task<IHttpActionResult> Post([FromBody]string value)
         {          
             await DBWithoutRepo.UpdateComments(value);

@@ -15,6 +15,7 @@ using outdoor.rocks.Providers;
 using outdoor.rocks.Results;
 using outdoor.rocks.App_Start;
 using AspNet.Identity.MongoDB;
+using MongoDB.Bson;
 
 namespace outdoor.rocks.Controllers
 {
@@ -50,30 +51,7 @@ namespace outdoor.rocks.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // GET api/Account/UserInfo
-        //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        //[Route("UserInfo")]
-        //public UserInfoViewModel GetUserInfo()
-        //{
-        //    ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
-        //    return new UserInfoViewModel
-        //    {
-        //        Email = User.Identity.GetUserName(),
-        //        HasRegistered = externalLogin == null,
-        //        LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-        //    };
-        //}
-
-        //// POST api/Account/Logout
-        //[Route("Logout")]
-        //public IHttpActionResult Logout()
-        //{
-        //    Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-        //    return Ok();
-        //}
-
-      
+             
 
         // POST api/Account/Register
         [AllowAnonymous]
@@ -93,10 +71,12 @@ namespace outdoor.rocks.Controllers
 
                 await roleManager.CreateAsync(new IdentityRole() { Name = "User" });
 
+                //var defaultRoleId = await roleStore.FindByNameAsync("User");
+
                 var userStore = new UserStore<ApplicationUser>(context.Users);
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
-                var newUser = new ApplicationUser() { UserName = model.Name, Email = model.Email };
+                var newUser = new ApplicationUser() { UserName = model.Name, Email = model.Email};
 
                 result = await UserManager.CreateAsync(newUser, model.Password);
                 await userManager.AddToRoleAsync(newUser.Id, "User");

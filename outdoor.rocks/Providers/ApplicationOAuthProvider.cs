@@ -24,11 +24,7 @@ namespace outdoor.rocks.Providers
             _publicClientId = publicClientId;
         }
 
-        /*
-           /Token
-           return token 
-             */
-
+        //Token          
         public override async Task GrantResourceOwnerCredentials(
             OAuthGrantResourceOwnerCredentialsContext context)
         {
@@ -42,20 +38,28 @@ namespace outdoor.rocks.Providers
                 return;
             }
 
+            //
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(
                 userManager);
-                        
+
+            // Add custom user claims here
+            //Custom add types o Attribute Authorize            
+            var rolesManager = context.OwinContext.GetUserManager<ApplicationRoleManager>();
             
-            //ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(
-            //    userManager);
+
+            //var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
+            //oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            //foreach (var id in user.Roles) {
+            //    var role = await rolesManager.FindByIdAsync(id);
+            //    oAuthIdentity.AddClaim(new Claim(ClaimTypes.Role, role.Name ));
+            //}
+
 
             AuthenticationProperties properties = CreateProperties(user.UserName);
-          
 
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-
             context.Validated(ticket);
-           //context.Request.Context.Authentication.SignIn(cookiesIdentity);
+
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
@@ -71,7 +75,6 @@ namespace outdoor.rocks.Providers
         public override Task ValidateClientAuthentication(
             OAuthValidateClientAuthenticationContext context)
         {
-            // Учетные данные владельца ресурса не содержат идентификатор клиента.
             if (context.ClientId == null)
             {
                 context.Validated();

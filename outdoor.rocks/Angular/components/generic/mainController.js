@@ -7,8 +7,8 @@ angular
         $scope.search2RegionsAndTrailsModel = [];
         $scope.search2TrailsModel = [];
         $scope.btnLoginShow = true;
-        $scope.user = "";
 
+        $scope.user = "";
         $scope.setUser = function (user) {
             $scope.user = user;
         }
