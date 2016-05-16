@@ -69,9 +69,7 @@ namespace outdoor.rocks.Controllers
                 var roleStore = new RoleStore<IdentityRole>(context.Roles);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                await roleManager.CreateAsync(new IdentityRole() { Name = "User" });
-
-                //var defaultRoleId = await roleStore.FindByNameAsync("User");
+                await roleManager.CreateAsync(new IdentityRole() { Name = "User" });             
 
                 var userStore = new UserStore<ApplicationUser>(context.Users);
                 var userManager = new UserManager<ApplicationUser>(userStore);

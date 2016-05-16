@@ -28,8 +28,7 @@ namespace outdoor.rocks.Controllers
         }
 
         // POST: api/Comments
-        //[Authorize(Roles = "Admin, User")]
-        [MongoAuth(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]        
         public async Task<IHttpActionResult> Post([FromBody]string value)
         {          
             await DBWithoutRepo.UpdateComments(value);

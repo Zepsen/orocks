@@ -38,23 +38,11 @@ namespace outdoor.rocks.Providers
                 return;
             }
 
-            //
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(
                 userManager);
-
-            // Add custom user claims here
-            //Custom add types o Attribute Authorize            
-            var rolesManager = context.OwinContext.GetUserManager<ApplicationRoleManager>();
+                                    
+            var rolesManager = context.OwinContext.GetUserManager<ApplicationRoleManager>();         
             
-
-            //var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
-            //oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            //foreach (var id in user.Roles) {
-            //    var role = await rolesManager.FindByIdAsync(id);
-            //    oAuthIdentity.AddClaim(new Claim(ClaimTypes.Role, role.Name ));
-            //}
-
-
             AuthenticationProperties properties = CreateProperties(user.UserName);
 
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
