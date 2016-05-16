@@ -107,16 +107,17 @@ angular
         }
 
 
-        $scope.logout = function () {
-            $cookies.remove("user");
+        $scope.logout = function () {            
+            sessionStorage.removeItem($scope.user);
             $scope.btnLoginShow = true;
+            $scope.user = "";
             $scope.auth.id = "";
             $scope.auth.status = "";
         };
 
         //Load functions
         loadRegionsAndTrailsName();
-        //$scope.checkAuth();
+        
 
     }]);
 
