@@ -41,8 +41,7 @@ namespace outdoor.rocks.Providers
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(
                 userManager);
                                     
-            var rolesManager = context.OwinContext.GetUserManager<ApplicationRoleManager>();         
-            
+            var rolesManager = context.OwinContext.GetUserManager<ApplicationRoleManager>();                     
             AuthenticationProperties properties = CreateProperties(user.UserName);
 
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);

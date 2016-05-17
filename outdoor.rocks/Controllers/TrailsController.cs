@@ -13,7 +13,7 @@ namespace outdoor.rocks.Controllers
          
         // GET: api/Trails
         // Get All trails
-        
+        [Authorize(Roles = "Admin")]
         public  Task<List<TrailModel>> Get()
         {
             return  DBWithoutRepo.GetTrailModelList();            

@@ -50,9 +50,7 @@ namespace outdoor.rocks.Controllers
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
-
-             
-
+        
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]

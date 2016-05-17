@@ -8,12 +8,13 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace outdoor.rocks.Tests
-{    
-    public class UnitTest1
+{
+    [Trait("TrailsTests", "TT")]
+    public class TrailsControllerTest
     {
         private readonly ITestOutputHelper output;
 
-        public UnitTest1(ITestOutputHelper output)
+        public TrailsControllerTest(ITestOutputHelper output)
         {
             this.output = output;
         }
@@ -36,7 +37,7 @@ namespace outdoor.rocks.Tests
         public async void TrailsGetTest()
         {
             //Arrange
-            var ctrl = new TrailsController();
+            TrailsController ctrl = GetTrailsController();
 
             //Act 
             var test = await ctrl.Get();
@@ -50,30 +51,36 @@ namespace outdoor.rocks.Tests
         public async void TrailsGetReturnListTrailModelTest()
         {
             //Arrange
-            var ctrl = new TrailsController();
+            TrailsController ctrl = GetTrailsController();
 
             //Act 
             var test = await ctrl.Get();
 
-            //Assertr
+            //Assert
             Assert.True(test is List<TrailModel>);
             output.WriteLine("Trails get return List<TrailModel>");
         }
 
-        [Fact]
+        [Fact]        
         public async void TrailsGetReturnCorrectDataTest()
         {
             //Arrange
-            var ctrl = new TrailsController();            
+            TrailsController ctrl = GetTrailsController();
 
             //Act 
             var test = await ctrl.Get();
             var trail = test[0];
-            //Assertr
+
+            //Assert
             Assert.NotNull(trail.Id);
-            Assert.NotNull(trail.Name);
-            Assert.True(trail.DogAllowed);
+            Assert.NotNull(trail.Name);            
             output.WriteLine("Trails return correct data");
+        }
+
+        
+        private static TrailsController GetTrailsController()
+        {
+            return new TrailsController();
         }
     } 
 
