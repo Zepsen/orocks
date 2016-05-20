@@ -1,8 +1,8 @@
 ﻿
 using MongoDB.Bson;
 using MongoDB.Driver;
-
 using Newtonsoft.Json.Linq;
+using outdoor.rocks.App_Start;
 using outdoor.rocks.Models;
 using System;
 using System.Collections.Generic;
@@ -15,8 +15,8 @@ namespace outdoor.rocks.Classes
 {
     public class DBWithoutRepo
     {
-        static IMongoDatabase db = DbContext.getContext();
-
+        static IMongoDatabase db = DbContext.getContext();        
+        
         internal async static Task<List<TrailModel>> GetTrailModelList()
         {
             var trailAsync = await db.GetCollection<Trails>("Trails")
@@ -233,14 +233,18 @@ namespace outdoor.rocks.Classes
 
         internal async static Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
-            var user = await db.GetCollection<ApplicationUser>("users")
-                .FindAsync(i => i.UserName == id).Result.SingleOrDefaultAsync();
-
-            return getUserModel(user);            
+            var user = await GetUserFromCollectionAsync(id);
+            return GetUserModel(user);            
         }
-                
+
+        private static Task<ApplicationUser> GetUserFromCollectionAsync(string id)
+        {
+            return db.GetCollection<ApplicationUser>("users")
+                .FindAsync(i => i.UserName == id).Result.SingleOrDefaultAsync();
+        }
+
         //Private methods
-        private static UserModel getUserModel(ApplicationUser user)
+        private static UserModel GetUserModel(ApplicationUser user)
         {
             if (user != null)
             {

@@ -18,8 +18,7 @@ namespace outdoor.rocks.Tests
         {
             this.output = output;
         }
-
-
+        
         [Fact]
         public void TestMethod1()
         {
@@ -76,7 +75,7 @@ namespace outdoor.rocks.Tests
             Assert.NotNull(trail.Name);            
             output.WriteLine("Trails return correct data");
         }
-
+         
         
         private static TrailsController GetTrailsController()
         {

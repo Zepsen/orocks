@@ -10,8 +10,7 @@ namespace outdoor.rocks.Models
     {
         static MongoClient server = new MongoClient("mongodb://localhost/orocks");
         static IMongoDatabase db = server.GetDatabase("orocks");
-
-
+        
         private DbContext()
         {
         }

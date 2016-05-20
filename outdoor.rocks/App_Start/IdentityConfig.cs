@@ -14,6 +14,9 @@ using outdoor.rocks.App_Start;
 
 namespace outdoor.rocks
 {    
+    //User and Role manager 
+
+        //User manager 
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         
