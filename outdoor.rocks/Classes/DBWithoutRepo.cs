@@ -20,7 +20,7 @@ namespace outdoor.rocks.Classes
 
         static IMongoDatabase db = DbContext.getContext();
         public static IDbQueryAsync queryToDbAsync = new DbQueryAsync();
-
+        public static IInitializeModels initializeModels = new InitializeModels();
         private static DBWithoutRepo context = null;
 
         private DBWithoutRepo()
@@ -255,24 +255,12 @@ namespace outdoor.rocks.Classes
         public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
             var user = await queryToDbAsync.GetUserAsync(id);
-            return GetUserModel(user);            
+            var res = initializeModels.InitUserModel(user);
+            return res;
         }
         
 
-        //Private methods
-        private static UserModel GetUserModel(ApplicationUser user)
-        {
-            if (user != null)
-            {
-                return new UserModel
-                {
-                    Id = user.Id,
-                    Role = user.Roles.FirstOrDefault()
-                };
-            }
-
-            return null;
-        }
+        
 
         private async static Task<List<CommentsModel>> getCommentsModelList(Trails trail)
         {
