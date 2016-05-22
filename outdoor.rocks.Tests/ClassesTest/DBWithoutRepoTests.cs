@@ -14,8 +14,7 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void GetUserModel_WhenCallWithNull_ReturnNull()
         {
-
-            //
+            
         }
     }
 }

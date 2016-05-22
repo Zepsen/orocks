@@ -9,14 +9,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using outdoor.rocks.Interfaces;
 using static outdoor.rocks.Models.ModelsWithoutRepo;
 
 namespace outdoor.rocks.Classes
 {
-    public class DBWithoutRepo
+
+    public class DBWithoutRepo : IDBWithoutRepo
     {
-        static IMongoDatabase db = DbContext.getContext();        
-        
+
+        static IMongoDatabase db = DbContext.getContext();
+        private static DBWithoutRepo context = null;
+
+        private DBWithoutRepo()
+        {
+        }
+
+        public static DBWithoutRepo GetDbWithoutRepo()
+        {
+            if (context == null)
+            {
+                context = new DBWithoutRepo();
+                return context;
+            }
+
+            return context;
+        }
+
         internal async static Task<List<TrailModel>> GetTrailModelList()
         {
             var trailAsync = await db.GetCollection<Trails>("Trails")
@@ -150,7 +169,7 @@ namespace outdoor.rocks.Classes
             };
         }
 
-        internal async static Task<OptionModel> GetOptionModel()
+        public async Task<OptionModel> GetOptionModel()
         {
             var seasonsAsync = await db.GetCollection<Seasons>("Seasons")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
