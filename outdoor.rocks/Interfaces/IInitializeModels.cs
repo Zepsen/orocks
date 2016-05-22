@@ -12,5 +12,6 @@ namespace outdoor.rocks.Interfaces
     {
         UserModel InitUserModel(ApplicationUser user);
         List<TrailModel> InitTrailModels(List<Trails> trail);
+        FullTrailModel InitFullTrailModel(Trails trail, List<CommentsModel> comments);
     }
 }

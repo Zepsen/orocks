@@ -43,5 +43,37 @@ namespace outdoor.rocks.Classes
                 })
                 .ToList();
         }
+
+        public FullTrailModel InitFullTrailModel(Trails trail, List<CommentsModel> comments)
+        {
+            var fullTrailModel =
+                new FullTrailModel
+                {
+                    Id = trail._id.ToString(),
+                    Comments = comments,
+                    Country = trail.Location.Country.Name,
+                    Description = trail.Description,
+                    Difficult = trail.Difficult.Value,
+                    Distance = trail.Option.Distance,
+                    DogAllowed = trail.Option.DogAllowed,
+                    DurationType = trail.Option.TrailDurationType.DurationType,
+                    CoverPhoto = trail.CoverPhoto,
+                    Elevation = trail.Option.Elevation,
+                    FullDescription = trail.FullDescription,
+                    GoodForKids = trail.Option.GoodForKids,
+                    Name = trail.Name,
+                    //NearblyTrails
+                    Region = trail.Location.Region.Region,
+                    Peak = trail.Option.Peak,
+                    Photos = trail.Photos,
+                    //Rate = trail.Comments.I
+                    References = trail.References,
+                    SeasonEnd = trail.Option.SeasonEnd.Season,
+                    SeasonStart = trail.Option.SeasonStart.Season,
+                    Type = trail.Option.TrailType.Type,
+                    WhyGo = trail.WhyGo
+                };
+            return fullTrailModel;
+        }
     }
 }

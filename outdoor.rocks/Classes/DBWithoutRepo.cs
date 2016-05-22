@@ -54,36 +54,11 @@ namespace outdoor.rocks.Classes
             var trail = trailAsync.First();
             List<CommentsModel> comments = await getCommentsModelList(trail);
 
-            return new FullTrailModel
-            {
-                Id = trail._id.ToString(),
-                Comments = comments,
-                Country = trail.Location.Country.Name,
-                Description = trail.Description,
-                Difficult = trail.Difficult.Value,
-                Distance = trail.Option.Distance,
-                DogAllowed = trail.Option.DogAllowed,
-                DurationType = trail.Option.TrailDurationType.DurationType,
-                CoverPhoto = trail.CoverPhoto,
-                Elevation = trail.Option.Elevation,
-                FullDescription = trail.FullDescription,
-                GoodForKids = trail.Option.GoodForKids,
-                Name = trail.Name,
-                //NearblyTrails
-                Region = trail.Location.Region.Region,
-                Peak = trail.Option.Peak,
-                Photos = trail.Photos,
-                //Rate = trail.Comments.I
-                References = trail.References,
-                SeasonEnd = trail.Option.SeasonEnd.Season,
-                SeasonStart = trail.Option.SeasonStart.Season,
-                Type = trail.Option.TrailType.Type,
-                WhyGo = trail.WhyGo
-
-            };
+            var fullTrailModel = initializeModels.InitFullTrailModel(trail, comments);
+            return fullTrailModel;
 
         }
-
+        
         public async Task UpdateTrailOptions(string id, string value)
         {
             var trail = await db.GetCollection<Trails>("Trails")
