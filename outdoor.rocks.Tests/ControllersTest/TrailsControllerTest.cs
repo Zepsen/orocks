@@ -71,12 +71,17 @@ namespace outdoor.rocks.Tests
             var mock = new Mock<IDbQueryAsync>();
             mock.Setup(i => i.GetTrailAsync())
                 .Returns(Task.FromResult(new List<Trails>
-                {
-                    new Trails(), new Trails()
-                }));
+                {}));
+
+            var mockInitModels = new Mock<IInitializeModels>();
+            mockInitModels.Setup(i => i.InitTrailModels(It.IsAny<List<Trails>>())).Returns(new List<TrailModel>
+            {
+                new TrailModel(),
+                new TrailModel()
+            });
 
             DBWithoutRepo.queryToDbAsync = mock.Object;
-            
+            DBWithoutRepo.initializeModels = mockInitModels.Object;
             var test = ctrl.Get();
 
             Assert.True(2 == test.Result.Count);

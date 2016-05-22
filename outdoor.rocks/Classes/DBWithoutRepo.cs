@@ -41,25 +41,8 @@ namespace outdoor.rocks.Classes
         public async Task<List<TrailModel>> GetTrailModelList()
         {
             var trailAsync = await queryToDbAsync.GetTrailAsync();
-
-            return trailAsync
-                        .Select(j => new TrailModel
-                        {
-                            Id = j._id.ToString(),
-                            Country = j.Location.Country.Name,
-                            Difficult = j.Difficult.Value,
-                            Distance = j.Option.Distance,
-                            DogAllowed = j.Option.DogAllowed,
-                            DurationType = j.Option.TrailDurationType.DurationType,
-                            CoverPhoto = j.CoverPhoto,
-                            GoodForKids = j.Option.GoodForKids,
-                            Name = j.Name,
-                            Region = j.Location.Region.Region,
-                            Type = j.Option.TrailType.Type
-                        })
-                        .ToList();
-
-
+            var trailModels = initializeModels.InitTrailModels(trailAsync);
+            return trailModels;
         }
         
 
@@ -255,8 +238,8 @@ namespace outdoor.rocks.Classes
         public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
             var user = await queryToDbAsync.GetUserAsync(id);
-            var res = initializeModels.InitUserModel(user);
-            return res;
+            var userModel = initializeModels.InitUserModel(user);
+            return userModel;
         }
         
 
