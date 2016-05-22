@@ -5,10 +5,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using MongoDB.Bson;
 using Moq;
+using outdoor.rocks.Classes;
 using outdoor.rocks.Interfaces;
 using Xunit;
 using Xunit.Abstractions;
+using static outdoor.rocks.Models.ModelsWithoutRepo;
 
 namespace outdoor.rocks.Tests
 {
@@ -61,9 +64,36 @@ namespace outdoor.rocks.Tests
             Assert.Equal(typeof(Task<FullTrailModel>), test.GetType());
         }
 
+        [Fact]
+        public void Get_WhenCall_ReturnRightCounts()
+        {
+            var ctrl = GetTrailsController();
+            var mock = new Mock<IDbQueryAsync>();
+            mock.Setup(i => i.GetTrailAsync())
+                .Returns(Task.FromResult(new List<Trails>
+                {
+                    new Trails(), new Trails()
+                }));
+
+            DBWithoutRepo.queryToDbAsync = mock.Object;
+            
+            var test = ctrl.Get();
+
+            Assert.True(2 == test.Result.Count);
+
+        }
+
         private static TrailsController GetTrailsController()
         {
             return new TrailsController();
+        }
+
+        private static Trails GetFakeTrail()
+        {
+            return new Trails
+            {
+                _id = ObjectId.GenerateNewId()
+            };
         }
     } 
 

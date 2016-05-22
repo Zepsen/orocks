@@ -19,12 +19,14 @@ namespace outdoor.rocks.Classes
     {
 
         static IMongoDatabase db = DbContext.getContext();
+        public static IDbQueryAsync queryToDbAsync = new DbQueryAsync();
+
         private static DBWithoutRepo context = null;
 
         private DBWithoutRepo()
         {
         }
-
+        
         public static DBWithoutRepo GetDbWithoutRepo()
         {
             if (context == null)
@@ -38,8 +40,7 @@ namespace outdoor.rocks.Classes
 
         public async Task<List<TrailModel>> GetTrailModelList()
         {
-            var trailAsync = await db.GetCollection<Trails>("Trails")
-                        .FindAsync(new BsonDocument()).Result.ToListAsync();
+            var trailAsync = await queryToDbAsync.GetTrailAsync();
 
             return trailAsync
                         .Select(j => new TrailModel
@@ -60,6 +61,7 @@ namespace outdoor.rocks.Classes
 
 
         }
+        
 
         public async Task<FullTrailModel> GetFullTrailModel(string id)
         {
@@ -250,7 +252,7 @@ namespace outdoor.rocks.Classes
             await trails.UpdateOneAsync(filter, update);            
         }
 
-        internal async static Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
+        public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
             var user = await GetUserFromCollectionAsync(id);
             return GetUserModel(user);            

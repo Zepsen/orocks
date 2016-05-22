@@ -16,7 +16,8 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class UsersController : ApiController
     {
-        
+        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
+
         // GET: api/Users
         public IEnumerable<string> Get()
         {
@@ -27,7 +28,7 @@ namespace outdoor.rocks.Controllers
         public  Task<UserModel> Get(string id)
         {
             // return DBHelper.getUsersRoleIfUserReg(id).ToJson();
-            return  DBWithoutRepo.GetUserModelIfUserAlreadyRegistration(id);
+            return  db.GetUserModelIfUserAlreadyRegistration(id);
         }
 
         // POST: api/Users

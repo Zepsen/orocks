@@ -139,6 +139,7 @@
     <Compile Include="ControllersTest\TrailsControllerTest.cs" />
     <Compile Include="ControllersTest\LocationsControllerTest.cs" />
     <Compile Include="ControllersTest\FilterModelTests.cs" />
+    <Compile Include="ControllersTest\UserControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
