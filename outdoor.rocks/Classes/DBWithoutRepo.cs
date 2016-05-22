@@ -254,15 +254,10 @@ namespace outdoor.rocks.Classes
 
         public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
-            var user = await GetUserFromCollectionAsync(id);
+            var user = await queryToDbAsync.GetUserAsync(id);
             return GetUserModel(user);            
         }
-
-        private static Task<ApplicationUser> GetUserFromCollectionAsync(string id)
-        {
-            return db.GetCollection<ApplicationUser>("users")
-                .FindAsync(i => i.UserName == id).Result.SingleOrDefaultAsync();
-        }
+        
 
         //Private methods
         private static UserModel GetUserModel(ApplicationUser user)

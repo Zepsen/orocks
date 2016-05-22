@@ -11,5 +11,6 @@ namespace outdoor.rocks.Interfaces
     public interface IDbQueryAsync
     {
         Task<List<Trails>> GetTrailAsync();
+        Task<ApplicationUser> GetUserAsync(string id);
     }
 }

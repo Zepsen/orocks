@@ -22,5 +22,11 @@ namespace outdoor.rocks.Classes
 
             return res;
         }
+
+        public Task<ApplicationUser> GetUserAsync(string id)
+        {
+            return db.GetCollection<ApplicationUser>("users")
+                .FindAsync(i => i.UserName == id).Result.SingleOrDefaultAsync();
+        }
     }
 }

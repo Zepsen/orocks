@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AspNet.Identity.MongoDB;
 using Moq;
+using outdoor.rocks.Classes;
 using outdoor.rocks.Controllers;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
 using Xunit;
-using Assert = Xunit.Assert;
+using static outdoor.rocks.Models.ModelsWithoutRepo;
 
 namespace outdoor.rocks.Tests.ControllersTest
 {
@@ -15,17 +16,22 @@ namespace outdoor.rocks.Tests.ControllersTest
     {
         [Fact]public void GetById_WhenCall_ReturnsUserModelType()
         {
-            var ctrl = GetTrailsController();
-            var mock = new Mock<IDBWithoutRepo>();
-            mock.Setup(i => i.GetUserModelIfUserAlreadyRegistration(It.IsAny<string>()))
-                .Returns(Task.FromResult(new UserModel()));
+            var ctrl = GetUsersController();
+            var mock = new Mock<IDbQueryAsync>();
+            mock.Setup(i => i.GetUserAsync(It.IsAny<string>()))
+                .Returns(Task.FromResult(new ApplicationUser()
+                {
+                    
+                }));
+
+            DBWithoutRepo.queryToDbAsync = mock.Object;
 
             var test = ctrl.Get("id");
 
-            Assert.Equal(typeof(Task<UserModel>), test.GetType());
+            Assert.NotNull(test);
         }
 
-        private static UsersController GetTrailsController()
+        private static UsersController GetUsersController()
         {
             return new UsersController();
         }
