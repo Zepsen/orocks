@@ -11,7 +11,10 @@ namespace outdoor.rocks.Interfaces
     {
         Task<OptionModel> GetOptionModel();
         Task<List<RegionModel>> GetRegionModel();
+        Task<List<TrailModel>> GetTrailModelList();
         Task<FilterModel> GetFilterModel();
+        Task<FullTrailModel> GetFullTrailModel(string id);
+        Task UpdateTrailOptions(string id, string value);
 
 
     }

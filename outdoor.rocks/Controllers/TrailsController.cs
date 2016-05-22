@@ -10,22 +10,18 @@ namespace outdoor.rocks.Controllers
     
     public class TrailsController : ApiController
     {
-         
+        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
         // GET: api/Trails
-        // Get All trails
-        [Authorize(Roles = "Admin")]
-        public  Task<List<TrailModel>> Get()
+        public Task<List<TrailModel>> Get()
         {
-            return  DBWithoutRepo.GetTrailModelList();            
+            return  db.GetTrailModelList();            
         }
 
         // GET: api/Trails/ObjectId
-        // Get Trails by id             
-        public  Task<FullTrailModel> Get(string id)
+        public Task<FullTrailModel> Get(string id)
         {            
-            return DBWithoutRepo.GetFullTrailModel(id);            
+            return db.GetFullTrailModel(id);            
         }
-
         
         // POST: api/Trails
         public void Post([FromBody]string value)
@@ -37,8 +33,8 @@ namespace outdoor.rocks.Controllers
         // PUT: api/Trails/5
         public async Task<FullTrailModel> Put(string id, [FromBody]string value)
         {            
-            await DBWithoutRepo.UpdateTrailOptions(id, value);
-            return await DBWithoutRepo.GetFullTrailModel(id);
+            await db.UpdateTrailOptions(id, value);
+            return await db.GetFullTrailModel(id);
         }
 
         

@@ -3,7 +3,10 @@ using outdoor.rocks.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using Moq;
+using outdoor.rocks.Interfaces;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -18,65 +21,46 @@ namespace outdoor.rocks.Tests
         {
             this.output = output;
         }
-        
-        [Fact]
-        public void TestMethod1()
-        {
-            //Arrange
-            var ctrl = new HomeController();
-
-            //Act 
-            var test = ctrl.Index() as ViewResult;
-
-            //Assert
-            Assert.True(test.ViewBag.Title == "OUTDOOR.ROCKS");            
-        }
 
         [Fact]
-        public async void TrailsGetTest()
+        public void Get_WhenCall_ReturnsListTrailsModelType()
         {
-            //Arrange
-            TrailsController ctrl = GetTrailsController();
+            var ctrl = GetTrailsController();
+            var mock = new Mock<IDBWithoutRepo>();
+            mock.Setup(i => i.GetTrailModelList())
+                .Returns(Task.FromResult(new List<TrailModel>()));
 
-            //Act 
-            var test = await ctrl.Get();
+            var test = ctrl.Get();
 
-            //Assert
-            Assert.NotEmpty(test);
-            output.WriteLine("Trails get count = " + test.Count);                   
+            Assert.Equal(typeof(Task<List<TrailModel>>), test.GetType());
         }
 
         [Fact]
-        public async void TrailsGetReturnListTrailModelTest()
+        public void GetWhithId_WhenCall_ReturnsFullTrailsModelType()
         {
-            //Arrange
-            TrailsController ctrl = GetTrailsController();
+            var ctrl = GetTrailsController();
+            var mock = new Mock<IDBWithoutRepo>();
+            mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
+                .Returns(Task.FromResult(new FullTrailModel()));
 
-            //Act 
-            var test = await ctrl.Get();
+            var test = ctrl.Get("id");
 
-            //Assert
-            Assert.True(test is List<TrailModel>);
-            output.WriteLine("Trails get return List<TrailModel>");
+            Assert.Equal(typeof(Task<FullTrailModel>), test.GetType());
         }
 
-        [Fact]        
-        public async void TrailsGetReturnCorrectDataTest()
+        [Fact]
+        public void Put_WhenCall_ReturnsFullTrailsModelType()
         {
-            //Arrange
-            TrailsController ctrl = GetTrailsController();
+            var ctrl = GetTrailsController();
+            var mock = new Mock<IDBWithoutRepo>();
+            mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
+                .Returns(Task.FromResult(new FullTrailModel()));
 
-            //Act 
-            var test = await ctrl.Get();
-            var trail = test[0];
+            var test = ctrl.Put("id", "val");
 
-            //Assert
-            Assert.NotNull(trail.Id);
-            Assert.NotNull(trail.Name);            
-            output.WriteLine("Trails return correct data");
+            Assert.Equal(typeof(Task<FullTrailModel>), test.GetType());
         }
-         
-        
+
         private static TrailsController GetTrailsController()
         {
             return new TrailsController();

@@ -36,7 +36,7 @@ namespace outdoor.rocks.Classes
             return context;
         }
 
-        internal async static Task<List<TrailModel>> GetTrailModelList()
+        public async Task<List<TrailModel>> GetTrailModelList()
         {
             var trailAsync = await db.GetCollection<Trails>("Trails")
                         .FindAsync(new BsonDocument()).Result.ToListAsync();
@@ -61,7 +61,7 @@ namespace outdoor.rocks.Classes
 
         }
 
-        internal async static Task<FullTrailModel> GetFullTrailModel(string id)
+        public async Task<FullTrailModel> GetFullTrailModel(string id)
         {
             var trailAsync = await db.GetCollection<Trails>("Trails")
                           .FindAsync(i => i._id == ObjectId.Parse(id));
@@ -99,7 +99,7 @@ namespace outdoor.rocks.Classes
 
         }
 
-        internal async static Task UpdateTrailOptions(string id, string value)
+        public async Task UpdateTrailOptions(string id, string value)
         {
             var trail = await db.GetCollection<Trails>("Trails")
                 .FindAsync(i => i._id == ObjectId.Parse(id)).Result.FirstOrDefaultAsync();
