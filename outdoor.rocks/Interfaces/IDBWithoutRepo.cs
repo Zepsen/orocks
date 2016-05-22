@@ -10,6 +10,9 @@ namespace outdoor.rocks.Interfaces
     public interface IDBWithoutRepo
     {
         Task<OptionModel> GetOptionModel();
+        Task<List<RegionModel>> GetRegionModel();
+        Task<FilterModel> GetFilterModel();
+
 
     }
 }

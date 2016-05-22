@@ -14,11 +14,13 @@ namespace outdoor.rocks.Controllers
 {
     [AllowAnonymous]
     public class LocationsController : ApiController
-    {       
+    {
+        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
+
         // GET: api/Locations
         public Task<List<RegionModel>> Get()
         {
-            return DBWithoutRepo.GetRegionModel();
+            return db.GetRegionModel();
         }
         
         // GET: api/Locations/5

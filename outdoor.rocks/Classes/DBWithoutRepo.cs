@@ -144,7 +144,7 @@ namespace outdoor.rocks.Classes
             await collections.ReplaceOneAsync(filter, option);
         }
 
-        internal async static Task<FilterModel> GetFilterModel()
+        public async Task<FilterModel> GetFilterModel()
         {
             var countriesAsync = await db.GetCollection<Countries>("Countries")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
@@ -205,7 +205,7 @@ namespace outdoor.rocks.Classes
             };
         }
 
-        internal async static Task<List<RegionModel>> GetRegionModel()
+        public async Task<List<RegionModel>> GetRegionModel()
         {
             var regionsAsync = await db.GetCollection<Regions>("Regions")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();

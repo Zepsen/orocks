@@ -13,12 +13,14 @@ using System.Web.Http;
 namespace outdoor.rocks.Controllers
 {
     public class FiltersController : ApiController
-    {       
+    {
+        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
+
         [AllowAnonymous]
         // GET: api/Filters
         public Task<FilterModel> Get()
         {
-            return DBWithoutRepo.GetFilterModel();
+            return db.GetFilterModel();
         }       
 
         // GET: api/Filters/5
