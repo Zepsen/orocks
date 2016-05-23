@@ -82,9 +82,9 @@ namespace outdoor.rocks.Tests
 
             DBWithoutRepo.SetIDbQueryAsync(mock.Object);
             DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
-            var test = ctrl.Get();
+            var test = ctrl.Get().Result;
 
-            Assert.True(2 == test.Result.Count);
+            Assert.True(2 == test.Count);
 
         }
 
@@ -112,9 +112,9 @@ namespace outdoor.rocks.Tests
 
             DBWithoutRepo.SetIDbQueryAsync(mockTrail.Object);
             DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
-            var test = ctrl.Get("id");
+            var test = ctrl.Get("id").Result;
 
-            Assert.True("1" == test.Result.Id);
+            Assert.True("1" == test.Id);
 
         }
 

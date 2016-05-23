@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using AspNet.Identity.MongoDB;
 using Moq;
@@ -15,7 +16,7 @@ namespace outdoor.rocks.Tests.ControllersTest
     public class UserControllerTest
     {
         [Fact]
-        public void GetById_WhenCall_ReturnExpectedUserModel()
+        public async void GetById_WhenCall_ReturnExpectedUserModel()
         {
             var ctrl = GetUsersController();
             var context = DBWithoutRepo.GetDbWithoutRepo();
@@ -33,7 +34,7 @@ namespace outdoor.rocks.Tests.ControllersTest
 
             DBWithoutRepo.SetIDbQueryAsync(mockGetUser.Object);
             DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
-            var test = ctrl.Get("id").Result;
+            var test = await ctrl.Get("id");
 
             Assert.Same("1", test.Id);
         }
