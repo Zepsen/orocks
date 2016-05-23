@@ -10,7 +10,14 @@ namespace outdoor.rocks.Interfaces
 {
     public interface IDbQueryAsync
     {
-        Task<List<Trails>> GetTrailAsync();
+        Task<List<Trails>> GetTrailsAsync();
+        Task<Trails> GetTrailByIdAsync(string id);
         Task<ApplicationUser> GetUserAsync(string id);
+        Task<List<Comments>> GetCommentsListAsync(Trails trails);
+        Task<List<Countries>> GetCountriesAsync();
+        Task<List<Regions>> GetRegionsAsync();
+        Task<List<Seasons>> GetSeasonsListAsync();
+        Task<List<TrailsTypes>> GetTrailsTypesListAsync();
+        Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync();
     }
 }

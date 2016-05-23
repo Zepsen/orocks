@@ -69,7 +69,7 @@ namespace outdoor.rocks.Tests
         {
             var ctrl = GetTrailsController();
             var mock = new Mock<IDbQueryAsync>();
-            mock.Setup(i => i.GetTrailAsync())
+            mock.Setup(i => i.GetTrailsAsync())
                 .Returns(Task.FromResult(new List<Trails>
                 {}));
 
@@ -85,6 +85,34 @@ namespace outdoor.rocks.Tests
             var test = ctrl.Get();
 
             Assert.True(2 == test.Result.Count);
+
+        }
+
+        [Fact]
+        public void GetById_WhenCall_ReturnExpectedFullTrailModel()
+        {
+            var ctrl = GetTrailsController();
+            var mockTrail = new Mock<IDbQueryAsync>();
+            mockTrail.Setup(i => i.GetTrailByIdAsync(It.IsAny<string>()))
+                .Returns(Task.FromResult(new Trails()));
+            mockTrail.Setup(i => i.GetCommentsListAsync(It.IsAny<Trails>()))
+                .Returns(Task.FromResult(new List<Comments>()));
+
+            var mockInitModels = new Mock<IInitializeModels>();
+            mockInitModels.Setup(i => i.InitCommentsModelList(It.IsAny<Trails>(), It.IsAny<List<Comments>>()))
+                .Returns(new List<CommentsModel>());
+
+            mockInitModels.Setup(i => i.InitFullTrailModel(It.IsAny<Trails>(), It.IsAny<List<CommentsModel>>()))
+                .Returns(new FullTrailModel()
+            {
+               Id = "1"
+            });
+
+            DBWithoutRepo.queryToDbAsync = mockTrail.Object;
+            DBWithoutRepo.initializeModels = mockInitModels.Object;
+            var test = ctrl.Get("id");
+
+            Assert.True("1" == test.Result.Id);
 
         }
 

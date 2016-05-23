@@ -40,7 +40,7 @@ namespace outdoor.rocks.Classes
 
         public async Task<List<TrailModel>> GetTrailModelList()
         {
-            var trailAsync = await queryToDbAsync.GetTrailAsync();
+            var trailAsync = await queryToDbAsync.GetTrailsAsync();
             var trailModels = initializeModels.InitTrailModels(trailAsync);
             return trailModels;
         }
@@ -48,13 +48,10 @@ namespace outdoor.rocks.Classes
 
         public async Task<FullTrailModel> GetFullTrailModel(string id)
         {
-            var trailAsync = await db.GetCollection<Trails>("Trails")
-                          .FindAsync(i => i._id == ObjectId.Parse(id));
-
-            var trail = trailAsync.First();
-            List<CommentsModel> comments = await getCommentsModelList(trail);
-
-            var fullTrailModel = initializeModels.InitFullTrailModel(trail, comments);
+            var trails = await queryToDbAsync.GetTrailByIdAsync(id);
+            var comments = await queryToDbAsync.GetCommentsListAsync(trails);
+            var commentsModelList = initializeModels.InitCommentsModelList(trails, comments);
+            var fullTrailModel = initializeModels.InitFullTrailModel(trails, commentsModelList);
             return fullTrailModel;
 
         }
@@ -106,85 +103,31 @@ namespace outdoor.rocks.Classes
 
         public async Task<FilterModel> GetFilterModel()
         {
-            var countriesAsync = await db.GetCollection<Countries>("Countries")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-            var trailsAsync = await  db.GetCollection<Trails>("Trails")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            return new FilterModel
-            {
-                Countries =  countriesAsync                  
-                              .Select(i => new SimpleModel
-                              {
-                                  Id = i._id.ToString(),
-                                  Value = i.Name
-                              }).ToList(),
-
-                Trails = trailsAsync                              
-                              .Select(i => new SimpleModel
-                              {
-                                  Id = i._id.ToString(),
-                                  Value = i.Name
-                              }).ToList(),
-            };
+            var countriesAsync = await queryToDbAsync.GetCountriesAsync();
+            var trailsAsync = await queryToDbAsync.GetTrailsAsync();
+            var filterModel = initializeModels.InitFilterModel(countriesAsync, trailsAsync);
+            return filterModel;
         }
 
         public async Task<OptionModel> GetOptionModel()
         {
-            var seasonsAsync = await db.GetCollection<Seasons>("Seasons")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            var trailTypesAsync = await db.GetCollection<TrailsTypes>("TrailsTypes")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            var trailDurationTypesAsync = await db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            return new OptionModel
-            {
-                Seasons = seasonsAsync
-                              .Select(i => new SimpleModel
-                              {
-                                  Id = i._id.ToString(),
-                                  Value = i.Season
-                              }).ToList(),
-
-                TrailsDurationTypes = trailDurationTypesAsync
-                              .Select(i => new SimpleModel
-                              {
-                                  Id = i._id.ToString(),
-                                  Value = i.DurationType
-                              }).ToList(),
-
-                TrailsTypes = trailTypesAsync
-                              .Select(i => new SimpleModel
-                              {
-                                  Id = i._id.ToString(),
-                                  Value = i.Type
-                              }).ToList(),
-            };
+            var seasonsAsync = await queryToDbAsync.GetSeasonsListAsync();
+            var trailTypesAsync = await queryToDbAsync.GetTrailsTypesListAsync();
+            var trailDurationTypesAsync = await queryToDbAsync.GetTrailsDurationTypesListAsync();
+            var optionModel = initializeModels.InitOptionModel(seasonsAsync, trailDurationTypesAsync, trailTypesAsync);
+            return optionModel;
         }
 
+        
         public async Task<List<RegionModel>> GetRegionModel()
         {
-            var regionsAsync = await db.GetCollection<Regions>("Regions")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            var countriesAsync = await  db.GetCollection<Countries>("Countries")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            return regionsAsync.Select(i => new RegionModel
-                              {
-                                  Region = i.Region,
-                                  Selected = false,
-
-                                  //FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-                                  Countries = countriesAsync
-                                                .Where(j => j.Region_Id == i._id)                                                
-                                                .Select(j => j.Name)
-                                                .ToList()
-                              }).ToList();
+            var regionsAsync = await queryToDbAsync.GetRegionsAsync();
+            var countriesAsync = await queryToDbAsync.GetCountriesAsync();
+            var regionModelList = initializeModels.InitRegionModelList(regionsAsync, countriesAsync);
+            return regionModelList;
         }
+
+        
 
         internal async static Task UpdateComments(string value)
         {
@@ -217,26 +160,5 @@ namespace outdoor.rocks.Classes
             return userModel;
         }
         
-
-        
-
-        private async static Task<List<CommentsModel>> getCommentsModelList(Trails trail)
-        {
-            var comments = new List<CommentsModel>();
-            var dbComments = await db.GetCollection<Comments>("Comments")
-                .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            foreach (var commentId in trail.Comments_Ids)
-            {
-                var comment = dbComments.FirstOrDefault(i => i._id == commentId);
-                comments.Add(new CommentsModel
-                {
-                    Comment = comment.Comment,
-                    Name = comment.User.UserName,
-                    Rate = comment.Rate
-                });
-            };
-            return comments;
-        }
     }
 }

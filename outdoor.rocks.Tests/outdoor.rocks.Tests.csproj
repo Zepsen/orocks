@@ -143,6 +143,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ClassesTest\DBWithoutRepoTests.cs" />
+    <Compile Include="ClassesTest\DbQueryAsyncTest.cs" />
     <Compile Include="ControllersTest\OptionsControllerTests.cs" />
     <Compile Include="ControllersTest\TrailsControllerTest.cs" />
     <Compile Include="ControllersTest\LocationsControllerTest.cs" />

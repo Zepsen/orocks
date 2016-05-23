@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
@@ -75,5 +76,82 @@ namespace outdoor.rocks.Classes
                 };
             return fullTrailModel;
         }
+
+         public List<CommentsModel> InitCommentsModelList(Trails trail, List<Comments> commentses)
+        {
+            var comments = trail.Comments_Ids
+                .Select(commentId => commentses.FirstOrDefault(i => i._id == commentId))
+                .Select(comment => new CommentsModel
+            {
+                Comment = comment.Comment,
+                Name = comment.User.UserName,
+                Rate = comment.Rate
+            }).ToList();
+             
+            return comments;
+        }
+
+        public FilterModel InitFilterModel(List<Countries> countries, List<Trails> trails)
+        {
+            return new FilterModel
+            {
+                Countries = countries
+                    .Select(i => new SimpleModel
+                    {
+                        Id = i._id.ToString(),
+                        Value = i.Name
+                    }).ToList(),
+
+                Trails = trails
+                    .Select(i => new SimpleModel
+                    {
+                        Id = i._id.ToString(),
+                        Value = i.Name
+                    }).ToList(),
+            };
+        }
+
+        public List<RegionModel> InitRegionModelList(List<Regions> regions, List<Countries> countries)
+        {
+            var regionModelList = regions.Select(i => new RegionModel
+            {
+                Region = i.Region,
+                Selected = false,
+                Countries = countries
+                    .Where(j => j.Region_Id == i._id)
+                    .Select(j => j.Name)
+                    .ToList()
+            }).ToList();
+
+            return regionModelList;
+        }
+
+        public OptionModel InitOptionModel(List<Seasons> seasons, List<TrailsDurationTypes> trailDurationTypes, List<TrailsTypes> trailTypes)
+        {
+            return new OptionModel
+            {
+                Seasons = seasons
+                    .Select(i => new SimpleModel
+                    {
+                        Id = i._id.ToString(),
+                        Value = i.Season
+                    }).ToList(),
+
+                TrailsDurationTypes = trailDurationTypes
+                    .Select(i => new SimpleModel
+                    {
+                        Id = i._id.ToString(),
+                        Value = i.DurationType
+                    }).ToList(),
+
+                TrailsTypes = trailTypes
+                    .Select(i => new SimpleModel
+                    {
+                        Id = i._id.ToString(),
+                        Value = i.Type
+                    }).ToList(),
+            };
+        }
+
     }
 }
