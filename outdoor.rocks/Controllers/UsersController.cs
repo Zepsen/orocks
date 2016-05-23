@@ -16,7 +16,7 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class UsersController : ApiController
     {
-        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
+        private DBWithoutRepo db = new DBWithoutRepo();
 
         // GET: api/Users
         public IEnumerable<string> Get()

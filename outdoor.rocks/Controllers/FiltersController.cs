@@ -14,7 +14,7 @@ namespace outdoor.rocks.Controllers
 {
     public class FiltersController : ApiController
     {
-        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
+        private DBWithoutRepo db = new DBWithoutRepo();
 
         [AllowAnonymous]
         // GET: api/Filters

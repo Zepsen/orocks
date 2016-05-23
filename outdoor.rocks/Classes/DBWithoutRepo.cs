@@ -19,34 +19,18 @@ namespace outdoor.rocks.Classes
     {
 
         static IMongoDatabase db = DbContext.getContext();
-        private static IDbQueryAsync queryToDbAsync = new DbQueryAsync();
-        private static IInitializeModels initializeModels = new InitializeModels();
-        private static DBWithoutRepo context = null;
 
-        private DBWithoutRepo()
+        private IDbQueryAsync queryToDbAsync;
+        private IInitializeModels initializeModels;
+        
+        public DBWithoutRepo(
+            IDbQueryAsync q = null,
+            IInitializeModels i = null)
         {
+            queryToDbAsync = q ?? new DbQueryAsync();
+            initializeModels = i ?? new InitializeModels();
         }
         
-        public static DBWithoutRepo GetDbWithoutRepo()
-        {
-            if (context == null)
-            {
-                context = new DBWithoutRepo();
-                return context;
-            }
-
-            return context;
-        }
-
-        public static void SetIDbQueryAsync(IDbQueryAsync q)
-        {
-            queryToDbAsync = q;
-        }
-
-        public static void SetIInitializeModels(IInitializeModels i)
-        {
-            initializeModels = i;
-        }
 
         public async Task<List<TrailModel>> GetTrailModelList()
         {

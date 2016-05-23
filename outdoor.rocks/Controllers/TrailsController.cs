@@ -10,7 +10,7 @@ namespace outdoor.rocks.Controllers
     
     public class TrailsController : ApiController
     {
-        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
+        private DBWithoutRepo db = new DBWithoutRepo();
         // GET: api/Trails
         public Task<List<TrailModel>> Get()
         {

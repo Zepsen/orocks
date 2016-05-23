@@ -63,60 +63,7 @@ namespace outdoor.rocks.Tests
 
             Assert.Equal(typeof(Task<FullTrailModel>), test.GetType());
         }
-
-        [Fact]
-        public void Get_WhenCall_ReturnRightCounts()
-        {
-            var ctrl = GetTrailsController();
-
-            var mock = new Mock<IDbQueryAsync>();
-            mock.Setup(i => i.GetTrailsAsync())
-                .Returns(Task.FromResult(new List<Trails>()));
-
-            var mockInitModels = new Mock<IInitializeModels>();
-            mockInitModels.Setup(i => i.InitTrailModels(It.IsAny<List<Trails>>())).Returns(new List<TrailModel>
-            {
-                new TrailModel(),
-                new TrailModel()
-            });
-
-            DBWithoutRepo.SetIDbQueryAsync(mock.Object);
-            DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
-            var test = ctrl.Get().Result;
-
-            Assert.True(2 == test.Count);
-
-        }
-
-        [Fact]
-        public void GetById_WhenCall_ReturnExpectedFullTrailModel()
-        {
-            var ctrl = GetTrailsController();
-            var mockTrail = new Mock<IDbQueryAsync>();
-            var context = DBWithoutRepo.GetDbWithoutRepo();
-
-            mockTrail.Setup(i => i.GetTrailByIdAsync(It.IsAny<string>()))
-                .Returns(Task.FromResult(new Trails()));
-            mockTrail.Setup(i => i.GetCommentsListAsync(It.IsAny<Trails>()))
-                .Returns(Task.FromResult(new List<Comments>()));
-
-            var mockInitModels = new Mock<IInitializeModels>();
-            mockInitModels.Setup(i => i.InitCommentsModelList(It.IsAny<Trails>(), It.IsAny<List<Comments>>()))
-                .Returns(new List<CommentsModel>());
-
-            mockInitModels.Setup(i => i.InitFullTrailModel(It.IsAny<Trails>(), It.IsAny<List<CommentsModel>>()))
-                .Returns(new FullTrailModel()
-            {
-               Id = "1"
-            });
-
-            DBWithoutRepo.SetIDbQueryAsync(mockTrail.Object);
-            DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
-            var test = ctrl.Get("id").Result;
-
-            Assert.True("1" == test.Id);
-
-        }
+        
 
         private static TrailsController GetTrailsController()
         {

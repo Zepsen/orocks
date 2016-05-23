@@ -13,7 +13,7 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class OptionsController : ApiController
     {
-        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
+        private DBWithoutRepo db = new DBWithoutRepo();
         // GET: api/Options
         public Task<OptionModel> Get()
         {

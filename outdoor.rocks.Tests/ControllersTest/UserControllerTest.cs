@@ -15,29 +15,6 @@ namespace outdoor.rocks.Tests.ControllersTest
 {
     public class UserControllerTest
     {
-        [Fact]
-        public async void GetById_WhenCall_ReturnExpectedUserModel()
-        {
-            var ctrl = GetUsersController();
-            var context = DBWithoutRepo.GetDbWithoutRepo();
-
-            var mockGetUser = new Mock<IDbQueryAsync>();
-            mockGetUser.Setup(i => i.GetUserAsync(It.IsAny<string>()))
-                .Returns(Task.FromResult(new ApplicationUser(){}));
-
-            var mockInitModels = new Mock<IInitializeModels>();
-            mockInitModels.Setup(i => i.InitUserModel(It.IsAny<ApplicationUser>())).Returns(new UserModel
-            {
-                Id = "1",
-                Role = "User"
-            });
-
-            DBWithoutRepo.SetIDbQueryAsync(mockGetUser.Object);
-            DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
-            var test = await ctrl.Get("id");
-
-            Assert.Same("1", test.Id);
-        }
 
         private static UsersController GetUsersController()
         {

@@ -15,7 +15,7 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class LocationsController : ApiController
     {
-        private DBWithoutRepo db = DBWithoutRepo.GetDbWithoutRepo();
+        private DBWithoutRepo db = new DBWithoutRepo();
 
         // GET: api/Locations
         public Task<List<RegionModel>> Get()
