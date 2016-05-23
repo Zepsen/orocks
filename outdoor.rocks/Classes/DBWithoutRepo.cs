@@ -19,8 +19,8 @@ namespace outdoor.rocks.Classes
     {
 
         static IMongoDatabase db = DbContext.getContext();
-        public static IDbQueryAsync queryToDbAsync = new DbQueryAsync();
-        public static IInitializeModels initializeModels = new InitializeModels();
+        private static IDbQueryAsync queryToDbAsync = new DbQueryAsync();
+        private static IInitializeModels initializeModels = new InitializeModels();
         private static DBWithoutRepo context = null;
 
         private DBWithoutRepo()
@@ -36,6 +36,16 @@ namespace outdoor.rocks.Classes
             }
 
             return context;
+        }
+
+        public static void SetIDbQueryAsync(IDbQueryAsync q)
+        {
+            queryToDbAsync = q;
+        }
+
+        public static void SetIInitializeModels(IInitializeModels i)
+        {
+            initializeModels = i;
         }
 
         public async Task<List<TrailModel>> GetTrailModelList()
@@ -58,8 +68,7 @@ namespace outdoor.rocks.Classes
         
         public async Task UpdateTrailOptions(string id, string value)
         {
-            var trail = await db.GetCollection<Trails>("Trails")
-                .FindAsync(i => i._id == ObjectId.Parse(id)).Result.FirstOrDefaultAsync();
+            var trail = await queryToDbAsync.GetTrailByIdAsync(id);
 
             var option = trail.Option;
 

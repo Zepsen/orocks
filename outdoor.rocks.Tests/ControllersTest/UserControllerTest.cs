@@ -18,6 +18,7 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void GetById_WhenCall_ReturnExpectedUserModel()
         {
             var ctrl = GetUsersController();
+            var context = DBWithoutRepo.GetDbWithoutRepo();
 
             var mockGetUser = new Mock<IDbQueryAsync>();
             mockGetUser.Setup(i => i.GetUserAsync(It.IsAny<string>()))
@@ -30,11 +31,11 @@ namespace outdoor.rocks.Tests.ControllersTest
                 Role = "User"
             });
 
-            DBWithoutRepo.queryToDbAsync = mockGetUser.Object;
-            DBWithoutRepo.initializeModels = mockInitModels.Object;
-            var test = ctrl.Get("id");
+            DBWithoutRepo.SetIDbQueryAsync(mockGetUser.Object);
+            DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
+            var test = ctrl.Get("id").Result;
 
-            Assert.Same("1", test.Result.Id);
+            Assert.Same("1", test.Id);
         }
 
         private static UsersController GetUsersController()

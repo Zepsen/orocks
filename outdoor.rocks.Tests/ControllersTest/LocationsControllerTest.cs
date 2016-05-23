@@ -32,8 +32,9 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void Get_WhenCall_ReturnExpectedFilterModel()
         {
             var ctrl = GetLocationsController();
-            var mockFilter = new Mock<IDbQueryAsync>();
+            var context = DBWithoutRepo.GetDbWithoutRepo();
 
+            var mockFilter = new Mock<IDbQueryAsync>();
             mockFilter.Setup(i => i.GetCountriesAsync())
                 .Returns(Task.FromResult(new List<ModelsWithoutRepo.Countries>()));
             mockFilter.Setup(i => i.GetRegionsAsync())
@@ -51,13 +52,11 @@ namespace outdoor.rocks.Tests.ControllersTest
                     }
                 });
 
-            DBWithoutRepo.queryToDbAsync = mockFilter.Object;
-            DBWithoutRepo.initializeModels = mockInitModels.Object;
+            DBWithoutRepo.SetIDbQueryAsync(mockFilter.Object);
+            DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
 
-            var test = ctrl.Get();
-            Assert.True("Region" == test.Result.First().Region);
-            
-
+            var test = ctrl.Get().Result;
+            Assert.True("Region" == test.First().Region);
         }
 
         private static LocationsController GetLocationsController()

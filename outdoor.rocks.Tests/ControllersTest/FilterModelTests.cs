@@ -31,6 +31,8 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void Get_WhenCall_ReturnExpectedFilterModel()
         {
             var ctrl = GetFiltersController();
+            var context = DBWithoutRepo.GetDbWithoutRepo();
+
             var mockFilter = new Mock<IDbQueryAsync>();
             mockFilter.Setup(i => i.GetCountriesAsync())
                 .Returns(Task.FromResult(new List<ModelsWithoutRepo.Countries>()));
@@ -57,14 +59,13 @@ namespace outdoor.rocks.Tests.ControllersTest
                         }
                     }
                 });
+            
+            DBWithoutRepo.SetIDbQueryAsync(mockFilter.Object);
+            DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
 
-            DBWithoutRepo.queryToDbAsync = mockFilter.Object;
-            DBWithoutRepo.initializeModels = mockInitModels.Object;
+            var test = ctrl.Get().Result;
 
-            var test = ctrl.Get();
-
-            Assert.True("1" == test.Result.Trails.First().Id);
-            Assert.True("2" == test.Result.Countries.First().Id);
+            Assert.True("1" == test.Trails.First().Id);
 
         }
 

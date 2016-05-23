@@ -68,10 +68,10 @@ namespace outdoor.rocks.Tests
         public void Get_WhenCall_ReturnRightCounts()
         {
             var ctrl = GetTrailsController();
+
             var mock = new Mock<IDbQueryAsync>();
             mock.Setup(i => i.GetTrailsAsync())
-                .Returns(Task.FromResult(new List<Trails>
-                {}));
+                .Returns(Task.FromResult(new List<Trails>()));
 
             var mockInitModels = new Mock<IInitializeModels>();
             mockInitModels.Setup(i => i.InitTrailModels(It.IsAny<List<Trails>>())).Returns(new List<TrailModel>
@@ -80,8 +80,8 @@ namespace outdoor.rocks.Tests
                 new TrailModel()
             });
 
-            DBWithoutRepo.queryToDbAsync = mock.Object;
-            DBWithoutRepo.initializeModels = mockInitModels.Object;
+            DBWithoutRepo.SetIDbQueryAsync(mock.Object);
+            DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
             var test = ctrl.Get();
 
             Assert.True(2 == test.Result.Count);
@@ -93,6 +93,8 @@ namespace outdoor.rocks.Tests
         {
             var ctrl = GetTrailsController();
             var mockTrail = new Mock<IDbQueryAsync>();
+            var context = DBWithoutRepo.GetDbWithoutRepo();
+
             mockTrail.Setup(i => i.GetTrailByIdAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(new Trails()));
             mockTrail.Setup(i => i.GetCommentsListAsync(It.IsAny<Trails>()))
@@ -108,8 +110,8 @@ namespace outdoor.rocks.Tests
                Id = "1"
             });
 
-            DBWithoutRepo.queryToDbAsync = mockTrail.Object;
-            DBWithoutRepo.initializeModels = mockInitModels.Object;
+            DBWithoutRepo.SetIDbQueryAsync(mockTrail.Object);
+            DBWithoutRepo.SetIInitializeModels(mockInitModels.Object);
             var test = ctrl.Get("id");
 
             Assert.True("1" == test.Result.Id);
