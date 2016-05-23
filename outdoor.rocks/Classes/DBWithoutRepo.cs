@@ -130,7 +130,6 @@ namespace outdoor.rocks.Classes
             var trails = db.GetCollection<Trails>("Trails");
             var trail = await trails.FindAsync(i => i._id  == id ).Result.FirstOrDefaultAsync();
             
-
             var newId = ObjectId.GenerateNewId();
             await db.GetCollection<Comments>("Comments").InsertOneAsync(new Comments
             {

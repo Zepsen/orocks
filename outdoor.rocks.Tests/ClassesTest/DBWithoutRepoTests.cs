@@ -36,7 +36,7 @@ namespace outdoor.rocks.Tests.ClassesTest
         }
 
         [Fact]
-        public void Get_WhenCall_ReturnExpectedFilterModel()
+        public void GetFilterModel_WhenCall_ReturnExpectedFilterModel()
         {
             var mockFilter = new Mock<IDbQueryAsync>();
             mockFilter.Setup(i => i.GetCountriesAsync())
@@ -72,7 +72,7 @@ namespace outdoor.rocks.Tests.ClassesTest
         }
 
         [Fact]
-        public void Get_WhenCall_ReturnExpectedRegionModel()
+        public void GetRegionModel_WhenCall_ReturnExpectedRegionModel()
         {
             var mockFilter = new Mock<IDbQueryAsync>();
             mockFilter.Setup(i => i.GetCountriesAsync())
@@ -98,7 +98,7 @@ namespace outdoor.rocks.Tests.ClassesTest
         }
 
         [Fact]
-        public void Get_WhenCall_ReturnRightCounts()
+        public void GetTrailModelList_WhenCall_ReturnRightCounts()
         {
             var mock = new Mock<IDbQueryAsync>();
             mock.Setup(i => i.GetTrailsAsync())
@@ -118,7 +118,7 @@ namespace outdoor.rocks.Tests.ClassesTest
         }
 
         [Fact]
-        public void GetById_WhenCall_ReturnExpectedFullTrailModel()
+        public void GetFullTrailModel_WhenCall_ReturnExpectedFullTrailModel()
         {
             var mockTrail = new Mock<IDbQueryAsync>();
 
@@ -142,6 +142,34 @@ namespace outdoor.rocks.Tests.ClassesTest
 
             Assert.True("1" == test.Id);
 
+        }
+
+        [Fact]
+        public void Get_WhenCall_ReturnExpectedRegionModel()
+        {
+            var mockFilter = new Mock<IDbQueryAsync>();
+            mockFilter.Setup(i => i.GetSeasonsListAsync())
+                .Returns(Task.FromResult(new List<Seasons>()));
+            mockFilter.Setup(i => i.GetTrailsTypesListAsync())
+                .Returns(Task.FromResult(new List<TrailsTypes>()));
+            mockFilter.Setup((i => i.GetTrailsDurationTypesListAsync()))
+                .Returns(Task.FromResult(new List<TrailsDurationTypes>()));
+
+            var mockInitModels = new Mock<IInitializeModels>();
+            mockInitModels.Setup(i => i.InitOptionModel(
+                It.IsAny<List<Seasons>>(),
+                It.IsAny<List<TrailsDurationTypes>>(),
+                It.IsAny<List<TrailsTypes>>()))
+                .Returns(new OptionModel()
+                {
+                    Seasons = new List<SimpleModel>(),
+                    TrailsDurationTypes = new List<SimpleModel>(),
+                    TrailsTypes = new List<SimpleModel>()
+                });
+
+            var context = new DBWithoutRepo(mockFilter.Object, mockInitModels.Object);
+            var test = context.GetOptionModel().Result;
+            Assert.Equal(typeof(List<SimpleModel>), test.Seasons.GetType());
         }
     }
 }
