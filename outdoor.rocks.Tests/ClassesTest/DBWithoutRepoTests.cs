@@ -145,7 +145,7 @@ namespace outdoor.rocks.Tests.ClassesTest
         }
 
         [Fact]
-        public void Get_WhenCall_ReturnExpectedRegionModel()
+        public void GetOptionModel_WhenCall_ReturnExpectedRegionModel()
         {
             var mockFilter = new Mock<IDbQueryAsync>();
             mockFilter.Setup(i => i.GetSeasonsListAsync())

@@ -53,7 +53,14 @@ namespace outdoor.rocks.Classes
         public async Task UpdateTrailOptions(string id, string value)
         {
             var trail = await queryToDbAsync.GetTrailByIdAsync(id);
+            var option = UpdateTrailOptions(value, trail);
+            var collections = db.GetCollection<Options>("Options");
+            var filter = Builders<Options>.Filter.Eq("_id", option._id);
+            await collections.ReplaceOneAsync(filter, option);
+        }
 
+        private static Options UpdateTrailOptions(string value, Trails trail)
+        {
             var option = trail.Option;
 
             dynamic update = JObject.Parse(value);
@@ -78,7 +85,6 @@ namespace outdoor.rocks.Classes
                 option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd.Id.Value);
 
 
-
             if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
                 option.TrailType_Id = ObjectId.Parse(update.Type.Id.Value);
 
@@ -88,10 +94,7 @@ namespace outdoor.rocks.Classes
             option.GoodForKids = update.GoodForKids.Value;
             option.DogAllowed = update.DogAllowed.Value;
 
-
-            var collections = db.GetCollection<Options>("Options");
-            var filter = Builders<Options>.Filter.Eq("_id", option._id);
-            await collections.ReplaceOneAsync(filter, option);
+            return option;
         }
 
         public async Task<FilterModel> GetFilterModel()
@@ -124,13 +127,26 @@ namespace outdoor.rocks.Classes
 
         internal async static Task UpdateComments(string value)
         {
-            dynamic comment = JObject.Parse(value);
-            var id = ObjectId.Parse((string)comment.Id.Value);
-
-            var trails = db.GetCollection<Trails>("Trails");
-            var trail = await trails.FindAsync(i => i._id  == id ).Result.FirstOrDefaultAsync();
-            
             var newId = ObjectId.GenerateNewId();
+            var id = await InsertComment(value, newId);
+            var trails = db.GetCollection<Trails>("Trails");
+            var trail = await trails.FindAsync(i => i._id == id).Result.FirstOrDefaultAsync();
+            await UpdateTrailsComments(trail, newId, trails);
+        }
+
+        private static async Task UpdateTrailsComments(Trails trail, ObjectId newId, IMongoCollection<Trails> trails)
+        {
+            trail.Comments_Ids.Add(newId);
+            var filter = Builders<Trails>.Filter.Eq("_id", trail._id);
+            var update = Builders<Trails>.Update.Set("Comments_Ids", trail.Comments_Ids);
+            await trails.UpdateOneAsync(filter, update);
+        }
+
+        private static async Task<ObjectId> InsertComment(string value, ObjectId newId)
+        {
+            dynamic comment = JObject.Parse(value);
+            var id = ObjectId.Parse((string) comment.Id.Value);
+
             await db.GetCollection<Comments>("Comments").InsertOneAsync(new Comments
             {
                 _id = newId,
@@ -138,11 +154,7 @@ namespace outdoor.rocks.Classes
                 Rate = comment.Rate.Value,
                 User_Id = ObjectId.Parse(comment.User.Value)
             });
-
-            trail.Comments_Ids.Add(newId);
-            var filter = Builders<Trails>.Filter.Eq("_id", trail._id);
-            var update = Builders<Trails>.Update.Set("Comments_Ids", trail.Comments_Ids);
-            await trails.UpdateOneAsync(filter, update);            
+            return id;
         }
 
         public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
