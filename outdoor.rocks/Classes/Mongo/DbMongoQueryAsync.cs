@@ -1,76 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using outdoor.rocks.Interfaces;
+using outdoor.rocks.Interfaces.Mongo;
 using outdoor.rocks.Models;
 using static outdoor.rocks.Models.MongoModels;
 
-namespace outdoor.rocks.Classes
+namespace outdoor.rocks.Classes.Mongo
 {
-    public class DbMongoQueryAsync : IDbQueryAsync
+    public class DbMongoQueryAsync : IMongoDbQueryAsync
     {
-        static IMongoDatabase db = DbContext.getContext();
+        static readonly IMongoDatabase Db = DbContext.GetMongoDatabaseContext();
 
         public Task<List<Trails>> GetTrailsAsync()
         {
-            var res = db.GetCollection<Trails>("Trails")
+            var res = Db.GetCollection<Trails>("Trails")
                 .FindAsync(new BsonDocument()).Result.ToListAsync();
             return res;
         }
 
         public Task<List<Countries>> GetCountriesAsync()
         {
-            var res = db.GetCollection<Countries>("Countries")
+            var res = Db.GetCollection<Countries>("Countries")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
             return res;
         }
 
         public Task<List<Regions>> GetRegionsAsync()
         {
-            var res = db.GetCollection<Regions>("Regions")
+            var res = Db.GetCollection<Regions>("Regions")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
             return res;
         }
 
         public Task<Trails> GetTrailByIdAsync(string id)
         {
-            var res =  db.GetCollection<Trails>("Trails")
+            var res =  Db.GetCollection<Trails>("Trails")
                           .FindAsync(i => i._id == ObjectId.Parse(id)).Result.FirstAsync();
             return res;
         }
 
         public Task<ApplicationUser> GetUserAsync(string id)
         {
-            return db.GetCollection<ApplicationUser>("users")
+            var res = Db.GetCollection<ApplicationUser>("users")
                 .FindAsync(i => i.UserName == id).Result.SingleOrDefaultAsync();
+            return res;
         }
 
         public Task<List<Comments>> GetCommentsListAsync(Trails trails)
         {
-            return db.GetCollection<Comments>("Comments")
+            var res = Db.GetCollection<Comments>("Comments")
                 .FindAsync(new BsonDocument()).Result.ToListAsync();
+            return res;
         }
 
         public Task<List<Seasons>> GetSeasonsListAsync()
         {
-            return db.GetCollection<Seasons>("Seasons")
+            var res = Db.GetCollection<Seasons>("Seasons")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
+            return res;
         }
 
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
         {
-            return db.GetCollection<TrailsTypes>("TrailsTypes")
+            var res = Db.GetCollection<TrailsTypes>("TrailsTypes")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
+            return res;
         }
 
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
         {
-            return db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
+            var res = Db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
+            return res;
         }
     }
 }

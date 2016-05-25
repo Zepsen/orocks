@@ -1,34 +1,31 @@
-﻿
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
-using outdoor.rocks.App_Start;
 using outdoor.rocks.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using outdoor.rocks.Interfaces;
+using outdoor.rocks.Interfaces.Mongo;
 using static outdoor.rocks.Models.MongoModels;
 
-namespace outdoor.rocks.Classes
+namespace outdoor.rocks.Classes.Mongo
 {
 
     public class DbMongo : IDbMain
     {
 
-        static readonly IMongoDatabase Db = DbContext.getContext();
+        static readonly IMongoDatabase Db = DbContext.GetMongoDatabaseContext();
 
-        private readonly IDbQueryAsync _queryToDbAsync;
-        private readonly IInitializeModels _initializeModels;
+        private readonly IMongoDbQueryAsync _queryToDbAsync;
+        private readonly IMongoInitializeModels _initializeModels;
         
         public DbMongo(
-            IDbQueryAsync q = null,
-            IInitializeModels i = null)
+            IMongoDbQueryAsync q = null,
+            IMongoInitializeModels i = null)
         {
             _queryToDbAsync = q ?? new DbMongoQueryAsync();
-            _initializeModels = i ?? new InitializeModels();
+            _initializeModels = i ?? new MongoInitializeModels();
         }
         
         public async Task<List<TrailModel>> GetTrailModelList()

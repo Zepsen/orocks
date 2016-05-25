@@ -10,7 +10,7 @@ namespace outdoor.rocks.Models
 {
     public class MongoModels
     {
-        static IMongoDatabase db = DbContext.getContext();
+        static IMongoDatabase db = DbContext.GetMongoDatabaseContext();
 
         public class Trails
         {

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using outdoor.rocks.Models;
-using static outdoor.rocks.Models.MongoModels;
 
-namespace outdoor.rocks.Interfaces
+using static outdoor.rocks.Models.AzureModels;
+
+namespace outdoor.rocks.Interfaces.Azure
 {
-    public interface IInitializeModels
+    public interface IAzureInitializeModels
     {
         UserModel InitUserModel(ApplicationUser user);
         List<TrailModel> InitTrailModels(List<Trails> trail);

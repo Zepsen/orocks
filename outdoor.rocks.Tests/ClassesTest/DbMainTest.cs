@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MongoDB.Driver;
 using Moq;
-using outdoor.rocks.Classes;
-using outdoor.rocks.Interfaces;
+using outdoor.rocks.Classes.Mongo;
+using outdoor.rocks.Interfaces.Mongo;
 using outdoor.rocks.Models;
 using Xunit;
 using static outdoor.rocks.Models.MongoModels;
@@ -18,11 +16,11 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void GetUserModelIfUserAlreadyRegistration_WhenCall_ReturnExpectedUserModel()
         {
-            var mockGetUser = new Mock<IDbQueryAsync>();
+            var mockGetUser = new Mock<IMongoDbQueryAsync>();
             mockGetUser.Setup(i => i.GetUserAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(new ApplicationUser() { }));
 
-            var mockInitModels = new Mock<IInitializeModels>();
+            var mockInitModels = new Mock<IMongoInitializeModels>();
             mockInitModels.Setup(i => i.InitUserModel(It.IsAny<ApplicationUser>())).Returns(new UserModel
             {
                 Id = "1",
@@ -38,13 +36,13 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void GetFilterModel_WhenCall_ReturnExpectedFilterModel()
         {
-            var mockFilter = new Mock<IDbQueryAsync>();
+            var mockFilter = new Mock<IMongoDbQueryAsync>();
             mockFilter.Setup(i => i.GetCountriesAsync())
                 .Returns(Task.FromResult(new List<Countries>()));
             mockFilter.Setup(i => i.GetTrailsAsync())
                 .Returns(Task.FromResult(new List<Trails>()));
 
-            var mockInitModels = new Mock<IInitializeModels>();
+            var mockInitModels = new Mock<IMongoInitializeModels>();
             mockInitModels.Setup(i => i.InitFilterModel(
                 It.IsAny<List<Countries>>(), It.IsAny<List<Trails>>()))
                 .Returns(new FilterModel()
@@ -74,13 +72,13 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void GetRegionModel_WhenCall_ReturnExpectedRegionModel()
         {
-            var mockFilter = new Mock<IDbQueryAsync>();
+            var mockFilter = new Mock<IMongoDbQueryAsync>();
             mockFilter.Setup(i => i.GetCountriesAsync())
                 .Returns(Task.FromResult(new List<Models.MongoModels.Countries>()));
             mockFilter.Setup(i => i.GetRegionsAsync())
                 .Returns(Task.FromResult(new List<Models.MongoModels.Regions>()));
 
-            var mockInitModels = new Mock<IInitializeModels>();
+            var mockInitModels = new Mock<IMongoInitializeModels>();
             mockInitModels.Setup(i => i.InitRegionModelList(It.IsAny<List<Regions>>(), It.IsAny<List<Countries>>()))
                 .Returns(new List<RegionModel>()
                 {
@@ -100,11 +98,11 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void GetTrailModelList_WhenCall_ReturnRightCounts()
         {
-            var mock = new Mock<IDbQueryAsync>();
+            var mock = new Mock<IMongoDbQueryAsync>();
             mock.Setup(i => i.GetTrailsAsync())
                 .Returns(Task.FromResult(new List<Trails>()));
 
-            var mockInitModels = new Mock<IInitializeModels>();
+            var mockInitModels = new Mock<IMongoInitializeModels>();
             mockInitModels.Setup(i => i.InitTrailModels(It.IsAny<List<Trails>>())).Returns(new List<TrailModel>
             {
                 new TrailModel(),
@@ -120,14 +118,14 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void GetFullTrailModel_WhenCall_ReturnExpectedFullTrailModel()
         {
-            var mockTrail = new Mock<IDbQueryAsync>();
+            var mockTrail = new Mock<IMongoDbQueryAsync>();
 
             mockTrail.Setup(i => i.GetTrailByIdAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(new Trails()));
             mockTrail.Setup(i => i.GetCommentsListAsync(It.IsAny<Trails>()))
                 .Returns(Task.FromResult(new List<Comments>()));
 
-            var mockInitModels = new Mock<IInitializeModels>();
+            var mockInitModels = new Mock<IMongoInitializeModels>();
             mockInitModels.Setup(i => i.InitCommentsModelList(It.IsAny<Trails>(), It.IsAny<List<Comments>>()))
                 .Returns(new List<CommentsModel>());
 
@@ -147,7 +145,7 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void GetOptionModel_WhenCall_ReturnExpectedRegionModel()
         {
-            var mockFilter = new Mock<IDbQueryAsync>();
+            var mockFilter = new Mock<IMongoDbQueryAsync>();
             mockFilter.Setup(i => i.GetSeasonsListAsync())
                 .Returns(Task.FromResult(new List<Seasons>()));
             mockFilter.Setup(i => i.GetTrailsTypesListAsync())
@@ -155,7 +153,7 @@ namespace outdoor.rocks.Tests.ClassesTest
             mockFilter.Setup((i => i.GetTrailsDurationTypesListAsync()))
                 .Returns(Task.FromResult(new List<TrailsDurationTypes>()));
 
-            var mockInitModels = new Mock<IInitializeModels>();
+            var mockInitModels = new Mock<IMongoInitializeModels>();
             mockInitModels.Setup(i => i.InitOptionModel(
                 It.IsAny<List<Seasons>>(),
                 It.IsAny<List<TrailsDurationTypes>>(),

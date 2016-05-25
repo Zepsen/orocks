@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using outdoor.rocks.Classes.Mongo;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
 

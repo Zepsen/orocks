@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using outdoor.rocks.Classes;
+using outdoor.rocks.Classes.Mongo;
 using outdoor.rocks.Models;
 using Xunit;
 using static outdoor.rocks.Models.MongoModels;
@@ -68,9 +69,9 @@ namespace outdoor.rocks.Tests.ClassesTest
 
 
         
-        private InitializeModels GetInitializeModels()
+        private MongoInitializeModels GetInitializeModels()
         {
-            return new InitializeModels();
+            return new MongoInitializeModels();
         }
     }
 }

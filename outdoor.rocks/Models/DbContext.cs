@@ -1,23 +1,24 @@
-﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Configuration;
+using Microsoft.WindowsAzure.Storage;
+using MongoDB.Driver;
+using Microsoft.Azure;
+using Microsoft.WindowsAzure.Storage.Table;
 
 namespace outdoor.rocks.Models
 {
-    public class DbContext
+    public static class DbContext
     {
-        static MongoClient server = new MongoClient("mongodb://localhost/orocks");
-        static IMongoDatabase db = server.GetDatabase("orocks");
-        
-        private DbContext()
+        public static IMongoDatabase GetMongoDatabaseContext()
         {
+            MongoClient server = new MongoClient("mongodb://localhost/orocks");
+            IMongoDatabase db = server.GetDatabase("orocks");
+            return db;
         }
 
-        public static IMongoDatabase getContext()
+        public static CloudTableClient GetAzureDatabaseContext()
         {
-            return db;    
+            var storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+            return storageAccount.CreateCloudTableClient();
         }
 
 

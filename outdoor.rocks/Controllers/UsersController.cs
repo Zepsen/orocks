@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using outdoor.rocks.Classes;
 using System.Threading.Tasks;
+using outdoor.rocks.Classes.Mongo;
 
 namespace outdoor.rocks.Controllers
 {

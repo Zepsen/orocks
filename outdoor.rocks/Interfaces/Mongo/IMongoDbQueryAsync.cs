@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using outdoor.rocks.Models;
+
 using static outdoor.rocks.Models.MongoModels;
 
-namespace outdoor.rocks.Interfaces
+namespace outdoor.rocks.Interfaces.Mongo
 {
-    public interface IDbQueryAsync
+    public interface IMongoDbQueryAsync
     {
         Task<List<Trails>> GetTrailsAsync();
         Task<Trails> GetTrailByIdAsync(string id);
