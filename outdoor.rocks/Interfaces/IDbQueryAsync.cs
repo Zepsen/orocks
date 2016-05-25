@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using outdoor.rocks.Models;
-using static outdoor.rocks.Models.ModelsWithoutRepo;
+using static outdoor.rocks.Models.MongoModels;
 
 namespace outdoor.rocks.Interfaces
 {

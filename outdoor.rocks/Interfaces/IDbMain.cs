@@ -7,16 +7,15 @@ using outdoor.rocks.Models;
 
 namespace outdoor.rocks.Interfaces
 {
-    public interface IDBWithoutRepo
+    public interface IDbMain
     {
         Task<OptionModel> GetOptionModel();
-        Task<List<RegionModel>> GetRegionModel();
+        Task<List<RegionModel>> GetRegionModelList();
         Task<List<TrailModel>> GetTrailModelList();
         Task<FilterModel> GetFilterModel();
         Task<FullTrailModel> GetFullTrailModel(string id);
         Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id);
-        Task UpdateTrailOptions(string id, string value);
-
-
+        Task UpdateTrailModelOptions(string id, string value);
+        Task UpdateComments(string value);
     }
 }

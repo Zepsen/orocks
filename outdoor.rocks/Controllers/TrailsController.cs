@@ -10,17 +10,18 @@ namespace outdoor.rocks.Controllers
     
     public class TrailsController : ApiController
     {
-        private DBWithoutRepo db = new DBWithoutRepo();
+        private readonly DbMain _db = new DbMain();
+
         // GET: api/Trails
         public Task<List<TrailModel>> Get()
         {
-            return  db.GetTrailModelList();            
+            return  _db.GetTrailModelsList();            
         }
 
         // GET: api/Trails/ObjectId
         public Task<FullTrailModel> Get(string id)
         {            
-            return db.GetFullTrailModel(id);            
+            return _db.GetFullTrailModel(id);            
         }
         
         // POST: api/Trails
@@ -33,8 +34,8 @@ namespace outdoor.rocks.Controllers
         // PUT: api/Trails/5
         public async Task<FullTrailModel> Put(string id, [FromBody]string value)
         {            
-            await db.UpdateTrailOptions(id, value);
-            return await db.GetFullTrailModel(id);
+             _db.UpdateTrailOptions(id, value);
+            return await _db.GetFullTrailModel(id);
         }
 
         

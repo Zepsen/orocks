@@ -5,7 +5,7 @@ using outdoor.rocks.Classes;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
 using Xunit;
-using static outdoor.rocks.Models.ModelsWithoutRepo;
+using static outdoor.rocks.Models.MongoModels;
 
 namespace outdoor.rocks.Tests.ClassesTest
 {
@@ -16,11 +16,6 @@ namespace outdoor.rocks.Tests.ClassesTest
         public void TestMethod1()
         {
 
-        }
-
-        private DbQueryAsync GetDbQueryAsync()
-        {
-            return new DbQueryAsync();
         }
     }
 }

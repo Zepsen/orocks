@@ -15,12 +15,12 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class LocationsController : ApiController
     {
-        private DBWithoutRepo db = new DBWithoutRepo();
+        private readonly DbMain _db = new DbMain();
 
         // GET: api/Locations
         public Task<List<RegionModel>> Get()
         {
-            return db.GetRegionModel();
+            return _db.GetRegionModelList();
         }
         
         // GET: api/Locations/5

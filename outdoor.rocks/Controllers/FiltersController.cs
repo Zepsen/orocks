@@ -14,13 +14,13 @@ namespace outdoor.rocks.Controllers
 {
     public class FiltersController : ApiController
     {
-        private DBWithoutRepo db = new DBWithoutRepo();
+        private readonly DbMain _db = new DbMain();
 
         [AllowAnonymous]
         // GET: api/Filters
         public Task<FilterModel> Get()
         {
-            return db.GetFilterModel();
+            return _db.GetFilterModel();
         }       
 
         // GET: api/Filters/5

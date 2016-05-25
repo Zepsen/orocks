@@ -7,11 +7,11 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
-using static outdoor.rocks.Models.ModelsWithoutRepo;
+using static outdoor.rocks.Models.MongoModels;
 
 namespace outdoor.rocks.Classes
 {
-    public class DbQueryAsync : IDbQueryAsync
+    public class DbMongoQueryAsync : IDbQueryAsync
     {
         static IMongoDatabase db = DbContext.getContext();
 

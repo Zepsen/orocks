@@ -8,12 +8,12 @@ using outdoor.rocks.Classes;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
 using Xunit;
-using static outdoor.rocks.Models.ModelsWithoutRepo;
+using static outdoor.rocks.Models.MongoModels;
 
 namespace outdoor.rocks.Tests.ClassesTest
 {
 
-    public class DBWithoutRepoTests
+    public class DbMainTest
     {
         [Fact]
         public void GetUserModelIfUserAlreadyRegistration_WhenCall_ReturnExpectedUserModel()
@@ -29,7 +29,7 @@ namespace outdoor.rocks.Tests.ClassesTest
                 Role = "User"
             });
 
-            var db = new DBWithoutRepo(mockGetUser.Object, mockInitModels.Object);
+            var db = new DbMongo(mockGetUser.Object, mockInitModels.Object);
             var test = db.GetUserModelIfUserAlreadyRegistration("id");
 
             Assert.Same("1", test.Result.Id);
@@ -65,7 +65,7 @@ namespace outdoor.rocks.Tests.ClassesTest
                     }
                 });
 
-            var context = new DBWithoutRepo(mockFilter.Object, mockInitModels.Object);
+            var context = new DbMongo(mockFilter.Object, mockInitModels.Object);
             var test = context.GetFilterModel().Result;
 
             Assert.True("1" == test.Trails.First().Id);
@@ -76,9 +76,9 @@ namespace outdoor.rocks.Tests.ClassesTest
         {
             var mockFilter = new Mock<IDbQueryAsync>();
             mockFilter.Setup(i => i.GetCountriesAsync())
-                .Returns(Task.FromResult(new List<ModelsWithoutRepo.Countries>()));
+                .Returns(Task.FromResult(new List<Models.MongoModels.Countries>()));
             mockFilter.Setup(i => i.GetRegionsAsync())
-                .Returns(Task.FromResult(new List<ModelsWithoutRepo.Regions>()));
+                .Returns(Task.FromResult(new List<Models.MongoModels.Regions>()));
 
             var mockInitModels = new Mock<IInitializeModels>();
             mockInitModels.Setup(i => i.InitRegionModelList(It.IsAny<List<Regions>>(), It.IsAny<List<Countries>>()))
@@ -92,8 +92,8 @@ namespace outdoor.rocks.Tests.ClassesTest
                     }
                 });
 
-            var context = new DBWithoutRepo(mockFilter.Object, mockInitModels.Object);
-            var test = context.GetRegionModel().Result;
+            var context = new DbMongo(mockFilter.Object, mockInitModels.Object);
+            var test = context.GetRegionModelList().Result;
             Assert.True("Region" == test.First().Region);
         }
 
@@ -111,7 +111,7 @@ namespace outdoor.rocks.Tests.ClassesTest
                 new TrailModel()
             });
 
-            var context = new DBWithoutRepo(mock.Object, mockInitModels.Object);
+            var context = new DbMongo(mock.Object, mockInitModels.Object);
             var test = context.GetTrailModelList().Result;
 
             Assert.True(2 == test.Count);
@@ -137,7 +137,7 @@ namespace outdoor.rocks.Tests.ClassesTest
                     Id = "1"
                 });
 
-            var context = new DBWithoutRepo(mockTrail.Object, mockInitModels.Object);
+            var context = new DbMongo(mockTrail.Object, mockInitModels.Object);
             var test = context.GetFullTrailModel("id").Result;
 
             Assert.True("1" == test.Id);
@@ -167,7 +167,7 @@ namespace outdoor.rocks.Tests.ClassesTest
                     TrailsTypes = new List<SimpleModel>()
                 });
 
-            var context = new DBWithoutRepo(mockFilter.Object, mockInitModels.Object);
+            var context = new DbMongo(mockFilter.Object, mockInitModels.Object);
             var test = context.GetOptionModel().Result;
             Assert.Equal(typeof(List<SimpleModel>), test.Seasons.GetType());
         }

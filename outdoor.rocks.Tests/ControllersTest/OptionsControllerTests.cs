@@ -16,7 +16,7 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void Get_WhenCall_ReturnOptionModelType()
         {
             var ctrl = GetOptionsController();
-            var mock = new Mock<IDBWithoutRepo>();
+            var mock = new Mock<IDbMain>();
             mock.Setup(i => i.GetOptionModel())
                 .Returns(Task.FromResult(new OptionModel()));
 

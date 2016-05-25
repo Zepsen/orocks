@@ -5,7 +5,7 @@ using Moq;
 using outdoor.rocks.Classes;
 using outdoor.rocks.Models;
 using Xunit;
-using static outdoor.rocks.Models.ModelsWithoutRepo;
+using static outdoor.rocks.Models.MongoModels;
 namespace outdoor.rocks.Tests.ClassesTest
 {
     

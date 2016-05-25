@@ -18,7 +18,7 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void Get_WhenCall_ReturnFilterModelType()
         {
             var ctrl = GetFiltersController();
-            var mock = new Mock<IDBWithoutRepo>();
+            var mock = new Mock<IDbMain>();
             mock.Setup(i => i.GetFilterModel())
                 .Returns(Task.FromResult(new FilterModel()));
 

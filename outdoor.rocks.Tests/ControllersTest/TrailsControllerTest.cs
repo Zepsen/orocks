@@ -11,7 +11,7 @@ using outdoor.rocks.Classes;
 using outdoor.rocks.Interfaces;
 using Xunit;
 using Xunit.Abstractions;
-using static outdoor.rocks.Models.ModelsWithoutRepo;
+using static outdoor.rocks.Models.MongoModels;
 
 namespace outdoor.rocks.Tests
 {
@@ -29,7 +29,7 @@ namespace outdoor.rocks.Tests
         public void Get_WhenCall_ReturnsListTrailsModelType()
         {
             var ctrl = GetTrailsController();
-            var mock = new Mock<IDBWithoutRepo>();
+            var mock = new Mock<IDbMain>();
             mock.Setup(i => i.GetTrailModelList())
                 .Returns(Task.FromResult(new List<TrailModel>()));
 
@@ -42,7 +42,7 @@ namespace outdoor.rocks.Tests
         public void GetWhithId_WhenCall_ReturnsFullTrailsModelType()
         {
             var ctrl = GetTrailsController();
-            var mock = new Mock<IDBWithoutRepo>();
+            var mock = new Mock<IDbMain>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(Task.FromResult(new FullTrailModel()));
 
@@ -55,7 +55,7 @@ namespace outdoor.rocks.Tests
         public void Put_WhenCall_ReturnsFullTrailsModelType()
         {
             var ctrl = GetTrailsController();
-            var mock = new Mock<IDBWithoutRepo>();
+            var mock = new Mock<IDbMain>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(Task.FromResult(new FullTrailModel()));
 

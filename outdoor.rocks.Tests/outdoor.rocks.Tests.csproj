@@ -142,7 +142,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ClassesTest\DBWithoutRepoTests.cs" />
+    <Compile Include="ClassesTest\DbMainTest.cs" />
     <Compile Include="ClassesTest\DbQueryAsyncTest.cs" />
     <Compile Include="ClassesTest\InitializeModelsTest.cs" />
     <Compile Include="ControllersTest\OptionsControllerTests.cs" />

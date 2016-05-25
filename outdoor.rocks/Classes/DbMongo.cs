@@ -10,56 +10,54 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using outdoor.rocks.Interfaces;
-using static outdoor.rocks.Models.ModelsWithoutRepo;
+using static outdoor.rocks.Models.MongoModels;
 
 namespace outdoor.rocks.Classes
 {
 
-    public class DBWithoutRepo : IDBWithoutRepo
+    public class DbMongo : IDbMain
     {
 
-        static IMongoDatabase db = DbContext.getContext();
+        static readonly IMongoDatabase Db = DbContext.getContext();
 
-        private IDbQueryAsync queryToDbAsync;
-        private IInitializeModels initializeModels;
+        private readonly IDbQueryAsync _queryToDbAsync;
+        private readonly IInitializeModels _initializeModels;
         
-        public DBWithoutRepo(
+        public DbMongo(
             IDbQueryAsync q = null,
             IInitializeModels i = null)
         {
-            queryToDbAsync = q ?? new DbQueryAsync();
-            initializeModels = i ?? new InitializeModels();
+            _queryToDbAsync = q ?? new DbMongoQueryAsync();
+            _initializeModels = i ?? new InitializeModels();
         }
         
-
         public async Task<List<TrailModel>> GetTrailModelList()
         {
-            var trailAsync = await queryToDbAsync.GetTrailsAsync();
-            var trailModels = initializeModels.InitTrailModels(trailAsync);
+            var trailAsync = await _queryToDbAsync.GetTrailsAsync();
+            var trailModels = _initializeModels.InitTrailModels(trailAsync);
             return trailModels;
         }
-        
 
         public async Task<FullTrailModel> GetFullTrailModel(string id)
         {
-            var trails = await queryToDbAsync.GetTrailByIdAsync(id);
-            var comments = await queryToDbAsync.GetCommentsListAsync(trails);
-            var commentsModelList = initializeModels.InitCommentsModelList(trails, comments);
-            var fullTrailModel = initializeModels.InitFullTrailModel(trails, commentsModelList);
+            var trails = await _queryToDbAsync.GetTrailByIdAsync(id);
+            var comments = await _queryToDbAsync.GetCommentsListAsync(trails);
+            var commentsModelList = _initializeModels.InitCommentsModelList(trails, comments);
+            var fullTrailModel = _initializeModels.InitFullTrailModel(trails, commentsModelList);
             return fullTrailModel;
 
         }
         
-        public async Task UpdateTrailOptions(string id, string value)
+        public async Task UpdateTrailModelOptions(string id, string value)
         {
-            var trail = await queryToDbAsync.GetTrailByIdAsync(id);
-            var option = UpdateTrailOptions(value, trail);
-            var collections = db.GetCollection<Options>("Options");
+            var trail = await _queryToDbAsync.GetTrailByIdAsync(id);
+            var option = UpdateOptions(value, trail);
+            var collections = Db.GetCollection<Options>("Options");
             var filter = Builders<Options>.Filter.Eq("_id", option._id);
             await collections.ReplaceOneAsync(filter, option);
         }
 
-        private static Options UpdateTrailOptions(string value, Trails trail)
+        private static Options UpdateOptions(string value, Trails trail)
         {
             var option = trail.Option;
 
@@ -99,37 +97,34 @@ namespace outdoor.rocks.Classes
 
         public async Task<FilterModel> GetFilterModel()
         {
-            var countriesAsync = await queryToDbAsync.GetCountriesAsync();
-            var trailsAsync = await queryToDbAsync.GetTrailsAsync();
-            var filterModel = initializeModels.InitFilterModel(countriesAsync, trailsAsync);
+            var countriesAsync = await _queryToDbAsync.GetCountriesAsync();
+            var trailsAsync = await _queryToDbAsync.GetTrailsAsync();
+            var filterModel = _initializeModels.InitFilterModel(countriesAsync, trailsAsync);
             return filterModel;
         }
 
         public async Task<OptionModel> GetOptionModel()
         {
-            var seasonsAsync = await queryToDbAsync.GetSeasonsListAsync();
-            var trailTypesAsync = await queryToDbAsync.GetTrailsTypesListAsync();
-            var trailDurationTypesAsync = await queryToDbAsync.GetTrailsDurationTypesListAsync();
-            var optionModel = initializeModels.InitOptionModel(seasonsAsync, trailDurationTypesAsync, trailTypesAsync);
+            var seasonsAsync = await _queryToDbAsync.GetSeasonsListAsync();
+            var trailTypesAsync = await _queryToDbAsync.GetTrailsTypesListAsync();
+            var trailDurationTypesAsync = await _queryToDbAsync.GetTrailsDurationTypesListAsync();
+            var optionModel = _initializeModels.InitOptionModel(seasonsAsync, trailDurationTypesAsync, trailTypesAsync);
             return optionModel;
         }
-
         
-        public async Task<List<RegionModel>> GetRegionModel()
+        public async Task<List<RegionModel>> GetRegionModelList()
         {
-            var regionsAsync = await queryToDbAsync.GetRegionsAsync();
-            var countriesAsync = await queryToDbAsync.GetCountriesAsync();
-            var regionModelList = initializeModels.InitRegionModelList(regionsAsync, countriesAsync);
+            var regionsAsync = await _queryToDbAsync.GetRegionsAsync();
+            var countriesAsync = await _queryToDbAsync.GetCountriesAsync();
+            var regionModelList = _initializeModels.InitRegionModelList(regionsAsync, countriesAsync);
             return regionModelList;
         }
-
         
-
-        internal async static Task UpdateComments(string value)
+        public async Task UpdateComments(string value)
         {
             var newId = ObjectId.GenerateNewId();
             var id = await InsertComment(value, newId);
-            var trails = db.GetCollection<Trails>("Trails");
+            var trails = Db.GetCollection<Trails>("Trails");
             var trail = await trails.FindAsync(i => i._id == id).Result.FirstOrDefaultAsync();
             await UpdateTrailsComments(trail, newId, trails);
         }
@@ -147,7 +142,7 @@ namespace outdoor.rocks.Classes
             dynamic comment = JObject.Parse(value);
             var id = ObjectId.Parse((string) comment.Id.Value);
 
-            await db.GetCollection<Comments>("Comments").InsertOneAsync(new Comments
+            await Db.GetCollection<Comments>("Comments").InsertOneAsync(new Comments
             {
                 _id = newId,
                 Comment = comment.Comment.Value,
@@ -159,8 +154,8 @@ namespace outdoor.rocks.Classes
 
         public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
-            var user = await queryToDbAsync.GetUserAsync(id);
-            var userModel = initializeModels.InitUserModel(user);
+            var user = await _queryToDbAsync.GetUserAsync(id);
+            var userModel = _initializeModels.InitUserModel(user);
             return userModel;
         }
         

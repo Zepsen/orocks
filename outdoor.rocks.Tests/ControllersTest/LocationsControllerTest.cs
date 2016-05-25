@@ -19,8 +19,8 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void Get_WhenCall_ReturnRegionModelType()
         {
             var ctrl = GetLocationsController();
-            var mock = new Mock<IDBWithoutRepo>();
-            mock.Setup(i => i.GetRegionModel())
+            var mock = new Mock<IDbMain>();
+            mock.Setup(i => i.GetRegionModelList())
                 .Returns(Task.FromResult(new List<RegionModel>()));
 
             var test = ctrl.Get();

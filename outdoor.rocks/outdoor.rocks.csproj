@@ -245,8 +245,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Classes\DbQueryAsync.cs" />
-    <Compile Include="Classes\DBWithoutRepo.cs" />
+    <Compile Include="Classes\DbAzure.cs" />
+    <Compile Include="Classes\DbMain.cs" />
+    <Compile Include="Classes\DbMongoQueryAsync.cs" />
+    <Compile Include="Classes\DbMongo.cs" />
     <Compile Include="Classes\InitializeModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -260,17 +262,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDbQueryAsync.cs" />
-    <Compile Include="Interfaces\IDBWithoutRepo.cs" />
+    <Compile Include="Interfaces\IDbMain.cs" />
     <Compile Include="Interfaces\IInitializeModels.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AzureModels.cs" />
     <Compile Include="Models\HelperModels\CommentsModel.cs" />
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\HelperModels\FilterModel.cs" />
     <Compile Include="Models\HelperModels\FullTrailModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\HelperModels\CountryModel.cs" />
-    <Compile Include="Models\ModelsWithoutRepo.cs" />
+    <Compile Include="Models\MongoModels.cs" />
     <Compile Include="Models\HelperModels\OptionModel.cs" />
     <Compile Include="Models\HelperModels\RegionModel.cs" />
     <Compile Include="Models\HelperModels\SimpleModel.cs" />

@@ -14,7 +14,8 @@ using System.Web.Http;
 namespace outdoor.rocks.Controllers
 {
     public class CommentsController : ApiController
-    {          
+    {
+        private readonly DbMain _db = new DbMain();
         // GET: api/Comments
         public IEnumerable<string> Get()
         {
@@ -29,9 +30,9 @@ namespace outdoor.rocks.Controllers
 
         // POST: api/Comments
         [Authorize(Roles = "Admin, User")]        
-        public async Task<IHttpActionResult> Post([FromBody]string value)
-        {          
-            await DBWithoutRepo.UpdateComments(value);
+        public IHttpActionResult Post([FromBody]string value)
+        {
+            _db.UpdateComments(value);
             return Ok();
         }
                 

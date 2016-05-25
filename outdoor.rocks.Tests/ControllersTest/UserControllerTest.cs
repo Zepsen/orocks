@@ -9,7 +9,7 @@ using outdoor.rocks.Controllers;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
 using Xunit;
-using static outdoor.rocks.Models.ModelsWithoutRepo;
+using static outdoor.rocks.Models.MongoModels;
 
 namespace outdoor.rocks.Tests.ControllersTest
 {
