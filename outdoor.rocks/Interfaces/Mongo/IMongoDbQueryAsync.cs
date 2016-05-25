@@ -20,5 +20,6 @@ namespace outdoor.rocks.Interfaces.Mongo
         Task<List<Seasons>> GetSeasonsListAsync();
         Task<List<TrailsTypes>> GetTrailsTypesListAsync();
         Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync();
+
     }
 }
