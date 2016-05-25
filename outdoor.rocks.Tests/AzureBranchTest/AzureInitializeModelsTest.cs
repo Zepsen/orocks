@@ -24,7 +24,6 @@ namespace outdoor.rocks.Tests.AzureBranchTest
                     &&
                     trails.First().Name == test.Trails.First().Value
                 );
-
         }
     }
 }
