@@ -6,6 +6,8 @@ using outdoor.rocks.Models;
 using outdoor.rocks.Tests.Helpers;
 using Xunit;
 
+using static outdoor.rocks.Models.AzureModels;
+
 namespace outdoor.rocks.Tests.AzureBranchTest
 {
     
@@ -61,12 +63,7 @@ namespace outdoor.rocks.Tests.AzureBranchTest
 
             var refDb = Db.GetTableReference("Trails");
             //refDb.CreateIfNotExists();
-            var trails = new AzureModels.Trails()
-            {
-                Id = 1,
-                Name = "USA"
-            };
-
+            var trails = FakeAzureModels.GetFakeTrail();
             //var insert = TableOperation.Insert(country);
             //refDb.Execute(insert);
 

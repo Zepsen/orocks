@@ -13,25 +13,26 @@ namespace outdoor.rocks.Models
 
         public class Trails : TableEntity
         {
-            public Trails(string rowKey)
-            {
-                PartitionKey = "Trails";
-                RowKey = rowKey;
-            }
-
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public string FullDescription { get; set; }
             public string WhyGo { get; set; }
             public bool Feature { get; set; }
-            public int DifficultId { get; set; }
-            public int LocationId { get; set; }
-            public int OptionId { get; set; }
-            public List<int> CommentsIds { get; set; }
+            public Guid DifficultId { get; set; }
+            public Guid LocationId { get; set; }
+            public Guid OptionId { get; set; }
+            public List<Guid> CommentsIds { get; set; }
             public List<string> References { get; set; }
             public string CoverPhoto { get; set; }
             public List<string> Photos { get; set; }
+
+            public Trails()
+            {
+                PartitionKey = "Trails";
+                Id = new Guid();
+                RowKey = Id.ToString();
+            }
 
             [IgnoreProperty]
             public Difficults Difficults
@@ -83,29 +84,31 @@ namespace outdoor.rocks.Models
 
         public class Difficults : TableEntity
         {
-            public Difficults(string rowKey)
+            public Guid Id { get; set; }
+            public string Value { get; set; }
+
+            public Difficults()
             {
                 PartitionKey = "Difficults";
-                RowKey = rowKey;
+                Id = new Guid();
+                RowKey = Id.ToString();
             }
-
-            public int Id { get; set; }
-            public string Value { get; set; }
         }
 
         public class Locations : TableEntity
         {
-            public Locations(string rowKey)
+            public Guid Id { get; set; }
+            public Guid RegionId { get; set; }
+            public Guid CountryId { get; set; }
+            public Guid StateId { get; set; }
+
+            public Locations()
             {
                 PartitionKey = "Locations";
-                RowKey = rowKey;
+                Id = new Guid();
+                RowKey = Id.ToString();
             }
-
-            public int Id { get; set; }
-            public int RegionId { get; set; }
-            public int CountryId { get; set; }
-            public int StateId { get; set; }
-
+            
             [IgnoreProperty]
             public Regions Regions
             {
@@ -142,27 +145,31 @@ namespace outdoor.rocks.Models
 
         public class Regions : TableEntity
         {
-            public Regions(string rowKey)
-            {
-                PartitionKey = "Regions";
-                RowKey = rowKey;
-            }
-
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public string Region { get; set; }
+
+            public Regions()
+            {
+                Id = new Guid();
+                PartitionKey = "Regions";
+                RowKey = Id.ToString();
+            }
         }
 
         public class Countries : TableEntity
         {
-            public Countries(string rowKey) 
+            public Guid Id { get; set; }
+            public string Name { get; set; }
+            public Guid RegionId { get; set; }
+            
+            public Countries() 
             {
-                PartitionKey = "Countries";
-                RowKey = rowKey;
+                PartitionKey = "Regions";
+                Id = new Guid();
+                RowKey = Id.ToString();
             }
 
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public int RegionId { get; set; }
+            
             
             [IgnoreProperty]
             public Regions Region
@@ -179,16 +186,16 @@ namespace outdoor.rocks.Models
 
         public class States : TableEntity
         {
-            public States(string rowKey)
+            public Guid Id { get; set; }
+            public string State { get; set; }
+            public Guid CountryId { get; set; }
+
+            public States()
             {
                 PartitionKey = "States";
-                RowKey = rowKey;
+                Id = new Guid();
+                RowKey = Id.ToString();
             }
-
-            public int Id { get; set; }
-            public string State { get; set; }
-            public int CountryId { get; set; }
-
 
             [IgnoreProperty]
             public Countries Countries
@@ -204,37 +211,39 @@ namespace outdoor.rocks.Models
 
         public class Comments : TableEntity
         {
-            public Comments(string rowKey)
-            {
-                PartitionKey = "Comments";
-                RowKey = rowKey;
-            }
-
-            public int Id { get; set; }
-            public int UserId { get; set; }
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
             public string Comment { get; set; }
             public double Rate { get; set; }
+
+            public Comments()
+            {
+                Id = new Guid();
+                PartitionKey = "Regions";
+                RowKey = Id.ToString();
+            }
+
         }
 
         public class Options : TableEntity
         {
-            public Options(string rowKey)
-            {
-                PartitionKey = "Options";
-                RowKey = rowKey;
-            }
-
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public double Distance { get; set; }
             public double Elevation { get; set; }
             public int Peak { get; set; }
             public bool DogAllowed { get; set; }
             public bool GoodForKids { get; set; }
-            public int TrailTypeId { get; set; }
-            public int TrailDurationTypeId { get; set; }
-            public int SeasonStartId { get; set; }
-            public int SeasonEndId { get; set; }
+            public Guid TrailTypeId { get; set; }
+            public Guid TrailDurationTypeId { get; set; }
+            public Guid SeasonStartId { get; set; }
+            public Guid SeasonEndId { get; set; }
 
+            public Options()
+            {
+               Id = new Guid();
+                PartitionKey = "Regions";
+                RowKey = Id.ToString();
+            }
 
             [IgnoreProperty]
             public Seasons SeasonStart
@@ -287,53 +296,60 @@ namespace outdoor.rocks.Models
 
         public class Seasons : TableEntity
         {
-            public Seasons(string rowKey)
+            public Guid Id { get; set; }
+            public string Season { get; set; }
+
+            public Seasons()
             {
                 PartitionKey = "Seasons";
-                RowKey = rowKey;
+                Id = new Guid();
+                RowKey = Id.ToString();
             }
 
-            public int Id { get; set; }
-            public string Season { get; set; }
         }
 
         public class TrailsTypes : TableEntity
         {
-            public TrailsTypes(string rowKey)
+            public Guid Id { get; set; }
+            public string Type { get; set; }
+
+            public TrailsTypes()
             {
                 PartitionKey = "TrailsTypes";
-                RowKey = rowKey;
+                Id = new Guid();
+                RowKey = Id.ToString();
             }
 
-            public int Id { get; set; }
-            public string Type { get; set; }
         }
 
         public class TrailsDurationTypes : TableEntity
         {
-            public TrailsDurationTypes(string rowKey)
+            public Guid Id { get; set; }
+            public string DurationType { get; set; }
+
+            public TrailsDurationTypes()
             {
                 PartitionKey = "TrailsDurationTypes";
-                RowKey = rowKey;
+                Id = new Guid();
+                RowKey = Id.ToString();
             }
 
-            public int Id { get; set; }
-            public string DurationType { get; set; }
         }
 
         public class Users : TableEntity
         {
-            public Users(string rowKey)
-            {
-                PartitionKey = "Users";
-                RowKey = rowKey;
-            }
-
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public string Name { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
-            public int RoleId { get; set; }
+            public Guid RoleId { get; set; }
+
+            public Users()
+            {
+                PartitionKey = "Users";
+                Id = new Guid();
+                RowKey = Id.ToString();
+            }
 
             [IgnoreProperty]
             public Roles Roles
@@ -349,14 +365,16 @@ namespace outdoor.rocks.Models
 
         public class Roles : TableEntity
         {
-            public Roles(string rowKey)
+            public Guid Id { get; set; }
+            public string Role { get; set; }
+
+            public Roles()
             {
                 PartitionKey = "Roles";
-                RowKey = rowKey;
+                Id = new Guid();
+                RowKey = Id.ToString();
             }
 
-            public int Id { get; set; }
-            public string Role { get; set; }
         }
 
     }

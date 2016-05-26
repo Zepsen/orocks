@@ -15,11 +15,17 @@ namespace outdoor.rocks.Tests.Helpers
         {
             return new List<Trails>()
             {
-                new Trails()
-                {
-                    Id = 2,
-                    Name = "Trail"
-                }
+               GetFakeTrail()
+            };
+        }
+
+        public static Trails GetFakeTrail()
+        {
+            var guid = new Guid("11111111-1111-1111-1111-111111111111");
+            return new Trails(guid.ToString())
+            {
+                Id = guid,
+                Name = "Trail"
             };
         }
 
@@ -34,19 +40,21 @@ namespace outdoor.rocks.Tests.Helpers
 
         internal static Countries GetFakeCountry()
         {
-            return new Countries()
+            var guid = new Guid("11111111-1111-1111-1111-111111111111");
+            return new Countries(guid.ToString())
             {
-                Id = 1,
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "USA",
-                RegionId = 1
+                RegionId = new Guid("11111111-1111-1111-1111-111111111111")
             };
         }
 
         internal static Regions GetFakeRegion()
         {
-            return new Regions()
+            var guid = new Guid("11111111-1111-1111-1111-111111111111");
+            return new Regions(guid.ToString())
             {
-                Id = 1,
+                Id = guid,
                 Region = "Florida"
             };
         }
