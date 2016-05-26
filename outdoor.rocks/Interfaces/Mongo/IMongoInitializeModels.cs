@@ -4,7 +4,7 @@ using static outdoor.rocks.Models.MongoModels;
 
 namespace outdoor.rocks.Interfaces.Mongo
 {
-    public interface IMongoInitializeModels
+    public interface IMongoInitializeModels 
     {
         UserModel InitUserModel(ApplicationUser user);
         List<TrailModel> InitTrailModels(List<Trails> trail);

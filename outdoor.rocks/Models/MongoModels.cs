@@ -10,7 +10,7 @@ namespace outdoor.rocks.Models
 {
     public class MongoModels
     {
-        static IMongoDatabase db = DbContext.GetMongoDatabaseContext();
+        static readonly IMongoDatabase Db = DbContext.GetMongoDatabaseContext();
 
         public class Trails
         {
@@ -33,7 +33,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Difficults>("Difficults")
+                    return Db.GetCollection<Difficults>("Difficults")
                                    .FindAsync(i => i._id == this.Difficult_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -47,7 +47,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Locations>("Locations")
+                    return Db.GetCollection<Locations>("Locations")
                                    .FindAsync(i => i._id == this.Location_Id)
                                    .Result.FirstOrDefaultAsync().Result;                    
                 }
@@ -61,7 +61,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Options>("Options")
+                    return Db.GetCollection<Options>("Options")
                                    .FindAsync(i => i._id == this.Option_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -80,7 +80,7 @@ namespace outdoor.rocks.Models
                     foreach (var commId in this.Comments_Ids)
                     {
                         listComments.Add(
-                            db.GetCollection<Comments>("Comments")
+                            Db.GetCollection<Comments>("Comments")
                                    .FindAsync(i => i._id == this._id)
                                    .Result.FirstOrDefaultAsync().Result
                             );
@@ -114,7 +114,7 @@ namespace outdoor.rocks.Models
                 get
                 {
                     return
-                       db.GetCollection<Regions>("Regions")
+                       Db.GetCollection<Regions>("Regions")
                                    .FindAsync(i => i._id == this.Region_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -129,7 +129,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Countries>("Countries")
+                    return Db.GetCollection<Countries>("Countries")
                                    .FindAsync(i => i._id == this.Country_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -144,7 +144,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<States>("States")
+                    return Db.GetCollection<States>("States")
                                    .FindAsync(i => i._id == this.State_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -187,7 +187,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Regions>("Regions")
+                    return Db.GetCollection<Regions>("Regions")
                                    .FindAsync(i => i._id == this.Region_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -209,7 +209,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Countries>("Countries")
+                    return Db.GetCollection<Countries>("Countries")
                                    .FindAsync(i => i._id == this.Country_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -233,7 +233,7 @@ namespace outdoor.rocks.Models
                 get
                 {                   
                     return
-                    db.GetCollection<ApplicationUser>("users")
+                    Db.GetCollection<ApplicationUser>("users")
                                    .FindAsync(i => i.Id == this.User_Id.ToString())
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -263,7 +263,7 @@ namespace outdoor.rocks.Models
                 get
                 {
                     return
-                    db.GetCollection<TrailsTypes>("TrailsTypes")
+                    Db.GetCollection<TrailsTypes>("TrailsTypes")
                                    .FindAsync(i => i._id == this.TrailType_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -278,7 +278,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
+                    return Db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
                                    .FindAsync(i => i._id == this.TrailDurationType_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -293,7 +293,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Seasons>("Seasons")
+                    return Db.GetCollection<Seasons>("Seasons")
                                    .FindAsync(i => i._id == this.SeasonStart_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -308,7 +308,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Seasons>("Seasons")
+                    return Db.GetCollection<Seasons>("Seasons")
                                    .FindAsync(i => i._id == this.SeasonEnd_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }
@@ -350,7 +350,7 @@ namespace outdoor.rocks.Models
             {
                 get
                 {
-                    return db.GetCollection<Roles>("Roles")
+                    return Db.GetCollection<Roles>("Roles")
                                    .FindAsync(i => i._id == this.Role_Id)
                                    .Result.FirstOrDefaultAsync().Result;
                 }

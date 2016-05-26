@@ -8,6 +8,9 @@ namespace outdoor.rocks.Models
 {
     public class AzureModels
     {
+
+        private static readonly CloudTableClient Db = DbContext.GetAzureDatabaseContext();
+
         public class Trails : TableEntity
         {
             public Trails()
@@ -22,31 +25,129 @@ namespace outdoor.rocks.Models
             public string FullDescription { get; set; }
             public string WhyGo { get; set; }
             public bool Feature { get; set; }
-            public Difficults DifficultId { get; set; }
-            public Locations LocationId { get; set; }
-            public Options OptionId { get; set; }
-            public List<Comments> CommentsIds { get; set; }
+            public int DifficultId { get; set; }
+            public int LocationId { get; set; }
+            public int OptionId { get; set; }
+            public List<int> CommentsIds { get; set; }
             public List<string> References { get; set; }
             public string CoverPhoto { get; set; }
             public List<string> Photos { get; set; }
-         }
-            
-        public class Difficults
+
+            [IgnoreProperty]
+            public Difficults Difficults
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Difficults");
+                    var res = TableOperation.Retrieve<Difficults>("Difficults", DifficultId.ToString());
+                    return table.Execute(res).Result as Difficults;
+                }
+            }
+
+            [IgnoreProperty]
+            public Locations Locations
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Locations");
+                    var res = TableOperation.Retrieve<Locations>("Locations", LocationId.ToString());
+                    return table.Execute(res).Result as Locations;
+                }
+            }
+
+            [IgnoreProperty]
+            public Options Options
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Options");
+                    var res = TableOperation.Retrieve<Options>("Options", OptionId.ToString());
+                    return table.Execute(res).Result as Options;
+                }
+            }
+
+            [IgnoreProperty]
+            public List<Comments> CommentsList
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Comments");
+                    return CommentsIds.Select(commentsId =>
+                        TableOperation.Retrieve<Comments>("Comments", commentsId.ToString()))
+                        .Select(res => table.Execute(res).Result as Comments)
+                        .ToList();
+                }
+            }
+
+        }
+
+        public class Difficults : TableEntity
         {
+            public Difficults()
+            {
+                PartitionKey = "Difficults";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public string Value { get; set; }
         }
 
-        public class Locations
+        public class Locations : TableEntity
         {
+            public Locations()
+            {
+                PartitionKey = "Locations";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
-            public Regions RegionId { get; set; }
-            public Countries CountryId { get; set; }
-            public States StateId { get; set; }
+            public int RegionId { get; set; }
+            public int CountryId { get; set; }
+            public int StateId { get; set; }
+
+            [IgnoreProperty]
+            public Regions Regions
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Regions");
+                    var res = TableOperation.Retrieve<Regions>("Regions", RegionId.ToString());
+                    return table.Execute(res).Result as Regions;
+                }
+            }
+
+            [IgnoreProperty]
+            public States States
+            {
+                get
+                {
+                    var table = Db.GetTableReference("States");
+                    var res = TableOperation.Retrieve<States>("States", StateId.ToString());
+                    return table.Execute(res).Result as States;
+                }
+            }
+
+            [IgnoreProperty]
+            public Countries Countries
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Countries");
+                    var res = TableOperation.Retrieve<Countries>("Countries", CountryId.ToString());
+                    return table.Execute(res).Result as Countries;
+                }
+            }
         }
 
-        public class Regions
+        public class Regions : TableEntity
         {
+            public Regions()
+            {
+                PartitionKey = "Regions";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public string Region { get; set; }
         }
@@ -56,75 +157,204 @@ namespace outdoor.rocks.Models
             public Countries()
             {
                 PartitionKey = "Countries";
-                RowKey = "Name";
+                RowKey = "Id";
             }
 
             public int Id { get; set; }
             public string Name { get; set; }
             public int RegionId { get; set; }
 
-            public virtual Regions Regions { get; set; }
+            [IgnoreProperty]
+            public Regions Region
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Regions");
+                    var res = TableOperation.Retrieve<Regions>("Regions", RegionId.ToString());
+                    return table.Execute(res).Result as Regions;
+                }
+            }
+
         }
 
-        public class States
+        public class States : TableEntity
         {
+            public States()
+            {
+                PartitionKey = "States";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public string State { get; set; }
-            public Countries CountryId { get; set; }
+            public int CountryId { get; set; }
+
+
+            [IgnoreProperty]
+            public Countries Countries
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Countries");
+                    var res = TableOperation.Retrieve<Countries>("Countries", CountryId.ToString());
+                    return table.Execute(res).Result as Countries;
+                }
+            }
         }
 
-        public class Comments
+        public class Comments : TableEntity
         {
+            public Comments()
+            {
+                PartitionKey = "Comments";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
-            public Users UserId { get; set; }
+            public int UserId { get; set; }
             public string Comment { get; set; }
             public double Rate { get; set; }
         }
 
-        public class Options
+        public class Options : TableEntity
         {
+            public Options()
+            {
+                PartitionKey = "Options";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public double Distance { get; set; }
             public double Elevation { get; set; }
             public int Peak { get; set; }
             public bool DogAllowed { get; set; }
             public bool GoodForKids { get; set; }
-            public TrailsTypes TrailTypeId { get; set; }
-            public TrailsDurationTypes TrailDurationTypeId { get; set; }
-            public Seasons SeasonStartId { get; set; }
-            public Seasons SeasonEndId { get; set; }
-            
+            public int TrailTypeId { get; set; }
+            public int TrailDurationTypeId { get; set; }
+            public int SeasonStartId { get; set; }
+            public int SeasonEndId { get; set; }
+
+
+            [IgnoreProperty]
+            public Seasons SeasonStart
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Seasons");
+                    var res = TableOperation.Retrieve<Seasons>("Seasons", SeasonStartId.ToString());
+                    return table.Execute(res).Result as Seasons;
+                }
+            }
+
+
+            [IgnoreProperty]
+            public Seasons SeasonEnd
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Seasons");
+                    var res = TableOperation.Retrieve<Seasons>("Countries", SeasonEndId.ToString());
+                    return table.Execute(res).Result as Seasons;
+                }
+            }
+
+
+            [IgnoreProperty]
+            public TrailsTypes TrailsTypes
+            {
+                get
+                {
+                    var table = Db.GetTableReference("TrailsTypes");
+                    var res = TableOperation.Retrieve<TrailsTypes>("TrailsTypes", TrailTypeId.ToString());
+                    return table.Execute(res).Result as TrailsTypes;
+                }
+            }
+
+
+            [IgnoreProperty]
+            public TrailsDurationTypes TrailsDurationTypes
+            {
+                get
+                {
+                    var table = Db.GetTableReference("TrailsDurationTypes");
+                    var res = TableOperation.Retrieve<TrailsDurationTypes>("TrailsDurationTypes", TrailDurationTypeId.ToString());
+                    return table.Execute(res).Result as TrailsDurationTypes;
+                }
+            }
+
         }
 
-        public class Seasons
+        public class Seasons : TableEntity
         {
+            public Seasons()
+            {
+                PartitionKey = "Seasons";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public string Season { get; set; }
         }
 
-        public class TrailsTypes
+        public class TrailsTypes : TableEntity
         {
+            public TrailsTypes()
+            {
+                PartitionKey = "TrailsTypes";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public string Type { get; set; }
         }
 
-        public class TrailsDurationTypes
+        public class TrailsDurationTypes : TableEntity
         {
+            public TrailsDurationTypes()
+            {
+                PartitionKey = "TrailsDurationTypes";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public string DurationType { get; set; }
         }
 
-        public class Users
+        public class Users : TableEntity
         {
+            public Users()
+            {
+                PartitionKey = "Users";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public string Name { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
-            public Roles RoleId { get; set; }
+            public int RoleId { get; set; }
+
+            [IgnoreProperty]
+            public Roles Roles
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Roles");
+                    var res = TableOperation.Retrieve<Roles>("Roles", RoleId.ToString());
+                    return table.Execute(res).Result as Roles;
+                }
+            }
         }
 
-        public class Roles
+        public class Roles : TableEntity
         {
+            public Roles()
+            {
+                PartitionKey = "Roles";
+                RowKey = "Id";
+            }
+
             public int Id { get; set; }
             public string Role { get; set; }
         }
