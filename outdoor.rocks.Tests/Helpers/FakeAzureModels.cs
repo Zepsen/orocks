@@ -24,7 +24,8 @@ namespace outdoor.rocks.Tests.Helpers
             return new Trails()
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                Name = "Trail"
+                Name = "Trail",
+                RowKey = "11111111-1111-1111-1111-111111111111"
             };
         }
 
@@ -43,7 +44,8 @@ namespace outdoor.rocks.Tests.Helpers
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "USA",
-                RegionId = new Guid("11111111-1111-1111-1111-111111111111")
+                RegionId = new Guid("11111111-1111-1111-1111-111111111111"),
+                RowKey = "11111111-1111-1111-1111-111111111111"
             };
         }
 
@@ -52,7 +54,8 @@ namespace outdoor.rocks.Tests.Helpers
             return new Regions()
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                Region = "Florida"
+                Region = "Florida",
+                RowKey = "11111111-1111-1111-1111-111111111111"
             };
         }
     }

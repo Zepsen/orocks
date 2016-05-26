@@ -52,7 +52,11 @@ namespace outdoor.rocks.Classes.Azure
 
         public Task<List<Regions>> GetRegionsAsync()
         {
-            throw new NotImplementedException();
+            var table = Db.GetTableReference("Regions");
+            var query = new TableQuery<Regions>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Regions"));
+            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            return res;
         }
 
         public Task<List<Seasons>> GetSeasonsListAsync()

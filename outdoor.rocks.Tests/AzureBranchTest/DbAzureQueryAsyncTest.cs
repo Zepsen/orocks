@@ -10,7 +10,7 @@ using static outdoor.rocks.Models.AzureModels;
 
 namespace outdoor.rocks.Tests.AzureBranchTest
 {
-    
+
     public class DbAzureQueryAsyncTest
     {
         static readonly CloudTableClient Db = DbContext.GetAzureDatabaseContext();
@@ -20,12 +20,13 @@ namespace outdoor.rocks.Tests.AzureBranchTest
         {
             var classTest = new DbAzureQueryAsync();
             
-            //var refDb = Db.GetTableReference("Countries");
-            //refDb.CreateIfNotExists();
+            var refDb = Db.GetTableReference("Countries");
+            //refDb.Delete();
+            //refDb.Create();
             var country = FakeAzureModels.GetFakeCountry();
-            //var insert = TableOperation.Insert(country);
-            //refDb.Execute(insert);
-            
+            var insert = TableOperation.Insert(country);
+            refDb.Execute(insert);
+
             //Act
             var res = classTest.GetCountriesAsync();
 
@@ -40,12 +41,13 @@ namespace outdoor.rocks.Tests.AzureBranchTest
             var classTest = new DbAzureQueryAsync();
 
 
-            //var refRegion = Db.GetTableReference("Regions");
+            var refRegion = Db.GetTableReference("Regions");
+            //refRegion.DeleteIfExists();
             //refRegion.CreateIfNotExists();
             var country = FakeAzureModels.GetFakeCountry();
             var region = FakeAzureModels.GetFakeRegion();
             //var insert2 = TableOperation.Insert(region);
-            ///refRegion.Execute(insert2);
+            //refRegion.Execute(insert2);
 
             //Act
             var res = classTest.GetCountriesAsync();
@@ -64,7 +66,7 @@ namespace outdoor.rocks.Tests.AzureBranchTest
             //var refDb = Db.GetTableReference("Trails");
             //refDb.CreateIfNotExists();
             var trails = FakeAzureModels.GetFakeTrail();
-            
+
             //var insert = TableOperation.Insert(trails);
             //refDb.Execute(insert);
 
@@ -89,6 +91,20 @@ namespace outdoor.rocks.Tests.AzureBranchTest
 
             //Assert
             Assert.True(fakeTrail.Id == testTrail.Result.Id);
+        }
+
+        [Fact]
+        public void GetRegionsAsync_ReturnExpectedRegion()
+        {
+            //Arrange
+            var classTest = new DbAzureQueryAsync();
+            var fakeTrail = FakeAzureModels.GetFakeRegion();
+
+            //Act
+            var testTrail = classTest.GetRegionsAsync();
+            
+            //Assert
+            Assert.True(fakeTrail.Id == testTrail.Result.First().Id);
         }
     }
 }
