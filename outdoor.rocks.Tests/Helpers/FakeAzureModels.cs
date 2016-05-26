@@ -21,10 +21,9 @@ namespace outdoor.rocks.Tests.Helpers
 
         public static Trails GetFakeTrail()
         {
-            var guid = new Guid("11111111-1111-1111-1111-111111111111");
-            return new Trails(guid.ToString())
+            return new Trails()
             {
-                Id = guid,
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "Trail"
             };
         }
@@ -40,8 +39,7 @@ namespace outdoor.rocks.Tests.Helpers
 
         internal static Countries GetFakeCountry()
         {
-            var guid = new Guid("11111111-1111-1111-1111-111111111111");
-            return new Countries(guid.ToString())
+            return new Countries()
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "USA",
@@ -51,10 +49,9 @@ namespace outdoor.rocks.Tests.Helpers
 
         internal static Regions GetFakeRegion()
         {
-            var guid = new Guid("11111111-1111-1111-1111-111111111111");
-            return new Regions(guid.ToString())
+            return new Regions()
             {
-                Id = guid,
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Region = "Florida"
             };
         }

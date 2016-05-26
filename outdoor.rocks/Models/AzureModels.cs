@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -30,7 +31,7 @@ namespace outdoor.rocks.Models
             public Trails()
             {
                 PartitionKey = "Trails";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
 
@@ -90,7 +91,7 @@ namespace outdoor.rocks.Models
             public Difficults()
             {
                 PartitionKey = "Difficults";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
         }
@@ -105,7 +106,7 @@ namespace outdoor.rocks.Models
             public Locations()
             {
                 PartitionKey = "Locations";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
             
@@ -150,7 +151,7 @@ namespace outdoor.rocks.Models
 
             public Regions()
             {
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 PartitionKey = "Regions";
                 RowKey = Id.ToString();
             }
@@ -165,7 +166,7 @@ namespace outdoor.rocks.Models
             public Countries() 
             {
                 PartitionKey = "Regions";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
 
@@ -193,7 +194,7 @@ namespace outdoor.rocks.Models
             public States()
             {
                 PartitionKey = "States";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
 
@@ -218,7 +219,7 @@ namespace outdoor.rocks.Models
 
             public Comments()
             {
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 PartitionKey = "Regions";
                 RowKey = Id.ToString();
             }
@@ -240,7 +241,7 @@ namespace outdoor.rocks.Models
 
             public Options()
             {
-               Id = new Guid();
+               Id = Guid.NewGuid();
                 PartitionKey = "Regions";
                 RowKey = Id.ToString();
             }
@@ -302,7 +303,7 @@ namespace outdoor.rocks.Models
             public Seasons()
             {
                 PartitionKey = "Seasons";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
 
@@ -316,7 +317,7 @@ namespace outdoor.rocks.Models
             public TrailsTypes()
             {
                 PartitionKey = "TrailsTypes";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
 
@@ -330,7 +331,7 @@ namespace outdoor.rocks.Models
             public TrailsDurationTypes()
             {
                 PartitionKey = "TrailsDurationTypes";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
 
@@ -347,7 +348,7 @@ namespace outdoor.rocks.Models
             public Users()
             {
                 PartitionKey = "Users";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
 
@@ -371,7 +372,7 @@ namespace outdoor.rocks.Models
             public Roles()
             {
                 PartitionKey = "Roles";
-                Id = new Guid();
+                Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
 

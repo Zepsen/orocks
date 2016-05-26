@@ -40,12 +40,12 @@ namespace outdoor.rocks.Tests.AzureBranchTest
             var classTest = new DbAzureQueryAsync();
 
 
-            //var refRegion = Db.GetTableReference("Regions");
-            //refRegion.CreateIfNotExists();
+            var refRegion = Db.GetTableReference("Regions");
+            refRegion.CreateIfNotExists();
             var country = FakeAzureModels.GetFakeCountry();
             var region = FakeAzureModels.GetFakeRegion();
-            //var insert2 = TableOperation.Insert(region);
-            //refRegion.Execute(insert2);
+            var insert2 = TableOperation.Insert(region);
+            refRegion.Execute(insert2);
 
             //Act
             var res = classTest.GetCountriesAsync();
@@ -61,15 +61,17 @@ namespace outdoor.rocks.Tests.AzureBranchTest
         {
             var classTest = new DbAzureQueryAsync();
 
-            var refDb = Db.GetTableReference("Trails");
+            //var refDb = Db.GetTableReference("Trails");
             //refDb.CreateIfNotExists();
             var trails = FakeAzureModels.GetFakeTrail();
-            //var insert = TableOperation.Insert(country);
+            
+            //var insert = TableOperation.Insert(trails);
             //refDb.Execute(insert);
 
             //Act
-            var res = classTest.GetCountriesAsync();
+            var res = classTest.GetTrailsAsync();
             var r = res.Result.First();
+
             //Assert
             Assert.True(
                 trails.Name == res.Result.First(i => i.Id == trails.Id).Name);
