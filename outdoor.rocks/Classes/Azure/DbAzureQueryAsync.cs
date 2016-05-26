@@ -25,7 +25,10 @@ namespace outdoor.rocks.Classes.Azure
 
         public Task<Trails> GetTrailByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var table = Db.GetTableReference("Trails");
+            var query = TableOperation.Retrieve<Trails>("Trails", id);
+            var res = Task.FromResult(table.Execute(query).Result as Trails);
+            return res;
         }
 
         public Task<ApplicationUser> GetUserAsync(string id)
