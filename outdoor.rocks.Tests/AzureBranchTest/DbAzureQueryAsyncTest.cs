@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.WindowsAzure.Storage.Table;
 using outdoor.rocks.Classes.Azure;
 using outdoor.rocks.Models;
+using outdoor.rocks.Tests.Helpers;
 using Xunit;
 
 namespace outdoor.rocks.Tests.AzureBranchTest
@@ -17,24 +18,41 @@ namespace outdoor.rocks.Tests.AzureBranchTest
         {
             var classTest = new DbAzureQueryAsync();
             
-            var refDb = Db.GetTableReference("Countries");
+            //var refDb = Db.GetTableReference("Countries");
             //refDb.CreateIfNotExists();
-            var country = new AzureModels.Countries
-            {
-                Id = 1,
-                Name = "USA"
-            };
-
+            var country = FakeAzureModels.GetFakeCountry();
             //var insert = TableOperation.Insert(country);
             //refDb.Execute(insert);
-
+            
             //Act
             var res = classTest.GetCountriesAsync();
-            var r = res.Result.First();
+
             //Assert
             Assert.True(
                 country.Name == res.Result.First(i => i.Id == country.Id).Name);
         }
+
+        [Fact]
+        public void GetCountriesAsync_ReturnExpectedRelationshipResult()
+        {
+            var classTest = new DbAzureQueryAsync();
+
+
+            //var refRegion = Db.GetTableReference("Regions");
+            //refRegion.CreateIfNotExists();
+            var country = FakeAzureModels.GetFakeCountry();
+            var region = FakeAzureModels.GetFakeRegion();
+            //var insert2 = TableOperation.Insert(region);
+            //refRegion.Execute(insert2);
+
+            //Act
+            var res = classTest.GetCountriesAsync();
+
+            //Assert
+            Assert.True(
+                region.Region == res.Result.First(i => i.Id == country.Id).Region.Region);
+        }
+
 
         [Fact]
         public void GetTrailsAsync_ReturnExpectedResult()

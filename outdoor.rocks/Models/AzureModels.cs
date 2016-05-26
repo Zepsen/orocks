@@ -13,10 +13,10 @@ namespace outdoor.rocks.Models
 
         public class Trails : TableEntity
         {
-            public Trails()
+            public Trails(string rowKey)
             {
                 PartitionKey = "Trails";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -83,10 +83,10 @@ namespace outdoor.rocks.Models
 
         public class Difficults : TableEntity
         {
-            public Difficults()
+            public Difficults(string rowKey)
             {
                 PartitionKey = "Difficults";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -95,10 +95,10 @@ namespace outdoor.rocks.Models
 
         public class Locations : TableEntity
         {
-            public Locations()
+            public Locations(string rowKey)
             {
                 PartitionKey = "Locations";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -142,10 +142,10 @@ namespace outdoor.rocks.Models
 
         public class Regions : TableEntity
         {
-            public Regions()
+            public Regions(string rowKey)
             {
                 PartitionKey = "Regions";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -154,16 +154,16 @@ namespace outdoor.rocks.Models
 
         public class Countries : TableEntity
         {
-            public Countries()
+            public Countries(string rowKey) 
             {
                 PartitionKey = "Countries";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
             public string Name { get; set; }
             public int RegionId { get; set; }
-
+            
             [IgnoreProperty]
             public Regions Region
             {
@@ -179,10 +179,10 @@ namespace outdoor.rocks.Models
 
         public class States : TableEntity
         {
-            public States()
+            public States(string rowKey)
             {
                 PartitionKey = "States";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -204,10 +204,10 @@ namespace outdoor.rocks.Models
 
         public class Comments : TableEntity
         {
-            public Comments()
+            public Comments(string rowKey)
             {
                 PartitionKey = "Comments";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -218,10 +218,10 @@ namespace outdoor.rocks.Models
 
         public class Options : TableEntity
         {
-            public Options()
+            public Options(string rowKey)
             {
                 PartitionKey = "Options";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -287,10 +287,10 @@ namespace outdoor.rocks.Models
 
         public class Seasons : TableEntity
         {
-            public Seasons()
+            public Seasons(string rowKey)
             {
                 PartitionKey = "Seasons";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -299,10 +299,10 @@ namespace outdoor.rocks.Models
 
         public class TrailsTypes : TableEntity
         {
-            public TrailsTypes()
+            public TrailsTypes(string rowKey)
             {
                 PartitionKey = "TrailsTypes";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -311,10 +311,10 @@ namespace outdoor.rocks.Models
 
         public class TrailsDurationTypes : TableEntity
         {
-            public TrailsDurationTypes()
+            public TrailsDurationTypes(string rowKey)
             {
                 PartitionKey = "TrailsDurationTypes";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -323,10 +323,10 @@ namespace outdoor.rocks.Models
 
         public class Users : TableEntity
         {
-            public Users()
+            public Users(string rowKey)
             {
                 PartitionKey = "Users";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }
@@ -349,10 +349,10 @@ namespace outdoor.rocks.Models
 
         public class Roles : TableEntity
         {
-            public Roles()
+            public Roles(string rowKey)
             {
                 PartitionKey = "Roles";
-                RowKey = "Id";
+                RowKey = rowKey;
             }
 
             public int Id { get; set; }

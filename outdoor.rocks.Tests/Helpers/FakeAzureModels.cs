@@ -5,15 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using outdoor.rocks.Models;
 
+using static outdoor.rocks.Models.AzureModels;
+
 namespace outdoor.rocks.Tests.Helpers
 {
     public static class FakeAzureModels
     {
-        public static List<AzureModels.Trails> GetFakeTrails()
+        public static List<Trails> GetFakeTrails()
         {
-            return new List<AzureModels.Trails>()
+            return new List<Trails>()
             {
-                new AzureModels.Trails()
+                new Trails()
                 {
                     Id = 2,
                     Name = "Trail"
@@ -21,15 +23,31 @@ namespace outdoor.rocks.Tests.Helpers
             };
         }
 
-        public static List<AzureModels.Countries> GetFakeCountries()
+        public static List<Countries> GetFakeCountries()
         {
-            return new List<AzureModels.Countries>
+            return new List<Countries>
             {
-                new AzureModels.Countries()
-                {
-                    Id = 1,
-                    Name = "USA"
-                }
+                GetFakeCountry(),
+                GetFakeCountry()
+            };
+        }
+
+        internal static Countries GetFakeCountry()
+        {
+            return new Countries()
+            {
+                Id = 1,
+                Name = "USA",
+                RegionId = 1
+            };
+        }
+
+        internal static Regions GetFakeRegion()
+        {
+            return new Regions()
+            {
+                Id = 1,
+                Region = "Florida"
             };
         }
     }
