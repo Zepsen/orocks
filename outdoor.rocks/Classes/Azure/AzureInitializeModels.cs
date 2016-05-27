@@ -10,22 +10,84 @@ namespace outdoor.rocks.Classes.Azure
     {
         public UserModel InitUserModel(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            if (user != null)
+            {
+                return new UserModel
+                {
+                    Id = user.Id,
+                    Role = user.Roles.FirstOrDefault()
+                };
+            }
+
+            return null;
         }
 
         public List<TrailModel> InitTrailModels(List<AzureModels.Trails> trail)
         {
-            throw new NotImplementedException();
+            return trail
+                .Select(j => new TrailModel
+                {
+                    Id = j.Id.ToString(),
+                    Country = j.Locations.Countries.Name,
+                    Difficult = j.Difficults.Value,
+                    Distance = j.Options.Distance,
+                    DogAllowed = j.Options.DogAllowed,
+                    DurationType = j.Options.TrailsDurationTypes.DurationType,
+                    CoverPhoto = j.CoverPhoto,
+                    GoodForKids = j.Options.GoodForKids,
+                    Name = j.Name,
+                    Region = j.Locations.Regions.Region,
+                    Type = j.Options.TrailsTypes.Type
+                })
+                .ToList();
         }
 
-        public FullTrailModel InitFullTrailModel(AzureModels.Trails trail, List<CommentsModel> comments)
+        public FullTrailModel InitFullTrailModel(
+            AzureModels.Trails trail, 
+            List<CommentsModel> comments)
         {
-            throw new NotImplementedException();
+            var fullTrailModel =
+                new FullTrailModel
+                {
+                    Id = trail.Id.ToString(),
+                    Comments = comments,
+                    Country = trail.Locations.Countries.Name,
+                    Description = trail.Description,
+                    Difficult = trail.Difficults.Value,
+                    Distance = trail.Options.Distance,
+                    DogAllowed = trail.Options.DogAllowed,
+                    DurationType = trail.Options.TrailsDurationTypes.DurationType,
+                    CoverPhoto = trail.CoverPhoto,
+                    Elevation = trail.Options.Elevation,
+                    FullDescription = trail.FullDescription,
+                    GoodForKids = trail.Options.GoodForKids,
+                    Name = trail.Name,
+                    //NearblyTrails
+                    Region = trail.Locations.Regions.Region,
+                    Peak = trail.Options.Peak,
+                    Photos = trail.Photos,
+                    //Rate = trail.Comments.I
+                    References = trail.References,
+                    SeasonEnd = trail.Options.SeasonEnd.Season,
+                    SeasonStart = trail.Options.SeasonStart.Season,
+                    Type = trail.Options.TrailsTypes.Type,
+                    WhyGo = trail.WhyGo
+                };
+            return fullTrailModel;
         }
 
         public List<CommentsModel> InitCommentsModelList(AzureModels.Trails trail, List<AzureModels.Comments> comments)
         {
-            throw new NotImplementedException();
+            var commentsList = trail.CommentsIds
+                .Select(commentId => comments.FirstOrDefault(i => i.Id == commentId))
+                .Select(comment => new CommentsModel
+                {
+                    Comment = comment.Comment,
+                    Name = comment.User.Name,
+                    Rate = comment.Rate
+                }).ToList();
+
+            return commentsList;
         }
 
         public FilterModel InitFilterModel(List<AzureModels.Countries> countries, List<AzureModels.Trails> trails)
@@ -50,12 +112,45 @@ namespace outdoor.rocks.Classes.Azure
 
         public List<RegionModel> InitRegionModelList(List<AzureModels.Regions> regions, List<AzureModels.Countries> countries)
         {
-            throw new NotImplementedException();
+            var regionModel = regions
+                .Select(i => new RegionModel()
+                {
+                    Region = i.Region,
+                    Selected = false,
+                    Countries = countries
+                            .Where(j => j.RegionId == i.Id)
+                            .Select(k => k.Name)
+                            .ToList()
+                }).ToList();
+
+            return regionModel;
         }
 
         public OptionModel InitOptionModel(List<AzureModels.Seasons> seasons, List<AzureModels.TrailsDurationTypes> trailDurationTypes, List<AzureModels.TrailsTypes> trailTypes)
         {
-            throw new NotImplementedException();
+            return new OptionModel
+            {
+                Seasons = seasons
+                  .Select(i => new SimpleModel
+                  {
+                      Id = i.Id.ToString(),
+                      Value = i.Season
+                  }).ToList(),
+
+                TrailsDurationTypes = trailDurationTypes
+                  .Select(i => new SimpleModel
+                  {
+                      Id = i.Id.ToString(),
+                      Value = i.DurationType
+                  }).ToList(),
+
+                TrailsTypes = trailTypes
+                  .Select(i => new SimpleModel
+                  {
+                      Id = i.Id.ToString(),
+                      Value = i.Type
+                  }).ToList(),
+            };
         }
     }
 }

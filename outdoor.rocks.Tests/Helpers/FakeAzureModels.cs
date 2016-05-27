@@ -25,7 +25,19 @@ namespace outdoor.rocks.Tests.Helpers
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "Trail",
+                Description = "Description",
+                CoverPhoto = "Photo",
+                DifficultId = new Guid("11111111-1111-1111-1111-111111111111"),
+                OptionId = new Guid("11111111-1111-1111-1111-111111111111"),
+                LocationId = new Guid("11111111-1111-1111-1111-111111111111"),
+                FullDescription = "FullDescriptio",
+                Feature = true,
+                Photos = new List<string> {"Photo"},
+                References = new List<string> {"http://"},
+                WhyGo = "WhyGo",
+                CommentsIds = new List<Guid> {new Guid ("11111111-1111-1111-1111-111111111111")},
                 RowKey = "11111111-1111-1111-1111-111111111111"
+               
             };
         }
 
@@ -45,6 +57,14 @@ namespace outdoor.rocks.Tests.Helpers
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "USA",
                 RegionId = new Guid("11111111-1111-1111-1111-111111111111"),
+            };
+        }
+
+        public static List<Regions> GetFakeRegions()
+        {
+            return new List<Regions>
+            {
+                GetFakeRegion()
             };
         }
 

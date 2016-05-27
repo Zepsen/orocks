@@ -224,6 +224,16 @@ namespace outdoor.rocks.Models
                 RowKey = Id.ToString();
             }
 
+            [IgnoreProperty]
+            public Users User
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Users");
+                    var res = TableOperation.Retrieve<Users>("Users", UserId.ToString());
+                    return table.Execute(res).Result as Users;
+                }
+            }
         }
 
         public class Options : TableEntity
@@ -264,7 +274,7 @@ namespace outdoor.rocks.Models
                 get
                 {
                     var table = Db.GetTableReference("Seasons");
-                    var res = TableOperation.Retrieve<Seasons>("Countries", SeasonEndId.ToString());
+                    var res = TableOperation.Retrieve<Seasons>("Seasons", SeasonEndId.ToString());
                     return table.Execute(res).Result as Seasons;
                 }
             }
