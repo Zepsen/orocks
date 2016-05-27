@@ -10,8 +10,8 @@ namespace outdoor.rocks.Interfaces.Azure
     {
         Task<List<Trails>> GetTrailsAsync();
         Task<Trails> GetTrailByIdAsync(string id);
-        Task<ApplicationUser> GetUserAsync(string id);
-        Task<List<Comments>> GetCommentsListAsync(Trails trails);
+        Task<Users> GetUserAsync(string id);
+        Task<List<Comments>> GetCommentsListAsync();
         Task<List<Countries>> GetCountriesAsync();
         Task<List<Regions>> GetRegionsAsync();
         Task<List<Seasons>> GetSeasonsListAsync();

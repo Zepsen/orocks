@@ -31,14 +31,21 @@ namespace outdoor.rocks.Classes.Azure
             return res;
         }
 
-        public Task<ApplicationUser> GetUserAsync(string id)
+        public Task<Users> GetUserAsync(string id)
         {
-            throw new NotImplementedException();
+            var table = Db.GetTableReference("Users");
+            var query = TableOperation.Retrieve<Users>("Users", id);
+            var res = Task.FromResult(table.Execute(query).Result as Users);
+            return res;
         }
 
-        public Task<List<Comments>> GetCommentsListAsync(Trails trails)
+        public Task<List<Comments>> GetCommentsListAsync()
         {
-            throw new NotImplementedException();
+            var table = Db.GetTableReference("Comments");
+            var query = new TableQuery<Comments>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Comments"));
+            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            return res;
         }
 
         public Task<List<Countries>> GetCountriesAsync()
@@ -61,17 +68,29 @@ namespace outdoor.rocks.Classes.Azure
 
         public Task<List<Seasons>> GetSeasonsListAsync()
         {
-            throw new NotImplementedException();
+            var table = Db.GetTableReference("Seasons");
+            var query = new TableQuery<Seasons>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Seasons"));
+            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            return res;
         }
 
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
         {
-            throw new NotImplementedException();
+            var table = Db.GetTableReference("TrailsTypes");
+            var query = new TableQuery<TrailsTypes>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailsTypes"));
+            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            return res;
         }
 
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
         {
-            throw new NotImplementedException();
+            var table = Db.GetTableReference("TrailsDurationTypes");
+            var query = new TableQuery<TrailsDurationTypes>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailsDurationTypes"));
+            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            return res;
         }
     }
 }

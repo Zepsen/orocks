@@ -48,7 +48,7 @@ namespace outdoor.rocks.Classes.Mongo
             return res;
         }
 
-        public Task<List<Comments>> GetCommentsListAsync(Trails trails)
+        public Task<List<Comments>> GetCommentsListAsync()
         {
             var res = Db.GetCollection<Comments>("Comments")
                 .FindAsync(new BsonDocument()).Result.ToListAsync();

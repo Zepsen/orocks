@@ -122,7 +122,7 @@ namespace outdoor.rocks.Tests.ClassesTest
 
             mockTrail.Setup(i => i.GetTrailByIdAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(new Trails()));
-            mockTrail.Setup(i => i.GetCommentsListAsync(It.IsAny<Trails>()))
+            mockTrail.Setup(i => i.GetCommentsListAsync())
                 .Returns(Task.FromResult(new List<Comments>()));
 
             var mockInitModels = new Mock<IMongoInitializeModels>();

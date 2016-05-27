@@ -38,7 +38,7 @@ namespace outdoor.rocks.Classes.Mongo
         public async Task<FullTrailModel> GetFullTrailModel(string id)
         {
             var trails = await _queryToDbAsync.GetTrailByIdAsync(id);
-            var comments = await _queryToDbAsync.GetCommentsListAsync(trails);
+            var comments = await _queryToDbAsync.GetCommentsListAsync();
             var commentsModelList = _initializeModels.InitCommentsModelList(trails, comments);
             var fullTrailModel = _initializeModels.InitFullTrailModel(trails, commentsModelList);
             return fullTrailModel;

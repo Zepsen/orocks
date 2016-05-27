@@ -162,14 +162,14 @@ namespace outdoor.rocks.Models
             public Guid Id { get; set; }
             public string Name { get; set; }
             public Guid RegionId { get; set; }
-            
-            public Countries() 
+
+            public Countries()
             {
-                PartitionKey = "Regions";
+                PartitionKey = "Countries";
                 Id = Guid.NewGuid();
                 RowKey = Id.ToString();
             }
-
+            
             
             
             [IgnoreProperty]
