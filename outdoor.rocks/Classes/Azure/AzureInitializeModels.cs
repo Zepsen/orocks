@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using outdoor.rocks.Interfaces.Azure;
 using outdoor.rocks.Models;
-
+using static outdoor.rocks.Models.AzureModels;
 namespace outdoor.rocks.Classes.Azure
 {
     public class AzureInitializeModels : IAzureInitializeModels
     {
-        public UserModel InitUserModel(ApplicationUser user)
+        public UserModel InitUserModel(Users user)
         {
             if (user != null)
             {
                 return new UserModel
                 {
-                    Id = user.Id,
-                    Role = user.Roles.FirstOrDefault()
+                    Id = user.Id.ToString(),
+                    Role = user.Roles.Role
                 };
             }
 
@@ -67,7 +67,7 @@ namespace outdoor.rocks.Classes.Azure
                     Peak = trail.Options.Peak,
                     Photos = trail.Photos,
                     //Rate = trail.Comments.I
-                    References = trail.References,
+                    References = trail.Reference,
                     SeasonEnd = trail.Options.SeasonEnd.Season,
                     SeasonStart = trail.Options.SeasonStart.Season,
                     Type = trail.Options.TrailsTypes.Type,

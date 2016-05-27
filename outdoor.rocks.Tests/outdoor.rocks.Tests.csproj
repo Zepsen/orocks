@@ -170,6 +170,7 @@
     <Compile Include="AzureBranchTest\DbAzureTests.cs" />
     <Compile Include="AzureBranchTest\DbAzureQueryAsyncTest.cs" />
     <Compile Include="AzureBranchTest\AzureInitializeModelsTest.cs" />
+    <Compile Include="AzureBranchTest\DbMainTest.cs" />
     <Compile Include="ClassesTest\DbMainTest.cs" />
     <Compile Include="ClassesTest\DbQueryAsyncTest.cs" />
     <Compile Include="ClassesTest\InitializeModelsTest.cs" />

@@ -33,7 +33,7 @@ namespace outdoor.rocks.Tests.Helpers
                 FullDescription = "FullDescriptio",
                 Feature = true,
                 Photos = new List<string> {"Photo"},
-                References = new List<string> {"http://"},
+                Reference = new List<string> {"http://"},
                 WhyGo = "WhyGo",
                 CommentsIds = new List<Guid> {new Guid ("11111111-1111-1111-1111-111111111111")},
                 RowKey = "11111111-1111-1111-1111-111111111111"

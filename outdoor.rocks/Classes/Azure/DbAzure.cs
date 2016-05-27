@@ -18,19 +18,28 @@ namespace outdoor.rocks.Classes.Azure
             _initializeModels = i ?? new AzureInitializeModels();
         }
 
-        public Task<OptionModel> GetOptionModel()
+        public async Task<OptionModel> GetOptionModel()
         {
-            throw new NotImplementedException();
+            var seasonsAsync = await _queryToDbAsync.GetSeasonsListAsync();
+            var trailTypesAsync = await _queryToDbAsync.GetTrailsTypesListAsync();
+            var trailDurationTypesAsync = await _queryToDbAsync.GetTrailsDurationTypesListAsync();
+            var optionModel = _initializeModels.InitOptionModel(seasonsAsync, trailDurationTypesAsync, trailTypesAsync);
+            return optionModel;
         }
 
-        public Task<List<RegionModel>> GetRegionModelList()
+        public async Task<List<RegionModel>> GetRegionModelList()
         {
-            throw new NotImplementedException();
+            var regionsAsync = await _queryToDbAsync.GetRegionsAsync();
+            var countriesAsync = await _queryToDbAsync.GetCountriesAsync();
+            var regionModelList = _initializeModels.InitRegionModelList(regionsAsync, countriesAsync);
+            return regionModelList;
         }
 
-        public Task<List<TrailModel>> GetTrailModelList()
+        public async Task<List<TrailModel>> GetTrailModelList()
         {
-            throw new NotImplementedException();
+            var trail = await _queryToDbAsync.GetTrailsAsync();
+            var trailModel = _initializeModels.InitTrailModels(trail);
+            return trailModel;
         }
 
         public async Task<FilterModel> GetFilterModel()
@@ -41,14 +50,20 @@ namespace outdoor.rocks.Classes.Azure
             return filterModel;
         }
 
-        public Task<FullTrailModel> GetFullTrailModel(string id)
+        public async Task<FullTrailModel> GetFullTrailModel(string id)
         {
-            throw new NotImplementedException();
+            var trails = await _queryToDbAsync.GetTrailByIdAsync(id);
+            var comments = await _queryToDbAsync.GetCommentsListAsync();
+            var commentsModelList = _initializeModels.InitCommentsModelList(trails, comments);
+            var fullTrailModel = _initializeModels.InitFullTrailModel(trails, commentsModelList);
+            return fullTrailModel;
         }
 
-        public Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
+        public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
         {
-            throw new NotImplementedException();
+            var user = await _queryToDbAsync.GetUserAsync(id);
+            var userModel = _initializeModels.InitUserModel(user);
+            return userModel;
         }
 
         public Task UpdateTrailModelOptions(string id, string value)

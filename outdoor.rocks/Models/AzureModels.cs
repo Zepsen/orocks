@@ -24,7 +24,7 @@ namespace outdoor.rocks.Models
             public Guid LocationId { get; set; }
             public Guid OptionId { get; set; }
             public List<Guid> CommentsIds { get; set; }
-            public List<string> References { get; set; }
+            public List<string> Reference { get; set; }
             public string CoverPhoto { get; set; }
             public List<string> Photos { get; set; }
 

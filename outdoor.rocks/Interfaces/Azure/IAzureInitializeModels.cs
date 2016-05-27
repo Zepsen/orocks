@@ -11,7 +11,7 @@ namespace outdoor.rocks.Interfaces.Azure
 {
     public interface IAzureInitializeModels
     {
-        UserModel InitUserModel(ApplicationUser user);
+        UserModel InitUserModel(Users user);
         List<TrailModel> InitTrailModels(List<Trails> trail);
         FullTrailModel InitFullTrailModel(Trails trail, List<CommentsModel> comments);
         List<CommentsModel> InitCommentsModelList(Trails trail, List<Comments> comments);
