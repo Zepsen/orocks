@@ -42,13 +42,27 @@ namespace outdoor.rocks.Classes.Mongo
                 .ToList();
         }
 
-        public FullTrailModel InitFullTrailModel(Trails trail, List<CommentsModel> comments)
+        public FullTrailModel InitFullTrailModel(
+            Trails trail, 
+            List<CommentsModel> comments)
         {
+            var photos = trail.Photos.Select(i => new SimpleModel()
+            {
+                Id = i,
+                Value = i
+            }).ToList();
+
+            var references = trail.References.Select(i => new SimpleModel()
+            {
+                Id = i,
+                Value = i
+            }).ToList();
+
             var fullTrailModel =
                 new FullTrailModel
                 {
                     Id = trail._id.ToString(),
-                    Comments = comments,
+                    //Comments = comments,
                     Country = trail.Location.Country.Name,
                     Description = trail.Description,
                     Difficult = trail.Difficult.Value,
@@ -63,9 +77,9 @@ namespace outdoor.rocks.Classes.Mongo
                     //NearblyTrails
                     Region = trail.Location.Region.Region,
                     Peak = trail.Option.Peak,
-                    Photos = trail.Photos,
+                    Photos = photos,
                     //Rate = trail.Comments.I
-                    References = trail.References,
+                    References = references,
                     SeasonEnd = trail.Option.SeasonEnd.Season,
                     SeasonStart = trail.Option.SeasonStart.Season,
                     Type = trail.Option.TrailType.Type,

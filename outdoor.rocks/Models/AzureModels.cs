@@ -23,10 +23,9 @@ namespace outdoor.rocks.Models
             public Guid DifficultId { get; set; }
             public Guid LocationId { get; set; }
             public Guid OptionId { get; set; }
-            public List<Guid> CommentsIds { get; set; }
-            public List<string> Reference { get; set; }
+            public Guid ReferenceId { get; set; }
             public string CoverPhoto { get; set; }
-            public List<string> Photos { get; set; }
+            public Guid PhotosId { get; set; }
 
             public Trails()
             {
@@ -43,6 +42,29 @@ namespace outdoor.rocks.Models
                     var table = Db.GetTableReference("Difficults");
                     var res = TableOperation.Retrieve<Difficults>("Difficults", DifficultId.ToString());
                     return table.Execute(res).Result as Difficults;
+                }
+            }
+
+            [IgnoreProperty]
+            public References References
+            {
+                get
+                {
+                    var table = Db.GetTableReference("References");
+                    var res = TableOperation.Retrieve<References>("References", ReferenceId.ToString());
+                    return table.Execute(res).Result as References;
+                }
+            }
+
+
+            [IgnoreProperty]
+            public Photos Photos
+            {
+                get
+                {
+                    var table = Db.GetTableReference("Photos");
+                    var res = TableOperation.Retrieve<Photos>("Photos", PhotosId.ToString());
+                    return table.Execute(res).Result as Photos;
                 }
             }
 
@@ -68,19 +90,73 @@ namespace outdoor.rocks.Models
                 }
             }
 
+            //[IgnoreProperty]
+            //public List<TrailComments> TrailCommentsId
+            //{
+            //    get
+            //    {
+            //        var table = Db.Get TableReference("TrailComments");
+            //        var res = new TableQuery<TrailComments>()
+            //            .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailComments"));
+            //        return table.ExecuteQuery(res) as List<TrailComments>;
+            //    }
+            //}
+
+        }
+
+        public class TrailComments : TableEntity
+        {
+            public Guid Id { get; set; }
+            public Guid CommentId { get; set; }
+            public Guid TrailId { get; set; }
+
+            public TrailComments()
+            {
+                PartitionKey = "TrailComments";
+                Id = Guid.NewGuid();
+                RowKey = Id.ToString();
+            }
+
             [IgnoreProperty]
-            public List<Comments> CommentsList
+            public Comments CommentsList
             {
                 get
                 {
                     var table = Db.GetTableReference("Comments");
-                    return CommentsIds.Select(commentsId =>
-                        TableOperation.Retrieve<Comments>("Comments", commentsId.ToString()))
-                        .Select(res => table.Execute(res).Result as Comments)
-                        .ToList();
+                    var res = TableOperation.Retrieve<Comments>("Comments", CommentId.ToString());
+                    return table.Execute(res).Result as Comments;
                 }
             }
+        }
 
+
+        public class References : TableEntity
+        {
+            public Guid Id { get; set; }
+            public string Reference { get; set; }
+            public Guid TrailId { get; set; }
+
+            public References()
+            {
+                PartitionKey = "References";
+                Id = Guid.NewGuid();
+                RowKey = Id.ToString();
+            }
+        }
+
+
+        public class Photos : TableEntity
+        {
+            public Guid Id { get; set; }
+            public string Photo { get; set; }
+            public Guid TrailId { get; set; }
+
+            public Photos()
+            {
+                PartitionKey = "Photos";
+                Id = Guid.NewGuid();
+                RowKey = Id.ToString();
+            }
         }
 
         public class Difficults : TableEntity

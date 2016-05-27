@@ -44,13 +44,15 @@ namespace outdoor.rocks.Classes.Azure
 
         public FullTrailModel InitFullTrailModel(
             AzureModels.Trails trail, 
-            List<CommentsModel> comments)
+            List<CommentsModel> comments,
+            List<SimpleModel> photos,
+            List<SimpleModel> references)
         {
             var fullTrailModel =
                 new FullTrailModel
                 {
                     Id = trail.Id.ToString(),
-                    Comments = comments,
+                    //Comments = comments,
                     Country = trail.Locations.Countries.Name,
                     Description = trail.Description,
                     Difficult = trail.Difficults.Value,
@@ -65,9 +67,10 @@ namespace outdoor.rocks.Classes.Azure
                     //NearblyTrails
                     Region = trail.Locations.Regions.Region,
                     Peak = trail.Options.Peak,
-                    Photos = trail.Photos,
+                    Photos = photos,
+                    References = references,
                     //Rate = trail.Comments.I
-                    References = trail.Reference,
+                    ReferenceId = trail.ReferenceId,
                     SeasonEnd = trail.Options.SeasonEnd.Season,
                     SeasonStart = trail.Options.SeasonStart.Season,
                     Type = trail.Options.TrailsTypes.Type,
@@ -126,7 +129,10 @@ namespace outdoor.rocks.Classes.Azure
             return regionModel;
         }
 
-        public OptionModel InitOptionModel(List<AzureModels.Seasons> seasons, List<AzureModels.TrailsDurationTypes> trailDurationTypes, List<AzureModels.TrailsTypes> trailTypes)
+        public OptionModel InitOptionModel(
+            List<AzureModels.Seasons> seasons, 
+            List<AzureModels.TrailsDurationTypes> trailDurationTypes, 
+            List<AzureModels.TrailsTypes> trailTypes)
         {
             return new OptionModel
             {
@@ -151,6 +157,25 @@ namespace outdoor.rocks.Classes.Azure
                       Value = i.Type
                   }).ToList(),
             };
+        }
+
+        public List<SimpleModel> InitPhotosModelList(List<Photos> photos)
+        {
+
+            return photos.Select(i => new SimpleModel()
+            {
+                Id = i.Id.ToString(),
+                Value = i.Photo
+            }).ToList();
+        }
+        
+        public List<SimpleModel> InitReferencesModelList(List<References> references)
+        {
+            return references.Select(i => new SimpleModel()
+            {
+                Id = i.Id.ToString(),
+                Value = i.Reference
+            }).ToList();
         }
     }
 }

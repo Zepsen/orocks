@@ -32,10 +32,10 @@ namespace outdoor.rocks.Tests.Helpers
                 LocationId = new Guid("11111111-1111-1111-1111-111111111111"),
                 FullDescription = "FullDescriptio",
                 Feature = true,
-                Photos = new List<string> {"Photo"},
-                Reference = new List<string> {"http://"},
+                //Photos = new List<string> {"Photo"},
+                //Reference = new List<string> {"http://"},
                 WhyGo = "WhyGo",
-                CommentsIds = new List<Guid> {new Guid ("11111111-1111-1111-1111-111111111111")},
+                //CommentsIds = new List<Guid> {new Guid ("11111111-1111-1111-1111-111111111111")},
                 RowKey = "11111111-1111-1111-1111-111111111111"
                
             };

@@ -17,5 +17,7 @@ namespace outdoor.rocks.Interfaces.Azure
         Task<List<Seasons>> GetSeasonsListAsync();
         Task<List<TrailsTypes>> GetTrailsTypesListAsync();
         Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync();
+        Task<List<Photos>> GetPhotosAsync(string id);
+        Task<List<References>> GetReferencesAsync(string id);
     }
 }

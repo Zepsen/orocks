@@ -92,5 +92,33 @@ namespace outdoor.rocks.Classes.Azure
             var res = Task.FromResult(table.ExecuteQuery(query).ToList());
             return res;
         }
+
+        public Task<List<Photos>> GetPhotosAsync(string id)
+        {
+            var table = Db.GetTableReference("Photos");
+            var query = new TableQuery<Photos>()
+                .Where(
+                    TableQuery.CombineFilters(
+                        TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Photos"),
+                        TableOperators.And,
+                        TableQuery.GenerateFilterCondition("TrailId", QueryComparisons.Equal, id)));
+
+            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            return res;
+        }
+
+        public Task<List<References>>  GetReferencesAsync(string id)
+        {
+            var table = Db.GetTableReference("References");
+            var query = new TableQuery<References>()
+                .Where(
+                    TableQuery.CombineFilters(
+                        TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "References"),
+                        TableOperators.And,
+                        TableQuery.GenerateFilterCondition("TrailId", QueryComparisons.Equal, id)));
+
+            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            return res;
+        }
     }
 }

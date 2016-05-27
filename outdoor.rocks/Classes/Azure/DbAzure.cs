@@ -54,8 +54,15 @@ namespace outdoor.rocks.Classes.Azure
         {
             var trails = await _queryToDbAsync.GetTrailByIdAsync(id);
             var comments = await _queryToDbAsync.GetCommentsListAsync();
+            var referencesByTrails = _queryToDbAsync.GetReferencesAsync(id).Result;
+            var photosByTrails = _queryToDbAsync.GetPhotosAsync(id).Result;
+
             var commentsModelList = _initializeModels.InitCommentsModelList(trails, comments);
-            var fullTrailModel = _initializeModels.InitFullTrailModel(trails, commentsModelList);
+            var referencesModelListByTrail = _initializeModels.InitReferencesModelList(referencesByTrails);
+            var photosModelListByTrail = _initializeModels.InitPhotosModelList(photosByTrails);
+
+            var fullTrailModel = _initializeModels.InitFullTrailModel(
+                trails, commentsModelList, referencesModelListByTrail, photosModelListByTrail);
             return fullTrailModel;
         }
 
