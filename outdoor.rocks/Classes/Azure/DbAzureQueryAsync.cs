@@ -139,7 +139,8 @@ namespace outdoor.rocks.Classes.Azure
             {
                 Comment = comment.Comment.Value,
                 Rate = comment.Rate.Value,
-                UserId = Guid.Parse(comment.User.Value)
+                UserName = comment.Name.Value,
+                TrailId = Guid.Parse(comment.Id.Value)
             };
 
             var query = TableOperation.Insert(createComment);

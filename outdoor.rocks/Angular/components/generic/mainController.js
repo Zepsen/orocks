@@ -22,6 +22,7 @@ angular
 
         $scope.auth = {
             id: "",
+            name: "",
             status: ""
         }
 
@@ -99,6 +100,7 @@ angular
             }).then(function (response) {
                 var res = response.data;
                 $scope.auth.id = res.Id;
+                $scope.auth.name = res.Name;
                 $scope.auth.status = res.Role;
 
             }).then(function (error) {

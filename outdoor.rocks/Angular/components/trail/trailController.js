@@ -168,6 +168,7 @@ angular
             Id: $stateParams.id,
             Comment: "",
             User: $scope.auth.id,
+            Name: $scope.auth.name,
             Rate: 0
         }
 

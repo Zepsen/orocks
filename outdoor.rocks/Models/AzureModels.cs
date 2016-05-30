@@ -229,7 +229,7 @@ namespace outdoor.rocks.Models
         public class Comments : TableEntity
         {
             public Guid Id { get; set; }
-            public Guid UserId { get; set; }
+            public string UserName { get; set; }
             public string Comment { get; set; }
             public double Rate { get; set; }
             public Guid TrailId { get; set; }
@@ -237,20 +237,20 @@ namespace outdoor.rocks.Models
             public Comments()
             {
                 Id = Guid.NewGuid();
-                PartitionKey = "Regions";
+                PartitionKey = "Comments";
                 RowKey = Id.ToString();
             }
 
-            [IgnoreProperty]
-            public Users User
-            {
-                get
-                {
-                    var table = Db.GetTableReference("Users");
-                    var res = TableOperation.Retrieve<Users>("Users", UserId.ToString());
-                    return table.Execute(res).Result as Users;
-                }
-            }
+            //[IgnoreProperty]
+            //public Users User
+            //{
+            //    get
+            //    {
+            //        var table = Db.GetTableReference("Users");
+            //        var res = TableOperation.Retrieve<Users>("Users", UserId.ToString());
+            //        return table.Execute(res).Result as Users;
+            //    }
+            //}
         }
 
         public class Options : TableEntity

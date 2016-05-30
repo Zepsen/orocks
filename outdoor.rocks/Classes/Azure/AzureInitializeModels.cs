@@ -15,6 +15,7 @@ namespace outdoor.rocks.Classes.Azure
                 return new UserModel
                 {
                     Id = user.Id.ToString(),
+                    Name = user.Name,
                     Role = user.Roles.Role
                 };
             }
@@ -87,7 +88,7 @@ namespace outdoor.rocks.Classes.Azure
                 .Where(i => i.TrailId == trail.Id)
                 .Select(i => new CommentsModel
                 {
-                    Name = i.User.Name,
+                    Name = i.UserName,
                     Comment = i.Comment,
                     Rate = i.Rate
                 }).ToList();

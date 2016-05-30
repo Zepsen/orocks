@@ -9,5 +9,6 @@ namespace outdoor.rocks.Models
     {
         public string Id { get; set; }        
         public string Role { get; set; }
+        public string Name { get; set; }
     }
 }

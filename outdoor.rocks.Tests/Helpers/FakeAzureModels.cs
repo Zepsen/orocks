@@ -172,7 +172,7 @@ namespace outdoor.rocks.Tests.Helpers
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Comment = "This is comment...",
                 Rate = 5,
-                UserId = new Guid("11111111-1111-1111-1111-111111111111"),
+                UserName = "UserName",
                 TrailId = new Guid("11111111-1111-1111-1111-111111111111")
             };
         }

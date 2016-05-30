@@ -14,7 +14,8 @@ namespace outdoor.rocks.Classes.Mongo
             {
                 return new UserModel
                 {
-                    Id = user.Id,
+                    Id = user.Id, 
+                    Name = user.UserName,
                     Role = user.Roles.FirstOrDefault()
                 };
             }
