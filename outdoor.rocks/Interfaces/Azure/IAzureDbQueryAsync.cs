@@ -22,5 +22,6 @@ namespace outdoor.rocks.Interfaces.Azure
         Task<List<References>> GetReferencesAsync(string id);
         Task<Options> GetOptionsByIdAsync(Guid optionId);
         void UpdateOptionsAsync(string trailId, string options);
+        void InsertCommentsAsync(string value);
     }
 }

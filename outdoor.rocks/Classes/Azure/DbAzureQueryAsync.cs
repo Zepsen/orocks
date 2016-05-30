@@ -130,6 +130,22 @@ namespace outdoor.rocks.Classes.Azure
             table.Execute(query);
         }
 
+        public void InsertCommentsAsync(string value)
+        {
+            dynamic comment = JObject.Parse(value);
+
+            var table = Db.GetTableReference("Comments");
+            var createComment = new Comments()
+            {
+                Comment = comment.Comment.Value,
+                Rate = comment.Rate.Value,
+                UserId = Guid.Parse(comment.User.Value)
+            };
+
+            var query = TableOperation.Insert(createComment);
+            table.Execute(query);
+        }
+
         private static Options UpdateOptions(string value, Trails trail)
         {
             var option = trail.Options;

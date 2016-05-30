@@ -91,7 +91,8 @@ namespace outdoor.rocks.Classes.Azure
 
         public Task UpdateComments(string value)
         {
-            throw new NotImplementedException();
+            _queryToDbAsync.InsertCommentsAsync(value);
+            return null;
         }
     }
 }
