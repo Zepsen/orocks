@@ -13,8 +13,8 @@ namespace outdoor.rocks.Classes
 
         public DbMain(IDbMain db = null)
         {
-            //_db = db ?? new DbMongo();
-            _db = db ?? new DbAzure();
+            _db = db ?? new DbMongo();
+            //_db = db ?? new DbAzure();
         } 
 
         public Task<List<TrailModel>> GetTrailModelsList()

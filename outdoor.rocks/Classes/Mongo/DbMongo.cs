@@ -123,15 +123,15 @@ namespace outdoor.rocks.Classes.Mongo
             var id = await InsertComment(value, newId);
             var trails = Db.GetCollection<Trails>("Trails");
             var trail = await trails.FindAsync(i => i._id == id).Result.FirstOrDefaultAsync();
-            await UpdateTrailsComments(trail, newId, trails);
+            UpdateTrailsComments(trail, newId, trails);
         }
 
-        private static async Task UpdateTrailsComments(Trails trail, ObjectId newId, IMongoCollection<Trails> trails)
+        private static void UpdateTrailsComments(Trails trail, ObjectId newId, IMongoCollection<Trails> trails)
         {
             trail.Comments_Ids.Add(newId);
             var filter = Builders<Trails>.Filter.Eq("_id", trail._id);
             var update = Builders<Trails>.Update.Set("Comments_Ids", trail.Comments_Ids);
-            await trails.UpdateOneAsync(filter, update);
+            trails.UpdateOneAsync(filter, update);
         }
 
         private static async Task<ObjectId> InsertComment(string value, ObjectId newId)

@@ -63,7 +63,7 @@ namespace outdoor.rocks.Classes.Mongo
                 new FullTrailModel
                 {
                     Id = trail._id.ToString(),
-                    //Comments = comments,
+                    Comments = comments,
                     Country = trail.Location.Country.Name,
                     Description = trail.Description,
                     Difficult = trail.Difficult.Value,
