@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using outdoor.rocks.Models;
 
@@ -19,5 +20,7 @@ namespace outdoor.rocks.Interfaces.Azure
         Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync();
         Task<List<Photos>> GetPhotosAsync(string id);
         Task<List<References>> GetReferencesAsync(string id);
+        Task<Options> GetOptionsByIdAsync(Guid optionId);
+        void UpdateOptionsAsync(string trailId, string options);
     }
 }

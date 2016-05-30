@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
+using MongoDB.Bson;
+using Newtonsoft.Json.Linq;
 using outdoor.rocks.Interfaces.Azure;
 using outdoor.rocks.Models;
 using static outdoor.rocks.Models.AzureModels;
@@ -109,6 +111,61 @@ namespace outdoor.rocks.Classes.Azure
                 .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "References"));
             var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
             return res;
+        }
+
+        public Task<Options> GetOptionsByIdAsync(Guid optionId)
+        {
+            var table = Db.GetTableReference("Options");
+            var query = TableOperation.Retrieve<Options>("Options", optionId.ToString());
+            var res = Task.FromResult(table.Execute(query).Result as Options);
+            return res;
+        }
+
+        public void UpdateOptionsAsync(string trailId, string optionsValue)
+        {
+            var table = Db.GetTableReference("Options");
+            var trail = GetTrailByIdAsync(trailId).Result;
+            var updatedOption = UpdateOptions(optionsValue, trail);
+            var query = TableOperation.Replace(updatedOption);
+            table.Execute(query);
+        }
+
+        private static Options UpdateOptions(string value, Trails trail)
+        {
+            var option = trail.Options;
+
+            dynamic update = JObject.Parse(value);
+
+            var distance = update.Distance.Value ?? "";
+            if (!string.IsNullOrEmpty(distance.ToString()))
+                option.Distance = Convert.ToDouble(update.Distance.Value);
+
+            var peak = update.Peak.Value ?? "";
+            if (!string.IsNullOrEmpty(peak.ToString()))
+                option.Peak = Convert.ToInt32(update.Peak.Value);
+
+            var elevation = update.Elevation.Value ?? "";
+            if (!string.IsNullOrEmpty(elevation.ToString()))
+                option.Elevation = Convert.ToDouble(update.Elevation.Value);
+
+
+            if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
+                option.SeasonStartId = ObjectId.Parse(update.SeasonStart.Id.Value);
+
+            if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
+                option.SeasonEndId = ObjectId.Parse(update.SeasonEnd.Id.Value);
+
+
+            if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
+                option.TrailTypeId = ObjectId.Parse(update.Type.Id.Value);
+
+            if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
+                option.TrailDurationTypeId = ObjectId.Parse(update.DurationType.Id.Value);
+
+            option.GoodForKids = update.GoodForKids.Value;
+            option.DogAllowed = update.DogAllowed.Value;
+
+            return option;
         }
     }
 }
