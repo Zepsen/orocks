@@ -48,11 +48,14 @@ namespace outdoor.rocks.Classes.Azure
             List<SimpleModel> photos,
             List<SimpleModel> references)
         {
+            var rate = 0.0;
+            rate = comments.Count > 0 ? comments.Sum(i => i.Rate) /comments.Count : rate;
+
             var fullTrailModel =
                 new FullTrailModel
                 {
                     Id = trail.Id.ToString(),
-                    //Comments = comments,
+                    Comments = comments,
                     Country = trail.Locations.Countries.Name,
                     Description = trail.Description,
                     Difficult = trail.Difficults.Value,
@@ -64,13 +67,12 @@ namespace outdoor.rocks.Classes.Azure
                     FullDescription = trail.FullDescription,
                     GoodForKids = trail.Options.GoodForKids,
                     Name = trail.Name,
-                    //NearblyTrails
                     Region = trail.Locations.Regions.Region,
                     Peak = trail.Options.Peak,
-                    Photos = photos,
-                    References = references,
-                    //Rate = trail.Comments.I
-                    ReferenceId = trail.ReferenceId,
+                    Photos = photos.Select(i => i.Value).ToList(),
+                    References = references.Select(i => i.Value).ToList(),
+                    Rate = rate,
+                    //ReferenceId = trail.ReferenceId,
                     SeasonEnd = trail.Options.SeasonEnd.Season,
                     SeasonStart = trail.Options.SeasonStart.Season,
                     Type = trail.Options.TrailsTypes.Type,
@@ -79,15 +81,15 @@ namespace outdoor.rocks.Classes.Azure
             return fullTrailModel;
         }
 
-        public List<CommentsModel> InitCommentsModelList(AzureModels.Trails trail, List<AzureModels.Comments> comments)
+        public List<CommentsModel> InitCommentsModelList(Trails trail, List<Comments> comments)
         {
-            var commentsList = trail.CommentsIds
-                .Select(commentId => comments.FirstOrDefault(i => i.Id == commentId))
-                .Select(comment => new CommentsModel
+            var commentsList = comments
+                .Where(i => i.TrailId == trail.Id)
+                .Select(i => new CommentsModel
                 {
-                    Comment = comment.Comment,
-                    Name = comment.User.Name,
-                    Rate = comment.Rate
+                    Name = i.User.Name,
+                    Comment = i.Comment,
+                    Rate = i.Rate
                 }).ToList();
 
             return commentsList;

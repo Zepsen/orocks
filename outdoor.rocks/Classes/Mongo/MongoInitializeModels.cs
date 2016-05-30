@@ -46,17 +46,17 @@ namespace outdoor.rocks.Classes.Mongo
             Trails trail, 
             List<CommentsModel> comments)
         {
-            var photos = trail.Photos.Select(i => new SimpleModel()
-            {
-                Id = i,
-                Value = i
-            }).ToList();
+            //var photos = trail.Photos.Select(i => new SimpleModel()
+            //{
+            //    Id = i,
+            //    Value = i
+            //}).ToList();
 
-            var references = trail.References.Select(i => new SimpleModel()
-            {
-                Id = i,
-                Value = i
-            }).ToList();
+            //var references = trail.References.Select(i => new SimpleModel()
+            //{
+            //    Id = i,
+            //    Value = i
+            //}).ToList();
 
             var fullTrailModel =
                 new FullTrailModel
@@ -77,9 +77,9 @@ namespace outdoor.rocks.Classes.Mongo
                     //NearblyTrails
                     Region = trail.Location.Region.Region,
                     Peak = trail.Option.Peak,
-                    Photos = photos,
+                    Photos = trail.Photos,
                     //Rate = trail.Comments.I
-                    References = references,
+                    References = trail.References,
                     SeasonEnd = trail.Option.SeasonEnd.Season,
                     SeasonStart = trail.Option.SeasonStart.Season,
                     Type = trail.Option.TrailType.Type,

@@ -97,13 +97,8 @@ namespace outdoor.rocks.Classes.Azure
         {
             var table = Db.GetTableReference("Photos");
             var query = new TableQuery<Photos>()
-                .Where(
-                    TableQuery.CombineFilters(
-                        TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Photos"),
-                        TableOperators.And,
-                        TableQuery.GenerateFilterCondition("TrailId", QueryComparisons.Equal, id)));
-
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Photos"));
+            var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
             return res;
         }
 
@@ -111,13 +106,8 @@ namespace outdoor.rocks.Classes.Azure
         {
             var table = Db.GetTableReference("References");
             var query = new TableQuery<References>()
-                .Where(
-                    TableQuery.CombineFilters(
-                        TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "References"),
-                        TableOperators.And,
-                        TableQuery.GenerateFilterCondition("TrailId", QueryComparisons.Equal, id)));
-
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "References"));
+            var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
             return res;
         }
     }

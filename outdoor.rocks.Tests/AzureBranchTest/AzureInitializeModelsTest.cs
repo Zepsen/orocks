@@ -31,15 +31,21 @@ namespace outdoor.rocks.Tests.AzureBranchTest
         {
             //Arrange
             var testClasses = new AzureInitializeModels();
+
             var trail = FakeAzureModels.GetFakeTrail();
             var commList = FakeAzureModels.GetFakeComments();
-            var comments = testClasses.InitCommentsModelList(trail, commList);
+            var photos = FakeAzureModels.GetFakePhotos();
+            var references = FakeAzureModels.GetFakeReferences();
+            
+            var commentsModel = testClasses.InitCommentsModelList(trail, commList);
+            var photosModel = testClasses.InitPhotosModelList(photos);
+            var referencesModel = testClasses.InitReferencesModelList(references);
 
             //Act
-            //var test = testClasses.InitFullTrailModel(trail, comments);
+            var test = testClasses.InitFullTrailModel(trail, commentsModel, photosModel, referencesModel);
 
             //Assert
-            Assert.True(trail.Description == null); //test.Description);
+            Assert.True(trail.Description == test.Description);
         }
 
         [Fact]

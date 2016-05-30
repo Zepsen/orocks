@@ -32,12 +32,27 @@ namespace outdoor.rocks.Tests.Helpers
                 LocationId = new Guid("11111111-1111-1111-1111-111111111111"),
                 FullDescription = "FullDescriptio",
                 Feature = true,
-                //Photos = new List<string> {"Photo"},
-                //Reference = new List<string> {"http://"},
                 WhyGo = "WhyGo",
-                //CommentsIds = new List<Guid> {new Guid ("11111111-1111-1111-1111-111111111111")},
-                RowKey = "11111111-1111-1111-1111-111111111111"
-               
+                RowKey = "11111111-1111-1111-1111-111111111111",
+                
+            };
+        }
+
+        public  static List<References> GetFakeReferences()
+        {
+            return new List<References>()
+            {
+                GetFakeReference()
+            };
+        }
+
+        public static References GetFakeReference()
+        {
+            return new References()
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                TrailId = new Guid("11111111-1111-1111-1111-111111111111"),
+                Reference = "References"
             };
         }
 
@@ -157,8 +172,28 @@ namespace outdoor.rocks.Tests.Helpers
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Comment = "This is comment...",
                 Rate = 5,
-                UserId = new Guid("11111111-1111-1111-1111-111111111111")
+                UserId = new Guid("11111111-1111-1111-1111-111111111111"),
+                TrailId = new Guid("11111111-1111-1111-1111-111111111111")
             };
         }
+
+        public static List<Photos> GetFakePhotos()
+        {
+            return new List<Photos>()
+            {
+                GetFakePhoto()
+            };
+        }
+
+        public static Photos GetFakePhoto()
+        {
+            return new Photos()
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                TrailId = new Guid("11111111-1111-1111-1111-111111111111"),
+                Photo = "img.jpg",
+            };
+        }
+
     }
 }
