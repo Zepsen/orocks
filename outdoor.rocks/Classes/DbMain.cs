@@ -13,8 +13,8 @@ namespace outdoor.rocks.Classes
 
         public DbMain(IDbMain db = null)
         {
-            _db = db ?? new DbMongo();
-            //_db = db ?? new DbAzure();
+            //_db = db ?? new DbMongo();
+            _db = db ?? new DbAzure();
         } 
 
         public Task<List<TrailModel>> GetTrailModelsList()
@@ -47,14 +47,14 @@ namespace outdoor.rocks.Classes
             return _db.GetUserModelIfUserAlreadyRegistration(id);
         }
 
-        public void UpdateTrailOptions(string id, string value)
+        public Task UpdateTrailOptions(string id, string value)
         {
-            _db.UpdateTrailModelOptions(id, value);
+            return _db.UpdateTrailModelOptions(id, value);
         }
 
-        public void UpdateComments(string value)
+        public Task UpdateComments(string value)
         {
-            _db.UpdateComments(value);
+            return _db.UpdateComments(value);
         }
     }
 }
