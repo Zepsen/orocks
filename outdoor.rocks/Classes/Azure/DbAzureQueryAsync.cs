@@ -25,15 +25,8 @@ namespace outdoor.rocks.Classes.Azure
             var query = from entity in table.CreateQuery<Trails>()
                         where entity.PartitionKey == "Trails"
                         select entity;
-
+            
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<Trails>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Trails"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            //return res;
-
-
         }
 
         public Task<Trails> GetTrailByIdAsync(string id)
@@ -45,10 +38,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.SingleOrDefault());
-
-            //var query = TableOperation.Retrieve<Trails>("Trails", id);
-            //var res = Task.FromResult(table.Execute(query).Result as Trails);
-            //return res;
         }
 
         public Task<Users> GetUserAsync(string id)
@@ -60,10 +49,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.SingleOrDefault());
-
-            //var query = TableOperation.Retrieve<Users>("Users", id);
-            //var res = Task.FromResult(table.Execute(query).Result as Users);
-            //return res;
         }
 
         public Task<List<Comments>> GetCommentsListAsync()
@@ -75,11 +60,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<Comments>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Comments"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            //return res;
         }
 
         public Task<List<Countries>> GetCountriesAsync()
@@ -91,11 +71,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<Countries>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Countries"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            //return res;
         }
 
         public Task<List<Regions>> GetRegionsAsync()
@@ -107,11 +82,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<Regions>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Regions"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            //return res;
         }
 
         public Task<List<Seasons>> GetSeasonsListAsync()
@@ -123,11 +93,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<Seasons>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Seasons"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            //return res;
         }
 
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
@@ -139,11 +104,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<TrailsTypes>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailsTypes"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            //return res;
         }
 
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
@@ -155,11 +115,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<TrailsDurationTypes>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailsDurationTypes"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            //return res;
         }
 
         public Task<List<Photos>> GetPhotosAsync(string id)
@@ -171,11 +126,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<Photos>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Photos"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
-            //return res;
         }
 
         public Task<List<References>> GetReferencesAsync(string id)
@@ -187,11 +137,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.ToList());
-
-            //var query = new TableQuery<References>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "References"));
-            //var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
-            //return res;
         }
 
         public Task<Options> GetOptionsByIdAsync(Guid id)
@@ -203,10 +148,6 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             return Task.FromResult(query.SingleOrDefault());
-
-            //var query = TableOperation.Retrieve<Options>("Options", optionId.ToString());
-            //var res = Task.FromResult(table.Execute(query).Result as Options);
-            //return res;
         }
 
         public Task UpdateOptionsAsync(string trailId, string optionsValue)

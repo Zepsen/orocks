@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Configuration;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using MongoDB.Driver;
-using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage.Table;
 
 namespace outdoor.rocks.Models
 {
-    public static class DbContext
+    public class DbContext
     {
         public static IMongoDatabase GetMongoDatabaseContext()
         {
@@ -18,22 +17,13 @@ namespace outdoor.rocks.Models
 
         public static CloudTableClient GetAzureDatabaseContext()
         {
-            CloudStorageAccount storageAccount = null;
-            try
-            {
-                storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
-            }
-            catch (Exception ex)
-            {
-                
-            }
-            
-            if(storageAccount != null)
-                return storageAccount.CreateCloudTableClient();
+            var storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
 
-            return null;
+            IRetryPolicy police = new ExponentialRetry(TimeSpan.FromSeconds(3), 5);
+            var table = storageAccount.CreateCloudTableClient();
+            table.DefaultRequestOptions.RetryPolicy = police;
+            return table;
         }
-
-
+       
     }
 }
