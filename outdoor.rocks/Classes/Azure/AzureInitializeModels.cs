@@ -50,7 +50,8 @@ namespace outdoor.rocks.Classes.Azure
             List<SimpleModel> references)
         {
             var rate = 0.0;
-            rate = comments.Count > 0 ? comments.Sum(i => i.Rate) /comments.Count : rate;
+            rate = comments.Count > 0 ? comments.Sum(i => i.Rate) / comments.Count : rate;
+
 
             var fullTrailModel =
                 new FullTrailModel
@@ -72,8 +73,7 @@ namespace outdoor.rocks.Classes.Azure
                     Peak = trail.Options.Peak,
                     Photos = photos.Select(i => i.Value).ToList(),
                     References = references.Select(i => i.Value).ToList(),
-                    Rate = rate,
-                    //ReferenceId = trail.ReferenceId,
+                    Rate = Math.Round(rate, 2),
                     SeasonEnd = trail.Options.SeasonEnd.Season,
                     SeasonStart = trail.Options.SeasonStart.Season,
                     Type = trail.Options.TrailsTypes.Type,

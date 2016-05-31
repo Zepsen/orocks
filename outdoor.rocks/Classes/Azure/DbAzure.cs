@@ -83,16 +83,14 @@ namespace outdoor.rocks.Classes.Azure
 
         public Task UpdateTrailModelOptions(string id, string value)
         {
-            _queryToDbAsync.UpdateOptionsAsync(id, value);
-            return null;
+            return _queryToDbAsync.UpdateOptionsAsync(id, value);
         }
 
         
 
         public Task UpdateComments(string value)
         {
-            _queryToDbAsync.InsertCommentsAsync(value);
-            return null;
+             return _queryToDbAsync.InsertCommentsAsync(value);
         }
     }
 }

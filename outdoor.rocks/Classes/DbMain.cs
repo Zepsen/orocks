@@ -49,12 +49,12 @@ namespace outdoor.rocks.Classes
 
         public Task UpdateTrailOptions(string id, string value)
         {
-            return _db.UpdateTrailModelOptions(id, value);
+            return  _db.UpdateTrailModelOptions(id, value);
         }
 
         public Task UpdateComments(string value)
         {
-            return _db.UpdateComments(value);
+            return  _db.UpdateComments(value);
         }
     }
 }

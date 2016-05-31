@@ -34,7 +34,7 @@ namespace outdoor.rocks.Controllers
         // PUT: api/Trails/5
         public async Task<FullTrailModel> Put(string id, [FromBody]string value)
         {            
-             _db.UpdateTrailOptions(id, value);
+            await _db.UpdateTrailOptions(id, value);
             return await _db.GetFullTrailModel(id);
         }
 

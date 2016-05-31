@@ -121,16 +121,16 @@ namespace outdoor.rocks.Classes.Azure
             return res;
         }
 
-        public void UpdateOptionsAsync(string trailId, string optionsValue)
+        public Task UpdateOptionsAsync(string trailId, string optionsValue)
         {
             var table = Db.GetTableReference("Options");
             var trail = GetTrailByIdAsync(trailId).Result;
             var updatedOption = UpdateOptions(optionsValue, trail);
             var query = TableOperation.Replace(updatedOption);
-            table.Execute(query);
+            return table.ExecuteAsync(query);
         }
 
-        public void InsertCommentsAsync(string value)
+        public Task InsertCommentsAsync(string value)
         {
             dynamic comment = JObject.Parse(value);
 
@@ -144,7 +144,7 @@ namespace outdoor.rocks.Classes.Azure
             };
 
             var query = TableOperation.Insert(createComment);
-            table.Execute(query);
+            return table.ExecuteAsync(query);
         }
 
         private static Options UpdateOptions(string value, Trails trail)
