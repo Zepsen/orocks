@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using MongoDB.Driver;
 using Microsoft.Azure;
@@ -17,8 +18,20 @@ namespace outdoor.rocks.Models
 
         public static CloudTableClient GetAzureDatabaseContext()
         {
-            var storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
-            return storageAccount.CreateCloudTableClient();
+            CloudStorageAccount storageAccount = null;
+            try
+            {
+                storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            
+            if(storageAccount != null)
+                return storageAccount.CreateCloudTableClient();
+
+            return null;
         }
 
 

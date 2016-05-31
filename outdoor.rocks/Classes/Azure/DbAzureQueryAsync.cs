@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
 using MongoDB.Bson;
+using MongoDB.Driver.Linq;
 using Newtonsoft.Json.Linq;
 using outdoor.rocks.Interfaces.Azure;
 using outdoor.rocks.Models;
@@ -19,106 +21,192 @@ namespace outdoor.rocks.Classes.Azure
         public Task<List<Trails>> GetTrailsAsync()
         {
             var table = Db.GetTableReference("Trails");
-            var query = new TableQuery<Trails>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Trails"));
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<Trails>()
+                        where entity.PartitionKey == "Trails"
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<Trails>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Trails"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            //return res;
+
+
         }
 
         public Task<Trails> GetTrailByIdAsync(string id)
         {
             var table = Db.GetTableReference("Trails");
-            var query = TableOperation.Retrieve<Trails>("Trails", id);
-            var res = Task.FromResult(table.Execute(query).Result as Trails);
-            return res;
+
+            var query = from entity in table.CreateQuery<Trails>()
+                        where entity.PartitionKey == "Trails" && entity.Id == Guid.Parse(id)
+                        select entity;
+
+            return Task.FromResult(query.SingleOrDefault());
+
+            //var query = TableOperation.Retrieve<Trails>("Trails", id);
+            //var res = Task.FromResult(table.Execute(query).Result as Trails);
+            //return res;
         }
 
         public Task<Users> GetUserAsync(string id)
         {
             var table = Db.GetTableReference("Users");
-            var query = TableOperation.Retrieve<Users>("Users", id);
-            var res = Task.FromResult(table.Execute(query).Result as Users);
-            return res;
+
+            var query = from entity in table.CreateQuery<Users>()
+                        where entity.PartitionKey == "Users" && entity.Id == Guid.Parse(id)
+                        select entity;
+
+            return Task.FromResult(query.SingleOrDefault());
+
+            //var query = TableOperation.Retrieve<Users>("Users", id);
+            //var res = Task.FromResult(table.Execute(query).Result as Users);
+            //return res;
         }
 
         public Task<List<Comments>> GetCommentsListAsync()
         {
             var table = Db.GetTableReference("Comments");
-            var query = new TableQuery<Comments>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Comments"));
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<Comments>()
+                        where entity.PartitionKey == "Comments"
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<Comments>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Comments"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            //return res;
         }
 
         public Task<List<Countries>> GetCountriesAsync()
         {
             var table = Db.GetTableReference("Countries");
-            var query = new TableQuery<Countries>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Countries"));
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<Countries>()
+                        where entity.PartitionKey == "Countries"
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<Countries>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Countries"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            //return res;
         }
 
         public Task<List<Regions>> GetRegionsAsync()
         {
             var table = Db.GetTableReference("Regions");
-            var query = new TableQuery<Regions>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Regions"));
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<Regions>()
+                        where entity.PartitionKey == "Regions"
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<Regions>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Regions"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            //return res;
         }
 
         public Task<List<Seasons>> GetSeasonsListAsync()
         {
             var table = Db.GetTableReference("Seasons");
-            var query = new TableQuery<Seasons>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Seasons"));
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<Seasons>()
+                        where entity.PartitionKey == "Seasons"
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<Seasons>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Seasons"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            //return res;
         }
 
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
         {
             var table = Db.GetTableReference("TrailsTypes");
-            var query = new TableQuery<TrailsTypes>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailsTypes"));
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<TrailsTypes>()
+                        where entity.PartitionKey == "TrailsTypes"
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<TrailsTypes>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailsTypes"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            //return res;
         }
 
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
         {
             var table = Db.GetTableReference("TrailsDurationTypes");
-            var query = new TableQuery<TrailsDurationTypes>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailsDurationTypes"));
-            var res = Task.FromResult(table.ExecuteQuery(query).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<TrailsDurationTypes>()
+                        where entity.PartitionKey == "TrailsDurationTypes"
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<TrailsDurationTypes>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "TrailsDurationTypes"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).ToList());
+            //return res;
         }
 
         public Task<List<Photos>> GetPhotosAsync(string id)
         {
             var table = Db.GetTableReference("Photos");
-            var query = new TableQuery<Photos>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Photos"));
-            var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<Photos>()
+                        where entity.PartitionKey == "Photos" && entity.TrailId == Guid.Parse(id)
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<Photos>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Photos"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
+            //return res;
         }
 
-        public Task<List<References>>  GetReferencesAsync(string id)
+        public Task<List<References>> GetReferencesAsync(string id)
         {
             var table = Db.GetTableReference("References");
-            var query = new TableQuery<References>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "References"));
-            var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
-            return res;
+
+            var query = from entity in table.CreateQuery<References>()
+                        where entity.PartitionKey == "References" && entity.TrailId == Guid.Parse(id)
+                        select entity;
+
+            return Task.FromResult(query.ToList());
+
+            //var query = new TableQuery<References>()
+            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "References"));
+            //var res = Task.FromResult(table.ExecuteQuery(query).Where(i => i.TrailId == Guid.Parse(id)).ToList());
+            //return res;
         }
 
-        public Task<Options> GetOptionsByIdAsync(Guid optionId)
+        public Task<Options> GetOptionsByIdAsync(Guid id)
         {
             var table = Db.GetTableReference("Options");
-            var query = TableOperation.Retrieve<Options>("Options", optionId.ToString());
-            var res = Task.FromResult(table.Execute(query).Result as Options);
-            return res;
+
+            var query = from entity in table.CreateQuery<Options>()
+                        where entity.PartitionKey == "Options" && entity.Id == id
+                        select entity;
+
+            return Task.FromResult(query.SingleOrDefault());
+
+            //var query = TableOperation.Retrieve<Options>("Options", optionId.ToString());
+            //var res = Task.FromResult(table.Execute(query).Result as Options);
+            //return res;
         }
 
         public Task UpdateOptionsAsync(string trailId, string optionsValue)

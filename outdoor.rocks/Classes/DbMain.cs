@@ -13,6 +13,7 @@ namespace outdoor.rocks.Classes
     {
         private readonly IDbMain _db;
         private readonly NameValueCollection _semaphore = ConfigurationManager.GetSection("dbSemaphore") as NameValueCollection;
+
         public DbMain(IDbMain db = null)
         {
             switch (_semaphore["db"])
