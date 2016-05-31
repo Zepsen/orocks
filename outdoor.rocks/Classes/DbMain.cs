@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Threading.Tasks;
 using outdoor.rocks.Classes.Azure;
 using outdoor.rocks.Classes.Mongo;
@@ -10,11 +12,23 @@ namespace outdoor.rocks.Classes
     public class DbMain
     {
         private readonly IDbMain _db;
-
+        private readonly NameValueCollection _semaphore = ConfigurationManager.GetSection("dbSemaphore") as NameValueCollection;
         public DbMain(IDbMain db = null)
         {
-            //_db = db ?? new DbMongo();
-            _db = db ?? new DbAzure();
+            switch (_semaphore["db"])
+            {
+                case "Mongo":
+                    _db = db ?? new DbMongo();
+                    break;
+
+                case "Azure":
+                    _db = db ?? new DbAzure();
+                    break;
+
+                default:
+                    _db = db ?? new DbAzure();
+                    break;
+            }
         } 
 
         public Task<List<TrailModel>> GetTrailModelsList()
