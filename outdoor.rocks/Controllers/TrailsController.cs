@@ -21,7 +21,8 @@ namespace outdoor.rocks.Controllers
         // GET: api/Trails/ObjectId
         public Task<FullTrailModel> Get(string id)
         {            
-            return _db.GetFullTrailModel(id);            
+            var res = _db.GetFullTrailModel(id);
+            return res;
         }
         
         // POST: api/Trails

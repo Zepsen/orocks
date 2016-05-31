@@ -31,5 +31,10 @@ angular.module('ORockApp')
                     url: '/admin',
                     templateUrl: '../Angular/components/admin/templates/admin.html',
                     controller: 'AdminCtrl'
+                })
+                .state('error', {
+                    url: '/error',
+                    templateUrl: '../Angular/components/error/templates/error.html',
+                    controller: 'ErrorCtrl'
                 });
         }]);
