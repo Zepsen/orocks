@@ -33,6 +33,10 @@ namespace outdoor.rocks.Controllers
                 var res = await _db.GetUserModelIfUserAlreadyRegistration(id);
                 return Ok(res);
             }
+            catch (FormatException)
+            {
+                return BadRequest();
+            }
             catch (Exception)
             {
                 return NotFound();

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 using MongoDB.Bson;
 using Moq;
@@ -72,11 +73,24 @@ namespace outdoor.rocks.Tests
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(Task.FromResult(new FullTrailModel()));
 
-            var test = ctrl.Get("1");
+            var test = ctrl.Get("00000000-0000-0000-0000-000000000000");
             
-            Assert.Equal(1,1);
-
+            Assert.IsType<NotFoundResult>(test.Result);
         }
+
+        [Fact]
+        public void GetById_WhenIdFormatNotSupportAzureTrail_ReturnsBadRequestResult()
+        {
+            var ctrl = GetTrailsController();
+            var mock = new Mock<IDbMain>();
+            mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
+                .Returns(Task.FromResult(new FullTrailModel()));
+
+            var test = ctrl.Get("10");
+            
+            Assert.IsType<BadRequestResult>(test.Result);
+        }
+
 
         private static TrailsController GetTrailsController()
         {

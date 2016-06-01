@@ -32,9 +32,19 @@ namespace outdoor.rocks.Classes.Azure
         public Task<Trails> GetTrailByIdAsync(string id)
         {
             var table = Db.GetTableReference("Trails");
+            var guid = Guid.Empty;
+
+            try
+            {
+                guid = Guid.Parse(id);
+            }
+            catch (Exception)
+            {
+                throw new FormatException();
+            }
 
             var query = from entity in table.CreateQuery<Trails>()
-                        where entity.PartitionKey == "Trails" && entity.Id == Guid.Parse(id)
+                        where entity.PartitionKey == "Trails" && entity.Id == guid
                         select entity;
 
             return Task.FromResult(query.SingleOrDefault());
@@ -43,9 +53,19 @@ namespace outdoor.rocks.Classes.Azure
         public Task<Users> GetUserAsync(string id)
         {
             var table = Db.GetTableReference("Users");
+            var guid = Guid.Empty;
 
+            try
+            {
+                guid = Guid.Parse(id);
+            }
+            catch (Exception)
+            {
+                throw new FormatException();
+            }
+            
             var query = from entity in table.CreateQuery<Users>()
-                        where entity.PartitionKey == "Users" && entity.Id == Guid.Parse(id)
+                        where entity.PartitionKey == "Users" && entity.Id == guid
                         select entity;
 
             return Task.FromResult(query.SingleOrDefault());
@@ -121,8 +141,16 @@ namespace outdoor.rocks.Classes.Azure
         {
             var table = Db.GetTableReference("Photos");
 
+            var guid = Guid.Empty;
+
+            try
+            {
+                guid = Guid.Parse(id);
+            }
+            catch (Exception) { throw new FormatException(); }
+
             var query = from entity in table.CreateQuery<Photos>()
-                        where entity.PartitionKey == "Photos" && entity.TrailId == Guid.Parse(id)
+                        where entity.PartitionKey == "Photos" && entity.TrailId == guid
                         select entity;
 
             return Task.FromResult(query.ToList());
@@ -132,8 +160,16 @@ namespace outdoor.rocks.Classes.Azure
         {
             var table = Db.GetTableReference("References");
 
+            var guid = Guid.Empty;
+
+            try
+            {
+                guid = Guid.Parse(id);
+            }
+            catch (Exception) { throw new FormatException(); }
+
             var query = from entity in table.CreateQuery<References>()
-                        where entity.PartitionKey == "References" && entity.TrailId == Guid.Parse(id)
+                        where entity.PartitionKey == "References" && entity.TrailId == guid
                         select entity;
 
             return Task.FromResult(query.ToList());
