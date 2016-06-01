@@ -17,5 +17,7 @@ namespace outdoor.rocks.Interfaces
         Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id);
         Task UpdateTrailModelOptions(string id, string value);
         Task UpdateComments(string value);
+
+        bool IsTrailExist(string id);
     }
 }

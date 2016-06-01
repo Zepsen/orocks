@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
 using MongoRepository;
 using Newtonsoft.Json.Linq;
 using outdoor.rocks.Classes;
@@ -15,9 +16,17 @@ namespace outdoor.rocks.Controllers
     {
         private readonly DbMain _db = new DbMain();
         // GET: api/Options
-        public Task<OptionModel> Get()
+        public async Task<IHttpActionResult> Get()
         {
-            return _db.GetOptionModel(); 
+            try
+            {
+                var res = await _db.GetOptionModel();
+                return Ok(res);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
        

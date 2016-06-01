@@ -155,6 +155,10 @@ namespace outdoor.rocks.Classes.Mongo
             var userModel = _initializeModels.InitUserModel(user);
             return userModel;
         }
-        
+
+        public bool IsTrailExist(string id)
+        {
+            return _queryToDbAsync.GetTrailByIdAsync(id).Result == null;
+        }
     }
 }

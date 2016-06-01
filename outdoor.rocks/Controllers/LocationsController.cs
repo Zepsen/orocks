@@ -18,9 +18,17 @@ namespace outdoor.rocks.Controllers
         private readonly DbMain _db = new DbMain();
 
         // GET: api/Locations
-        public Task<List<RegionModel>> Get()
+        public async Task<IHttpActionResult> Get()
         {
-            return _db.GetRegionModelList();
+            try
+            {
+                var res = await _db.GetRegionModelList();
+                return Ok(res);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
         
         // GET: api/Locations/5

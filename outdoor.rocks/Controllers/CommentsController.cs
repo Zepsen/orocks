@@ -32,8 +32,15 @@ namespace outdoor.rocks.Controllers
         [Authorize(Roles = "Admin, User")]        
         public async Task<IHttpActionResult> Post([FromBody]string value)
         {
-            await _db.UpdateComments(value);
-            return Ok();
+            try
+            {
+                await _db.UpdateComments(value);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(HttpStatusCode.NotImplemented);
+            }
         }
                 
 

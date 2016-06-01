@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Net;
 using System.Threading.Tasks;
+using System.Web.Http;
 using outdoor.rocks.Classes.Azure;
 using outdoor.rocks.Classes.Mongo;
 using outdoor.rocks.Interfaces;
@@ -16,19 +18,26 @@ namespace outdoor.rocks.Classes
 
         public DbMain(IDbMain db = null)
         {
-            switch (_semaphore["db"])
+            if (_semaphore != null)
             {
-                case "Mongo":
-                    _db = db ?? new DbMongo();
-                    break;
+                switch (_semaphore["db"])
+                {
+                    case "Mongo":
+                        _db = db ?? new DbMongo();
+                        break;
 
-                case "Azure":
-                    _db = db ?? new DbAzure();
-                    break;
+                    case "Azure":
+                        _db = db ?? new DbAzure();
+                        break;
 
-                default:
-                    _db = db ?? new DbAzure();
-                    break;
+                    default:
+                        _db = db ?? new DbAzure();
+                        break;
+                }
+            }
+            else
+            {
+                _db = new DbAzure();
             }
         } 
 
@@ -39,7 +48,8 @@ namespace outdoor.rocks.Classes
 
         public Task<FullTrailModel> GetFullTrailModel(string id)
         {
-            return _db.GetFullTrailModel(id);
+            var res = _db.GetFullTrailModel(id);
+            return res;
         }
 
         public Task<FilterModel> GetFilterModel()
@@ -70,6 +80,11 @@ namespace outdoor.rocks.Classes
         public Task UpdateComments(string value)
         {
             return  _db.UpdateComments(value);
+        }
+
+        public bool IsTrailExist(string id)
+        {
+            return _db.IsTrailExist(id);
         }
     }
 }

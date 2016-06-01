@@ -64,15 +64,24 @@ namespace outdoor.rocks.Tests
             Assert.Equal(typeof(Task<FullTrailModel>), test.GetType());
         }
 
-        [Fact] public void GetById_WhenNotFoundAzureTrail_ReturnsNotFoundResult()
+        [Fact]
+        public void GetById_WhenNotFoundAzureTrail_ReturnsNotFoundResult()
         {
-           var ctrl = GetTrailsController();
+            var ctrl = GetTrailsController();
+            var mock = new Mock<IDbMain>();
+            mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
+                .Returns(Task.FromResult(new FullTrailModel()));
+
+            var test = ctrl.Get("1");
+            
+            Assert.Equal(1,1);
+
         }
 
         private static TrailsController GetTrailsController()
         {
             return new TrailsController();
         }
-    } 
+    }
 
 }

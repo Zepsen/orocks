@@ -17,7 +17,7 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class UsersController : ApiController
     {
-        private DbMongo db = new DbMongo();
+        private readonly DbMongo _db = new DbMongo();
 
         // GET: api/Users
         public IEnumerable<string> Get()
@@ -26,26 +26,28 @@ namespace outdoor.rocks.Controllers
         }
 
         // GET: api/Users/5
-        public  Task<UserModel> Get(string id)
+        public async Task<IHttpActionResult> Get(string id)
         {
-            // return DBHelper.getUsersRoleIfUserReg(id).ToJson();
-            return  db.GetUserModelIfUserAlreadyRegistration(id);
+            try
+            {
+                var res = await _db.GetUserModelIfUserAlreadyRegistration(id);
+                return Ok(res);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         // POST: api/Users
-        public  Task<UserModel> Post([FromBody]string value)
+        public void Post([FromBody]string value)
         {
-            // return DBHelper.regUserAndReturnResult(value).ToJson();
-            // return DBWithoutRepo.RegistrationUserAndReturnUserModel(value);
-            return null;
         }
 
         // PUT: api/Users/5
-        public Task<UserModel> Put(string id, [FromBody]string value)
+        public void Put(string id, [FromBody]string value)
         {
-            // return DBHelper.getUsersRoleIfUserRegByData(id, value).ToJson();
-            //return  DBWithoutRepo.GetUserModelIfUserExist(id, value);
-            return null;
+            
         }
 
         // DELETE: api/Users/5

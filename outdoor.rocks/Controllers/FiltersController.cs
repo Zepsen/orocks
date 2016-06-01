@@ -18,10 +18,18 @@ namespace outdoor.rocks.Controllers
 
         [AllowAnonymous]
         // GET: api/Filters
-        public Task<FilterModel> Get()
+        public async Task<IHttpActionResult> Get()
         {
-            return _db.GetFilterModel();
-        }       
+            try
+            {
+                var res = await _db.GetFilterModel();
+                return Ok(res);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }    
 
         // GET: api/Filters/5
         public string Get(int id)

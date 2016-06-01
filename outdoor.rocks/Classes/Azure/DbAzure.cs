@@ -92,5 +92,11 @@ namespace outdoor.rocks.Classes.Azure
         {
              return _queryToDbAsync.InsertCommentsAsync(value);
         }
+
+        public bool IsTrailExist(string id)
+        {
+            var res = _queryToDbAsync.GetTrailByIdAsync(id).Result != null;
+            return res;
+        }
     }
 }
