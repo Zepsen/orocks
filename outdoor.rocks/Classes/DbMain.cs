@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Net;
@@ -11,7 +12,7 @@ using outdoor.rocks.Models;
 
 namespace outdoor.rocks.Classes
 {
-    public class DbMain
+    public class DbMain : IDb
     {
         private readonly IDbMain _db;
         private readonly NameValueCollection _semaphore = ConfigurationManager.GetSection("dbSemaphore") as NameValueCollection;
@@ -86,5 +87,6 @@ namespace outdoor.rocks.Classes
         {
             return _db.IsTrailExist(id);
         }
+        
     }
 }

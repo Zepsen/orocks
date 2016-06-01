@@ -10,13 +10,19 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
+using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
 
     public class TrailsController : ApiController
     {
-        private readonly DbMain _db = new DbMain();
+        private IDb _db = new DbMain();
+
+        public void SetDb(IDb db)
+        {
+            _db = db;
+        }
 
         // GET: api/Trails
         public async Task<IHttpActionResult> Get()
@@ -79,6 +85,11 @@ namespace outdoor.rocks.Controllers
             }
             catch (Exception)
             {
+                if (!_db.IsTrailExist(id))
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+
                 return new HttpResponseMessage(HttpStatusCode.NotModified);
                 //return StatusCode(HttpStatusCode.NotModified);
             }

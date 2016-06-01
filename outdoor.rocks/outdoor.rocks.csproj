@@ -293,6 +293,7 @@
     </Compile>
     <Compile Include="Interfaces\Azure\IAzureDbQueryAsync.cs" />
     <Compile Include="Interfaces\Azure\IAzureInitializeModels.cs" />
+    <Compile Include="Interfaces\IDb.cs" />
     <Compile Include="Interfaces\Mongo\IMongoDbQueryAsync.cs" />
     <Compile Include="Interfaces\IDbMain.cs" />
     <Compile Include="Interfaces\Mongo\IMongoInitializeModels.cs" />
