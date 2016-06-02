@@ -27,7 +27,7 @@ angular
                 url: "/api/Account/Register",
                 data: $scope.userRegistr
             })
-                .the(function (response) {
+                .then(function (response) {
                     $scope.sref($scope.userRegistr);
                 },
                 function (error) {
@@ -54,9 +54,10 @@ angular
                 {
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
-                .then(function (data) {
+                .then(function (response) {
                     // Cache the access token in session storage.
-                    sessionStorage.setItem(data.userName, data.access_token);
+                    sessionStorage.setItem(response.data.userName, response.data.access_token);
+                     
                     //redirect to home
                     $state.go('home');
                 },

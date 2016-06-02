@@ -72,9 +72,7 @@ namespace outdoor.rocks.Classes
         public Task<UserModel> GetUserModelIfUserAlreadyRegistration(string name)
         {
             //Always for mongo
-            var res = new DbMongo().GetUserModelIfUserAlreadyRegistration(name);
-            return res;
-            
+            return new DbMongo().GetUserModelIfUserAlreadyRegistration(name);
             //return _db.GetUserModelIfUserAlreadyRegistration(name);
         }
 

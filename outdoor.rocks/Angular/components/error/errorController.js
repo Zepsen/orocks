@@ -15,6 +15,11 @@
                 $scope.error.header = "Bad Request";
                 $scope.error.message = "Bad format for id";
                 break;
+            case '401':
+                $scope.error.status = $stateParams.status;
+                $scope.error.header = "No autorized";
+                $scope.error.message = "Authorize please";
+                break;
             case '404':
                 $scope.error.status = $stateParams.status;
                 $scope.error.header = "Not found";
