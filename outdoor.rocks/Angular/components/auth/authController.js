@@ -17,7 +17,7 @@ angular
         };
 
         $scope.login = function () {
-            $scope.sref($scope.userLogin);            
+            $scope.sref($scope.userLogin);
         };
 
         $scope.registration = function () {
@@ -27,12 +27,11 @@ angular
                 url: "/api/Account/Register",
                 data: $scope.userRegistr
             })
-                .success(function (response) {
+                .the(function (response) {
                     $scope.sref($scope.userRegistr);
-                })
-                .error(function (error) {
+                },
+                function (error) {
                     $scope.wrongRegistration = true;
-                    console.log(error);
                 });
 
         };
@@ -42,34 +41,27 @@ angular
             if (sessionStorage.getItem(user.Name) === null) {
                 getToken(user);
             }
-            
             $scope.setUser(user.Name);
-
             $state.go('home');
         };
 
         function getToken(user) {
             var data = "grant_type=password&username=" + user.Name + "&password=" + user.Password;
-            
+
             $http.post(
                 '/Token',
                 data,
                 {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }
-                )
-                .success(function (data) {
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+                .then(function (data) {
                     // Cache the access token in session storage.
                     sessionStorage.setItem(data.userName, data.access_token);
-
                     //redirect to home
                     $state.go('home');
-
-                })
-                .error(function (error) {
-                    console.log("storage" + error)
+                },
+                function (error) {
+                    console.log("storage" + error);
                 });
         }
 

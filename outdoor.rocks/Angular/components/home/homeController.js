@@ -1,6 +1,6 @@
 angular
     .module('ORockApp')
-    .controller('HomeCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+    .controller('HomeCtrl', ['$scope', '$http', '$state','$cookies', function ($scope, $http, $state, $cookies) {
         'use strict';
 
         $scope.regions = null;
@@ -17,30 +17,33 @@ angular
             $http({
                 method: "GET",
                 url: "/api/Trails/"
-            })
-            .success(function (response) {                
-                $scope.trails = response;
+            }).then(
+            function (response) {
+                $scope.trails = response.data;
                 if ($scope.trails.length > 5)
                     $scope.showBtnMore = true;
+            }, 
+            function(error) {
+                $state.go('error', { status: error.status });
             });
         }
 
-        function getRegionsAndCountries() {            
+        function getRegionsAndCountries() {
             $http({
                 method: "GET",
-                url: "/api/Locations/"            
-            })
-            .then(function (response) {                
-                $scope.regions = response.data;                    
-            })
-            .then(function (error) {
-                console.log(error);
+                url: "/api/Locations/"
+            }).then(
+            function (response) {
+                $scope.regions = response.data;
+            },
+            function (error) {
+                $state.go('error', { status: error.status });
             });
         }
-        
 
-        
-        
+
+
+
         //Filters
 
         //Selected region
@@ -57,9 +60,9 @@ angular
 
         //Filters by country
         $scope.selectCountry = function (index) {
-            $scope.filterTrails = $scope.Countries[index];            
+            $scope.filterTrails = $scope.Countries[index];
         }
-                
+
 
         //Add more trails to home pages
         $scope.moreTrails = function () {
@@ -71,12 +74,12 @@ angular
             }
         }
 
-        
-        
-                
+
+
+
         //Load functions
         loadTrails();
         getRegionsAndCountries();
         $scope.checkAuth();
-        
+
     }]);

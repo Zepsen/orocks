@@ -36,11 +36,11 @@ angular
             $http({
                 method: "GET",
                 url: "/api/Filters/"
-            })
-            .success(function (response) {
+            }).then(
+            function (response) {
                 $scope.inputFiltes = response;
-
-                $scope.inputFiltes.Trails.forEach(function (i) {
+                
+                $scope.inputFiltes.data.Trails.forEach(function (i) {
                     searchTrails.push(
                     {
                         "id": i.Id,
@@ -49,7 +49,7 @@ angular
                     });
                 });
 
-                $scope.inputFiltes.Countries.forEach(function (i) {
+                $scope.inputFiltes.data.Countries.forEach(function (i) {
                     searchCountries.push(
                     {
                         "id": i.Id,
@@ -57,10 +57,13 @@ angular
                         "icon": "glyphicon-globe"
                     });
                 });
-
+                
                 $scope.search2RegionsAndTrailsModel = searchTrails.concat(searchCountries);
                 $scope.search2TrailsModel = searchTrails;
 
+            },
+            function (error) {
+                $state.go('error', { status: error.status });
             });
         }
 
@@ -103,8 +106,9 @@ angular
                 $scope.auth.name = res.Name;
                 $scope.auth.status = res.Role;
 
-            }).then(function (error) {
-                console.log(error);
+            },
+            function (error) {
+                $state.go('error', { status: error.status });
             });
         }
 

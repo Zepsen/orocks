@@ -70,10 +70,7 @@ angular
                     initTrailMap($scope.trail.Country);
                 },
                 function (error) {
-                    if (error.status === 404);
-                    $state.go('error', { status: "404" });
-                    if (error.status === 400);
-                    $state.go('error', { status: "400" });
+                    $state.go('error', { status: error.status });
                 });
 
         }
@@ -87,10 +84,9 @@ angular
             .then(
             function (response) {
                 $scope.options = response.data;
-            })
-            .then(
+            },
             function (error) {
-                console.log("Error");
+                $state.go('error', { status: error.status });
             });
         }
 
@@ -109,11 +105,13 @@ angular
                     },
 
             })
-            .then(function (response) {
+            .then(
+            function (response) {
                 $scope.trail = response.data;
-            })
-            .then(function (error) {
-                console.log(error);
+            },
+            function (error) {
+                $state.go('error', { status: error.status });
+
             });
         }
 
