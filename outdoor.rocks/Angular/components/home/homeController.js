@@ -40,10 +40,7 @@ angular
                 $state.go('error', { status: error.status });
             });
         }
-
-
-
-
+        
         //Filters
 
         //Selected region
@@ -73,10 +70,7 @@ angular
                 }
             }
         }
-
-
-
-
+        
         //Load functions
         loadTrails();
         getRegionsAndCountries();

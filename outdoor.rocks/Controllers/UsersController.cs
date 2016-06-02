@@ -32,11 +32,12 @@ namespace outdoor.rocks.Controllers
         }
 
         // GET: api/Users/5
-        public async Task<IHttpActionResult> Get(string id)
+        [Route("api/Users/{name}")]
+        public async Task<IHttpActionResult> Get(string name)
         {
             try
             {
-                var res = await _db.GetUserModelIfUserAlreadyRegistration(id);
+                var res = await _db.GetUserModelIfUserAlreadyRegistration(name);
                 return Ok(res);
             }
             catch (FormatException)

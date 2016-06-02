@@ -41,10 +41,10 @@ namespace outdoor.rocks.Classes.Mongo
             return res;
         }
 
-        public Task<ApplicationUser> GetUserAsync(string id)
+        public Task<ApplicationUser> GetUserAsync(string name)
         {
             var res = Db.GetCollection<ApplicationUser>("users")
-                .FindAsync(i => i.UserName == id).Result.SingleOrDefaultAsync();
+                .FindAsync(i => i.UserName == name).Result.SingleOrDefaultAsync();
             return res;
         }
 

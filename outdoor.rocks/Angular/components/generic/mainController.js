@@ -89,17 +89,18 @@ angular
         $scope.checkAuth = function () {
             if ($scope.user) {
                 $scope.btnLoginShow = false;
-                $scope.getAuthById($scope.user);
+                $scope.getAuthByName($scope.user);
             }
             else {
                 $scope.btnLoginShow = true;
             }
         }
 
-        $scope.getAuthById = function (userName) {
+        $scope.getAuthByName = function (name) {
+             
             $http({
                 method: "GET",
-                url: "/api/Users/" + userName,
+                url: "/api/Users/" + name
             }).then(function (response) {
                 var res = response.data;
                 $scope.auth.id = res.Id;
@@ -108,7 +109,7 @@ angular
 
             },
             function (error) {
-                $state.go('error', { status: error.status });
+                //$state.go('error', { status: error.status });
             });
         }
 

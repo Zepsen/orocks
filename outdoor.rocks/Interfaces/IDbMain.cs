@@ -14,7 +14,7 @@ namespace outdoor.rocks.Interfaces
         Task<List<TrailModel>> GetTrailModelList();
         Task<FilterModel> GetFilterModel();
         Task<FullTrailModel> GetFullTrailModel(string id);
-        Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id);
+        Task<UserModel> GetUserModelIfUserAlreadyRegistration(string name);
         Task UpdateTrailModelOptions(string id, string value);
         Task UpdateComments(string value);
 

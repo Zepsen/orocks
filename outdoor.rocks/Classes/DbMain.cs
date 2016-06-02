@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using MongoDB.Driver;
 using outdoor.rocks.Classes.Azure;
 using outdoor.rocks.Classes.Mongo;
 using outdoor.rocks.Interfaces;
@@ -68,9 +69,13 @@ namespace outdoor.rocks.Classes
             return _db.GetRegionModelList();
         }
 
-        public Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
+        public Task<UserModel> GetUserModelIfUserAlreadyRegistration(string name)
         {
-            return _db.GetUserModelIfUserAlreadyRegistration(id);
+            //Always for mongo
+            var res = new DbMongo().GetUserModelIfUserAlreadyRegistration(name);
+            return res;
+            
+            //return _db.GetUserModelIfUserAlreadyRegistration(name);
         }
 
         public Task UpdateTrailOptions(string id, string value)

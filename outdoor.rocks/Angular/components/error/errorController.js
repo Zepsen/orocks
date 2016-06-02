@@ -20,6 +20,11 @@
                 $scope.error.header = "Not found";
                 $scope.error.message = "Not found by this id";
                 break;
+            case '409':
+                $scope.error.status = $stateParams.status;
+                $scope.error.header = "Conflict";
+                $scope.error.message = "This person exist";
+                break;
             default:
                 $scope.error.status = 0;
                 $scope.error.header = "Undefined exception";

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
@@ -74,9 +75,9 @@ namespace outdoor.rocks.Classes.Azure
             return fullTrailModel;
         }
 
-        public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string id)
+        public async Task<UserModel> GetUserModelIfUserAlreadyRegistration(string name)
         {
-            var user = await _queryToDbAsync.GetUserAsync(id);
+            var user = await _queryToDbAsync.GetUserAsync(name);
             var userModel = _initializeModels.InitUserModel(user);
             return userModel;
         }
@@ -85,7 +86,6 @@ namespace outdoor.rocks.Classes.Azure
         {
             return _queryToDbAsync.UpdateOptionsAsync(id, value);
         }
-
         
 
         public Task UpdateComments(string value)
