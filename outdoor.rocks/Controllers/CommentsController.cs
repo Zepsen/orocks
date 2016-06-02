@@ -17,7 +17,7 @@ namespace outdoor.rocks.Controllers
     public class CommentsController : ApiController
     {
         private IDb _db = new DbMain();
-
+        
         public void SetDb(IDb db)
         {
             _db = db;
@@ -36,7 +36,8 @@ namespace outdoor.rocks.Controllers
         }
 
         // POST: api/Comments
-        [Authorize(Roles = "Admin, User")]        
+        [Authorize(Roles = "Admin, User")]
+        [HttpPost]
         public async Task<IHttpActionResult> Post([FromBody]string value)
         {
             try
