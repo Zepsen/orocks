@@ -16,6 +16,7 @@ using outdoor.rocks.Interfaces;
 using Xunit;
 using Xunit.Abstractions;
 using static outdoor.rocks.Models.MongoModels;
+using System.Net.Http;
 
 namespace outdoor.rocks.Tests
 {
@@ -35,12 +36,12 @@ namespace outdoor.rocks.Tests
             var ctrl = GetTrailsController();
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetTrailModelsList())
-                .Returns(Task.FromResult(new List<TrailModel>()));
+                .Returns(Task.FromResult(new List<TrailModel> {new TrailModel()}));
             ctrl.SetDb(mock.Object);
 
-            var test = ctrl.Get();
-
-            Assert.Equal(typeof(Task<List<TrailModel>>), test.GetType());
+            var test = ctrl.Get().Result as OkNegotiatedContentResult<List<TrailModel>>;
+          
+            Assert.IsType<List<TrailModel>>(test.Content);
         }
 
         [Fact]
@@ -52,9 +53,9 @@ namespace outdoor.rocks.Tests
                 .Returns(Task.FromResult(new FullTrailModel()));
             ctrl.SetDb(mock.Object);
 
-            var test = ctrl.Get("id");
+            var test = ctrl.Get("id").Result as OkNegotiatedContentResult<FullTrailModel>;
 
-            Assert.Equal(typeof(FullTrailModel), test.Result.GetType());
+            Assert.IsType<FullTrailModel>(test.Content);
         }
 
         [Fact]
@@ -65,11 +66,11 @@ namespace outdoor.rocks.Tests
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(Task.FromResult(new FullTrailModel()));
             ctrl.SetDb(mock.Object);
+            FullTrailModel test;
 
-            var test = ctrl.Put("id", "val").Result;
-
-            Assert.True(test.Content.GetType() is FullTrailModel);
-
+            var res = ctrl.Put("id", "val").Result;
+            
+            Assert.True(res.TryGetContentValue<FullTrailModel>(out test));
         }
 
         [Fact]
@@ -78,12 +79,12 @@ namespace outdoor.rocks.Tests
             var ctrl = GetTrailsController();
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
-                .Returns(Task.FromResult(new FullTrailModel()));
+                .Returns(()=> null);
             ctrl.SetDb(mock.Object);
 
-            var test = ctrl.Get("00000000-0000-0000-0000-000000000000");
+            var test = ctrl.Get("00000000-0000-0000-0000-000000000000").Result;
             
-            Assert.IsType<NotFoundResult>(test.Result);
+            Assert.IsType<NotFoundResult>(test);
         }
 
         [Fact]
@@ -92,7 +93,7 @@ namespace outdoor.rocks.Tests
             var ctrl = GetTrailsController();
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
-                .Returns(Task.FromResult(new FullTrailModel()));
+                .Returns(() => { throw new FormatException();});
             ctrl.SetDb(mock.Object);
 
             var test = ctrl.Get("10");

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using Moq;
 using outdoor.rocks.Classes;
 using outdoor.rocks.Controllers;
@@ -18,13 +19,14 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void Get_WhenCall_ReturnFilterModelType()
         {
             var ctrl = GetFiltersController();
-            var mock = new Mock<IDbMain>();
+            var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFilterModel())
                 .Returns(Task.FromResult(new FilterModel()));
+            ctrl.SetDb(mock.Object);
 
-            var test = ctrl.Get();
-
-            Assert.Equal(typeof(Task<FilterModel>), test.GetType());
+            var test = ctrl.Get().Result as OkNegotiatedContentResult<FilterModel>;
+            
+            Assert.IsType<FilterModel>(test.Content);
         }
         
         private static FiltersController GetFiltersController()

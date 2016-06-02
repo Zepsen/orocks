@@ -8,13 +8,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
     [AllowAnonymous]
     public class OptionsController : ApiController
     {
-        private readonly DbMain _db = new DbMain();
+        private IDb _db = new DbMain();
+
+        public void SetDb(IDb db)
+        {
+            _db = db;
+        }
+
         // GET: api/Options
         public async Task<IHttpActionResult> Get()
         {

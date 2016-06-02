@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using Moq;
 using outdoor.rocks.Classes;
 using outdoor.rocks.Controllers;
@@ -16,14 +17,14 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void Get_WhenCall_ReturnOptionModelType()
         {
             var ctrl = GetOptionsController();
-            var mock = new Mock<IDbMain>();
+            var mock = new Mock<IDb>();
             mock.Setup(i => i.GetOptionModel())
                 .Returns(Task.FromResult(new OptionModel()));
+            ctrl.SetDb(mock.Object);
 
-            var test = ctrl.Get();
-
-            Assert.Equal(typeof (Task<OptionModel>), test.GetType());
-
+            var test = ctrl.Get().Result as OkNegotiatedContentResult<OptionModel>;
+            
+            Assert.IsType<OptionModel>(test.Content);
         }
 
         private static OptionsController GetOptionsController()

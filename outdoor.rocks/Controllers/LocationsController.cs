@@ -9,13 +9,19 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
     [AllowAnonymous]
     public class LocationsController : ApiController
     {
-        private readonly DbMain _db = new DbMain();
+        private IDb _db = new DbMain();
+
+        public void SetDb(IDb db)
+        {
+            _db = db;
+        }
 
         // GET: api/Locations
         public async Task<IHttpActionResult> Get()

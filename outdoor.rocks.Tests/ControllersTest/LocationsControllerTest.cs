@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using Moq;
 using outdoor.rocks.Classes;
 using outdoor.rocks.Controllers;
@@ -19,13 +20,14 @@ namespace outdoor.rocks.Tests.ControllersTest
         public void Get_WhenCall_ReturnRegionModelType()
         {
             var ctrl = GetLocationsController();
-            var mock = new Mock<IDbMain>();
+            var mock = new Mock<IDb>();
             mock.Setup(i => i.GetRegionModelList())
                 .Returns(Task.FromResult(new List<RegionModel>()));
+            ctrl.SetDb(mock.Object);
 
-            var test = ctrl.Get();
-
-            Assert.Equal(typeof(Task<List<RegionModel>>), test.GetType());
+            var test = ctrl.Get().Result as OkNegotiatedContentResult<List<RegionModel>>;
+            
+            Assert.IsType<List<RegionModel>>(test.Content);
         }
         
         private static LocationsController GetLocationsController()

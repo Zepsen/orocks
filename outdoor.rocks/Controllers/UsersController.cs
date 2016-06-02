@@ -11,13 +11,19 @@ using System.Web.Http;
 using outdoor.rocks.Classes;
 using System.Threading.Tasks;
 using outdoor.rocks.Classes.Mongo;
+using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
     [AllowAnonymous]
     public class UsersController : ApiController
     {
-        private readonly DbMongo _db = new DbMongo();
+        private IDb _db = new DbMain();
+
+        public void SetDb(IDb db)
+        {
+            _db = db;
+        }
 
         // GET: api/Users
         public IEnumerable<string> Get()

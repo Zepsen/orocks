@@ -9,12 +9,18 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
     public class FiltersController : ApiController
     {
-        private readonly DbMain _db = new DbMain();
+        private IDb _db = new DbMain();
+
+        public void SetDb(IDb db)
+        {
+            _db = db;
+        }
 
         [AllowAnonymous]
         // GET: api/Filters
