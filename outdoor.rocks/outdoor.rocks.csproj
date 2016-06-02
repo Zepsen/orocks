@@ -326,6 +326,8 @@
     <Content Include="Angular\components\auth\formValidationsDirective.js" />
     <Content Include="Angular\components\auth\templates\login.html" />
     <Content Include="Angular\components\auth\templates\registration.html" />
+    <Content Include="Angular\components\error\errorController.js" />
+    <Content Include="Angular\components\error\templates\error.html" />
     <Content Include="Angular\components\generic\mainController.js" />
     <Content Include="Angular\components\home\homeController.js" />
     <Content Include="Angular\components\home\templates\home.html" />

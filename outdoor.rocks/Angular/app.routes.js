@@ -1,7 +1,5 @@
 angular.module('ORockApp')
-    .config([
-        '$stateProvider',
-        '$urlRouterProvider',
+    .config(['$stateProvider','$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
 
             $urlRouterProvider.otherwise('/');
@@ -33,8 +31,8 @@ angular.module('ORockApp')
                     controller: 'AdminCtrl'
                 })
                 .state('error', {
-                    url: '/error',
+                    url: '/error/:status',
                     templateUrl: '../Angular/components/error/templates/error.html',
                     controller: 'ErrorCtrl'
-                });
+                })
         }]);

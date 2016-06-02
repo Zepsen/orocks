@@ -1,7 +1,6 @@
-﻿angular
-    .module('ORockApp')
-    .controller('HomeCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
-        'use strict';
-        
+﻿
+angular.module("ORockApp")
+    .controller("AdminCtrl",  function () {
+        alert(1);
 
-    }]);
+    });

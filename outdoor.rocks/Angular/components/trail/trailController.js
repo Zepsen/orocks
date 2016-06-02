@@ -1,17 +1,17 @@
 angular
-    .module("ORockApp")    
-    .controller("TrailCtrl", ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+    .module("ORockApp")
+    .controller("TrailCtrl", ['$scope', '$http', '$state', '$stateParams', function ($scope, $http, $state, $stateParams) {
         'use strict';
-               
+
 
         $scope.trail = [];
         $scope.options = [];
 
         $scope.slickConfig = {
-            infinite : true,       
-            slidesToShow : 4,
-            slidesToScroll : 4,
-            responsive : [
+            infinite: true,
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            responsive: [
               {
                   breakpoint: 1024,
                   settings: {
@@ -34,9 +34,9 @@ angular
                       slidesToShow: 1,
                       slidesToScroll: 1
                   }
-              }          
+              }
             ]
-        }; 
+        };
 
         $scope.updateTrail = {
             Distance: "",
@@ -49,8 +49,8 @@ angular
             Type: "",
             DurationType: ""
         };
-        
-        
+
+
 
         function initTrailMap(country) {
             COUNTRY = country || "USA";
@@ -64,13 +64,18 @@ angular
                 method: "GET",
                 url: "/api/Trails/" + $stateParams.id
             })
-           .then(function (response) {
-               $scope.trail = response.data;
-               initTrailMap($scope.trail.Country);
-           })
-            .then(function (error) {
-                console.log(error);
-            });
+                .then(
+                function (response) {
+                    $scope.trail = response.data;
+                    initTrailMap($scope.trail.Country);
+                },
+                function (error) {
+                    if (error.status === 404);
+                    $state.go('error', { status: "404" });
+                    if (error.status === 400);
+                    $state.go('error', { status: "400" });
+                });
+
         }
 
         //Get to all options by update
@@ -88,7 +93,7 @@ angular
                 console.log("Error");
             });
         }
-            
+
 
         //Update trails and return  update trail
         $scope.submitUpdateTrail = function () {
@@ -121,7 +126,7 @@ angular
 
         $scope.imgStar = [starPathUnselect, starPathUnselect, starPathUnselect, starPathUnselect, starPathUnselect];
         $scope.IfRateChose = false;
-        
+
         //rating stars          
         $scope.mEnterStars = function (stars) {
             if ($scope.IfRateChos) {
@@ -172,7 +177,7 @@ angular
             Rate: 0
         }
 
-        $scope.postComment = function () {            
+        $scope.postComment = function () {
             $http({
                 method: "POST",
                 url: "/api/Comments/",
@@ -185,10 +190,10 @@ angular
 
             })
             .success(function (response) {
-                $scope.updateComments();               
+                $scope.updateComments();
             })
             .error(function (error) {
-                console.log(error);                
+                console.log(error);
             });
 
         }
@@ -205,23 +210,23 @@ angular
 
         //Auth
         function checkAuthTrail() {
-            var auth = $scope.getAuth();            
+            var auth = $scope.getAuth();
 
             $scope.isAdmin = auth.status === 'Admin';
-            $scope.isUser = auth.status === 'Admin' || $scope.auth.status === 'User';           
+            $scope.isUser = auth.status === 'Admin' || $scope.auth.status === 'User';
         }
 
 
         //Show full size img by click 
-        $scope.clickImg = function(index) {            
-            $("#imgModal").attr('src', $('#gal' + index).attr('data-img-url'));            
+        $scope.clickImg = function (index) {
+            $("#imgModal").attr('src', $('#gal' + index).attr('data-img-url'));
         };
-                
+
 
         //Load functions
         loadTrail();
-        loadOptions();        
+        loadOptions();
         checkAuthTrail();
 
-        
+
     }]);
