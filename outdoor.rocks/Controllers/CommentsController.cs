@@ -39,7 +39,7 @@ namespace outdoor.rocks.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(HttpStatusCode.NotImplemented);
+                return StatusCode(HttpStatusCode.Forbidden);
             }
         }
 

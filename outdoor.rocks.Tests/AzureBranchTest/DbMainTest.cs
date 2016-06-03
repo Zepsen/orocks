@@ -9,7 +9,7 @@ namespace outdoor.rocks.Tests.AzureBranchTest
     public class DbMainTest
     {
         [Fact]
-        public void GetTrailModelsList_ReturnCorrectodel()
+        public void GetTrailModelsList_ReturnCorrectModel()
         {
             //Arrange
             var classTest = new DbMain();
@@ -23,7 +23,7 @@ namespace outdoor.rocks.Tests.AzureBranchTest
         }
 
         [Fact]
-        public void GetFullTrailModel_ReturnCorrectodel()
+        public void GetFullTrailModel_ReturnCorrectModel()
         {
             //Arrange
             var classTest = new DbMain();

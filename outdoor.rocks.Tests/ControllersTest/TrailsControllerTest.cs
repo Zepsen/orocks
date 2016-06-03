@@ -113,7 +113,7 @@ namespace outdoor.rocks.Tests
         }
 
         [Fact]
-        public void Post_WhenIdFormatNotSupportAzureTrail_ReturnsBadRequestResult()
+        public void Post_WhenIdFormatBadFormatInAzureTrail_ReturnsBadRequestResult()
         {
             //Arrange
             var mock = new Mock<IDb>();

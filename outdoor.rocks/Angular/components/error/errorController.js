@@ -28,7 +28,12 @@
             case '409':
                 $scope.error.status = $stateParams.status;
                 $scope.error.header = "Conflict";
-                $scope.error.message = "This person exist";
+                $scope.error.message = "This data already exist in database";
+                break;
+            case '500':
+                $scope.error.status = $stateParams.status;
+                $scope.error.header = "Server error";
+                $scope.error.message = "Internal server error";
                 break;
             default:
                 $scope.error.status = 0;
