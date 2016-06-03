@@ -33,108 +33,123 @@ namespace outdoor.rocks.Tests
         [Fact]
         public void Get_WhenCall_ReturnsListTrailsModelType()
         {
-            var ctrl = GetTrailsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetTrailModelsList())
                 .Returns(Task.FromResult(new List<TrailModel> {new TrailModel()}));
-            ctrl.SetDb(mock.Object);
 
+            var ctrl = GetTrailsController(mock.Object);
+
+            //Act
             var test = ctrl.Get().Result as OkNegotiatedContentResult<List<TrailModel>>;
           
+            //Assert
             Assert.IsType<List<TrailModel>>(test.Content);
         }
 
         [Fact]
         public void GetWhithId_WhenCall_ReturnsFullTrailsModelType()
         {
-            var ctrl = GetTrailsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(Task.FromResult(new FullTrailModel()));
-            ctrl.SetDb(mock.Object);
+            var ctrl = GetTrailsController(mock.Object);
 
+            //Act
             var test = ctrl.Get("id").Result as OkNegotiatedContentResult<FullTrailModel>;
 
+            //Assert
             Assert.IsType<FullTrailModel>(test.Content);
         }
 
         [Fact]
         public void Put_WhenCall_ReturnsFullTrailsModelType()
         {
-            var ctrl = GetTrailsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(Task.FromResult(new FullTrailModel()));
-            ctrl.SetDb(mock.Object);
+            var ctrl = GetTrailsController(mock.Object);
             FullTrailModel test;
 
+            //Act
             var res = ctrl.Put("id", "val").Result;
             
+            //Assert
             Assert.True(res.TryGetContentValue<FullTrailModel>(out test));
         }
 
         [Fact]
         public void GetById_WhenNotFoundAzureTrail_ReturnsNotFoundResult()
         {
-            var ctrl = GetTrailsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(()=> null);
-            ctrl.SetDb(mock.Object);
+            var ctrl = GetTrailsController(mock.Object);
 
+            //Act
             var test = ctrl.Get("00000000-0000-0000-0000-000000000000").Result;
             
+            //Assert
             Assert.IsType<NotFoundResult>(test);
         }
 
         [Fact]
         public void GetById_WhenIdFormatNotSupportAzureTrail_ReturnsBadRequestResult()
         {
-            var ctrl = GetTrailsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(() => { throw new FormatException();});
-            ctrl.SetDb(mock.Object);
+            var ctrl = GetTrailsController(mock.Object);
 
+            //Act
             var test = ctrl.Get("10");
             
+            //Assert
             Assert.IsType<BadRequestResult>(test.Result);
         }
 
         [Fact]
         public void Post_WhenIdFormatNotSupportAzureTrail_ReturnsBadRequestResult()
         {
-            var ctrl = GetTrailsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(() => { throw new FormatException(); });
-            ctrl.SetDb(mock.Object);
+            var ctrl = GetTrailsController(mock.Object);
 
+            //Act
             var test = ctrl.Put("10", "A");
             
+            //Assert
             Assert.True(test.Result.StatusCode == HttpStatusCode.BadRequest);
         }
 
         [Fact]
         public void Post_WhenNotFoundModifiededAzureTrail_ReturnsNotFoundResult()
         {
-            var ctrl = GetTrailsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(Task.FromResult(new FullTrailModel()));
             mock.Setup(i => i.UpdateTrailOptions(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(() => null);
-            ctrl.SetDb(mock.Object);
+            var ctrl = GetTrailsController(mock.Object);
 
+            //Act
             var test = ctrl.Put("00000000-0000-0000-0000-000000000000", "A");
             
+            //Assert
             Assert.Equal(HttpStatusCode.NotFound, test.Result.StatusCode);
         }
 
         [Fact]
         public void Post_WhenNoDataToModifiededAzureTrail_ReturnsNotModifiedResult()
         {
-            var ctrl = GetTrailsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(Task.FromResult(new FullTrailModel()));
@@ -142,16 +157,18 @@ namespace outdoor.rocks.Tests
                 .Returns(() => {throw new Exception();});
             mock.Setup(i => i.IsTrailExist(It.IsAny<string>()))
                 .Returns(() => true);
-            ctrl.SetDb(mock.Object);
+            var ctrl = GetTrailsController(mock.Object);
 
+            //Act
             var test = ctrl.Put("11111111-1111-1111-1111-111111111111", "A");
 
+            //Assert
             Assert.Equal(HttpStatusCode.NotModified, test.Result.StatusCode);
         }
 
-        private static TrailsController GetTrailsController()
+        private static TrailsController GetTrailsController(IDb db = null)
         {
-            return new TrailsController();
+            return new TrailsController(db);
         }
     }
 

@@ -15,14 +15,15 @@ namespace outdoor.rocks.Controllers
 {
     public class FiltersController : ApiController
     {
-        private IDb _db = new DbMain();
+        private readonly IDb _db;
 
-        public void SetDb(IDb db)
+        public FiltersController(IDb db = null)
         {
-            _db = db;
+            _db = db ?? new DbMain();
         }
 
         [AllowAnonymous]
+        [HttpGet]
         // GET: api/Filters
         public async Task<IHttpActionResult> Get()
         {
@@ -36,26 +37,5 @@ namespace outdoor.rocks.Controllers
                 return NotFound();
             }
         }    
-
-        // GET: api/Filters/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Filters
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Filters/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Filters/5
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -16,20 +16,23 @@ namespace outdoor.rocks.Tests.ControllersTest
         [Fact]
         public void Get_WhenCall_ReturnOptionModelType()
         {
-            var ctrl = GetOptionsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetOptionModel())
                 .Returns(Task.FromResult(new OptionModel()));
-            ctrl.SetDb(mock.Object);
 
+            var ctrl = GetOptionsController(mock.Object);
+
+            //Act
             var test = ctrl.Get().Result as OkNegotiatedContentResult<OptionModel>;
             
+            //Assert
             Assert.IsType<OptionModel>(test.Content);
         }
 
-        private static OptionsController GetOptionsController()
+        private static OptionsController GetOptionsController(IDb db = null)
         {
-            return new OptionsController();
+            return new OptionsController(db);
         }
     }
 }

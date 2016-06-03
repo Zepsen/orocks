@@ -18,26 +18,20 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class UsersController : ApiController
     {
-        private IDb _db = new DbMain();
-
-        public void SetDb(IDb db)
+        private readonly IDb _db;
+        public UsersController(IDb db = null)
         {
-            _db = db;
-        }
-
-        // GET: api/Users
-        public IEnumerable<string> Get()
-        {
-            return null;
+            _db = db ?? new DbMain();
         }
 
         // GET: api/Users/5
-        [Route("api/Users/{name}")]
-        public async Task<IHttpActionResult> Get(string name)
+        //[Route("api/Users/{name}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> Get(string id)
         {
             try
             {
-                var res = await _db.GetUserModelIfUserAlreadyRegistration(name);
+                var res = await _db.GetUserModelIfUserAlreadyRegistration(id);
                 return Ok(res);
             }
             catch (FormatException)
@@ -48,22 +42,6 @@ namespace outdoor.rocks.Controllers
             {
                 return NotFound();
             }
-        }
-
-        // POST: api/Users
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Users/5
-        public void Put(string id, [FromBody]string value)
-        {
-            
-        }
-
-        // DELETE: api/Users/5
-        public void Delete(int id)
-        {
         }
     }
 }

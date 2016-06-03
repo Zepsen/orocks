@@ -15,14 +15,14 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class OptionsController : ApiController
     {
-        private IDb _db = new DbMain();
-
-        public void SetDb(IDb db)
+        private readonly IDb _db;
+        public OptionsController(IDb db = null)
         {
-            _db = db;
+            _db = db ?? new DbMain();
         }
 
         // GET: api/Options
+        [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
             try
@@ -34,29 +34,6 @@ namespace outdoor.rocks.Controllers
             {
                 return NotFound();
             }
-        }
-
-       
-        // GET: api/Options/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Options
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Options/5
-        public void Put(int id, [FromBody]JObject value)
-        {
-           
-        }
-
-        // DELETE: api/Options/5
-        public void Delete(int id)
-        {
         }
     }
 }

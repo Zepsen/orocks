@@ -17,14 +17,14 @@ namespace outdoor.rocks.Controllers
 
     public class TrailsController : ApiController
     {
-        private IDb _db = new DbMain();
-
-        public void SetDb(IDb db)
+        private readonly IDb _db;
+        public TrailsController(IDb db = null)
         {
-            _db = db;
+            _db = db ?? new DbMain();
         }
 
         // GET: api/Trails
+        [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
             var res = await _db.GetTrailModelsList();
@@ -36,6 +36,7 @@ namespace outdoor.rocks.Controllers
         }
 
         // GET: api/Trails/ObjectId
+        [HttpGet]
         public async Task<IHttpActionResult> Get(string id)
         {
             try
@@ -57,14 +58,9 @@ namespace outdoor.rocks.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
-        // POST: api/Trails
-        public void Post([FromBody]string value)
-        {
-
-        }
-
+        
         [Authorize(Roles = "Admin")]
+        [HttpPut]
         // PUT: api/Trails/5
         public async Task<HttpResponseMessage> Put(string id, [FromBody]string value)
         {
@@ -93,12 +89,6 @@ namespace outdoor.rocks.Controllers
                 return new HttpResponseMessage(HttpStatusCode.NotModified);
                 //return StatusCode(HttpStatusCode.NotModified);
             }
-        }
-
-        // DELETE: api/Trails/5
-        public void Delete(string id)
-        {
-
         }
     }
 }

@@ -16,25 +16,12 @@ namespace outdoor.rocks.Controllers
 {
     public class CommentsController : ApiController
     {
-        private IDb _db = new DbMain();
-        
-        public void SetDb(IDb db)
+        private readonly IDb _db;
+        public CommentsController(IDb db = null)
         {
-            _db = db;
+            _db = db ?? new DbMain();
         }
-
-        // GET: api/Comments
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Comments/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
+      
         // POST: api/Comments
         [Authorize(Roles = "Admin, User")]
         [HttpPost]
@@ -50,17 +37,8 @@ namespace outdoor.rocks.Controllers
                 return StatusCode(HttpStatusCode.NotImplemented);
             }
         }
-                
 
-        // PUT: api/Comments/5
-        public void Put(int id, [FromBody]string value)
-        {
+       
 
-        }
-
-        // DELETE: api/Comments/5
-        public void Delete(int id)
-        {
-        }
     }
 }

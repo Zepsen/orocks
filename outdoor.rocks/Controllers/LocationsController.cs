@@ -16,14 +16,14 @@ namespace outdoor.rocks.Controllers
     [AllowAnonymous]
     public class LocationsController : ApiController
     {
-        private IDb _db = new DbMain();
-
-        public void SetDb(IDb db)
+        private readonly IDb _db;
+        public LocationsController(IDb db = null)
         {
-            _db = db;
+            _db = db ?? new DbMain();
         }
 
         // GET: api/Locations
+        [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
             try
@@ -37,25 +37,5 @@ namespace outdoor.rocks.Controllers
             }
         }
         
-        // GET: api/Locations/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Locations
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Locations/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Locations/5
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -19,20 +19,23 @@ namespace outdoor.rocks.Tests.ControllersTest
         [Fact]
         public void Get_WhenCall_ReturnRegionModelType()
         {
-            var ctrl = GetLocationsController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetRegionModelList())
                 .Returns(Task.FromResult(new List<RegionModel>()));
-            ctrl.SetDb(mock.Object);
 
+            var ctrl = GetLocationsController();
+
+            //Act
             var test = ctrl.Get().Result as OkNegotiatedContentResult<List<RegionModel>>;
             
+            //Assert
             Assert.IsType<List<RegionModel>>(test.Content);
         }
         
-        private static LocationsController GetLocationsController()
+        private static LocationsController GetLocationsController(IDb db = null)
         {
-            return new LocationsController();
+            return new LocationsController(db);
         }
     }
 }

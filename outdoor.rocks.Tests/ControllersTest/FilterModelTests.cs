@@ -18,20 +18,23 @@ namespace outdoor.rocks.Tests.ControllersTest
         [Fact]
         public void Get_WhenCall_ReturnFilterModelType()
         {
-            var ctrl = GetFiltersController();
+            //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFilterModel())
                 .Returns(Task.FromResult(new FilterModel()));
-            ctrl.SetDb(mock.Object);
 
+            var ctrl = GetFiltersController(mock.Object);
+
+            //Act
             var test = ctrl.Get().Result as OkNegotiatedContentResult<FilterModel>;
             
+            //Assert
             Assert.IsType<FilterModel>(test.Content);
         }
         
-        private static FiltersController GetFiltersController()
+        private static FiltersController GetFiltersController(IDb db = null)
         {
-            return new FiltersController();
+            return new FiltersController(db);
         }
     }
 }
