@@ -16,7 +16,13 @@ namespace outdoor.rocks.Controllers
     public class OptionsController : ApiController
     {
         private readonly IDb _db;
-        public OptionsController(IDb db = null)
+
+        public OptionsController()
+        {
+            _db = new DbMain();
+        }
+
+        public OptionsController(IDb db)
         {
             _db = db ?? new DbMain();
         }

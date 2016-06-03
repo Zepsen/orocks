@@ -18,7 +18,13 @@ namespace outdoor.rocks.Controllers
     public class TrailsController : ApiController
     {
         private readonly IDb _db;
-        public TrailsController(IDb db = null)
+
+        public TrailsController()
+        {
+            _db = new DbMain();
+        }
+
+        public TrailsController(IDb db)
         {
             _db = db ?? new DbMain();
         }

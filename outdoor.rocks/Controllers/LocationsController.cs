@@ -17,7 +17,13 @@ namespace outdoor.rocks.Controllers
     public class LocationsController : ApiController
     {
         private readonly IDb _db;
-        public LocationsController(IDb db = null)
+
+        public LocationsController()
+        {
+            _db = new DbMain();
+        }
+
+        public LocationsController(IDb db)
         {
             _db = db ?? new DbMain();
         }

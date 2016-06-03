@@ -19,7 +19,13 @@ namespace outdoor.rocks.Controllers
     public class UsersController : ApiController
     {
         private readonly IDb _db;
-        public UsersController(IDb db = null)
+
+        public UsersController()
+        {
+            _db = new DbMain();
+        }
+
+        public UsersController(IDb db)
         {
             _db = db ?? new DbMain();
         }

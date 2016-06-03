@@ -17,7 +17,12 @@ namespace outdoor.rocks.Controllers
     public class CommentsController : ApiController
     {
         private readonly IDb _db;
-        public CommentsController(IDb db = null)
+
+        public CommentsController()
+        {
+            _db = new DbMain();
+        }
+        public CommentsController(IDb db)
         {
             _db = db ?? new DbMain();
         }

@@ -17,7 +17,12 @@ namespace outdoor.rocks.Controllers
     {
         private readonly IDb _db;
 
-        public FiltersController(IDb db = null)
+        public FiltersController()
+        {
+            _db = new DbMain();
+        }
+
+        public FiltersController(IDb db)
         {
             _db = db ?? new DbMain();
         }
