@@ -5,21 +5,21 @@ using System.Web;
 
 namespace outdoor.rocks.Filters
 {
-    public class TrailsNotFoundException : Exception
+    public class NotFoundException : Exception
     {
-        public TrailsNotFoundException(string message) : base(message) { }
-        public TrailsNotFoundException(string message, Exception ex) : base(message, ex) { }
+        public NotFoundException(string message) : base(message) { }
+        public NotFoundException(string message, Exception ex) : base(message, ex) { }
     }
 
-    public class TrailNotFoundByIdException : Exception
+    public class NotFoundByIdException : Exception
     {
-        public TrailNotFoundByIdException(string message) : base(message) { }
-        public TrailNotFoundByIdException(string message, Exception ex) : base(message, ex) { }
+        public NotFoundByIdException(string message) : base(message) { }
+        public NotFoundByIdException(string message, Exception ex) : base(message, ex) { }
     }
 
-    public class TrailIdFormatException : Exception
+    public class IdFormatException : Exception
     {
-        public TrailIdFormatException(string message) : base(message) { }
-        public TrailIdFormatException(string message, Exception ex) : base(message, ex) { }
+        public IdFormatException(string message) : base(message) { }
+        public IdFormatException(string message, Exception ex) : base(message, ex) { }
     }
 }

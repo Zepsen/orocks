@@ -40,8 +40,7 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             var res = Task.FromResult(query.SingleOrDefault());
-
-            ThrowExceptionIfTrailsNull(res.Result);
+            ThrowExceptionIfObjectNull(res.Result);
             return res;
         }
 
@@ -56,7 +55,9 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Users" && entity.Id == guid
                         select entity;
 
-            return Task.FromResult(query.SingleOrDefault());
+            var res = Task.FromResult(query.SingleOrDefault());
+            ThrowExceptionIfObjectNull(res.Result);
+            return res;
         }
 
         public Task<List<Comments>> GetCommentsListAsync()
@@ -160,6 +161,7 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Options" && entity.Id == id
                         select entity;
 
+
             return Task.FromResult(query.SingleOrDefault());
         }
 
@@ -209,17 +211,17 @@ namespace outdoor.rocks.Classes.Azure
 
 
             if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
-                option.SeasonStartId = ObjectId.Parse(update.SeasonStart.Id.Value);
+                option.SeasonStartId = Guid.Parse(update.SeasonStart.Id.Value);
 
             if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
-                option.SeasonEndId = ObjectId.Parse(update.SeasonEnd.Id.Value);
+                option.SeasonEndId = Guid.Parse(update.SeasonEnd.Id.Value);
 
 
             if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
-                option.TrailTypeId = ObjectId.Parse(update.Type.Id.Value);
+                option.TrailTypeId = Guid.Parse(update.Type.Id.Value);
 
             if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
-                option.TrailDurationTypeId = ObjectId.Parse(update.DurationType.Id.Value);
+                option.TrailDurationTypeId = Guid.Parse(update.DurationType.Id.Value);
 
             option.GoodForKids = update.GoodForKids.Value;
             option.DogAllowed = update.DogAllowed.Value;
@@ -237,16 +239,16 @@ namespace outdoor.rocks.Classes.Azure
             }
             catch (FormatException)
             {
-                throw new TrailIdFormatException("Bad format for GUID");
+                throw new IdFormatException("Bad format for GUID");
             }
 
             return guid;
         }
 
-        private static void ThrowExceptionIfTrailsNull(Trails res)
+        private static void ThrowExceptionIfObjectNull<T>(T res)  where T : class
         {
             if (res == null)
-                throw new TrailNotFoundByIdException("Not found trail by this id");
+                throw new NotFoundByIdException("Not found trail by this id");
         }
     }
 }

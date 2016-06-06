@@ -9,13 +9,16 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
+    [CustomHandlerFilterError]
     public class FiltersController : ApiController
     {
         private readonly IDb _db;
+        private readonly CustomExceptionService _exceptionService = new CustomExceptionService();
 
         public FiltersController()
         {
@@ -37,10 +40,12 @@ namespace outdoor.rocks.Controllers
                 var res = await _db.GetFilterModel();
                 return Ok(res);
             }
-            catch (Exception)
+            catch (NotFoundException ex)
             {
-                return NotFound();
+                _exceptionService.NotFoundException(ex.Message);
             }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }    
     }
 }

@@ -7,19 +7,19 @@ namespace outdoor.rocks.Filters
 {
     public class CustomExceptionService
     {
-        public void ThrowTrailsNotFoundException()
+        public void NotFoundException(string message)
         {
-            throw new TrailsNotFoundException("Trails not found.");
+            throw new NotFoundException(message);
         }
 
-        public void TrailNotFoundByIdException()
+        public void NotFoundByIdException(string message)
         {
-            throw new TrailNotFoundByIdException("Not found Trail by this Id.");
+            throw new NotFoundByIdException(message);
         }
-
-        public void TrailIdFormatException()
+        
+        public void IdFormatException(string message)
         {
-            throw new TrailIdFormatException("Bad Trail Id format.");
+            throw new IdFormatException(message);
         }
 
         

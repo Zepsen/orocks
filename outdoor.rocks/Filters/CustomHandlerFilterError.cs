@@ -12,17 +12,12 @@ namespace outdoor.rocks.Filters
     {
         public override void OnException(HttpActionExecutedContext context)
         {
-            if (context.Exception is NotImplementedException)
-            {
-                context.Response = new HttpResponseMessage(HttpStatusCode.NotImplemented);
-            }
-
-            if (context.Exception is TrailIdFormatException)
+            if (context.Exception is IdFormatException)
             {
                 context.Response = new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
-            if (context.Exception is TrailsNotFoundException)
+            if (context.Exception is NotFoundException)
             {
                 context.Response = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
@@ -30,7 +25,7 @@ namespace outdoor.rocks.Filters
                 };
             }
 
-            if (context.Exception is TrailNotFoundByIdException)
+            if (context.Exception is NotFoundByIdException)
             {
                 context.Response = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
@@ -38,7 +33,10 @@ namespace outdoor.rocks.Filters
                 };
             }
 
-
+            if (context.Exception is NotImplementedException)
+            {
+                context.Response = new HttpResponseMessage(HttpStatusCode.NotImplemented);
+            }
         }
     }
 }

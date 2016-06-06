@@ -35,14 +35,17 @@ namespace outdoor.rocks.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
-            var res = await _db.GetTrailModelsList();
+            try
+            {
+                var res = await _db.GetTrailModelsList();
+                return Ok(res);
+            }
+            catch (NotFoundException ex)
+            {
+                _exceptionService.NotFoundException(ex.Message);
+            }
 
-            if (res.Count == 0)
-                _exceptionService.ThrowTrailsNotFoundException();
-
-            return Ok(res);
-
-            //return NotFound();
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // GET: api/Trails/ObjectId
@@ -54,13 +57,13 @@ namespace outdoor.rocks.Controllers
                 var res = await _db.GetFullTrailModel(id);
                 return Ok(res);
             }
-            catch (TrailIdFormatException)
+            catch (IdFormatException ex)
             {
-                _exceptionService.TrailIdFormatException();
+                _exceptionService.IdFormatException(ex.Message);
             }
-            catch (TrailNotFoundByIdException)
+            catch (NotFoundByIdException ex)
             { 
-                _exceptionService.TrailNotFoundByIdException();
+                _exceptionService.NotFoundByIdException(ex.Message);
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -75,27 +78,27 @@ namespace outdoor.rocks.Controllers
             {
                 await _db.UpdateTrailOptions(id, value);
                 var res = await _db.GetFullTrailModel(id);
-                //return Ok(res);
+               
                 return new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.Accepted,
-                    Content = new ObjectContent(typeof(FullTrailModel), res, new JsonMediaTypeFormatter())
+                    Content = new ObjectContent(typeof (FullTrailModel), res, new JsonMediaTypeFormatter())
                 };
             }
-            catch (FormatException)
+            catch (IdFormatException ex)
             {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                _exceptionService.IdFormatException(ex.Message);
             }
-            catch (Exception)
+            catch (NotFoundByIdException ex)
             {
-                if (!_db.IsTrailExist(id))
-                {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
-                }
+                _exceptionService.NotFoundByIdException(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                _exceptionService.NotFoundException(ex.Message);
+            }
 
-                return new HttpResponseMessage(HttpStatusCode.NotModified);
-                //return StatusCode(HttpStatusCode.NotModified);
-            }
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
     }
 }

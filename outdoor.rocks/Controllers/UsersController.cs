@@ -11,14 +11,17 @@ using System.Web.Http;
 using outdoor.rocks.Classes;
 using System.Threading.Tasks;
 using outdoor.rocks.Classes.Mongo;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
     [AllowAnonymous]
+    [CustomHandlerFilterError]
     public class UsersController : ApiController
     {
         private readonly IDb _db;
+        private readonly CustomExceptionService _exceptionService = new CustomExceptionService();
 
         public UsersController()
         {
@@ -44,10 +47,12 @@ namespace outdoor.rocks.Controllers
             {
                 return BadRequest();
             }
-            catch (Exception)
+            catch (NotFoundException ex)
             {
-                return NotFound();
+                _exceptionService.NotFoundException(ex.Message);
             }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }
