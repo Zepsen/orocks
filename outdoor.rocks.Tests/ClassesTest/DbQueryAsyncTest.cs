@@ -19,7 +19,7 @@ namespace outdoor.rocks.Tests.ClassesTest
             var classTest = new DbAzureQueryAsync();
             
             var res = classTest.InsertCommentsAsync("");
-            Assert.True(res.IsCompleted);
+            Assert.True(!res.IsCompleted);
         }
     }
 }

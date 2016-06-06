@@ -19,7 +19,7 @@ namespace outdoor.rocks.Models
         {
             var storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
 
-            IRetryPolicy police = new ExponentialRetry(TimeSpan.FromSeconds(3), 5);
+            IRetryPolicy police = new ExponentialRetry(TimeSpan.FromSeconds(1), 1);
             var table = storageAccount.CreateCloudTableClient();
             table.DefaultRequestOptions.RetryPolicy = police;
             return table;

@@ -17,6 +17,7 @@ using Xunit;
 using Xunit.Abstractions;
 using static outdoor.rocks.Models.MongoModels;
 using System.Net.Http;
+using outdoor.rocks.Filters;
 
 namespace outdoor.rocks.Tests
 {
@@ -102,14 +103,14 @@ namespace outdoor.rocks.Tests
             //Arrange
             var mock = new Mock<IDb>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
-                .Returns(() => { throw new FormatException();});
+                .Returns(() => { throw new IdFormatException("Bad id");});
             var ctrl = GetTrailsController(mock.Object);
 
             //Act
             var test = ctrl.Get("10");
             
             //Assert
-            Assert.IsType<BadRequestResult>(test.Result);
+            Assert.IsType<BadRequestResult>(test);
         }
 
         [Fact]
