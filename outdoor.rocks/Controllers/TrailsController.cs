@@ -10,14 +10,16 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
-
+    [CustomHandlerFilterError]
     public class TrailsController : ApiController
     {
         private readonly IDb _db;
+        private readonly CustomExceptionService _exceptionService = new CustomExceptionService();
 
         public TrailsController()
         {
@@ -35,10 +37,12 @@ namespace outdoor.rocks.Controllers
         {
             var res = await _db.GetTrailModelsList();
 
-            if (res.Count > 0)
-                return Ok(res);
+            if (res.Count == 0)
+                _exceptionService.ThrowTrailsNotFoundException();
 
-            return NotFound();
+            return Ok(res);
+
+            //return NotFound();
         }
 
         // GET: api/Trails/ObjectId
@@ -50,20 +54,16 @@ namespace outdoor.rocks.Controllers
                 var res = await _db.GetFullTrailModel(id);
                 return Ok(res);
             }
-            catch (FormatException)
+            catch (TrailIdFormatException)
             {
-                return BadRequest();
+                _exceptionService.TrailIdFormatException();
             }
-            catch (Exception)
+            catch (TrailNotFoundByIdException)
             { 
-                if (!_db.IsTrailExist(id))
-                {
-                    return NotFound();
-                }
-
-                return StatusCode(HttpStatusCode.NoContent);
+                _exceptionService.TrailNotFoundByIdException();
             }
-            
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
         
         [Authorize(Roles = "Admin")]

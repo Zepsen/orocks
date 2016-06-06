@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web;
+using System.Web.Http.Filters;
+
+namespace outdoor.rocks.Filters
+{
+    public class CustomHandlerFilterError : ExceptionFilterAttribute
+    {
+        public override void OnException(HttpActionExecutedContext context)
+        {
+            if (context.Exception is NotImplementedException)
+            {
+                context.Response = new HttpResponseMessage(HttpStatusCode.NotImplemented);
+            }
+
+            if (context.Exception is TrailIdFormatException)
+            {
+                context.Response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+            if (context.Exception is TrailsNotFoundException)
+            {
+                context.Response = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = context.Exception.Message
+                };
+            }
+
+            if (context.Exception is TrailNotFoundByIdException)
+            {
+                context.Response = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = context.Exception.Message
+                };
+            }
+
+
+        }
+    }
+}

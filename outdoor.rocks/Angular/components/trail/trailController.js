@@ -187,11 +187,13 @@ angular
                     },
 
             })
-            .success(function (response) {
+            .then(
+            function (response) {
                 $scope.updateComments();
-            })
-            .error(function (error) {
-                console.log(error);
+            },
+            function (error) {
+                $state.go('error', { status: error.status });
+
             });
 
         }

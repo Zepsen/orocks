@@ -1,6 +1,5 @@
-﻿using System.Web;
-using System.Web.Mvc;
-
+﻿using System.Web.Mvc;
+using outdoor.rocks.Filters;
 namespace outdoor.rocks
 {
     public class FilterConfig

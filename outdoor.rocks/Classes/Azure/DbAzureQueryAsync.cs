@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.Storage.Table;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
 using Newtonsoft.Json.Linq;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces.Azure;
 using outdoor.rocks.Models;
 using static outdoor.rocks.Models.AzureModels;
@@ -38,8 +39,13 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Trails" && entity.Id == guid
                         select entity;
 
-            return Task.FromResult(query.SingleOrDefault());
+            var res = Task.FromResult(query.SingleOrDefault());
+
+            ThrowExceptionIfTrailsNull(res.Result);
+            return res;
         }
+
+        
 
         public Task<Users> GetUserAsync(string id)
         {
@@ -229,12 +235,18 @@ namespace outdoor.rocks.Classes.Azure
             {
                 guid = Guid.Parse(id);
             }
-            catch (Exception)
+            catch (FormatException)
             {
-                throw new FormatException();
+                throw new TrailIdFormatException("Bad format for GUID");
             }
 
             return guid;
+        }
+
+        private static void ThrowExceptionIfTrailsNull(Trails res)
+        {
+            if (res == null)
+                throw new TrailNotFoundByIdException("Not found trail by this id");
         }
     }
 }

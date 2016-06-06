@@ -34,5 +34,5 @@ angular.module('ORockApp')
                     url: '/error/:status',
                     templateUrl: '../Angular/components/error/templates/error.html',
                     controller: 'ErrorCtrl'
-                })
+                });
         }]);

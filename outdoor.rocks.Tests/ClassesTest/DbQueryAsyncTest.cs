@@ -17,6 +17,7 @@ namespace outdoor.rocks.Tests.ClassesTest
         public void TestMethod1()
         {
             var classTest = new DbAzureQueryAsync();
+            
             var res = classTest.InsertCommentsAsync("");
             Assert.True(res.IsCompleted);
         }

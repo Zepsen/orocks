@@ -288,6 +288,9 @@
     <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\TrailsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Filters\CustomError.cs" />
+    <Compile Include="Filters\CustomExceptionService.cs" />
+    <Compile Include="Filters\CustomHandlerFilterError.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
