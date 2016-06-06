@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
-using MongoDB.Bson;
-using MongoDB.Driver.Linq;
 using Newtonsoft.Json.Linq;
 using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces.Azure;
-using outdoor.rocks.Models;
 using static outdoor.rocks.Models.AzureModels;
 using DbContext = outdoor.rocks.Models.DbContext;
 
@@ -40,7 +36,7 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             var res = Task.FromResult(query.SingleOrDefault());
-            ThrowExceptionIfObjectNull(res.Result);
+            ThrowExceptionIfObjectNull(res.Result, "Not found trail by this Id");
             return res;
         }
 
@@ -56,7 +52,7 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             var res = Task.FromResult(query.SingleOrDefault());
-            ThrowExceptionIfObjectNull(res.Result);
+            ThrowExceptionIfObjectNull(res.Result, "Not found user bu this id");
             return res;
         }
 
@@ -179,6 +175,13 @@ namespace outdoor.rocks.Classes.Azure
             dynamic comment = JObject.Parse(value);
 
             var table = Db.GetTableReference("Comments");
+            var createComment = CreateComment(comment);
+            var query = TableOperation.Insert(createComment);
+            return table.ExecuteAsync(query);
+        }
+
+        private static Comments CreateComment(dynamic comment)
+        {
             var createComment = new Comments()
             {
                 Comment = comment.Comment.Value,
@@ -186,9 +189,7 @@ namespace outdoor.rocks.Classes.Azure
                 UserName = comment.Name.Value,
                 TrailId = Guid.Parse(comment.Id.Value)
             };
-
-            var query = TableOperation.Insert(createComment);
-            return table.ExecuteAsync(query);
+            return createComment;
         }
 
         private static Options UpdateOptions(string value, Trails trail)
@@ -245,10 +246,10 @@ namespace outdoor.rocks.Classes.Azure
             return guid;
         }
 
-        private static void ThrowExceptionIfObjectNull<T>(T res)  where T : class
+        private static void ThrowExceptionIfObjectNull<T>(T res, string message = "Object is null in Db Azure Query")  where T : class
         {
             if (res == null)
-                throw new NotFoundByIdException("Not found trail by this id");
+                throw new NotFoundByIdException(message);
         }
     }
 }

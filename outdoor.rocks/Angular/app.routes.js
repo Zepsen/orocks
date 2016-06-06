@@ -31,7 +31,7 @@ angular.module('ORockApp')
                     controller: 'AdminCtrl'
                 })
                 .state('error', {
-                    url: '/error/:status',
+                    url: '/error',
                     templateUrl: '../Angular/components/error/templates/error.html',
                     controller: 'ErrorCtrl'
                 });

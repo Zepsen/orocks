@@ -70,7 +70,8 @@ angular
                     initTrailMap($scope.trail.Country);
                 },
                 function (error) {
-                    $state.go('error', { status: error.status });
+                    $scope.setError(error.status, error.statusText);
+                    $state.go('error');
                 });
 
         }
@@ -86,7 +87,8 @@ angular
                 $scope.options = response.data;
             },
             function (error) {
-                $state.go('error', { status: error.status });
+                $scope.setError(error.status, error.statusText);
+                $state.go('error');
             });
         }
 
@@ -110,8 +112,8 @@ angular
                 $scope.trail = response.data;
             },
             function (error) {
-                $state.go('error', { status: error.status });
-
+                $scope.setError(error.status, error.statusText);
+                $state.go('error');
             });
         }
 
@@ -192,8 +194,8 @@ angular
                 $scope.updateComments();
             },
             function (error) {
-                $state.go('error', { status: error.status });
-
+                $scope.setError(error.status, error.statusText);
+                $state.go('error');
             });
 
         }

@@ -1,14 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
-using MongoDB.Bson;
-using Newtonsoft.Json.Linq;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Interfaces.Azure;
 using outdoor.rocks.Models;
-using static outdoor.rocks.Models.AzureModels;
 
 namespace outdoor.rocks.Classes.Azure
 {

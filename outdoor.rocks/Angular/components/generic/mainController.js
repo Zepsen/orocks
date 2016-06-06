@@ -26,12 +26,28 @@ angular
             status: ""
         }
 
+        //Global Error
+        $scope.error = {
+            status: "",
+            header: "",
+            message: ""
+        }
+
+        $scope.setError = function(status, message) {
+            $scope.error.status = status;
+            $scope.error.message = message;
+        }
+
+        $scope.getError = function() {
+            return $scope.error;
+        }
+
         //Auth
         $scope.getAuth = function () {
             return $scope.auth;
         };
 
-        //Typeaehad        
+        //Typeahead        
         function loadRegionsAndTrailsName() {
             $http({
                 method: "GET",
@@ -63,7 +79,8 @@ angular
 
             },
             function (error) {
-                $state.go('error', { status: error.status });
+                $scope.setError(error.status, error.statusText);
+                $state.go('error');
             });
         }
 

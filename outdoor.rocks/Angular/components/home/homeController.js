@@ -24,7 +24,8 @@ angular
                     $scope.showBtnMore = true;
             }, 
             function(error) {
-                $state.go('error', { status: error.status });
+                $scope.setError(error.status, error.statusText);
+                $state.go('error');
             });
         }
 
@@ -37,7 +38,8 @@ angular
                 $scope.regions = response.data;
             },
             function (error) {
-                $state.go('error', { status: error.status });
+                $scope.setError(error.status, error.statusText);
+                $state.go('error');
             });
         }
         

@@ -27,7 +27,7 @@ namespace outdoor.rocks.Filters
 
             if (context.Exception is NotFoundByIdException)
             {
-                context.Response = new HttpResponseMessage(HttpStatusCode.NotFound)
+                context.Response = new HttpResponseMessage((HttpStatusCode)429)
                 {
                     ReasonPhrase = context.Exception.Message
                 };
