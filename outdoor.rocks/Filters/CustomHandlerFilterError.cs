@@ -14,7 +14,10 @@ namespace outdoor.rocks.Filters
         {
             if (context.Exception is IdFormatException)
             {
-                context.Response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                context.Response = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    ReasonPhrase = context.Exception.Message
+                };
             }
 
             if (context.Exception is NotFoundException)

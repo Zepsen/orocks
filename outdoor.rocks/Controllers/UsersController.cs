@@ -1,16 +1,8 @@
-﻿
-using MongoDB.Bson;
-using MongoRepository;
-using outdoor.rocks.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using outdoor.rocks.Classes;
 using System.Threading.Tasks;
-using outdoor.rocks.Classes.Mongo;
 using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces;
 
@@ -43,9 +35,9 @@ namespace outdoor.rocks.Controllers
                 var res = await _db.GetUserModelIfUserAlreadyRegistration(id);
                 return Ok(res);
             }
-            catch (FormatException)
+            catch (IdFormatException ex)
             {
-                return BadRequest();
+                _exceptionService.IdFormatException(ex.Message);
             }
             catch (NotFoundException ex)
             {
