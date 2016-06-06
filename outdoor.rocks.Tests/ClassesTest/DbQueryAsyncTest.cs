@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using Moq;
 using outdoor.rocks.Classes;
+using outdoor.rocks.Classes.Azure;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
 using Xunit;
@@ -15,7 +16,9 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void TestMethod1()
         {
-
+            var classTest = new DbAzureQueryAsync();
+            var res = classTest.InsertCommentsAsync("");
+            Assert.True(res.IsCompleted);
         }
     }
 }

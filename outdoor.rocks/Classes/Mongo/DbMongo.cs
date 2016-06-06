@@ -158,7 +158,7 @@ namespace outdoor.rocks.Classes.Mongo
 
         public bool IsTrailExist(string id)
         {
-            return _queryToDbAsync.GetTrailByIdAsync(id).Result == null;
+            return _queryToDbAsync.GetTrailByIdAsync(id).Status != TaskStatus.Faulted;
         }
     }
 }
