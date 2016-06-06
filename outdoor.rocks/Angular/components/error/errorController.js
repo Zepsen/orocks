@@ -10,6 +10,11 @@
         };
         
         switch ($stateParams.status) {
+            case '304':
+                $scope.error.status = $stateParams.status;
+                $scope.error.header = "Not Modified";
+                $scope.error.message = "Bad data in modified request";
+                break;
             case '400':
                 $scope.error.status = $stateParams.status;
                 $scope.error.header = "Bad Request";

@@ -60,9 +60,10 @@ namespace outdoor.rocks.Controllers
                 {
                     return NotFound();
                 }
-            }
 
-            return StatusCode(HttpStatusCode.NoContent);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            
         }
         
         [Authorize(Roles = "Admin")]
