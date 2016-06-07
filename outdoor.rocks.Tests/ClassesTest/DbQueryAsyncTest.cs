@@ -4,6 +4,7 @@ using Moq;
 using outdoor.rocks.Classes;
 using outdoor.rocks.Classes.Azure;
 using outdoor.rocks.Interfaces;
+using outdoor.rocks.Interfaces.Azure;
 using outdoor.rocks.Models;
 using Xunit;
 using static outdoor.rocks.Models.MongoModels;
@@ -16,10 +17,10 @@ namespace outdoor.rocks.Tests.ClassesTest
         [Fact]
         public void TestMethod1()
         {
-            var classTest = new DbAzureQueryAsync();
+            var mockClass = new Mock<IAzureDbQueryAsync>().Object;
             
-            var res = classTest.InsertCommentsAsync("");
-            Assert.True(!res.IsCompleted);
+            var res = mockClass.InsertCommentsAsync("");
+            Assert.True(res.IsCompleted);
         }
     }
 }

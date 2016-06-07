@@ -277,6 +277,7 @@
     <Compile Include="Classes\Azure\DbAzure.cs" />
     <Compile Include="Classes\Azure\DbAzureQueryAsync.cs" />
     <Compile Include="Classes\DbMain.cs" />
+    <Compile Include="Classes\Mongo\DbMongoHelpers.cs" />
     <Compile Include="Classes\Mongo\DbMongoQueryAsync.cs" />
     <Compile Include="Classes\Mongo\DbMongo.cs" />
     <Compile Include="Classes\Mongo\MongoInitializeModels.cs" />

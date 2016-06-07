@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces.Mongo;
 using outdoor.rocks.Models;
 using static outdoor.rocks.Models.MongoModels;
@@ -10,23 +12,32 @@ namespace outdoor.rocks.Classes.Mongo
     {
         public UserModel InitUserModel(ApplicationUser user)
         {
-            if (user != null)
+
+            try
             {
                 return new UserModel
                 {
-                    Id = user.Id, 
+                    Id = user.Id,
                     Name = user.UserName,
                     Role = user.Roles.FirstOrDefault()
                 };
-            }
 
-            return null;
+            }
+            catch (NullReferenceException)
+            {
+                throw new NotFoundException("User is null for user model");
+            }
+            catch (ArgumentNullException)
+            {
+                throw new NotFoundException("Not found data for user model");
+            }
         }
 
         public List<TrailModel> InitTrailModels(List<Trails> trail)
         {
-            return trail
-                .Select(j => new TrailModel
+            try
+            {
+                return trail.Select(j => new TrailModel
                 {
                     Id = j._id.ToString(),
                     Country = j.Location.Country.Name,
@@ -39,28 +50,23 @@ namespace outdoor.rocks.Classes.Mongo
                     Name = j.Name,
                     Region = j.Location.Region.Region,
                     Type = j.Option.TrailType.Type
-                })
-                .ToList();
+                }).ToList();
+            }
+            catch (ArgumentNullException)
+            {
+                throw new NotFoundException("Not found data for trail model");
+
+            }
         }
 
+
         public FullTrailModel InitFullTrailModel(
-            Trails trail, 
+            Trails trail,
             List<CommentsModel> comments)
         {
-            //var photos = trail.Photos.Select(i => new SimpleModel()
-            //{
-            //    Id = i,
-            //    Value = i
-            //}).ToList();
-
-            //var references = trail.References.Select(i => new SimpleModel()
-            //{
-            //    Id = i,
-            //    Value = i
-            //}).ToList();
-
-            var fullTrailModel =
-                new FullTrailModel
+            try
+            {
+                return new FullTrailModel
                 {
                     Id = trail._id.ToString(),
                     Comments = comments,
@@ -75,7 +81,6 @@ namespace outdoor.rocks.Classes.Mongo
                     FullDescription = trail.FullDescription,
                     GoodForKids = trail.Option.GoodForKids,
                     Name = trail.Name,
-                    //NearblyTrails
                     Region = trail.Location.Region.Region,
                     Peak = trail.Option.Peak,
                     Photos = trail.Photos,
@@ -86,83 +91,115 @@ namespace outdoor.rocks.Classes.Mongo
                     Type = trail.Option.TrailType.Type,
                     WhyGo = trail.WhyGo
                 };
-            return fullTrailModel;
+
+            }
+            catch (ArgumentNullException)
+            {
+                throw new NotFoundException("Not found data for full trail model");
+            }
         }
 
-         public List<CommentsModel> InitCommentsModelList(Trails trail, List<Comments> commentses)
+        public List<CommentsModel> InitCommentsModelList(Trails trail, List<Comments> commentses)
         {
-            var comments = trail.Comments_Ids
-                .Select(commentId => commentses.FirstOrDefault(i => i._id == commentId))
-                .Select(comment => new CommentsModel
+            try
             {
-                Comment = comment.Comment,
-                Name = comment.User.UserName,
-                Rate = comment.Rate
-            }).ToList();
-             
-            return comments;
+                return trail.Comments_Ids
+                        .Select(commentId => commentses.FirstOrDefault(i => i._id == commentId))
+                        .Select(comment => new CommentsModel
+                        {
+                            Comment = comment.Comment,
+                            Name = comment.User.UserName,
+                            Rate = comment.Rate
+                        }).ToList();
+            }
+            catch (ArgumentNullException)
+            {
+                throw new NotFoundException("Not found data for comments model");
+            }
         }
 
         public FilterModel InitFilterModel(List<Countries> countries, List<Trails> trails)
         {
-            return new FilterModel
+            try
             {
-                Countries = countries
-                    .Select(i => new SimpleModel
-                    {
-                        Id = i._id.ToString(),
-                        Value = i.Name
-                    }).ToList(),
+                return new FilterModel
+                {
+                    Countries = countries
+                .Select(i => new SimpleModel
+                {
+                    Id = i._id.ToString(),
+                    Value = i.Name
+                }).ToList(),
 
-                Trails = trails
-                    .Select(i => new SimpleModel
-                    {
-                        Id = i._id.ToString(),
-                        Value = i.Name
-                    }).ToList(),
-            };
+                    Trails = trails
+                .Select(i => new SimpleModel
+                {
+                    Id = i._id.ToString(),
+                    Value = i.Name
+                }).ToList(),
+                };
+
+            }
+            catch (ArgumentNullException)
+            {
+                throw new NotFoundException("Not found data for filter model");
+            }
         }
 
         public List<RegionModel> InitRegionModelList(List<Regions> regions, List<Countries> countries)
         {
-            var regionModelList = regions.Select(i => new RegionModel
+            try
             {
-                Region = i.Region,
-                Selected = false,
-                Countries = countries
-                    .Where(j => j.Region_Id == i._id)
-                    .Select(j => j.Name)
-                    .ToList()
-            }).ToList();
+                return regions.Select(i => new RegionModel
+                {
+                    Region = i.Region,
+                    Selected = false,
+                    Countries = countries
+                .Where(j => j.Region_Id == i._id)
+                .Select(j => j.Name)
+                .ToList()
+                }).ToList();
 
-            return regionModelList;
+            }
+            catch (ArgumentNullException)
+            {
+                throw new NotFoundException("Not found data for region model");
+            }
         }
 
         public OptionModel InitOptionModel(List<Seasons> seasons, List<TrailsDurationTypes> trailDurationTypes, List<TrailsTypes> trailTypes)
         {
-            return new OptionModel
+            try
             {
-                Seasons = seasons
-                    .Select(i => new SimpleModel
-                    {
-                        Id = i._id.ToString(),
-                        Value = i.Season
-                    }).ToList(),
+                return new OptionModel
+                {
+                    Seasons = seasons
+                .Select(i => new SimpleModel
+                {
+                    Id = i._id.ToString(),
+                    Value = i.Season
+                }).ToList(),
 
-                TrailsDurationTypes = trailDurationTypes
-                    .Select(i => new SimpleModel
-                    {
-                        Id = i._id.ToString(),
-                        Value = i.DurationType
-                    }).ToList(),
+                    TrailsDurationTypes = trailDurationTypes
+                .Select(i => new SimpleModel
+                {
+                    Id = i._id.ToString(),
+                    Value = i.DurationType
+                }).ToList(),
 
-                TrailsTypes = trailTypes
-                    .Select(i => new SimpleModel
-                    {
-                        Id = i._id.ToString(),
-                        Value = i.Type
-                    }).ToList(),
-            };
+                    TrailsTypes = trailTypes
+                .Select(i => new SimpleModel
+                {
+                    Id = i._id.ToString(),
+                    Value = i.Type
+                }).ToList(),
+                };
+
+            }
+            catch (ArgumentNullException)
+            {
+                throw new NotFoundException("Not found data for option model");
+            }
         }
 
     }

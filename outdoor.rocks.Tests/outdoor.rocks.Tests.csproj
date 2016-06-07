@@ -180,6 +180,7 @@
     <Compile Include="ControllersTest\FilterModelTests.cs" />
     <Compile Include="ControllersTest\UserControllerTest.cs" />
     <Compile Include="Helpers\FakeAzureModels.cs" />
+    <Compile Include="MongoBranchTest\DbMongoQueryAsyncTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

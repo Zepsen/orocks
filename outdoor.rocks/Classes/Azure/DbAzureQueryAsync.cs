@@ -52,7 +52,7 @@ namespace outdoor.rocks.Classes.Azure
                         select entity;
 
             var res = Task.FromResult(query.SingleOrDefault());
-            ThrowExceptionIfObjectNull(res.Result, "Not found user bu this id");
+            ThrowExceptionIfObjectNull(res.Result, "Not found user by this id");
             return res;
         }
 

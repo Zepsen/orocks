@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using outdoor.rocks.Classes;
 using outdoor.rocks.Classes.Mongo;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Models;
 using Xunit;
 using static outdoor.rocks.Models.MongoModels;
@@ -24,12 +25,10 @@ namespace outdoor.rocks.Tests.ClassesTest
         }
 
         [Fact]
-        public void InitUserModel_CallWhenUserNull_ReturnNull()
+        public void InitUserModel_CallWhenUserNull_ThrowNotFoundException()
         {
             var testClass = GetInitializeModels();
-            var test = testClass.InitUserModel(null);
-
-            Assert.Null(test);
+            Assert.Throws<NotFoundException>(() => testClass.InitUserModel(null));
         }
 
         [Fact]

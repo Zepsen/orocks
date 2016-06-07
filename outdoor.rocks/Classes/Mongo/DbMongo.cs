@@ -74,17 +74,17 @@ namespace outdoor.rocks.Classes.Mongo
 
 
             if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
-                option.SeasonStart_Id = ObjectId.Parse(update.SeasonStart.Id.Value);
+                option.SeasonStart_Id = DbMongoHelpers.TryParseObjectId(update.SeasonStart.Id.Value);
 
             if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
-                option.SeasonEnd_Id = ObjectId.Parse(update.SeasonEnd.Id.Value);
+                option.SeasonEnd_Id = DbMongoHelpers.TryParseObjectId(update.SeasonEnd.Id.Value);
 
 
             if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
-                option.TrailType_Id = ObjectId.Parse(update.Type.Id.Value);
+                option.TrailType_Id = DbMongoHelpers.TryParseObjectId(update.Type.Id.Value);
 
             if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
-                option.TrailDurationType_Id = ObjectId.Parse(update.DurationType.Id.Value);
+                option.TrailDurationType_Id = DbMongoHelpers.TryParseObjectId(update.DurationType.Id.Value);
 
             option.GoodForKids = update.GoodForKids.Value;
             option.DogAllowed = update.DogAllowed.Value;
@@ -137,14 +137,14 @@ namespace outdoor.rocks.Classes.Mongo
         private static async Task<ObjectId> InsertComment(string value, ObjectId newId)
         {
             dynamic comment = JObject.Parse(value);
-            var id = ObjectId.Parse((string) comment.Id.Value);
+            var id = DbMongoHelpers.TryParseObjectId((string)comment.Id.Value);
 
             await Db.GetCollection<Comments>("Comments").InsertOneAsync(new Comments
             {
                 _id = newId,
                 Comment = comment.Comment.Value,
                 Rate = comment.Rate.Value,
-                User_Id = ObjectId.Parse(comment.User.Value)
+                User_Id = DbMongoHelpers.TryParseObjectId(comment.User.Value)
             });
             return id;
         }

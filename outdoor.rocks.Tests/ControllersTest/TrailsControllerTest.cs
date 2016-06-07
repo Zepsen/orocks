@@ -82,89 +82,95 @@ namespace outdoor.rocks.Tests
         }
 
         [Fact]
-        public void GetById_WhenNotFoundAzureTrail_ReturnsNotFoundResult()
+        public void GetById_WhenNotFoundAzureTrail_ReturnsNotFoundException()
         {
             //Arrange
-            var mock = new Mock<IDb>();
+            var mock = new Mock<IDbMain>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
-                .Returns(()=> null);
-            var ctrl = GetTrailsController(mock.Object);
+                .Returns(() => { throw new NotFoundException("Not found");});
+            var ctrl = GetTrailsController();
 
             //Act
-            var test = ctrl.Get("00000000-0000-0000-0000-000000000000").Result;
+            //var test = ctrl.Get("00000000-0000-0000-0000-000000000000").Result;
             
             //Assert
-            Assert.IsType<NotFoundResult>(test);
+            //Assert.IsType<NotFoundResult>(test);
+            Assert.ThrowsAsync<NotFoundException>(() => ctrl.Get("00000000-0000-0000-0000-000000000000"));
         }
 
         [Fact]
         public void GetById_WhenIdFormatNotSupportAzureTrail_ReturnsBadRequestResult()
         {
             //Arrange
-            var mock = new Mock<IDb>();
+            var mock = new Mock<IDbMain>();
             mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
                 .Returns(() => { throw new IdFormatException("Bad id");});
-            var ctrl = GetTrailsController(mock.Object);
+            var ctrl = GetTrailsController();
 
             //Act
-            var test = ctrl.Get("10");
+            //var test = ctrl.Get("10");
             
             //Assert
-            Assert.IsType<BadRequestResult>(test);
+            Assert.ThrowsAsync<IdFormatException>(() => ctrl.Get("10"));
         }
 
         [Fact]
         public void Post_WhenIdFormatBadFormatInAzureTrail_ReturnsBadRequestResult()
         {
             //Arrange
-            var mock = new Mock<IDb>();
-            mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
-                .Returns(() => { throw new FormatException(); });
-            var ctrl = GetTrailsController(mock.Object);
+            //var mock = new Mock<IDb>();
+            //mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
+            //    .Returns(() => { throw new FormatException(); });
+            var ctrl = GetTrailsController();
 
             //Act
-            var test = ctrl.Put("10", "A");
+            //var test = ctrl.Put("10", "A");
             
             //Assert
-            Assert.True(test.Result.StatusCode == HttpStatusCode.BadRequest);
+            //Assert.True(test.Result.StatusCode == HttpStatusCode.BadRequest);
+            Assert.ThrowsAsync<IdFormatException>(() => ctrl.Put("10", "A"));
+
         }
 
         [Fact]
         public void Post_WhenNotFoundModifiededAzureTrail_ReturnsNotFoundResult()
         {
             //Arrange
-            var mock = new Mock<IDb>();
-            mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
-                .Returns(Task.FromResult(new FullTrailModel()));
-            mock.Setup(i => i.UpdateTrailOptions(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => null);
-            var ctrl = GetTrailsController(mock.Object);
+            //var mock = new Mock<IDb>();
+            //mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
+            //    .Returns(Task.FromResult(new FullTrailModel()));
+            //mock.Setup(i => i.UpdateTrailOptions(It.IsAny<string>(), It.IsAny<string>()))
+            //    .Returns(() => null);
+            var ctrl = GetTrailsController();
 
             //Act
-            var test = ctrl.Put("00000000-0000-0000-0000-000000000000", "A");
+            //var test = ctrl.Put("00000000-0000-0000-0000-000000000000", "A");
             
             //Assert
-            Assert.Equal(HttpStatusCode.NotFound, test.Result.StatusCode);
+            //Assert.Equal(HttpStatusCode.NotFound, test.Result.StatusCode);
+            Assert.ThrowsAsync<NotFoundException>(() => ctrl.Put("00000000-0000-0000-0000-000000000000", "A"));
         }
 
         [Fact]
         public void Post_WhenNoDataToModifiededAzureTrail_ReturnsNotModifiedResult()
         {
             //Arrange
-            var mock = new Mock<IDb>();
-            mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
-                .Returns(Task.FromResult(new FullTrailModel()));
-            mock.Setup(i => i.UpdateTrailOptions(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => {throw new Exception();});
-            mock.Setup(i => i.IsTrailExist(It.IsAny<string>()))
-                .Returns(() => true);
-            var ctrl = GetTrailsController(mock.Object);
+            //var mock = new Mock<IDb>();
+            //mock.Setup(i => i.GetFullTrailModel(It.IsAny<string>()))
+            //    .Returns(Task.FromResult(new FullTrailModel()));
+            //mock.Setup(i => i.UpdateTrailOptions(It.IsAny<string>(), It.IsAny<string>()))
+            //    .Returns(() => {throw new Exception();});
+            //mock.Setup(i => i.IsTrailExist(It.IsAny<string>()))
+            //    .Returns(() => true);
+            var ctrl = GetTrailsController();
 
             //Act
-            var test = ctrl.Put("11111111-1111-1111-1111-111111111111", "A");
+            //var test = ctrl.Put("11111111-1111-1111-1111-111111111111", "A");
 
             //Assert
-            Assert.Equal(HttpStatusCode.NotModified, test.Result.StatusCode);
+            //Assert.Equal(HttpStatusCode.NotModified, test.Result.StatusCode);
+
+            Assert.ThrowsAsync<NotFoundException>(() => ctrl.Put("11111111-1111-1111-1111-111111111111", "A"));
         }
 
         private static TrailsController GetTrailsController(IDb db = null)

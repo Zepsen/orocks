@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Interfaces.Mongo;
 using outdoor.rocks.Models;
@@ -36,11 +38,12 @@ namespace outdoor.rocks.Classes.Mongo
 
         public Task<Trails> GetTrailByIdAsync(string id)
         {
+            var objId = DbMongoHelpers.TryParseObjectId(id);
             var res =  Db.GetCollection<Trails>("Trails")
-                          .FindAsync(i => i._id == ObjectId.Parse(id)).Result.FirstAsync();
+                          .FindAsync(i => i._id == objId).Result.FirstAsync();
             return res;
         }
-
+        
         public Task<ApplicationUser> GetUserAsync(string name)
         {
             var res = Db.GetCollection<ApplicationUser>("users")
@@ -75,5 +78,8 @@ namespace outdoor.rocks.Classes.Mongo
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
             return res;
         }
+
+        
+
     }
 }
