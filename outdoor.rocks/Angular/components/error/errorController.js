@@ -10,7 +10,6 @@
         };
 
         var mainError = $scope.getError();
-        debugger 
         switch (mainError.status) {
             case 304:
                 $scope.error.status = mainError.status;

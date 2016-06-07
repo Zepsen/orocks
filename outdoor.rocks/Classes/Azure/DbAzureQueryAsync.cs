@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -22,8 +23,9 @@ namespace outdoor.rocks.Classes.Azure
             var query = from entity in table.CreateQuery<Trails>()
                         where entity.PartitionKey == "Trails"
                         select entity;
-            
-            return Task.FromResult(query.ToList());
+
+            var res = GetListResultOrThrowException(query);
+            return res;
         }
 
         public Task<Trails> GetTrailByIdAsync(string id)
@@ -35,7 +37,7 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Trails" && entity.Id == guid
                         select entity;
 
-            var res = Task.FromResult(query.SingleOrDefault());
+            var res = GetSingleResultOrThrowException(query);
             ThrowExceptionIfObjectNull(res.Result, "Not found trail by this Id");
             return res;
         }
@@ -51,7 +53,7 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Users" && entity.Id == guid
                         select entity;
 
-            var res = Task.FromResult(query.SingleOrDefault());
+            var res = GetSingleResultOrThrowException(query);
             ThrowExceptionIfObjectNull(res.Result, "Not found user by this id");
             return res;
         }
@@ -64,8 +66,11 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Comments"
                         select entity;
 
-            return Task.FromResult(query.ToList());
+            var res = GetListResultOrThrowException(query);
+            return res; 
         }
+
+      
 
         public Task<List<Countries>> GetCountriesAsync()
         {
@@ -75,7 +80,9 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Countries"
                         select entity;
 
-            return Task.FromResult(query.ToList());
+            var res = GetListResultOrThrowException(query);
+            return res;
+
         }
 
         public Task<List<Regions>> GetRegionsAsync()
@@ -86,7 +93,8 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Regions"
                         select entity;
 
-            return Task.FromResult(query.ToList());
+            var res = GetListResultOrThrowException(query);
+            return res;
         }
 
         public Task<List<Seasons>> GetSeasonsListAsync()
@@ -97,7 +105,8 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Seasons"
                         select entity;
 
-            return Task.FromResult(query.ToList());
+            var res = GetListResultOrThrowException(query);
+            return res;
         }
 
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
@@ -108,18 +117,19 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "TrailsTypes"
                         select entity;
 
-            return Task.FromResult(query.ToList());
+            var res = GetListResultOrThrowException(query);
+            return res;
         }
 
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
         {
             var table = Db.GetTableReference("TrailsDurationTypes");
-
             var query = from entity in table.CreateQuery<TrailsDurationTypes>()
                         where entity.PartitionKey == "TrailsDurationTypes"
                         select entity;
 
-            return Task.FromResult(query.ToList());
+            var res = GetListResultOrThrowException(query);
+            return res;
         }
 
         public Task<List<Photos>> GetPhotosAsync(string id)
@@ -131,7 +141,8 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Photos" && entity.TrailId == guid
                         select entity;
 
-            return Task.FromResult(query.ToList());
+            var res = GetListResultOrThrowException(query);
+            return res;
         }
 
         public Task<List<References>> GetReferencesAsync(string id)
@@ -144,7 +155,8 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "References" && entity.TrailId == guid
                         select entity;
 
-            return Task.FromResult(query.ToList());
+            var res = GetListResultOrThrowException(query);
+            return res;
         }
 
         
@@ -157,8 +169,9 @@ namespace outdoor.rocks.Classes.Azure
                         where entity.PartitionKey == "Options" && entity.Id == id
                         select entity;
 
-
-            return Task.FromResult(query.SingleOrDefault());
+            
+            var res = GetSingleResultOrThrowException(query);
+            return res;
         }
 
         public Task UpdateOptionsAsync(string trailId, string optionsValue)
@@ -250,6 +263,30 @@ namespace outdoor.rocks.Classes.Azure
         {
             if (res == null)
                 throw new NotFoundByIdException(message);
+        }
+
+        private static Task<List<T>> GetListResultOrThrowException<T>(IQueryable<T> query) where T : class
+        {
+            try
+            {
+                return Task.FromResult(query.ToList());
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to azure database faulted.");
+            }
+        }
+
+        private static Task<T> GetSingleResultOrThrowException<T>(IQueryable<T> query) where T : class
+        {
+            try
+            {
+                return Task.FromResult(query.SingleOrDefault());
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to azure database faulted.");
+            }
         }
     }
 }
