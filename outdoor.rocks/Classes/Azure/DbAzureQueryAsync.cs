@@ -100,7 +100,6 @@ namespace outdoor.rocks.Classes.Azure
         public Task<List<Seasons>> GetSeasonsListAsync()
         {
             var table = Db.GetTableReference("Seasons");
-
             var query = from entity in table.CreateQuery<Seasons>()
                         where entity.PartitionKey == "Seasons"
                         select entity;
@@ -108,11 +107,10 @@ namespace outdoor.rocks.Classes.Azure
             var res = GetListResultOrThrowException(query);
             return res;
         }
-
+        
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
         {
             var table = Db.GetTableReference("TrailsTypes");
-
             var query = from entity in table.CreateQuery<TrailsTypes>()
                         where entity.PartitionKey == "TrailsTypes"
                         select entity;
@@ -124,6 +122,7 @@ namespace outdoor.rocks.Classes.Azure
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
         {
             var table = Db.GetTableReference("TrailsDurationTypes");
+
             var query = from entity in table.CreateQuery<TrailsDurationTypes>()
                         where entity.PartitionKey == "TrailsDurationTypes"
                         select entity;
@@ -148,7 +147,6 @@ namespace outdoor.rocks.Classes.Azure
         public Task<List<References>> GetReferencesAsync(string id)
         {
             var table = Db.GetTableReference("References");
-
             var guid = TryParseIdToGuid(id);
 
             var query = from entity in table.CreateQuery<References>()
