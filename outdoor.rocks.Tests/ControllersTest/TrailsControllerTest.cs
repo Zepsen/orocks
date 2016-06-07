@@ -1,21 +1,12 @@
 ﻿using outdoor.rocks.Controllers;
 using outdoor.rocks.Models;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Results;
-using System.Web.Mvc;
-using MongoDB.Bson;
 using Moq;
-using outdoor.rocks.Classes;
 using outdoor.rocks.Interfaces;
 using Xunit;
 using Xunit.Abstractions;
-using static outdoor.rocks.Models.MongoModels;
 using System.Net.Http;
 using outdoor.rocks.Filters;
 

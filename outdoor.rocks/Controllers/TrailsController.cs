@@ -82,7 +82,7 @@ namespace outdoor.rocks.Controllers
                 return new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.Accepted,
-                    Content = new ObjectContent(typeof (FullTrailModel), res, new JsonMediaTypeFormatter())
+                    Content = new ObjectContent(typeof(FullTrailModel), res, new JsonMediaTypeFormatter())
                 };
             }
             catch (IdFormatException ex)

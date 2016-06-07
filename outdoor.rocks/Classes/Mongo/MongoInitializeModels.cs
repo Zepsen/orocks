@@ -125,18 +125,18 @@ namespace outdoor.rocks.Classes.Mongo
                 return new FilterModel
                 {
                     Countries = countries
-                .Select(i => new SimpleModel
-                {
-                    Id = i._id.ToString(),
-                    Value = i.Name
-                }).ToList(),
+                        .Select(i => new SimpleModel
+                        {
+                            Id = i._id.ToString(),
+                            Value = i.Name
+                        }).ToList(),
 
                     Trails = trails
-                .Select(i => new SimpleModel
-                {
-                    Id = i._id.ToString(),
-                    Value = i.Name
-                }).ToList(),
+                        .Select(i => new SimpleModel
+                        {
+                            Id = i._id.ToString(),
+                            Value = i.Name
+                        }).ToList()
                 };
 
             }
