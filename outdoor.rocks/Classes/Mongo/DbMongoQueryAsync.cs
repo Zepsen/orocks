@@ -17,43 +17,20 @@ namespace outdoor.rocks.Classes.Mongo
 
         public Task<List<Trails>> GetTrailsAsync()
         {
-            try
-            {
-                return Db.GetCollection<Trails>("Trails")
-                        .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            }
-            catch (Exception)
-            {
-                throw new ServerConnectionException("Connection to database faulted.");
-            }
+            var res = GetListTResultOrThrowException<Trails>();
+            return res;
         }
 
         public Task<List<Countries>> GetCountriesAsync()
         {
-            try
-            {
-                return Db.GetCollection<Countries>("Countries")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-            }
-            catch (Exception)
-            {
-                throw new ServerConnectionException("Connection to database faulted.");
-            }
+            var res = GetListTResultOrThrowException<Countries>();
+            return res;
         }
 
         public Task<List<Regions>> GetRegionsAsync()
         {
-            try
-            {
-                return Db.GetCollection<Regions>("Regions")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            }
-            catch (Exception)
-            {
-                throw new ServerConnectionException("Connection to database faulted.");
-            }
+            var res = GetListTResultOrThrowException<Regions>();
+            return res;
         }
 
         public Task<Trails> GetTrailByIdAsync(string id)
@@ -62,7 +39,7 @@ namespace outdoor.rocks.Classes.Mongo
             try
             {
                 return Db.GetCollection<Trails>("Trails")
-                                      .FindAsync(i => i._id == objId).Result.FirstAsync();
+                                      .FindAsync(i => i._id == objId).Result.SingleOrDefaultAsync();
             }
             catch (Exception)
             {
@@ -86,53 +63,34 @@ namespace outdoor.rocks.Classes.Mongo
 
         public Task<List<Comments>> GetCommentsListAsync()
         {
-            try
-            {
-                return Db.GetCollection<Comments>("Comments")
-                .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            }
-            catch (Exception)
-            {
-                throw new ServerConnectionException("Connection to database faulted.");
-            }
+            var res = GetListTResultOrThrowException<Comments>();
+            return res;
         }
 
         public Task<List<Seasons>> GetSeasonsListAsync()
         {
-            try
-            {
-                return Db.GetCollection<Seasons>("Seasons")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            }
-            catch (Exception)
-            {
-                throw new ServerConnectionException("Connection to database faulted.");
-            }
+            var res = GetListTResultOrThrowException<Seasons>();
+            return res;
         }
 
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
         {
-            try
-            {
-                return Db.GetCollection<TrailsTypes>("TrailsTypes")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
-            }
-            catch (Exception)
-            {
-                throw new ServerConnectionException("Connection to database faulted.");
-            }
+            var res = GetListTResultOrThrowException<TrailsTypes>();
+            return res;
         }
 
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
         {
+            var res = GetListTResultOrThrowException<TrailsDurationTypes>();
+            return res;
+        }
+
+        private static Task<List<T>> GetListTResultOrThrowException<T>() where T : class
+        {
             try
             {
-                return Db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
-                              .FindAsync(new BsonDocument()).Result.ToListAsync();
-
+                return Db.GetCollection<T>(string.Format(typeof(T).Name))
+                    .FindAsync(new BsonDocument()).Result.ToListAsync();
             }
             catch (Exception)
             {
