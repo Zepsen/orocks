@@ -22,4 +22,10 @@ namespace outdoor.rocks.Filters
         public IdFormatException(string message) : base(message) { }
         public IdFormatException(string message, Exception ex) : base(message, ex) { }
     }
+
+    public class ServerConnectionException : Exception
+    {
+        public ServerConnectionException(string message) : base(message) { }
+        public ServerConnectionException(string message, Exception ex) : base(message, ex) { }
+    }
 }

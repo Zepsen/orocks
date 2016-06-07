@@ -17,69 +17,127 @@ namespace outdoor.rocks.Classes.Mongo
 
         public Task<List<Trails>> GetTrailsAsync()
         {
-            var res = Db.GetCollection<Trails>("Trails")
-                .FindAsync(new BsonDocument()).Result.ToListAsync();
-            return res;
+            try
+            {
+                return Db.GetCollection<Trails>("Trails")
+                        .FindAsync(new BsonDocument()).Result.ToListAsync();
+
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
         }
 
         public Task<List<Countries>> GetCountriesAsync()
         {
-            var res = Db.GetCollection<Countries>("Countries")
+            try
+            {
+                return Db.GetCollection<Countries>("Countries")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
-            return res;
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
         }
 
         public Task<List<Regions>> GetRegionsAsync()
         {
-            var res = Db.GetCollection<Regions>("Regions")
+            try
+            {
+                return Db.GetCollection<Regions>("Regions")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
-            return res;
+
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
         }
 
         public Task<Trails> GetTrailByIdAsync(string id)
         {
             var objId = DbMongoHelpers.TryParseObjectId(id);
-            var res =  Db.GetCollection<Trails>("Trails")
-                          .FindAsync(i => i._id == objId).Result.FirstAsync();
-            return res;
+            try
+            {
+                return Db.GetCollection<Trails>("Trails")
+                                      .FindAsync(i => i._id == objId).Result.FirstAsync();
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
         }
-        
+
         public Task<ApplicationUser> GetUserAsync(string name)
         {
-            var res = Db.GetCollection<ApplicationUser>("users")
-                .FindAsync(i => i.UserName == name).Result.SingleOrDefaultAsync();
-            return res;
+            try
+            {
+                return Db.GetCollection<ApplicationUser>("users")
+                            .FindAsync(i => i.UserName == name).Result.SingleOrDefaultAsync();
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
+
         }
 
         public Task<List<Comments>> GetCommentsListAsync()
         {
-            var res = Db.GetCollection<Comments>("Comments")
+            try
+            {
+                return Db.GetCollection<Comments>("Comments")
                 .FindAsync(new BsonDocument()).Result.ToListAsync();
-            return res;
+
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
         }
 
         public Task<List<Seasons>> GetSeasonsListAsync()
         {
-            var res = Db.GetCollection<Seasons>("Seasons")
+            try
+            {
+                return Db.GetCollection<Seasons>("Seasons")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
-            return res;
+
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
         }
 
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
         {
-            var res = Db.GetCollection<TrailsTypes>("TrailsTypes")
+            try
+            {
+                return Db.GetCollection<TrailsTypes>("TrailsTypes")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
-            return res;
+
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
         }
 
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
         {
-            var res = Db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
+            try
+            {
+                return Db.GetCollection<TrailsDurationTypes>("TrailsDurationTypes")
                               .FindAsync(new BsonDocument()).Result.ToListAsync();
-            return res;
+
+            }
+            catch (Exception)
+            {
+                throw new ServerConnectionException("Connection to database faulted.");
+            }
         }
-
-        
-
     }
 }

@@ -8,6 +8,7 @@ using System.Web.Http;
 using MongoDB.Driver;
 using outdoor.rocks.Classes.Azure;
 using outdoor.rocks.Classes.Mongo;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces;
 using outdoor.rocks.Models;
 
@@ -27,7 +28,6 @@ namespace outdoor.rocks.Classes
                     case "Mongo":
                         _db = db ?? new DbMongo();
                         break;
-
                     case "Azure":
                         _db = db ?? new DbAzure();
                         break;
@@ -41,7 +41,7 @@ namespace outdoor.rocks.Classes
             {
                 _db = new DbAzure();
             }
-        } 
+        }
 
         public Task<List<TrailModel>> GetTrailModelsList()
         {
@@ -78,18 +78,18 @@ namespace outdoor.rocks.Classes
 
         public Task UpdateTrailOptions(string id, string value)
         {
-            return  _db.UpdateTrailModelOptions(id, value);
+            return _db.UpdateTrailModelOptions(id, value);
         }
 
         public Task UpdateComments(string value)
         {
-            return  _db.UpdateComments(value);
+            return _db.UpdateComments(value);
         }
 
         public bool IsTrailExist(string id)
         {
             return _db.IsTrailExist(id);
         }
-        
+
     }
 }

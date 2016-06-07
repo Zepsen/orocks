@@ -3,6 +3,8 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using MongoDB.Driver;
 using Microsoft.WindowsAzure.Storage.Table;
+using MongoDB.Bson;
+using outdoor.rocks.Filters;
 
 namespace outdoor.rocks.Models
 {
@@ -12,6 +14,8 @@ namespace outdoor.rocks.Models
         {
             MongoClient server = new MongoClient("mongodb://localhost/orocks");
             IMongoDatabase db = server.GetDatabase("orocks");
+            //db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").Wait();
+            
             return db;
         }
 

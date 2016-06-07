@@ -22,7 +22,11 @@ namespace outdoor.rocks.Filters
             throw new IdFormatException(message);
         }
 
-        
+        public void ServerConnectionException(string message)
+        {
+            throw new ServerConnectionException(message);
+        }
+
     }
 
 }

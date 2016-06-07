@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
@@ -17,6 +18,7 @@ namespace outdoor.rocks.Controllers
     public class CommentsController : ApiController
     {
         private readonly IDb _db;
+        private readonly CustomExceptionService _exceptionService = new CustomExceptionService();
 
         public CommentsController()
         {
@@ -35,12 +37,18 @@ namespace outdoor.rocks.Controllers
             try
             {
                 await _db.UpdateComments(value);
-                return Ok();
+                
+            }
+            catch (ServerConnectionException ex)
+            {
+                _exceptionService.ServerConnectionException(ex.Message);
             }
             catch (Exception)
             {
                 return StatusCode(HttpStatusCode.Forbidden);
             }
+
+            return Ok();
         }
 
        

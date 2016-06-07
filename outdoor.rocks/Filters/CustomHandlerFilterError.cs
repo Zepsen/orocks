@@ -33,6 +33,14 @@ namespace outdoor.rocks.Filters
                 };
             }
 
+            if (context.Exception is ServerConnectionException)
+            {
+                context.Response = new HttpResponseMessage((HttpStatusCode)430)
+                {
+                    ReasonPhrase = context.Exception.Message
+                };
+            }
+
             if (context.Exception is NotImplementedException)
             {
                 context.Response = new HttpResponseMessage(HttpStatusCode.NotImplemented);

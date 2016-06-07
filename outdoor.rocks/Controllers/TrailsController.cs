@@ -97,6 +97,10 @@ namespace outdoor.rocks.Controllers
             {
                 _exceptionService.NotFoundException(ex.Message);
             }
+            catch (ServerConnectionException ex)
+            {
+                _exceptionService.ServerConnectionException(ex.Message);
+            }
 
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }

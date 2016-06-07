@@ -10,6 +10,7 @@
         };
 
         var mainError = $scope.getError();
+        debugger 
         switch (mainError.status) {
             case 304:
                 $scope.error.status = mainError.status;
@@ -39,6 +40,11 @@
             case 429:
                 $scope.error.status = mainError.status;
                 $scope.error.header = "Not found by id";
+                $scope.error.message = mainError.message;
+                break;
+            case 430:
+                $scope.error.status = mainError.status;
+                $scope.error.header = "Connection error";
                 $scope.error.message = mainError.message;
                 break;
             case 500:
