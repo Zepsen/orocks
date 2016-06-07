@@ -18,12 +18,7 @@ namespace outdoor.rocks.Classes.Azure
 
         public Task<List<Trails>> GetTrailsAsync()
         {
-            var table = Db.GetTableReference("Trails");
-
-            var query = from entity in table.CreateQuery<Trails>()
-                        where entity.PartitionKey == "Trails"
-                        select entity;
-
+            var query = GetListTInstance<Trails>();
             var res = GetListResultOrThrowException(query);
             return res;
         }
@@ -60,73 +55,42 @@ namespace outdoor.rocks.Classes.Azure
 
         public Task<List<Comments>> GetCommentsListAsync()
         {
-            var table = Db.GetTableReference("Comments");
-
-            var query = from entity in table.CreateQuery<Comments>()
-                        where entity.PartitionKey == "Comments"
-                        select entity;
-
+            var query = GetListTInstance<Comments>();
             var res = GetListResultOrThrowException(query);
             return res; 
         }
 
-      
-
         public Task<List<Countries>> GetCountriesAsync()
         {
-            var table = Db.GetTableReference("Countries");
-
-            var query = from entity in table.CreateQuery<Countries>()
-                        where entity.PartitionKey == "Countries"
-                        select entity;
-
+            var query = GetListTInstance<Countries>();
             var res = GetListResultOrThrowException(query);
             return res;
-
         }
 
         public Task<List<Regions>> GetRegionsAsync()
         {
-            var table = Db.GetTableReference("Regions");
-
-            var query = from entity in table.CreateQuery<Regions>()
-                        where entity.PartitionKey == "Regions"
-                        select entity;
-
+            var query = GetListTInstance<Regions>();
             var res = GetListResultOrThrowException(query);
             return res;
         }
 
         public Task<List<Seasons>> GetSeasonsListAsync()
         {
-            var table = Db.GetTableReference("Seasons");
-            var query = from entity in table.CreateQuery<Seasons>()
-                        where entity.PartitionKey == "Seasons"
-                        select entity;
-
+            var query = GetListTInstance<Seasons>();
             var res = GetListResultOrThrowException(query);
             return res;
         }
         
         public Task<List<TrailsTypes>> GetTrailsTypesListAsync()
         {
-            var table = Db.GetTableReference("TrailsTypes");
-            var query = from entity in table.CreateQuery<TrailsTypes>()
-                        where entity.PartitionKey == "TrailsTypes"
-                        select entity;
-
+            var query = GetListTInstance<TrailsTypes>();
             var res = GetListResultOrThrowException(query);
             return res;
         }
 
         public Task<List<TrailsDurationTypes>> GetTrailsDurationTypesListAsync()
         {
-            var table = Db.GetTableReference("TrailsDurationTypes");
-
-            var query = from entity in table.CreateQuery<TrailsDurationTypes>()
-                        where entity.PartitionKey == "TrailsDurationTypes"
-                        select entity;
-
+            var query = GetListTInstance<TrailsDurationTypes>();
             var res = GetListResultOrThrowException(query);
             return res;
         }
@@ -156,9 +120,7 @@ namespace outdoor.rocks.Classes.Azure
             var res = GetListResultOrThrowException(query);
             return res;
         }
-
         
-
         public Task<Options> GetOptionsByIdAsync(Guid id)
         {
             var table = Db.GetTableReference("Options");
@@ -286,5 +248,17 @@ namespace outdoor.rocks.Classes.Azure
                 throw new ServerConnectionException("Connection to azure database faulted.");
             }
         }
+
+        private static IQueryable<T> GetListTInstance<T>() where T : ITableEntity, new()
+        {
+            var strType = typeof(T).Name;
+            var table = Db.GetTableReference(strType);
+            var query = from entity in table.CreateQuery<T>()
+                        where entity.PartitionKey == strType
+                        select entity;
+
+            return query;
+        }
+        
     }
 }
