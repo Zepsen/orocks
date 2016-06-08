@@ -79,7 +79,7 @@ angular
 
             },
             function (error) {
-                $scope.setError(error.status, error.statusText);
+                $scope.setError(error.status, error.data.Message);
                 $state.go('error');
             });
         }
