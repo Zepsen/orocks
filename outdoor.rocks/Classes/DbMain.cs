@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http;
-using MongoDB.Driver;
 using outdoor.rocks.Classes.Azure;
 using outdoor.rocks.Classes.Mongo;
 using outdoor.rocks.Filters;
@@ -17,13 +13,14 @@ namespace outdoor.rocks.Classes
     public class DbMain : IDb
     {
         private readonly IDbMain _db;
-        private readonly NameValueCollection _semaphore = ConfigurationManager.GetSection("dbSemaphore") as NameValueCollection;
+        //private readonly NameValueCollection _semaphore = ConfigurationManager.GetSection("dbSemaphore") as NameValueCollection;
 
         public DbMain(IDbMain db = null)
         {
-            if (_semaphore != null)
+            try
             {
-                switch (_semaphore["db"])
+                var appSettings = ConfigurationManager.AppSettings;
+                switch (appSettings["Database"])
                 {
                     case "Mongo":
                         _db = db ?? new DbMongo();
@@ -31,15 +28,13 @@ namespace outdoor.rocks.Classes
                     case "Azure":
                         _db = db ?? new DbAzure();
                         break;
-
                     default:
-                        _db = db ?? new DbAzure();
-                        break;
+                        throw new ServerConnectionException("Not implement database name");
                 }
             }
-            else
+            catch (ConfigurationErrorsException)
             {
-                _db = new DbAzure();
+                throw new ServerConnectionException("Connection error");
             }
         }
 

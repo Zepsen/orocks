@@ -275,6 +275,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\Azure\AzureInitializeModels.cs" />
     <Compile Include="Classes\Azure\DbAzure.cs" />
+    <Compile Include="Classes\Azure\DbAzureHelpers.cs" />
     <Compile Include="Classes\Azure\DbAzureQueryAsync.cs" />
     <Compile Include="Classes\DbMain.cs" />
     <Compile Include="Classes\Mongo\DbMongoHelpers.cs" />

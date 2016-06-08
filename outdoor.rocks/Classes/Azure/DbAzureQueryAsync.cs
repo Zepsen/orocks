@@ -25,7 +25,7 @@ namespace outdoor.rocks.Classes.Azure
         public Task<Trails> GetTrailByIdAsync(string id)
         {
             var table = Db.GetTableReference("Trails");
-            var guid = TryParseIdToGuid(id);
+            var guid = DbAzureHelpers.TryParseIdToGuid(id);
 
             var query = from entity in table.CreateQuery<Trails>()
                         where entity.PartitionKey == "Trails" && entity.Id == guid
@@ -41,7 +41,7 @@ namespace outdoor.rocks.Classes.Azure
         public Task<Users> GetUserAsync(string id)
         {
             var table = Db.GetTableReference("Users");
-            var guid = TryParseIdToGuid(id);
+            var guid = DbAzureHelpers.TryParseIdToGuid(id);
 
             var query = from entity in table.CreateQuery<Users>()
                         where entity.PartitionKey == "Users" && entity.Id == guid
@@ -97,7 +97,7 @@ namespace outdoor.rocks.Classes.Azure
         public Task<List<Photos>> GetPhotosAsync(string id)
         {
             var table = Db.GetTableReference("Photos");
-            var guid = TryParseIdToGuid(id);
+            var guid = DbAzureHelpers.TryParseIdToGuid(id);
 
             var query = from entity in table.CreateQuery<Photos>()
                         where entity.PartitionKey == "Photos" && entity.TrailId == guid
@@ -110,7 +110,7 @@ namespace outdoor.rocks.Classes.Azure
         public Task<List<References>> GetReferencesAsync(string id)
         {
             var table = Db.GetTableReference("References");
-            var guid = TryParseIdToGuid(id);
+            var guid = DbAzureHelpers.TryParseIdToGuid(id);
 
             var query = from entity in table.CreateQuery<References>()
                         where entity.PartitionKey == "References" && entity.TrailId == guid
@@ -184,17 +184,17 @@ namespace outdoor.rocks.Classes.Azure
 
 
             if (!string.IsNullOrEmpty(update.SeasonStart.Value.ToString()))
-                option.SeasonStartId = Guid.Parse(update.SeasonStart.Id.Value);
+                option.SeasonStartId = DbAzureHelpers.TryParseIdToGuid(update.SeasonStart.Id.Value);
 
             if (!string.IsNullOrEmpty(update.SeasonEnd.Value.ToString()))
-                option.SeasonEndId = Guid.Parse(update.SeasonEnd.Id.Value);
+                option.SeasonEndId = DbAzureHelpers.TryParseIdToGuid(update.SeasonEnd.Id.Value);
 
 
             if (!string.IsNullOrEmpty(update.Type.Value.ToString()))
-                option.TrailTypeId = Guid.Parse(update.Type.Id.Value);
+                option.TrailTypeId = DbAzureHelpers.TryParseIdToGuid(update.Type.Id.Value);
 
             if (!string.IsNullOrEmpty(update.DurationType.Value.ToString()))
-                option.TrailDurationTypeId = Guid.Parse(update.DurationType.Id.Value);
+                option.TrailDurationTypeId = DbAzureHelpers.TryParseIdToGuid(update.DurationType.Id.Value);
 
             option.GoodForKids = update.GoodForKids.Value;
             option.DogAllowed = update.DogAllowed.Value;
@@ -202,21 +202,7 @@ namespace outdoor.rocks.Classes.Azure
             return option;
         }
 
-        private static Guid TryParseIdToGuid(string id)
-        {
-            var guid = Guid.Empty;
-
-            try
-            {
-                guid = Guid.Parse(id);
-            }
-            catch (FormatException)
-            {
-                throw new IdFormatException("Bad format for GUID");
-            }
-
-            return guid;
-        }
+        
 
         private static void ThrowExceptionIfObjectNull<T>(T res, string message = "Object is null in Db Azure Query")  where T : class
         {
