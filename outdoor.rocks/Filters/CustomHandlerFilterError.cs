@@ -10,54 +10,38 @@ namespace outdoor.rocks.Filters
     {
         public override void OnException(HttpActionExecutedContext context)
         {
-            
             if (context.Exception is IdFormatException)
             {
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.BadRequest,
-                    context.Exception.Message, context.Exception);
-                //context.Response = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                //{
-                //    ReasonPhrase = context.Exception.Message
-                //};
+                CreateErrorResponse(context, 400);
             }
 
             if (context.Exception is NotFoundException)
             {
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                    context.Exception.Message, context.Exception);
-                //context.Response = new HttpResponseMessage(HttpStatusCode.NotFound)
-                //{
-                //    ReasonPhrase = context.Exception.Message
-                //};
+                CreateErrorResponse(context, 404);
             }
 
             if (context.Exception is NotFoundByIdException)
             {
-                context.Response = context.Request.CreateErrorResponse((HttpStatusCode)429,
-                    context.Exception.Message, context.Exception);
-                //context.Response = new HttpResponseMessage()
-                //{
-                //    ReasonPhrase = context.Exception.Message
-                //};
+                CreateErrorResponse(context, 429);
             }
 
             if (context.Exception is ServerConnectionException)
             {
-                context.Response = context.Request.CreateErrorResponse((HttpStatusCode)430,
-                    context.Exception.Message, context.Exception);
-                //context.Response = new HttpResponseMessage((HttpStatusCode)430)
-                //{
-                //    ReasonPhrase = context.Exception.Message
-                //};
-            }
-
-            if (context.Exception is NotImplementedException)
-            {
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.NotImplemented,
-                    context.Exception.Message, context.Exception);
-                //context.Response = new HttpResponseMessage(HttpStatusCode.NotImplemented);
+                CreateErrorResponse(context, 430);
             }
             
+            if (context.Exception is NotImplementedException)
+            {
+                CreateErrorResponse(context, 501);
+            }
+        }
+
+        private static void CreateErrorResponse(HttpActionExecutedContext context, int status)
+        {
+            context.Response = context.Request.CreateErrorResponse(
+                (HttpStatusCode)status,
+                context.Exception.Message,
+                context.Exception);
         }
     }
 }
