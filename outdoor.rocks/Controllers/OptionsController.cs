@@ -19,7 +19,6 @@ namespace outdoor.rocks.Controllers
     public class OptionsController : ApiController
     {
         private readonly IDb _db;
-        private readonly CustomExceptionService _exceptionService = new CustomExceptionService();
 
         public OptionsController()
         {
@@ -35,21 +34,9 @@ namespace outdoor.rocks.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
-            try
-            {
-                var res = await _db.GetOptionModel();
-                return Ok(res);
-            }
-            catch (NotFoundException ex)
-            {
-                _exceptionService.NotFoundException(ex.Message);
-            }
-            catch (ServerConnectionException ex)
-            {
-                _exceptionService.ServerConnectionException(ex.Message);
-            }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            var res = await _db.GetOptionModel();
+            return Ok(res);
         }
     }
 }

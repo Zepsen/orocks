@@ -19,7 +19,6 @@ namespace outdoor.rocks.Controllers
     public class LocationsController : ApiController
     {
         private readonly IDb _db;
-        private readonly CustomExceptionService _exceptionService = new CustomExceptionService();
 
         public LocationsController()
         {
@@ -35,22 +34,9 @@ namespace outdoor.rocks.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
-            try
-            {
-                var res = await _db.GetRegionModelList();
-                return Ok(res);
-            }
-            catch (NotFoundException ex)
-            {
-                _exceptionService.NotFoundException(ex.Message);
-            }
-            catch (ServerConnectionException ex)
-            {
-                _exceptionService.ServerConnectionException(ex.Message);
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            var res = await _db.GetRegionModelList();
+            return Ok(res);
         }
-        
+
     }
 }

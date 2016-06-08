@@ -19,8 +19,7 @@ namespace outdoor.rocks.Controllers
     public class TrailsController : ApiController
     {
         private readonly IDb _db;
-        private readonly CustomExceptionService _exceptionService = new CustomExceptionService();
-
+        
         public TrailsController()
         {
             _db = new DbMain();
@@ -35,74 +34,33 @@ namespace outdoor.rocks.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
-            try
-            {
-                var res = await _db.GetTrailModelsList();
-                return Ok(res);
-            }
-            catch (NotFoundException ex)
-            {
-                _exceptionService.NotFoundException(ex.Message);
-            }
+            var res = await _db.GetTrailModelsList();
+            return Ok(res);
 
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // GET: api/Trails/ObjectId
         [HttpGet]
         public async Task<IHttpActionResult> Get(string id)
         {
-            try
-            {
-                var res = await _db.GetFullTrailModel(id);
-                return Ok(res);
-            }
-            catch (IdFormatException ex)
-            {
-                _exceptionService.IdFormatException(ex.Message);
-            }
-            catch (NotFoundByIdException ex)
-            { 
-                _exceptionService.NotFoundByIdException(ex.Message);
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            var res = await _db.GetFullTrailModel(id);
+            return Ok(res);
         }
-        
+
         [Authorize(Roles = "Admin")]
         [HttpPut]
         // PUT: api/Trails/5
         public async Task<HttpResponseMessage> Put(string id, [FromBody]string value)
         {
-            try
-            {
-                await _db.UpdateTrailOptions(id, value);
-                var res = await _db.GetFullTrailModel(id);
-               
-                return new HttpResponseMessage()
-                {
-                    StatusCode = HttpStatusCode.Accepted,
-                    Content = new ObjectContent(typeof(FullTrailModel), res, new JsonMediaTypeFormatter())
-                };
-            }
-            catch (IdFormatException ex)
-            {
-                _exceptionService.IdFormatException(ex.Message);
-            }
-            catch (NotFoundByIdException ex)
-            {
-                _exceptionService.NotFoundByIdException(ex.Message);
-            }
-            catch (NotFoundException ex)
-            {
-                _exceptionService.NotFoundException(ex.Message);
-            }
-            catch (ServerConnectionException ex)
-            {
-                _exceptionService.ServerConnectionException(ex.Message);
-            }
 
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            await _db.UpdateTrailOptions(id, value);
+            var res = await _db.GetFullTrailModel(id);
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.Accepted,
+                Content = new ObjectContent(typeof(FullTrailModel), res, new JsonMediaTypeFormatter())
+            };
         }
     }
 }

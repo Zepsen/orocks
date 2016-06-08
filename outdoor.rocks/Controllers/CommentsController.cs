@@ -15,11 +15,11 @@ using outdoor.rocks.Interfaces;
 
 namespace outdoor.rocks.Controllers
 {
+    [CustomHandlerFilterError]
     public class CommentsController : ApiController
     {
         private readonly IDb _db;
-        private readonly CustomExceptionService _exceptionService = new CustomExceptionService();
-
+        
         public CommentsController()
         {
             _db = new DbMain();
@@ -34,20 +34,7 @@ namespace outdoor.rocks.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Post([FromBody]string value)
         {
-            try
-            {
-                await _db.UpdateComments(value);
-                
-            }
-            catch (ServerConnectionException ex)
-            {
-                _exceptionService.ServerConnectionException(ex.Message);
-            }
-            catch (Exception)
-            {
-                return StatusCode(HttpStatusCode.Forbidden);
-            }
-
+            await _db.UpdateComments(value);
             return Ok();
         }
 
