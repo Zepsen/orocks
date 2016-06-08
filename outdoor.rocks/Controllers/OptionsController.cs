@@ -1,12 +1,4 @@
-﻿using System;
-using MongoDB.Bson;
-using MongoRepository;
-using Newtonsoft.Json.Linq;
-using outdoor.rocks.Classes;
-using outdoor.rocks.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using outdoor.rocks.Classes;
 using System.Threading.Tasks;
 using System.Web.Http;
 using outdoor.rocks.Filters;

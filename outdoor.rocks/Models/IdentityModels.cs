@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using AspNet.Identity.MongoDB;
-using outdoor.rocks.App_Start;
 
 namespace outdoor.rocks.Models
 {   

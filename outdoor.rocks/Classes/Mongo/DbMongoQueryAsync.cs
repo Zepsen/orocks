@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using outdoor.rocks.Filters;
-using outdoor.rocks.Interfaces;
 using outdoor.rocks.Interfaces.Mongo;
 using outdoor.rocks.Models;
 using static outdoor.rocks.Models.MongoModels;

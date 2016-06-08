@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Web.Http;
+﻿using System.Web.Http;
 using outdoor.rocks.Classes;
 using System.Threading.Tasks;
 using outdoor.rocks.Filters;

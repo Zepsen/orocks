@@ -3,8 +3,6 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using MongoDB.Driver;
 using Microsoft.WindowsAzure.Storage.Table;
-using MongoDB.Bson;
-using outdoor.rocks.Filters;
 
 namespace outdoor.rocks.Models
 {
