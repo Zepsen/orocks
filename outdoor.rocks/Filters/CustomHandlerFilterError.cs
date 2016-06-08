@@ -2,11 +2,14 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http.Filters;
+using NLog;
 
 namespace outdoor.rocks.Filters
 {
     public class CustomHandlerFilterError : ExceptionFilterAttribute
     {
+        private static  Logger log = LogManager.GetCurrentClassLogger();
+
         public override void OnException(HttpActionExecutedContext context)
         {
             if (context.Exception is IdFormatException)
@@ -37,6 +40,7 @@ namespace outdoor.rocks.Filters
 
         private static void CreateErrorResponse(HttpActionExecutedContext context, int status)
         {
+            log.Info("Exception with status {status}");
             context.Response = context.Request.CreateErrorResponse(
                 (HttpStatusCode)status,
                 context.Exception.Message,

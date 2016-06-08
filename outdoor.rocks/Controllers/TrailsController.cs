@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web.Http;
+using NLog;
 using outdoor.rocks.Filters;
 using outdoor.rocks.Interfaces;
 
@@ -29,9 +30,10 @@ namespace outdoor.rocks.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
+            Logger log = LogManager.GetCurrentClassLogger();
+            log.Info("Exception with status {status}");
             var res = await _db.GetTrailModelsList();
             return Ok(res);
-
         }
 
         // GET: api/Trails/ObjectId

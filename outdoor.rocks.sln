@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "outdoor.rocks", "outdoor.ro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "outdoor.rocks.Tests", "outdoor.rocks.Tests\outdoor.rocks.Tests.csproj", "{C5AE7853-3D1B-4538-A329-BC709B7F5422}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{865CA4DA-1D3C-4ADD-82C4-A1F4B1DB0907}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
