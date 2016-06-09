@@ -40,7 +40,7 @@ namespace outdoor.rocks.Filters
 
         private static void CreateErrorResponse(HttpActionExecutedContext context, int status)
         {
-            log.Info("Exception with status {status}");
+            log.Info($"Exception with status {status}");
             context.Response = context.Request.CreateErrorResponse(
                 (HttpStatusCode)status,
                 context.Exception.Message,

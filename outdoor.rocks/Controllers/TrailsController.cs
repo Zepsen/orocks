@@ -30,8 +30,6 @@ namespace outdoor.rocks.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
-            Logger log = LogManager.GetCurrentClassLogger();
-            log.Info("Exception with status {status}");
             var res = await _db.GetTrailModelsList();
             return Ok(res);
         }
