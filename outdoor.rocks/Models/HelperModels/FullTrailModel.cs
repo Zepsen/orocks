@@ -14,8 +14,7 @@ namespace outdoor.rocks.Models
         public string SeasonEnd { get; set; }
         public double Elevation { get; set; }
         public int Peak { get; set; }
-        public string FullDescription { get; set; }
-        
+        public string FullDescription { get; set; }        
         public List<string> References { get; set; }
         public List<string> Photos { get; set; }
         public List<CommentsModel> Comments { get; set; } 
