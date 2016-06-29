@@ -79,8 +79,7 @@ namespace outdoor.rocks.Models
                 RowKey = Id.ToString();
             }
         }
-
-
+        
         public class Photos : TableEntity
         {
             public Guid Id { get; set; }
@@ -264,8 +263,8 @@ namespace outdoor.rocks.Models
 
             public Options()
             {
-               Id = Guid.NewGuid();
-                PartitionKey = "Regions";
+                Id = Guid.NewGuid();
+                PartitionKey = "Options";
                 RowKey = Id.ToString();
             }
 

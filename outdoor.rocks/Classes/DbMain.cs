@@ -19,12 +19,16 @@ namespace outdoor.rocks.Classes
             try
             {
                 var appSettings = ConfigurationManager.AppSettings;
+                
                 switch (appSettings["Database"])
                 {
                     case "Mongo":
                         _db = db ?? new DbMongo();
                         break;
                     case "Azure":
+                        _db = db ?? new DbAzure();
+                        break;
+                    case null:
                         _db = db ?? new DbAzure();
                         break;
                     default:
