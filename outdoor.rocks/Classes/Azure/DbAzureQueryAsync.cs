@@ -164,7 +164,7 @@ namespace outdoor.rocks.Classes.Azure
             return createComment;
         }
 
-        private static Options UpdateOptions(string value, Trails trail)
+        public static Options UpdateOptions(string value, Trails trail)
         {
             var option = trail.Options;
 

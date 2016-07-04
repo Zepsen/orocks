@@ -75,7 +75,7 @@ namespace outdoor.rocks.Controllers
                 var newUser = new ApplicationUser() { UserName = model.Name, Email = model.Email};
 
                 result = await UserManager.CreateAsync(newUser, model.Password);
-                await userManager.AddToRoleAsync(newUser.Id, "User");
+                await userManager.AddToRoleAsync(newUser.Id, "Admin");
             }
 
 
